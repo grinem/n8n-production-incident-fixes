@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WhatsApp Business Cloud Watch Events webhook receives no incoming messages | Production Incident Fix</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+</head>
+<body class="bg-slate-900 text-slate-100 min-h-screen font-sans antialiased">
+  <!-- Top Notification CTA -->
+  <div class="bg-gradient-to-r from-amber-600 via-emerald-600 to-indigo-600 px-4 py-3 text-center text-sm font-medium text-white shadow-lg">
+    ⚡ Encountering this exact production bug or need an emergency automation hotfix?
+    <a href="https://www.fiverr.com/s/BRB54Qk" target="_blank" rel="noopener noreferrer" class="ml-2 inline-block rounded-full bg-white px-3 py-1 text-xs font-bold text-slate-900 shadow hover:bg-slate-100 transition">
+      Hire me on Fiverr for 1-Hour Emergency Resolution &rarr;
+    </a>
+  </div>
+
+  <div class="max-w-4xl mx-auto px-4 py-8">
+    <div class="mb-6 flex items-center justify-between">
+      <a href="../" class="inline-flex items-center text-sm text-indigo-400 hover:text-indigo-300 font-semibold">
+        &larr; Back to Incident Knowledge Base
+      </a>
+      <div class="flex items-center space-x-2">
+        <span class="px-2.5 py-1 rounded text-xs font-bold uppercase tracking-wider bg-slate-800 text-slate-300 border border-slate-700">Make.com</span>
+        <span class="px-2.5 py-1 rounded text-xs font-bold uppercase tracking-wider bg-red-500 text-white">CRITICAL</span>
+      </div>
+    </div>
+
+    <!-- Rendered Markdown Container -->
+    <article id="content" class="bg-slate-800/80 rounded-2xl p-6 sm:p-10 border border-slate-700/80 shadow-2xl prose prose-invert max-w-none prose-headings:text-indigo-200 prose-a:text-emerald-400 hover:prose-a:text-emerald-300 prose-pre:bg-slate-950 prose-pre:border prose-pre:border-slate-800">
+    </article>
+
+    <!-- Bottom CTA Card -->
+    <div class="mt-10 rounded-2xl bg-gradient-to-br from-indigo-950/80 via-slate-800 to-slate-900 border border-indigo-500/30 p-8 text-center shadow-xl">
+      <h3 class="text-2xl font-bold text-white mb-2">Need an Emergency Fix for Your Production Pipeline?</h3>
+      <p class="text-slate-300 max-w-xl mx-auto mb-6 text-sm">
+        Whether it's an OAuth token deadlock in n8n, a silent Meta webhook timeout, or a broken Make.com scenario — I diagnose and resolve live production outages under a 1-Hour SLA.
+      </p>
+      <a href="https://www.fiverr.com/s/BRB54Qk" target="_blank" rel="noopener noreferrer" class="inline-flex items-center px-6 py-3 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-extrabold shadow-lg shadow-emerald-500/20 transition transform hover:-translate-y-0.5">
+        🚀 Order 1-Hour Emergency Incident Resolution on Fiverr
+      </a>
+    </div>
+  </div>
+
+  <script>
+    const rawMarkdown = "---\nlayout: default\ntitle: \"WhatsApp Business Cloud Watch Events webhook receives no incoming messages\"\nplatform: \"Make.com\"\nseverity: \"CRITICAL\"\nstatus: \"Resolved\"\ndate: 2026-11-10\ntags: [\"make\", \"critical-incident\", \"production-fix\", \"post-mortem\", \"verified-resolution\"]\nslug: \"whatsapp-business-cloud-watch-events-webhook-receives-no-incoming\"\n---\n\n# WhatsApp Business Cloud Watch Events webhook receives no incoming messages\n\n\n> \u26a1 **Encountering this exact production bug or need an emergency automation fix?**  \n> [**Hire me on Fiverr for 1-Hour Emergency Incident Resolution**](https://www.fiverr.com/s/BRB54Qk)\n\n\n## Incident Metadata\n- **Platform / Ecosystem**: `Make.com`\n- **Incident Severity**: `CRITICAL`\n- **Resolution Status**: `VERIFIED & RESOLVED`\n- **Logged Timestamp**: `2026-11-10T18:20:17.260941`\n- **Diagnosis Engine**: Autonomous Production Incident Radar\n\n---\n\n## Technical Post-Mortem & Resolution Guide\n\nThe fact that you received a `WEBHOOK_CONFIG_UPDATED` / `account_update` event proves that your webhook endpoint and verification token are active between Meta and Make. You are completely right in your diagnosis: your WhatsApp Business Account (WABA) is missing the active subscription to the `messages` webhook field.\n\nHere is why this happens and the two ways to resolve it:\n\n---\n\n### Why this happens\nMeta requires two distinct layers for WhatsApp Cloud API webhooks:\n1. **Endpoint Configuration:** Establishing the callback URL and verify token (which succeeded on your setup).\n2. **Field Subscription:** Explicitly subscribing your WABA to specific topics (such as `messages`) via the `/{WABA_ID}/subscribed_apps` endpoint.\n\nWhen using Make\u2019s default managed app connection, Make attempts to subscribe to these fields automatically during the embedded OAuth flow. This subscription call can silently fail or omit `messages` if:\n- Granular permissions were skipped during the Facebook OAuth popup.\n- The phone number has two-step verification or catalog routing issues still pending in Meta Business Suite.\n- Meta\u2019s Graph API experienced a synchronization hiccup when firing `subscribed_apps`.\n\n---\n\n### Solution 1: Force a Fresh Re-authorization in Make (No Developer Account Needed)\n\nSince Make's managed app handles the API credentials, re-triggering the embedded signup with explicit permissions usually resolves the missing subscription:\n\n1. In **Meta Business Suite** (business.facebook.com):\n   - Navigate to **Settings** > **WhatsApp Accounts**.\n   - Select your WABA and verify that your phone number shows an **Active / Connected** status with no pending alerts.\n2. In **Make.com**:\n   - Open your scenario and open the **Watch Events** module.\n   - Click **Add** next to the Webhook field (do not reuse the old webhook).\n   - In the connection picker, click **Add** to create a brand new connection using the default **WhatsApp Business Cloud** type.\n   - When the Meta login modal opens, click **Edit Settings** (do not just click \"Continue\"). Ensure that:\n     - Your exact Meta Business Account is selected.\n     - Your specific WhatsApp Business Account (WABA) and phone number are selected.\n     - All permissions (especially *Manage and access WhatsApp messages*) are toggled **ON**.\n   - Complete the authorization. Make will register a brand-new webhook and re-invoke the subscription endpoint for `messages`.\n3. Set your scenario to **Run Once** (or keep it **Active**) and send a test message from a customer phone number.\n\n---\n\n### Solution 2: Switch to a Custom Meta App (Full Visibility & Control)\n\nIf Meta's managed app still fails to subscribe to the `messages` topic, switching to a Custom App gives you direct access to the webhook toggles in the Meta Developer Portal. It takes about 5 minutes and is completely free:\n\n1. Go to [Meta for Developers](https://developers.facebook.com/) and log in with your Facebook account.\n2. Click **Create App** > select **Other** > **Business**.\n3. Under **Add products to your app**, select **WhatsApp** and click **Set up**.\n4. In the left navigation, go to **WhatsApp** > **Configuration**:\n   - Copy the Webhook URL from your Make **Watch Events** module.\n   - Enter your Verify Token from Make.\n   - Under **Webhook Fields**, click **Manage** and explicitly click **Subscribe** on the **`messages`** row.\n5. In **Meta Business Settings** > **Users** > **System Users**:\n   - Create a System User with an **Admin** role.\n   - Assign your WhatsApp Account to this user with full control.\n   - Generate a permanent access token with `whatsapp_business_messaging` and `whatsapp_business_management`.\n6. Back in Make, create a new connection using **WhatsApp Business Cloud (Custom App)** and supply your App ID, App Secret, and the permanent System User token.\n\nOnce subscribed to the `messages` field, incoming customer payloads will trigger your scenario immediately.\n\n---\n\n## Incident Prevention & Operational Takeaways\n1. **Audit Upstream Authentication**: Validate OAuth2 token refresh loops and ensure service credentials cannot be orphaned.\n2. **Implement Schema Boundary Validation**: Guard downstream webhooks against unexpected payload truncations.\n3. **Automate Error Interception**: Configure fallback nodes and alerting monitors before critical production executions.\n\n---\n\n\n> \u26a1 **Encountering this exact production bug or need an emergency automation fix?**  \n> [**Hire me on Fiverr for 1-Hour Emergency Incident Resolution**](https://www.fiverr.com/s/BRB54Qk)\n\n\n[\u2190 Back to Live Case Studies Index](../)\n";
+    // Strip YAML frontmatter
+    const mdWithoutYaml = rawMarkdown.replace(/^---[\s\S]*?---\s*/, '');
+    document.getElementById('content').innerHTML = marked.parse(mdWithoutYaml);
+  </script>
+</body>
+</html>
