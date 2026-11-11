@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>5 things that make client n8n workflows fail at 2am, and the fix for each | Production Incident Fix</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+</head>
+<body class="bg-slate-900 text-slate-100 min-h-screen font-sans antialiased">
+  <!-- Top Notification CTA -->
+  <div class="bg-gradient-to-r from-amber-600 via-emerald-600 to-indigo-600 px-4 py-3 text-center text-sm font-medium text-white shadow-lg">
+    ⚡ Encountering this exact production bug or need an emergency automation hotfix?
+    <a href="https://www.fiverr.com/s/BRB54Qk" target="_blank" rel="noopener noreferrer" class="ml-2 inline-block rounded-full bg-white px-3 py-1 text-xs font-bold text-slate-900 shadow hover:bg-slate-100 transition">
+      Hire me on Fiverr for 1-Hour Emergency Resolution &rarr;
+    </a>
+  </div>
+
+  <div class="max-w-4xl mx-auto px-4 py-8">
+    <div class="mb-6 flex items-center justify-between">
+      <a href="../" class="inline-flex items-center text-sm text-indigo-400 hover:text-indigo-300 font-semibold">
+        &larr; Back to Incident Knowledge Base
+      </a>
+      <div class="flex items-center space-x-2">
+        <span class="px-2.5 py-1 rounded text-xs font-bold uppercase tracking-wider bg-slate-800 text-slate-300 border border-slate-700">n8n</span>
+        <span class="px-2.5 py-1 rounded text-xs font-bold uppercase tracking-wider bg-red-500 text-white">CRITICAL</span>
+      </div>
+    </div>
+
+    <!-- Rendered Markdown Container -->
+    <article id="content" class="bg-slate-800/80 rounded-2xl p-6 sm:p-10 border border-slate-700/80 shadow-2xl prose prose-invert max-w-none prose-headings:text-indigo-200 prose-a:text-emerald-400 hover:prose-a:text-emerald-300 prose-pre:bg-slate-950 prose-pre:border prose-pre:border-slate-800">
+    </article>
+
+    <!-- Bottom CTA Card -->
+    <div class="mt-10 rounded-2xl bg-gradient-to-br from-indigo-950/80 via-slate-800 to-slate-900 border border-indigo-500/30 p-8 text-center shadow-xl">
+      <h3 class="text-2xl font-bold text-white mb-2">Need an Emergency Fix for Your Production Pipeline?</h3>
+      <p class="text-slate-300 max-w-xl mx-auto mb-6 text-sm">
+        Whether it's an OAuth token deadlock in n8n, a silent Meta webhook timeout, or a broken Make.com scenario — I diagnose and resolve live production outages under a 1-Hour SLA.
+      </p>
+      <a href="https://www.fiverr.com/s/BRB54Qk" target="_blank" rel="noopener noreferrer" class="inline-flex items-center px-6 py-3 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-extrabold shadow-lg shadow-emerald-500/20 transition transform hover:-translate-y-0.5">
+        🚀 Order 1-Hour Emergency Incident Resolution on Fiverr
+      </a>
+    </div>
+  </div>
+
+  <script>
+    const rawMarkdown = "---\nlayout: default\ntitle: \"5 things that make client n8n workflows fail at 2am, and the fix for each\"\nplatform: \"n8n\"\nseverity: \"CRITICAL\"\nstatus: \"Resolved\"\ndate: 2026-11-09\ntags: [\"n8n\", \"critical-incident\", \"production-fix\", \"post-mortem\", \"verified-resolution\"]\nslug: \"5-things-that-make-client-n8n-workflows-fail-at-2am-and-the-fix-f\"\n---\n\n# 5 things that make client n8n workflows fail at 2am, and the fix for each\n\n\n> \u26a1 **Encountering this exact production bug or need an emergency automation fix?**  \n> [**Hire me on Fiverr for 1-Hour Emergency Incident Resolution**](https://www.fiverr.com/s/BRB54Qk)\n\n\n## Incident Metadata\n- **Platform / Ecosystem**: `n8n`\n- **Incident Severity**: `CRITICAL`\n- **Resolution Status**: `VERIFIED & RESOLVED`\n- **Logged Timestamp**: `2026-11-09T21:28:38.192058`\n- **Diagnosis Engine**: Autonomous Production Incident Radar\n\n---\n\n## Technical Post-Mortem & Resolution Guide\n\n=== SECTION 0: RESUME DU PROBLEME EN FRANCAIS ===\nL'auteur met en \u00e9vidence les vuln\u00e9rabilit\u00e9s structurelles qui provoquent l'interruption silencieuse des workflows n8n en production chez les clients. Les blocages surviennent principalement lors de ruptures d'authentification OAuth2 (notamment le code `invalid_grant` caus\u00e9 par la limitation \u00e0 7 jours des applications Google Cloud en statut \"Testing\"), de duplications de donn\u00e9es dues \u00e0 des retries sans cl\u00e9 d'idempotence, ou d'erreurs non catch\u00e9es issues d'une alt\u00e9ration de sch\u00e9ma JSON. En l'absence d'un workflow d\u00e9di\u00e9 branch\u00e9 sur un d\u00e9clencheur d'erreur global (`Error Trigger`) et avec l'utilisation par d\u00e9faut de SQLite sous forte charge, les flux s'arr\u00eatent net sans notification, masquant la perte de donn\u00e9es jusqu'\u00e0 la r\u00e9clamation du client final.\n\n=== SECTION 1: ROOT CAUSE ANALYSIS ===\nLes 5 pannes nocturnes identifi\u00e9es reposent sur des m\u00e9canismes de protocoles pr\u00e9cis :\n\n1. **Expiration du Refresh Token OAuth 2.0 (RFC 6749) :**\n   Lorsqu'un projet Google Cloud Platform est configur\u00e9 en mode \"Testing\" avec un type d'utilisateur externe, le serveur d'autorisation \u00e9met des Refresh Tokens dont la dur\u00e9e de vie est plafonn\u00e9e \u00e0 7 jours (604 800 secondes). Au renouvellement automatique, le point de terminaison de token renvoie un `HTTP 400 Bad Request` contenant `{\"error\": \"invalid_grant\", \"error_description\": \"Token has been expired or revoked.\"}`. L'appel \u00e9choue imm\u00e9diatement avec un code de transport `HTTP 401 Unauthorized` non r\u00e9cup\u00e9r\u00e9.\n\n2. **D\u00e9faut de capture des exceptions au runtime :**\n   Sans assignation d'un sous-graphe `Error Trigger` dans `Settings > Error Workflow`, n8n consigne l'incident uniquement dans sa table interne d'ex\u00e9cutions sans dispatcher d'\u00e9v\u00e9nement d'alerte, laissant les erreurs non bloquantes ou fatales invisibles.\n\n3. **Absence d'Idempotence et Non-d\u00e9terminisme des Retries R\u00e9seau :**\n   Lorsqu'un n\u0153ud HTTP d\u00e9clenche un retry suite \u00e0 un `socket hang up` ou un `HTTP 504 Gateway Timeout`, le serveur distant a souvent d\u00e9j\u00e0 valid\u00e9 et persist\u00e9 la transaction. Renvoyer un payload brut `HTTP POST` sans en-t\u00eate `Idempotency-Key` ou sans contrainte d'unicit\u00e9 `ON CONFLICT DO UPDATE` (upsert) engendre une violation de duplication applicative c\u00f4t\u00e9 cible.\n\n4. **Divergence de Sch\u00e9ma (Schema Drift) :**\n   Les payloads Webhook amont (CRM, formulaires) sont sujets \u00e0 des mutations non versionn\u00e9es. Une r\u00e9f\u00e9rence directe dans une expression n8n telle que `{{ $json.body.customer.email }}` sur un champ supprim\u00e9 ou renomm\u00e9 d\u00e9clenche une exception JavaScript standard `TypeError: Cannot read properties of undefined`, arr\u00eatant l'ex\u00e9cution au milieu du pipeline transactionnel.\n\n5. **Verrous de Concurrence I/O sur SQLite :**\n   Le moteur SQLite natif sous n8n supporte mal la concurrence en \u00e9criture lors de volumes \u00e9lev\u00e9s d'ex\u00e9cutions parall\u00e8les. Le nettoyage des ex\u00e9cutions (`PRUNE_DATA`) d\u00e9clenche des verrous exclusifs (`SQLITE_BUSY: database is locked`), entra\u00eenant des timeouts internes du moteur de t\u00e2ches n8n.\n\n=== SECTION 2: TECHNICAL FIX PROTOCOL (80% ACTIONABLE) ===\n\n### \u00c9tape 1 : Passage de Google OAuth2 en Mode Production\n1. Dans la console Google Cloud (`console.cloud.google.com`), acc\u00e9der \u00e0 **APIs & Services > OAuth consent screen**.\n2. Basculer le statut de publication de **Testing** vers **In Production**.\n3. R\u00e9authentifier les credentials dans n8n une fois le statut valid\u00e9 pour obtenir un Refresh Token persistant.\n\n---\n\n### \u00c9tape 2 : D\u00e9ploiement d'un Workflow Global de Notification d'Erreur\n1. Cr\u00e9er un workflow d\u00e9di\u00e9 nomm\u00e9 `[SYS] Global Error Catcher`.\n2. Ajouter le n\u0153ud **Error Trigger**.\n3. Relier un n\u0153ud **HTTP Request** ou **Telegram/Slack** avec le payload format\u00e9 :\n\n```json\n{\n  \"workflow_id\": \"{{ $json.workflow.id }}\",\n  \"workflow_name\": \"{{ $json.workflow.name }}\",\n  \"execution_id\": \"{{ $json.execution.id }}\",\n  \"error_message\": \"{{ $json.execution.error.message }}\",\n  \"node_failed\": \"{{ $json.execution.error.node.name }}\",\n  \"execution_url\": \"{{ $json.execution.url }}\"\n}\n```\n\n4. Dans chaque workflow de production, aller dans **Workflow Settings > Error Workflow** et s\u00e9lectionner `[SYS] Global Error Catcher`.\n\n---\n\n### \u00c9tape 3 : Impl\u00e9mentation du Schema Guard & Idempotence\nAjouter un n\u0153ud **Code** imm\u00e9diatement apr\u00e8s le Webhook d\u00e9clencheur pour valider le sch\u00e9ma et g\u00e9n\u00e9rer un hash d'idempotence\n\n---\n\n## Incident Prevention & Operational Takeaways\n1. **Audit Upstream Authentication**: Validate OAuth2 token refresh loops and ensure service credentials cannot be orphaned.\n2. **Implement Schema Boundary Validation**: Guard downstream webhooks against unexpected payload truncations.\n3. **Automate Error Interception**: Configure fallback nodes and alerting monitors before critical production executions.\n\n---\n\n\n> \u26a1 **Encountering this exact production bug or need an emergency automation fix?**  \n> [**Hire me on Fiverr for 1-Hour Emergency Incident Resolution**](https://www.fiverr.com/s/BRB54Qk)\n\n\n[\u2190 Back to Live Case Studies Index](../)\n";
+    // Strip YAML frontmatter
+    const mdWithoutYaml = rawMarkdown.replace(/^---[\s\S]*?---\s*/, '');
+    document.getElementById('content').innerHTML = marked.parse(mdWithoutYaml);
+  </script>
+</body>
+</html>

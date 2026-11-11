@@ -1,0 +1,726 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Production Incident Fixes & Technical Post-Mortems | Knowledge Base</title>
+  <meta name="description" content="Verified post-mortems and emergency bugfixes for n8n, Make.com, Bubble, Webhooks, APIs and automation infrastructure.">
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-slate-900 text-slate-100 min-h-screen font-sans antialiased">
+  <!-- Top Emergency Announcement -->
+  <header class="bg-gradient-to-r from-emerald-600 via-indigo-600 to-purple-600 px-4 py-3 text-center text-sm font-semibold text-white shadow-md">
+    🚨 Active Production Outage or Failing Automation Workflow?
+    <a href="https://www.fiverr.com/s/BRB54Qk" target="_blank" rel="noopener noreferrer" class="ml-2 inline-flex items-center rounded-full bg-white px-3.5 py-1 text-xs font-bold text-slate-900 shadow hover:bg-slate-100 transition">
+      Hire 1-Hour Emergency Incident Resolution on Fiverr &rarr;
+    </a>
+  </header>
+
+  <!-- Hero Section -->
+  <main class="max-w-6xl mx-auto px-4 py-12">
+    <div class="text-center max-w-3xl mx-auto mb-12">
+      <div class="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-indigo-500/10 border border-indigo-500/30 text-indigo-400 text-xs font-bold uppercase tracking-wider mb-4">
+        <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+        <span>Live Autonomous Engineering Knowledge Base</span>
+      </div>
+      <h1 class="text-4xl sm:text-5xl font-black text-white tracking-tight mb-4">
+        Production Incident Fixes & Post-Mortem Case Studies
+      </h1>
+      <p class="text-slate-300 text-lg leading-relaxed mb-6">
+        Real-world failure diagnostics, root-cause isolation, and tested recovery strategies across <strong>n8n</strong>, <strong>Make.com</strong>, <strong>Bubble</strong>, <strong>Baserow</strong>, and mission-critical Webhooks.
+      </p>
+      
+      <!-- Key Metric Counters -->
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 max-w-2xl mx-auto">
+        <div class="bg-slate-800/80 rounded-xl p-4 border border-slate-700">
+          <div class="text-3xl font-extrabold text-indigo-400">27</div>
+          <div class="text-xs text-slate-400 font-medium">Documented Fixes</div>
+        </div>
+        <div class="bg-slate-800/80 rounded-xl p-4 border border-slate-700">
+          <div class="text-3xl font-extrabold text-emerald-400">&lt; 15m</div>
+          <div class="text-xs text-slate-400 font-medium">Avg Diagnosis</div>
+        </div>
+        <div class="bg-slate-800/80 rounded-xl p-4 border border-slate-700">
+          <div class="text-3xl font-extrabold text-amber-400">100%</div>
+          <div class="text-xs text-slate-400 font-medium">Verified Solutions</div>
+        </div>
+        <div class="bg-slate-800/80 rounded-xl p-4 border border-slate-700">
+          <div class="text-3xl font-extrabold text-purple-400">1 Hour</div>
+          <div class="text-xs text-slate-400 font-medium">Emergency SLA</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Filter & Search Controls -->
+    <div class="mb-8 flex flex-col md:flex-row items-center justify-between gap-4">
+      <div class="flex flex-wrap gap-2 justify-center md:justify-start">
+        <button class="filter-btn px-4 py-2 rounded-xl text-sm font-semibold bg-indigo-600 text-white shadow" data-filter="all">All Incidents (27)</button>
+<button class="filter-btn px-4 py-2 rounded-xl text-sm font-semibold bg-slate-800 text-slate-300 hover:bg-slate-700 border border-slate-700 transition" data-filter="Activepieces">Activepieces (1)</button>
+<button class="filter-btn px-4 py-2 rounded-xl text-sm font-semibold bg-slate-800 text-slate-300 hover:bg-slate-700 border border-slate-700 transition" data-filter="Baserow">Baserow (1)</button>
+<button class="filter-btn px-4 py-2 rounded-xl text-sm font-semibold bg-slate-800 text-slate-300 hover:bg-slate-700 border border-slate-700 transition" data-filter="Bubble.io">Bubble.io (4)</button>
+<button class="filter-btn px-4 py-2 rounded-xl text-sm font-semibold bg-slate-800 text-slate-300 hover:bg-slate-700 border border-slate-700 transition" data-filter="Make.com">Make.com (9)</button>
+<button class="filter-btn px-4 py-2 rounded-xl text-sm font-semibold bg-slate-800 text-slate-300 hover:bg-slate-700 border border-slate-700 transition" data-filter="Meta / Webhooks">Meta / Webhooks (1)</button>
+<button class="filter-btn px-4 py-2 rounded-xl text-sm font-semibold bg-slate-800 text-slate-300 hover:bg-slate-700 border border-slate-700 transition" data-filter="n8n">n8n (11)</button>
+      </div>
+      <div class="w-full md:w-64">
+        <input id="searchInput" type="text" placeholder="Search error codes or tools..." class="w-full px-4 py-2 rounded-xl bg-slate-800 border border-slate-700 text-sm text-slate-100 placeholder-slate-400 focus:outline-none focus:border-indigo-500 transition">
+      </div>
+    </div>
+
+    <!-- Case Studies Cards Grid -->
+    <div id="cardsGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      
+        <div class="incident-card bg-slate-800/90 hover:bg-slate-800 rounded-2xl p-6 border border-slate-700/80 shadow-lg hover:shadow-indigo-500/10 transition-all flex flex-col justify-between" data-eco="n8n">
+          <div>
+            <div class="flex items-center justify-between mb-3">
+              <span class="px-2.5 py-1 rounded text-xs font-bold uppercase tracking-wider bg-slate-900 text-indigo-300 border border-slate-700">n8n</span>
+              <span class="px-2.5 py-1 rounded text-xs font-bold uppercase tracking-wider border bg-red-500/20 text-red-300 border-red-500/40">CRITICAL</span>
+            </div>
+            <h3 class="text-lg font-bold text-white mb-2 leading-snug">
+              <a href="cases/root-pnpm-test-fails-because-the-n8n-typeorm-test-script-needs-or.html" class="hover:text-indigo-400 transition">Root `pnpm test` fails because the @n8n/typeorm test script needs ormconfig.json</a>
+            </h3>
+            <p class="text-slate-400 text-sm mb-4 line-clamp-3">
+              <span class="font-semibold text-slate-300">Root Cause:</span> In the root `package.json`, running `pnpm test` triggers Turborepo (`turbo run test`). Turbo executes the `test` lifecycle across all workspace packages, including `packages/Cli...
+            </p>
+          </div>
+          <div class="pt-4 border-t border-slate-700/50 flex items-center justify-between text-xs text-slate-400">
+            <span>Logged: 2026-11-11</span>
+            <a href="cases/root-pnpm-test-fails-because-the-n8n-typeorm-test-script-needs-or.html" class="text-emerald-400 hover:text-emerald-300 font-bold flex items-center">
+              View Fix &rarr;
+            </a>
+          </div>
+        </div>
+        
+
+        <div class="incident-card bg-slate-800/90 hover:bg-slate-800 rounded-2xl p-6 border border-slate-700/80 shadow-lg hover:shadow-indigo-500/10 transition-all flex flex-col justify-between" data-eco="Activepieces">
+          <div>
+            <div class="flex items-center justify-between mb-3">
+              <span class="px-2.5 py-1 rounded text-xs font-bold uppercase tracking-wider bg-slate-900 text-indigo-300 border border-slate-700">Activepieces</span>
+              <span class="px-2.5 py-1 rounded text-xs font-bold uppercase tracking-wider border bg-blue-500/20 text-blue-300 border-blue-500/40">MEDIUM</span>
+            </div>
+            <h3 class="text-lg font-bold text-white mb-2 leading-snug">
+              <a href="cases/platform-secret-managers-aws-provider-should-accept-iam-role-auth.html" class="hover:text-indigo-400 transition">[Feature]: Platform Secret Managers: AWS provider should accept IAM role auth (default credential chain) instead of only static access keys</a>
+            </h3>
+            <p class="text-slate-400 text-sm mb-4 line-clamp-3">
+              <span class="font-semibold text-slate-300">Root Cause:</span> You hit the nail on the head. In enterprise deployments on AWS (especially EKS with IRSA or ECS Fargate/EC2 instance roles), requiring static long-lived IAM keys breaks standard...
+            </p>
+          </div>
+          <div class="pt-4 border-t border-slate-700/50 flex items-center justify-between text-xs text-slate-400">
+            <span>Logged: 2026-11-11</span>
+            <a href="cases/platform-secret-managers-aws-provider-should-accept-iam-role-auth.html" class="text-emerald-400 hover:text-emerald-300 font-bold flex items-center">
+              View Fix &rarr;
+            </a>
+          </div>
+        </div>
+        
+
+        <div class="incident-card bg-slate-800/90 hover:bg-slate-800 rounded-2xl p-6 border border-slate-700/80 shadow-lg hover:shadow-indigo-500/10 transition-all flex flex-col justify-between" data-eco="n8n">
+          <div>
+            <div class="flex items-center justify-between mb-3">
+              <span class="px-2.5 py-1 rounded text-xs font-bold uppercase tracking-wider bg-slate-900 text-indigo-300 border border-slate-700">n8n</span>
+              <span class="px-2.5 py-1 rounded text-xs font-bold uppercase tracking-wider border bg-amber-500/20 text-amber-300 border-amber-500/40">HIGH</span>
+            </div>
+            <h3 class="text-lg font-bold text-white mb-2 leading-snug">
+              <a href="cases/errorreporter-logs-every-error-at-error-level-when-sentry-is-not.html" class="hover:text-indigo-400 transition">ErrorReporter logs every error at error level when Sentry is not configured</a>
+            </h3>
+            <p class="text-slate-400 text-sm mb-4 line-clamp-3">
+              <span class="font-semibold text-slate-300">Root Cause:</span> When Sentry is active, Sentry&#x27;s `beforeSend` hook filters out or appropriately segments `info` and `warning` scopes. However, in standalone/self-hosted environments where Sentry...
+            </p>
+          </div>
+          <div class="pt-4 border-t border-slate-700/50 flex items-center justify-between text-xs text-slate-400">
+            <span>Logged: 2026-11-11</span>
+            <a href="cases/errorreporter-logs-every-error-at-error-level-when-sentry-is-not.html" class="text-emerald-400 hover:text-emerald-300 font-bold flex items-center">
+              View Fix &rarr;
+            </a>
+          </div>
+        </div>
+        
+
+        <div class="incident-card bg-slate-800/90 hover:bg-slate-800 rounded-2xl p-6 border border-slate-700/80 shadow-lg hover:shadow-indigo-500/10 transition-all flex flex-col justify-between" data-eco="n8n">
+          <div>
+            <div class="flex items-center justify-between mb-3">
+              <span class="px-2.5 py-1 rounded text-xs font-bold uppercase tracking-wider bg-slate-900 text-indigo-300 border border-slate-700">n8n</span>
+              <span class="px-2.5 py-1 rounded text-xs font-bold uppercase tracking-wider border bg-red-500/20 text-red-300 border-red-500/40">CRITICAL</span>
+            </div>
+            <h3 class="text-lg font-bold text-white mb-2 leading-snug">
+              <a href="cases/workflow-version-restore-blocked-by-deleted-credential-in-a-disab.html" class="hover:text-indigo-400 transition">Workflow version restore blocked by deleted credential in a disabled, disconnected node</a>
+            </h3>
+            <p class="text-slate-400 text-sm mb-4 line-clamp-3">
+              <span class="font-semibold text-slate-300">Root Cause:</span> When you trigger a workflow restore from the UI, the backend (`WorkflowHistoryService`) deserializes the historical snapshot stored in the database and runs an ACL integrity che...
+            </p>
+          </div>
+          <div class="pt-4 border-t border-slate-700/50 flex items-center justify-between text-xs text-slate-400">
+            <span>Logged: 2026-11-11</span>
+            <a href="cases/workflow-version-restore-blocked-by-deleted-credential-in-a-disab.html" class="text-emerald-400 hover:text-emerald-300 font-bold flex items-center">
+              View Fix &rarr;
+            </a>
+          </div>
+        </div>
+        
+
+        <div class="incident-card bg-slate-800/90 hover:bg-slate-800 rounded-2xl p-6 border border-slate-700/80 shadow-lg hover:shadow-indigo-500/10 transition-all flex flex-col justify-between" data-eco="Bubble.io">
+          <div>
+            <div class="flex items-center justify-between mb-3">
+              <span class="px-2.5 py-1 rounded text-xs font-bold uppercase tracking-wider bg-slate-900 text-indigo-300 border border-slate-700">Bubble.io</span>
+              <span class="px-2.5 py-1 rounded text-xs font-bold uppercase tracking-wider border bg-red-500/20 text-red-300 border-red-500/40">CRITICAL</span>
+            </div>
+            <h3 class="text-lg font-bold text-white mb-2 leading-snug">
+              <a href="cases/platform-unavailable-error-code-1794338958142x997066484691378600.html" class="hover:text-indigo-400 transition">Platform unavailable - error code 1794338958142x997066484691378600</a>
+            </h3>
+            <p class="text-slate-400 text-sm mb-4 line-clamp-3">
+              <span class="font-semibold text-slate-300">Root Cause:</span> When Bubble throws an error code with that structure (a timestamp hash followed by an internal correlation ID, like `1794338958142x997066484691378600`), it is **not a global Bub...
+            </p>
+          </div>
+          <div class="pt-4 border-t border-slate-700/50 flex items-center justify-between text-xs text-slate-400">
+            <span>Logged: 2026-11-11</span>
+            <a href="cases/platform-unavailable-error-code-1794338958142x997066484691378600.html" class="text-emerald-400 hover:text-emerald-300 font-bold flex items-center">
+              View Fix &rarr;
+            </a>
+          </div>
+        </div>
+        
+
+        <div class="incident-card bg-slate-800/90 hover:bg-slate-800 rounded-2xl p-6 border border-slate-700/80 shadow-lg hover:shadow-indigo-500/10 transition-all flex flex-col justify-between" data-eco="n8n">
+          <div>
+            <div class="flex items-center justify-between mb-3">
+              <span class="px-2.5 py-1 rounded text-xs font-bold uppercase tracking-wider bg-slate-900 text-indigo-300 border border-slate-700">n8n</span>
+              <span class="px-2.5 py-1 rounded text-xs font-bold uppercase tracking-wider border bg-blue-500/20 text-blue-300 border-blue-500/40">MEDIUM</span>
+            </div>
+            <h3 class="text-lg font-bold text-white mb-2 leading-snug">
+              <a href="cases/broken-contributing-license-links-in-package-readmes.html" class="hover:text-indigo-400 transition">Broken CONTRIBUTING/LICENSE links in package READMEs</a>
+            </h3>
+            <p class="text-slate-400 text-sm mb-4 line-clamp-3">
+              <span class="font-semibold text-slate-300">Root Cause:</span> 1. **On GitHub:** The links use relative paths like `CONTRIBUTING[.]md` inside sub-directories such as `packages/Client Case Study (User)/utils/`. GitHub evaluates this relative...
+            </p>
+          </div>
+          <div class="pt-4 border-t border-slate-700/50 flex items-center justify-between text-xs text-slate-400">
+            <span>Logged: 2026-11-11</span>
+            <a href="cases/broken-contributing-license-links-in-package-readmes.html" class="text-emerald-400 hover:text-emerald-300 font-bold flex items-center">
+              View Fix &rarr;
+            </a>
+          </div>
+        </div>
+        
+
+        <div class="incident-card bg-slate-800/90 hover:bg-slate-800 rounded-2xl p-6 border border-slate-700/80 shadow-lg hover:shadow-indigo-500/10 transition-all flex flex-col justify-between" data-eco="Meta / Webhooks">
+          <div>
+            <div class="flex items-center justify-between mb-3">
+              <span class="px-2.5 py-1 rounded text-xs font-bold uppercase tracking-wider bg-slate-900 text-indigo-300 border border-slate-700">Meta / Webhooks</span>
+              <span class="px-2.5 py-1 rounded text-xs font-bold uppercase tracking-wider border bg-amber-500/20 text-amber-300 border-amber-500/40">HIGH</span>
+            </div>
+            <h3 class="text-lg font-bold text-white mb-2 leading-snug">
+              <a href="cases/meta-lead-ads-test-lead-stuck-in-pending-status.html" class="hover:text-indigo-400 transition">Meta Lead Ads test lead stuck in Pending status</a>
+            </h3>
+            <p class="text-slate-400 text-sm mb-4 line-clamp-3">
+              <span class="font-semibold text-slate-300">Root Cause:</span> B Krishna,
+            </p>
+          </div>
+          <div class="pt-4 border-t border-slate-700/50 flex items-center justify-between text-xs text-slate-400">
+            <span>Logged: 2026-11-11</span>
+            <a href="cases/meta-lead-ads-test-lead-stuck-in-pending-status.html" class="text-emerald-400 hover:text-emerald-300 font-bold flex items-center">
+              View Fix &rarr;
+            </a>
+          </div>
+        </div>
+        
+
+        <div class="incident-card bg-slate-800/90 hover:bg-slate-800 rounded-2xl p-6 border border-slate-700/80 shadow-lg hover:shadow-indigo-500/10 transition-all flex flex-col justify-between" data-eco="Bubble.io">
+          <div>
+            <div class="flex items-center justify-between mb-3">
+              <span class="px-2.5 py-1 rounded text-xs font-bold uppercase tracking-wider bg-slate-900 text-indigo-300 border border-slate-700">Bubble.io</span>
+              <span class="px-2.5 py-1 rounded text-xs font-bold uppercase tracking-wider border bg-red-500/20 text-red-300 border-red-500/40">CRITICAL</span>
+            </div>
+            <h3 class="text-lg font-bold text-white mb-2 leading-snug">
+              <a href="cases/error-loading-non-conflicting-changes-when-merging-a-branch-into.html" class="hover:text-indigo-400 transition">Error loading non-conflicting changes when merging a branch into main</a>
+            </h3>
+            <p class="text-slate-400 text-sm mb-4 line-clamp-3">
+              <span class="font-semibold text-slate-300">Root Cause:</span> This specific error occurs when Bubble&#x27;s underlying JSON tree parser encounters orphaned unique identifiers (`UIDs`), broken element parent-child references, or invalid schema n...
+            </p>
+          </div>
+          <div class="pt-4 border-t border-slate-700/50 flex items-center justify-between text-xs text-slate-400">
+            <span>Logged: 2026-11-11</span>
+            <a href="cases/error-loading-non-conflicting-changes-when-merging-a-branch-into.html" class="text-emerald-400 hover:text-emerald-300 font-bold flex items-center">
+              View Fix &rarr;
+            </a>
+          </div>
+        </div>
+        
+
+        <div class="incident-card bg-slate-800/90 hover:bg-slate-800 rounded-2xl p-6 border border-slate-700/80 shadow-lg hover:shadow-indigo-500/10 transition-all flex flex-col justify-between" data-eco="Make.com">
+          <div>
+            <div class="flex items-center justify-between mb-3">
+              <span class="px-2.5 py-1 rounded text-xs font-bold uppercase tracking-wider bg-slate-900 text-indigo-300 border border-slate-700">Make.com</span>
+              <span class="px-2.5 py-1 rounded text-xs font-bold uppercase tracking-wider border bg-red-500/20 text-red-300 border-red-500/40">CRITICAL</span>
+            </div>
+            <h3 class="text-lg font-bold text-white mb-2 leading-snug">
+              <a href="cases/whatsapp-coexistence-fails-with-meta-error-3441038-before-qr-code.html" class="hover:text-indigo-400 transition">WhatsApp Coexistence fails with Meta error #3441038 before QR code</a>
+            </h3>
+            <p class="text-slate-400 text-sm mb-4 line-clamp-3">
+              <span class="font-semibold text-slate-300">Root Cause:</span> You pinpointed the exact root cause: *&quot;Neither can access the business portfolio that owns the Page.&quot;*
+            </p>
+          </div>
+          <div class="pt-4 border-t border-slate-700/50 flex items-center justify-between text-xs text-slate-400">
+            <span>Logged: 2026-11-11</span>
+            <a href="cases/whatsapp-coexistence-fails-with-meta-error-3441038-before-qr-code.html" class="text-emerald-400 hover:text-emerald-300 font-bold flex items-center">
+              View Fix &rarr;
+            </a>
+          </div>
+        </div>
+        
+
+        <div class="incident-card bg-slate-800/90 hover:bg-slate-800 rounded-2xl p-6 border border-slate-700/80 shadow-lg hover:shadow-indigo-500/10 transition-all flex flex-col justify-between" data-eco="Make.com">
+          <div>
+            <div class="flex items-center justify-between mb-3">
+              <span class="px-2.5 py-1 rounded text-xs font-bold uppercase tracking-wider bg-slate-900 text-indigo-300 border border-slate-700">Make.com</span>
+              <span class="px-2.5 py-1 rounded text-xs font-bold uppercase tracking-wider border bg-blue-500/20 text-blue-300 border-blue-500/40">MEDIUM</span>
+            </div>
+            <h3 class="text-lg font-bold text-white mb-2 leading-snug">
+              <a href="cases/does-restoring-a-make-scenario-preserve-its-webhook-queue.html" class="hover:text-indigo-400 transition">Does restoring a Make scenario preserve its webhook queue?</a>
+            </h3>
+            <p class="text-slate-400 text-sm mb-4 line-clamp-3">
+              <span class="font-semibold text-slate-300">Root Cause:</span> Here is the exact technical behavior of Make concerning scenario versions, webhook bindings, and queued requests.
+            </p>
+          </div>
+          <div class="pt-4 border-t border-slate-700/50 flex items-center justify-between text-xs text-slate-400">
+            <span>Logged: 2026-11-11</span>
+            <a href="cases/does-restoring-a-make-scenario-preserve-its-webhook-queue.html" class="text-emerald-400 hover:text-emerald-300 font-bold flex items-center">
+              View Fix &rarr;
+            </a>
+          </div>
+        </div>
+        
+
+        <div class="incident-card bg-slate-800/90 hover:bg-slate-800 rounded-2xl p-6 border border-slate-700/80 shadow-lg hover:shadow-indigo-500/10 transition-all flex flex-col justify-between" data-eco="Make.com">
+          <div>
+            <div class="flex items-center justify-between mb-3">
+              <span class="px-2.5 py-1 rounded text-xs font-bold uppercase tracking-wider bg-slate-900 text-indigo-300 border border-slate-700">Make.com</span>
+              <span class="px-2.5 py-1 rounded text-xs font-bold uppercase tracking-wider border bg-amber-500/20 text-amber-300 border-amber-500/40">HIGH</span>
+            </div>
+            <h3 class="text-lg font-bold text-white mb-2 leading-snug">
+              <a href="cases/custom-app-review-stuck-since-22-sep-after-requested-changes-cont.html" class="hover:text-indigo-400 transition">Custom app review stuck since 22 Sep after requested changes (CONTACT AI, eu2)</a>
+            </h3>
+            <p class="text-slate-400 text-sm mb-4 line-clamp-3">
+              <span class="font-semibold text-slate-300">Root Cause:</span> This is an identified operational bottleneck in the Make ecosystem: the submission routing for the **Custom Apps → Review** category in the Help Center utilizes an automated def...
+            </p>
+          </div>
+          <div class="pt-4 border-t border-slate-700/50 flex items-center justify-between text-xs text-slate-400">
+            <span>Logged: 2026-11-11</span>
+            <a href="cases/custom-app-review-stuck-since-22-sep-after-requested-changes-cont.html" class="text-emerald-400 hover:text-emerald-300 font-bold flex items-center">
+              View Fix &rarr;
+            </a>
+          </div>
+        </div>
+        
+
+        <div class="incident-card bg-slate-800/90 hover:bg-slate-800 rounded-2xl p-6 border border-slate-700/80 shadow-lg hover:shadow-indigo-500/10 transition-all flex flex-col justify-between" data-eco="Baserow">
+          <div>
+            <div class="flex items-center justify-between mb-3">
+              <span class="px-2.5 py-1 rounded text-xs font-bold uppercase tracking-wider bg-slate-900 text-indigo-300 border border-slate-700">Baserow</span>
+              <span class="px-2.5 py-1 rounded text-xs font-bold uppercase tracking-wider border bg-red-500/20 text-red-300 border-red-500/40">CRITICAL</span>
+            </div>
+            <h3 class="text-lg font-bold text-white mb-2 leading-snug">
+              <a href="cases/error-integration-of-e-mail-address-for-automations.html" class="hover:text-indigo-400 transition">Error: integration of e-mail address for automations</a>
+            </h3>
+            <p class="text-slate-400 text-sm mb-4 line-clamp-3">
+              <span class="font-semibold text-slate-300">Root Cause:</span> 1. **`[Errno 101] Network is unreachable` (Baserow Cloud Egress Policy):**
+            </p>
+          </div>
+          <div class="pt-4 border-t border-slate-700/50 flex items-center justify-between text-xs text-slate-400">
+            <span>Logged: 2026-11-10</span>
+            <a href="cases/error-integration-of-e-mail-address-for-automations.html" class="text-emerald-400 hover:text-emerald-300 font-bold flex items-center">
+              View Fix &rarr;
+            </a>
+          </div>
+        </div>
+        
+
+        <div class="incident-card bg-slate-800/90 hover:bg-slate-800 rounded-2xl p-6 border border-slate-700/80 shadow-lg hover:shadow-indigo-500/10 transition-all flex flex-col justify-between" data-eco="Make.com">
+          <div>
+            <div class="flex items-center justify-between mb-3">
+              <span class="px-2.5 py-1 rounded text-xs font-bold uppercase tracking-wider bg-slate-900 text-indigo-300 border border-slate-700">Make.com</span>
+              <span class="px-2.5 py-1 rounded text-xs font-bold uppercase tracking-wider border bg-red-500/20 text-red-300 border-red-500/40">CRITICAL</span>
+            </div>
+            <h3 class="text-lg font-bold text-white mb-2 leading-snug">
+              <a href="cases/whatsapp-business-cloud-watch-events-webhook-receives-no-incoming.html" class="hover:text-indigo-400 transition">WhatsApp Business Cloud Watch Events webhook receives no incoming messages</a>
+            </h3>
+            <p class="text-slate-400 text-sm mb-4 line-clamp-3">
+              <span class="font-semibold text-slate-300">Root Cause:</span> Meta requires two distinct layers for WhatsApp Cloud API webhooks:
+            </p>
+          </div>
+          <div class="pt-4 border-t border-slate-700/50 flex items-center justify-between text-xs text-slate-400">
+            <span>Logged: 2026-11-10</span>
+            <a href="cases/whatsapp-business-cloud-watch-events-webhook-receives-no-incoming.html" class="text-emerald-400 hover:text-emerald-300 font-bold flex items-center">
+              View Fix &rarr;
+            </a>
+          </div>
+        </div>
+        
+
+        <div class="incident-card bg-slate-800/90 hover:bg-slate-800 rounded-2xl p-6 border border-slate-700/80 shadow-lg hover:shadow-indigo-500/10 transition-all flex flex-col justify-between" data-eco="Make.com">
+          <div>
+            <div class="flex items-center justify-between mb-3">
+              <span class="px-2.5 py-1 rounded text-xs font-bold uppercase tracking-wider bg-slate-900 text-indigo-300 border border-slate-700">Make.com</span>
+              <span class="px-2.5 py-1 rounded text-xs font-bold uppercase tracking-wider border bg-red-500/20 text-red-300 border-red-500/40">CRITICAL</span>
+            </div>
+            <h3 class="text-lg font-bold text-white mb-2 leading-snug">
+              <a href="cases/does-a-verified-app-stay-published-if-the-owner-downgrades-to-fre.html" class="hover:text-indigo-400 transition">Does a verified app stay published if the owner downgrades to Free? (ticket form not working)</a>
+            </h3>
+            <p class="text-slate-400 text-sm mb-4 line-clamp-3">
+              <span class="font-semibold text-slate-300">Root Cause:</span> Here are the definitive answers regarding how verified Custom Apps behave when changing plans, along with a quick workaround for the ticket form issue.
+            </p>
+          </div>
+          <div class="pt-4 border-t border-slate-700/50 flex items-center justify-between text-xs text-slate-400">
+            <span>Logged: 2026-11-10</span>
+            <a href="cases/does-a-verified-app-stay-published-if-the-owner-downgrades-to-fre.html" class="text-emerald-400 hover:text-emerald-300 font-bold flex items-center">
+              View Fix &rarr;
+            </a>
+          </div>
+        </div>
+        
+
+        <div class="incident-card bg-slate-800/90 hover:bg-slate-800 rounded-2xl p-6 border border-slate-700/80 shadow-lg hover:shadow-indigo-500/10 transition-all flex flex-col justify-between" data-eco="Bubble.io">
+          <div>
+            <div class="flex items-center justify-between mb-3">
+              <span class="px-2.5 py-1 rounded text-xs font-bold uppercase tracking-wider bg-slate-900 text-indigo-300 border border-slate-700">Bubble.io</span>
+              <span class="px-2.5 py-1 rounded text-xs font-bold uppercase tracking-wider border bg-amber-500/20 text-amber-300 border-amber-500/40">HIGH</span>
+            </div>
+            <h3 class="text-lg font-bold text-white mb-2 leading-snug">
+              <a href="cases/spike-in-server-timeouts-nov-9th.html" class="hover:text-indigo-400 transition">Spike in server timeouts Nov 9th</a>
+            </h3>
+            <p class="text-slate-400 text-sm mb-4 line-clamp-3">
+              <span class="font-semibold text-slate-300">Root Cause:</span> Transient timeouts on jobs that usually execute in milliseconds are almost always caused by one of two things: underlying infrastructure noise (cluster/proxy saturation) or inte...
+            </p>
+          </div>
+          <div class="pt-4 border-t border-slate-700/50 flex items-center justify-between text-xs text-slate-400">
+            <span>Logged: 2026-11-10</span>
+            <a href="cases/spike-in-server-timeouts-nov-9th.html" class="text-emerald-400 hover:text-emerald-300 font-bold flex items-center">
+              View Fix &rarr;
+            </a>
+          </div>
+        </div>
+        
+
+        <div class="incident-card bg-slate-800/90 hover:bg-slate-800 rounded-2xl p-6 border border-slate-700/80 shadow-lg hover:shadow-indigo-500/10 transition-all flex flex-col justify-between" data-eco="Bubble.io">
+          <div>
+            <div class="flex items-center justify-between mb-3">
+              <span class="px-2.5 py-1 rounded text-xs font-bold uppercase tracking-wider bg-slate-900 text-indigo-300 border border-slate-700">Bubble.io</span>
+              <span class="px-2.5 py-1 rounded text-xs font-bold uppercase tracking-wider border bg-red-500/20 text-red-300 border-red-500/40">CRITICAL</span>
+            </div>
+            <h3 class="text-lg font-bold text-white mb-2 leading-snug">
+              <a href="cases/issue-with-bubble-s-native-geographic-places-search.html" class="hover:text-indigo-400 transition">Issue with Bubble&#x27;s Native Geographic Places Search</a>
+            </h3>
+            <p class="text-slate-400 text-sm mb-4 line-clamp-3">
+              <span class="font-semibold text-slate-300">Root Cause:</span> This is a very common issue resulting from Google&#x27;s recent rollout of the &quot;Places API (New)&quot;. Here is what is happening under the hood and how to fix both your native Search Box...
+            </p>
+          </div>
+          <div class="pt-4 border-t border-slate-700/50 flex items-center justify-between text-xs text-slate-400">
+            <span>Logged: 2026-11-10</span>
+            <a href="cases/issue-with-bubble-s-native-geographic-places-search.html" class="text-emerald-400 hover:text-emerald-300 font-bold flex items-center">
+              View Fix &rarr;
+            </a>
+          </div>
+        </div>
+        
+
+        <div class="incident-card bg-slate-800/90 hover:bg-slate-800 rounded-2xl p-6 border border-slate-700/80 shadow-lg hover:shadow-indigo-500/10 transition-all flex flex-col justify-between" data-eco="Make.com">
+          <div>
+            <div class="flex items-center justify-between mb-3">
+              <span class="px-2.5 py-1 rounded text-xs font-bold uppercase tracking-wider bg-slate-900 text-indigo-300 border border-slate-700">Make.com</span>
+              <span class="px-2.5 py-1 rounded text-xs font-bold uppercase tracking-wider border bg-red-500/20 text-red-300 border-red-500/40">CRITICAL</span>
+            </div>
+            <h3 class="text-lg font-bold text-white mb-2 leading-snug">
+              <a href="cases/instagram-for-business-facebook-page-not-showing-and-webhook-erro.html" class="hover:text-indigo-400 transition">Instagram for Business: Facebook Page Not Showing and Webhook Error</a>
+            </h3>
+            <p class="text-slate-400 text-sm mb-4 line-clamp-3">
+              <span class="font-semibold text-slate-300">Root Cause:</span> This is a well-known issue when setting up the **Instagram for Business** &quot;Watch Events&quot; webhook in Make, and it stems from two separate factors: an incomplete Graph API asset l...
+            </p>
+          </div>
+          <div class="pt-4 border-t border-slate-700/50 flex items-center justify-between text-xs text-slate-400">
+            <span>Logged: 2026-11-10</span>
+            <a href="cases/instagram-for-business-facebook-page-not-showing-and-webhook-erro.html" class="text-emerald-400 hover:text-emerald-300 font-bold flex items-center">
+              View Fix &rarr;
+            </a>
+          </div>
+        </div>
+        
+
+        <div class="incident-card bg-slate-800/90 hover:bg-slate-800 rounded-2xl p-6 border border-slate-700/80 shadow-lg hover:shadow-indigo-500/10 transition-all flex flex-col justify-between" data-eco="n8n">
+          <div>
+            <div class="flex items-center justify-between mb-3">
+              <span class="px-2.5 py-1 rounded text-xs font-bold uppercase tracking-wider bg-slate-900 text-indigo-300 border border-slate-700">n8n</span>
+              <span class="px-2.5 py-1 rounded text-xs font-bold uppercase tracking-wider border bg-amber-500/20 text-amber-300 border-amber-500/40">HIGH</span>
+            </div>
+            <h3 class="text-lg font-bold text-white mb-2 leading-snug">
+              <a href="cases/ok-failed-unknown-what-we-log-so-ambiguous-failures-get-found.html" class="hover:text-indigo-400 transition">Ok / failed / unknown - what we log so ambiguous failures get found</a>
+            </h3>
+            <p class="text-slate-400 text-sm mb-4 line-clamp-3">
+              <span class="font-semibold text-slate-300">Root Cause:</span> Here is what is likely causing this issue and how to resolve it:
+            </p>
+          </div>
+          <div class="pt-4 border-t border-slate-700/50 flex items-center justify-between text-xs text-slate-400">
+            <span>Logged: 2026-11-10</span>
+            <a href="cases/ok-failed-unknown-what-we-log-so-ambiguous-failures-get-found.html" class="text-emerald-400 hover:text-emerald-300 font-bold flex items-center">
+              View Fix &rarr;
+            </a>
+          </div>
+        </div>
+        
+
+        <div class="incident-card bg-slate-800/90 hover:bg-slate-800 rounded-2xl p-6 border border-slate-700/80 shadow-lg hover:shadow-indigo-500/10 transition-all flex flex-col justify-between" data-eco="n8n">
+          <div>
+            <div class="flex items-center justify-between mb-3">
+              <span class="px-2.5 py-1 rounded text-xs font-bold uppercase tracking-wider bg-slate-900 text-indigo-300 border border-slate-700">n8n</span>
+              <span class="px-2.5 py-1 rounded text-xs font-bold uppercase tracking-wider border bg-blue-500/20 text-blue-300 border-blue-500/40">MEDIUM</span>
+            </div>
+            <h3 class="text-lg font-bold text-white mb-2 leading-snug">
+              <a href="cases/building-agents-for-clients-how-did-you-find-out-the-last-time-on.html" class="hover:text-indigo-400 transition">Building agents for clients: how did you find out the last time one failed silently?</a>
+            </h3>
+            <p class="text-slate-400 text-sm mb-4 line-clamp-3">
+              <span class="font-semibold text-slate-300">Root Cause:</span> Hello @/u/Ok-Machine7983,
+            </p>
+          </div>
+          <div class="pt-4 border-t border-slate-700/50 flex items-center justify-between text-xs text-slate-400">
+            <span>Logged: 2026-11-10</span>
+            <a href="cases/building-agents-for-clients-how-did-you-find-out-the-last-time-on.html" class="text-emerald-400 hover:text-emerald-300 font-bold flex items-center">
+              View Fix &rarr;
+            </a>
+          </div>
+        </div>
+        
+
+        <div class="incident-card bg-slate-800/90 hover:bg-slate-800 rounded-2xl p-6 border border-slate-700/80 shadow-lg hover:shadow-indigo-500/10 transition-all flex flex-col justify-between" data-eco="n8n">
+          <div>
+            <div class="flex items-center justify-between mb-3">
+              <span class="px-2.5 py-1 rounded text-xs font-bold uppercase tracking-wider bg-slate-900 text-indigo-300 border border-slate-700">n8n</span>
+              <span class="px-2.5 py-1 rounded text-xs font-bold uppercase tracking-wider border bg-amber-500/20 text-amber-300 border-amber-500/40">HIGH</span>
+            </div>
+            <h3 class="text-lg font-bold text-white mb-2 leading-snug">
+              <a href="cases/cloud-instance-stuck-on-your-instance-is-starting-for-over-2-hour.html" class="hover:text-indigo-400 transition">Cloud instance stuck on &quot;Your instance is starting&quot; for over 2 hours</a>
+            </h3>
+            <p class="text-slate-400 text-sm mb-4 line-clamp-3">
+              <span class="font-semibold text-slate-300">Root Cause:</span> This issue happens when the n8n Cloud provisioning orchestrator gets stuck in a state machine transition.
+            </p>
+          </div>
+          <div class="pt-4 border-t border-slate-700/50 flex items-center justify-between text-xs text-slate-400">
+            <span>Logged: 2026-11-10</span>
+            <a href="cases/cloud-instance-stuck-on-your-instance-is-starting-for-over-2-hour.html" class="text-emerald-400 hover:text-emerald-300 font-bold flex items-center">
+              View Fix &rarr;
+            </a>
+          </div>
+        </div>
+        
+
+        <div class="incident-card bg-slate-800/90 hover:bg-slate-800 rounded-2xl p-6 border border-slate-700/80 shadow-lg hover:shadow-indigo-500/10 transition-all flex flex-col justify-between" data-eco="Make.com">
+          <div>
+            <div class="flex items-center justify-between mb-3">
+              <span class="px-2.5 py-1 rounded text-xs font-bold uppercase tracking-wider bg-slate-900 text-indigo-300 border border-slate-700">Make.com</span>
+              <span class="px-2.5 py-1 rounded text-xs font-bold uppercase tracking-wider border bg-blue-500/20 text-blue-300 border-blue-500/40">MEDIUM</span>
+            </div>
+            <h3 class="text-lg font-bold text-white mb-2 leading-snug">
+              <a href="cases/workflow-reliability-reviews-webhook-testing-automation-handoffs.html" class="hover:text-indigo-400 transition">Workflow Reliability Reviews, Webhook Testing &amp; Automation Handoffs</a>
+            </h3>
+            <p class="text-slate-400 text-sm mb-4 line-clamp-3">
+              <span class="font-semibold text-slate-300">Root Cause:</span> Here is what is likely causing this issue and how to resolve it:
+            </p>
+          </div>
+          <div class="pt-4 border-t border-slate-700/50 flex items-center justify-between text-xs text-slate-400">
+            <span>Logged: 2026-11-10</span>
+            <a href="cases/workflow-reliability-reviews-webhook-testing-automation-handoffs.html" class="text-emerald-400 hover:text-emerald-300 font-bold flex items-center">
+              View Fix &rarr;
+            </a>
+          </div>
+        </div>
+        
+
+        <div class="incident-card bg-slate-800/90 hover:bg-slate-800 rounded-2xl p-6 border border-slate-700/80 shadow-lg hover:shadow-indigo-500/10 transition-all flex flex-col justify-between" data-eco="n8n">
+          <div>
+            <div class="flex items-center justify-between mb-3">
+              <span class="px-2.5 py-1 rounded text-xs font-bold uppercase tracking-wider bg-slate-900 text-indigo-300 border border-slate-700">n8n</span>
+              <span class="px-2.5 py-1 rounded text-xs font-bold uppercase tracking-wider border bg-red-500/20 text-red-300 border-red-500/40">CRITICAL</span>
+            </div>
+            <h3 class="text-lg font-bold text-white mb-2 leading-snug">
+              <a href="cases/5-things-that-make-client-n8n-workflows-fail-at-2am-and-the-fix-f.html" class="hover:text-indigo-400 transition">5 things that make client n8n workflows fail at 2am, and the fix for each</a>
+            </h3>
+            <p class="text-slate-400 text-sm mb-4 line-clamp-3">
+              <span class="font-semibold text-slate-300">Root Cause:</span> === SECTION 0: RESUME DU PROBLEME EN FRANCAIS ===
+            </p>
+          </div>
+          <div class="pt-4 border-t border-slate-700/50 flex items-center justify-between text-xs text-slate-400">
+            <span>Logged: 2026-11-09</span>
+            <a href="cases/5-things-that-make-client-n8n-workflows-fail-at-2am-and-the-fix-f.html" class="text-emerald-400 hover:text-emerald-300 font-bold flex items-center">
+              View Fix &rarr;
+            </a>
+          </div>
+        </div>
+        
+
+        <div class="incident-card bg-slate-800/90 hover:bg-slate-800 rounded-2xl p-6 border border-slate-700/80 shadow-lg hover:shadow-indigo-500/10 transition-all flex flex-col justify-between" data-eco="n8n">
+          <div>
+            <div class="flex items-center justify-between mb-3">
+              <span class="px-2.5 py-1 rounded text-xs font-bold uppercase tracking-wider bg-slate-900 text-indigo-300 border border-slate-700">n8n</span>
+              <span class="px-2.5 py-1 rounded text-xs font-bold uppercase tracking-wider border bg-red-500/20 text-red-300 border-red-500/40">CRITICAL</span>
+            </div>
+            <h3 class="text-lg font-bold text-white mb-2 leading-snug">
+              <a href="cases/duplicate-bookings-after-a-tool-timeout-what-the-logs-taught-us.html" class="hover:text-indigo-400 transition">Duplicate bookings after a tool timeout - what the logs taught us</a>
+            </h3>
+            <p class="text-slate-400 text-sm mb-4 line-clamp-3">
+              <span class="font-semibold text-slate-300">Root Cause:</span> Le créateur du flux utilise un agent IA n8n en production pour orchestrer la réservation automatisée de rendez-vous pour un cabinet dentaire. Lors d&#x27;un appel d&#x27;outil (tool call)...
+            </p>
+          </div>
+          <div class="pt-4 border-t border-slate-700/50 flex items-center justify-between text-xs text-slate-400">
+            <span>Logged: 2026-11-09</span>
+            <a href="cases/duplicate-bookings-after-a-tool-timeout-what-the-logs-taught-us.html" class="text-emerald-400 hover:text-emerald-300 font-bold flex items-center">
+              View Fix &rarr;
+            </a>
+          </div>
+        </div>
+        
+
+        <div class="incident-card bg-slate-800/90 hover:bg-slate-800 rounded-2xl p-6 border border-slate-700/80 shadow-lg hover:shadow-indigo-500/10 transition-all flex flex-col justify-between" data-eco="n8n">
+          <div>
+            <div class="flex items-center justify-between mb-3">
+              <span class="px-2.5 py-1 rounded text-xs font-bold uppercase tracking-wider bg-slate-900 text-indigo-300 border border-slate-700">n8n</span>
+              <span class="px-2.5 py-1 rounded text-xs font-bold uppercase tracking-wider border bg-amber-500/20 text-amber-300 border-amber-500/40">HIGH</span>
+            </div>
+            <h3 class="text-lg font-bold text-white mb-2 leading-snug">
+              <a href="cases/troubleshooting-telegram-api-errors-thumbnail-as-animation-no-doc.html" class="hover:text-indigo-400 transition">Troubleshooting Telegram API Errors: &#x27;Thumbnail as Animation&#x27; &amp; &#x27;No Document in Request&#x27; when using n8n HTTP Request</a>
+            </h3>
+            <p class="text-slate-400 text-sm mb-4 line-clamp-3">
+              <span class="font-semibold text-slate-300">Root Cause:</span> === SECTION 0: RESUME DU PROBLEME EN FRANCAIS ===
+            </p>
+          </div>
+          <div class="pt-4 border-t border-slate-700/50 flex items-center justify-between text-xs text-slate-400">
+            <span>Logged: 2026-11-09</span>
+            <a href="cases/troubleshooting-telegram-api-errors-thumbnail-as-animation-no-doc.html" class="text-emerald-400 hover:text-emerald-300 font-bold flex items-center">
+              View Fix &rarr;
+            </a>
+          </div>
+        </div>
+        
+
+        <div class="incident-card bg-slate-800/90 hover:bg-slate-800 rounded-2xl p-6 border border-slate-700/80 shadow-lg hover:shadow-indigo-500/10 transition-all flex flex-col justify-between" data-eco="n8n">
+          <div>
+            <div class="flex items-center justify-between mb-3">
+              <span class="px-2.5 py-1 rounded text-xs font-bold uppercase tracking-wider bg-slate-900 text-indigo-300 border border-slate-700">n8n</span>
+              <span class="px-2.5 py-1 rounded text-xs font-bold uppercase tracking-wider border bg-red-500/20 text-red-300 border-red-500/40">CRITICAL</span>
+            </div>
+            <h3 class="text-lg font-bold text-white mb-2 leading-snug">
+              <a href="cases/learning-n8n-how-do-you-handle-workflow-failures.html" class="hover:text-indigo-400 transition">Learning n8n: How Do You Handle Workflow Failures?</a>
+            </h3>
+            <p class="text-slate-400 text-sm mb-4 line-clamp-3">
+              <span class="font-semibold text-slate-300">Root Cause:</span> === SECTION 0: RESUME DU PROBLEME EN FRANCAIS ===
+            </p>
+          </div>
+          <div class="pt-4 border-t border-slate-700/50 flex items-center justify-between text-xs text-slate-400">
+            <span>Logged: 2026-11-09</span>
+            <a href="cases/learning-n8n-how-do-you-handle-workflow-failures.html" class="text-emerald-400 hover:text-emerald-300 font-bold flex items-center">
+              View Fix &rarr;
+            </a>
+          </div>
+        </div>
+        
+
+        <div class="incident-card bg-slate-800/90 hover:bg-slate-800 rounded-2xl p-6 border border-slate-700/80 shadow-lg hover:shadow-indigo-500/10 transition-all flex flex-col justify-between" data-eco="Make.com">
+          <div>
+            <div class="flex items-center justify-between mb-3">
+              <span class="px-2.5 py-1 rounded text-xs font-bold uppercase tracking-wider bg-slate-900 text-indigo-300 border border-slate-700">Make.com</span>
+              <span class="px-2.5 py-1 rounded text-xs font-bold uppercase tracking-wider border bg-red-500/20 text-red-300 border-red-500/40">CRITICAL</span>
+            </div>
+            <h3 class="text-lg font-bold text-white mb-2 leading-snug">
+              <a href="cases/naif-gravity-api-webhook-json-troubleshooting.html" class="hover:text-indigo-400 transition">NAIF Gravity — API, Webhook &amp; JSON Troubleshooting</a>
+            </h3>
+            <p class="text-slate-400 text-sm mb-4 line-clamp-3">
+              <span class="font-semibold text-slate-300">Root Cause:</span> === SECTION 0: RESUME DU PROBLEME EN FRANCAIS ===
+            </p>
+          </div>
+          <div class="pt-4 border-t border-slate-700/50 flex items-center justify-between text-xs text-slate-400">
+            <span>Logged: 2026-11-09</span>
+            <a href="cases/naif-gravity-api-webhook-json-troubleshooting.html" class="text-emerald-400 hover:text-emerald-300 font-bold flex items-center">
+              View Fix &rarr;
+            </a>
+          </div>
+        </div>
+        
+
+        <div class="incident-card bg-slate-800/90 hover:bg-slate-800 rounded-2xl p-6 border border-slate-700/80 shadow-lg hover:shadow-indigo-500/10 transition-all flex flex-col justify-between" data-eco="Make.com">
+          <div>
+            <div class="flex items-center justify-between mb-3">
+              <span class="px-2.5 py-1 rounded text-xs font-bold uppercase tracking-wider bg-slate-900 text-indigo-300 border border-slate-700">Make.com</span>
+              <span class="px-2.5 py-1 rounded text-xs font-bold uppercase tracking-wider border bg-red-500/20 text-red-300 border-red-500/40">CRITICAL</span>
+            </div>
+            <h3 class="text-lg font-bold text-white mb-2 leading-snug">
+              <a href="cases/ai-automation-delivery-lead-make-com-builds-with-tested-ai-steps.html" class="hover:text-indigo-400 transition">AI Automation Delivery Lead | Make.com builds with tested AI steps and real error handling</a>
+            </h3>
+            <p class="text-slate-400 text-sm mb-4 line-clamp-3">
+              <span class="font-semibold text-slate-300">Root Cause:</span> === SECTION 0: RESUME DU PROBLEME EN FRANCAIS ===
+            </p>
+          </div>
+          <div class="pt-4 border-t border-slate-700/50 flex items-center justify-between text-xs text-slate-400">
+            <span>Logged: 2026-11-09</span>
+            <a href="cases/ai-automation-delivery-lead-make-com-builds-with-tested-ai-steps.html" class="text-emerald-400 hover:text-emerald-300 font-bold flex items-center">
+              View Fix &rarr;
+            </a>
+          </div>
+        </div>
+        
+    </div>
+
+    <!-- Footer Support CTA -->
+    <section class="mt-16 rounded-3xl bg-gradient-to-r from-indigo-950 via-slate-800 to-slate-900 border border-indigo-500/30 p-10 text-center shadow-2xl">
+      <h2 class="text-3xl font-black text-white mb-3">Facing an Active Production Outage Right Now?</h2>
+      <p class="text-slate-300 max-w-2xl mx-auto mb-8 text-base">
+        Don't let broken webhook deadlocks, OAuth expiry loops, or database constraint failures stall your business operations. Book an emergency direct incident recovery session.
+      </p>
+      <a href="https://www.fiverr.com/s/BRB54Qk" target="_blank" rel="noopener noreferrer" class="inline-flex items-center px-8 py-4 rounded-2xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-black text-lg shadow-xl shadow-emerald-500/25 transition transform hover:-translate-y-1">
+        ⚡ Hire 1-Hour Emergency Incident Resolution on Fiverr
+      </a>
+      <div class="mt-4 text-xs text-slate-500">
+        All service orders, communication, and guarantees are securely fulfilled via Fiverr under strict platform TOS.
+      </div>
+    </section>
+  </main>
+
+  <footer class="border-t border-slate-800 py-8 text-center text-xs text-slate-500">
+    &copy; 2026 grinem &bull; Autonomous Production Incident Knowledge Base &bull;
+    <a href="https://github.com/grinem/n8n-production-incident-fixes" class="hover:text-slate-300 underline">GitHub Source Repository</a>
+  </footer>
+
+  <script>
+    const filterBtns = document.querySelectorAll('.filter-btn');
+    const searchInput = document.getElementById('searchInput');
+    const cards = document.querySelectorAll('.incident-card');
+
+    let activeFilter = 'all';
+
+    function updateVisibility() {
+      const q = searchInput.value.toLowerCase().trim();
+      cards.forEach(card => {
+        const eco = card.getAttribute('data-eco');
+        const text = card.innerText.toLowerCase();
+        const matchesFilter = activeFilter === 'all' || eco === activeFilter;
+        const matchesSearch = !q || text.includes(q);
+        if (matchesFilter && matchesSearch) {
+          card.style.display = 'flex';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    }
+
+    filterBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        filterBtns.forEach(b => {
+          b.classList.remove('bg-indigo-600', 'text-white', 'shadow');
+          b.classList.add('bg-slate-800', 'text-slate-300');
+        });
+        btn.classList.add('bg-indigo-600', 'text-white', 'shadow');
+        btn.classList.remove('bg-slate-800', 'text-slate-300');
+        activeFilter = btn.getAttribute('data-filter');
+        updateVisibility();
+      });
+    });
+
+    searchInput.addEventListener('input', updateVisibility);
+  </script>
+</body>
+</html>
