@@ -1,0 +1,8 @@
+title: "Production Incident Fixes | Knowledge Base"
+description: "Live Production Post-Mortems & Automated Incident Resolution for n8n, Make, Bubble, Webhooks & APIs"
+theme: jekyll-theme-primer
+url: "https://grinem.github.io"
+baseurl: "/n8n-production-incident-fixes"
+github:
+  is_project_page: true
+  repository_url: "https://github.com/grinem/n8n-production-incident-fixes"
