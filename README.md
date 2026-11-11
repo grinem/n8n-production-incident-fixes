@@ -1,7 +1,7 @@
 # 🛠️ n8n & Low-Code Production Incident Fixes (Live Knowledge Base)
 
 [![GitHub Pages](https://img.shields.io/badge/GitHub%20Pages-Live%20Showcase-brightgreen?style=flat-square&logo=github)](https://grinem.github.io/n8n-production-incident-fixes/)
-[![Incidents Resolved](https://img.shields.io/badge/Incidents%20Resolved-27%20Verified-blue?style=flat-square)](cases/)
+[![Incidents Resolved](https://img.shields.io/badge/Incidents%20Resolved-28%20Verified-blue?style=flat-square)](cases/)
 [![SLA](https://img.shields.io/badge/Emergency%20SLA-1%20Hour-orange?style=flat-square)](https://www.fiverr.com/s/BRB54Qk)
 [![Fiverr Service](https://img.shields.io/badge/Fiverr%20Gig-Hire%20Engineer-success?style=flat-square&logo=fiverr)](https://www.fiverr.com/s/BRB54Qk)
 
@@ -38,10 +38,11 @@ All incident post-mortems in this repository are autonomously generated and sync
 
 ---
 
-## 📚 Documented Production Incidents (27)
+## 📚 Documented Production Incidents (28)
 
 | Ecosystem | Incident Case Study | Root Cause Snapshot | Severity | Solution Link |
 |:----------|:--------------------|:--------------------|:--------:|:-------------:|
+| **n8n** | [Weaviate Vector Store: Clear Data keeps only the last insert batch](cases/weaviate-vector-store-clear-data-keeps-only-the-last-insert-batch.md) | Excellent catch and thorough root-cause identification. Having the collection/tenant deletion hook nested directly inside the batch execution loop instead of executing once prio... | 🟠 `HIGH` | [**Solution**](cases/weaviate-vector-store-clear-data-keeps-only-the-last-insert-batch.md) |
 | **n8n** | [Root `pnpm test` fails because the @n8n/typeorm test script needs ormconfig.json](cases/root-pnpm-test-fails-because-the-n8n-typeorm-test-script-needs-or.md) | In the root `package.json`, running `pnpm test` triggers Turborepo (`turbo run test`). Turbo executes the `test` lifecycle across all workspace packages, including `packages/Cli... | 🔴 `CRITICAL` | [**Solution**](cases/root-pnpm-test-fails-because-the-n8n-typeorm-test-script-needs-or.md) |
 | **Activepieces** | [[Feature]: Platform Secret Managers: AWS provider should accept IAM role auth (default credential chain) instead of only static access keys](cases/platform-secret-managers-aws-provider-should-accept-iam-role-auth.md) | You hit the nail on the head. In enterprise deployments on AWS (especially EKS with IRSA or ECS Fargate/EC2 instance roles), requiring static long-lived IAM keys breaks standard... | 🟡 `MEDIUM` | [**Solution**](cases/platform-secret-managers-aws-provider-should-accept-iam-role-auth.md) |
 | **n8n** | [ErrorReporter logs every error at error level when Sentry is not configured](cases/errorreporter-logs-every-error-at-error-level-when-sentry-is-not.md) | When Sentry is active, Sentry's `beforeSend` hook filters out or appropriately segments `info` and `warning` scopes. However, in standalone/self-hosted environments where Sentry... | 🟠 `HIGH` | [**Solution**](cases/errorreporter-logs-every-error-at-error-level-when-sentry-is-not.md) |

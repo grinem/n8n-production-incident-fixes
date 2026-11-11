@@ -13,9 +13,9 @@ title: "Production Incident Fixes & Post-Mortem Knowledge Base"
 
 
 ### 📊 Real-Time Operations Telemetry
-- **Total Production Incidents Documented**: `27`
+- **Total Production Incidents Documented**: `28`
 - **Active Incident Resolvers**: Automated Production Radar + Lead SRE Engineer
-- **Breakdown by Platform**: **n8n**: 11 | **Make.com**: 9 | **Bubble.io**: 4 | **Activepieces**: 1 | **Meta / Webhooks**: 1 | **Baserow**: 1
+- **Breakdown by Platform**: **n8n**: 12 | **Make.com**: 9 | **Bubble.io**: 4 | **Activepieces**: 1 | **Meta / Webhooks**: 1 | **Baserow**: 1
 - **Average Diagnosis & Root-Cause Pinpoint**: `< 15 Minutes`
 
 ---
@@ -24,6 +24,7 @@ title: "Production Incident Fixes & Post-Mortem Knowledge Base"
 
 | Ecosystem | Incident Summary | Root Cause Snapshot | Severity | Resolution Guide |
 |:----------|:-----------------|:--------------------|:--------:|:----------------:|
+| **n8n** | [Weaviate Vector Store: Clear Data keeps only the last insert batch](cases/weaviate-vector-store-clear-data-keeps-only-the-last-insert-batch.html) | Excellent catch and thorough root-cause identification. Having the collection/tenant deletion hook nested directly inside the batch execution loop instead of executing once prio... | 🟠 `HIGH` | [**View Solution →**](cases/weaviate-vector-store-clear-data-keeps-only-the-last-insert-batch.html) |
 | **n8n** | [Root `pnpm test` fails because the @n8n/typeorm test script needs ormconfig.json](cases/root-pnpm-test-fails-because-the-n8n-typeorm-test-script-needs-or.html) | In the root `package.json`, running `pnpm test` triggers Turborepo (`turbo run test`). Turbo executes the `test` lifecycle across all workspace packages, including `packages/Cli... | 🔴 `CRITICAL` | [**View Solution →**](cases/root-pnpm-test-fails-because-the-n8n-typeorm-test-script-needs-or.html) |
 | **Activepieces** | [[Feature]: Platform Secret Managers: AWS provider should accept IAM role auth (default credential chain) instead of only static access keys](cases/platform-secret-managers-aws-provider-should-accept-iam-role-auth.html) | You hit the nail on the head. In enterprise deployments on AWS (especially EKS with IRSA or ECS Fargate/EC2 instance roles), requiring static long-lived IAM keys breaks standard... | 🟡 `MEDIUM` | [**View Solution →**](cases/platform-secret-managers-aws-provider-should-accept-iam-role-auth.html) |
 | **n8n** | [ErrorReporter logs every error at error level when Sentry is not configured](cases/errorreporter-logs-every-error-at-error-level-when-sentry-is-not.html) | When Sentry is active, Sentry's `beforeSend` hook filters out or appropriately segments `info` and `warning` scopes. However, in standalone/self-hosted environments where Sentry... | 🟠 `HIGH` | [**View Solution →**](cases/errorreporter-logs-every-error-at-error-level-when-sentry-is-not.html) |
