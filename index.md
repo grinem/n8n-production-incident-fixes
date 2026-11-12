@@ -13,9 +13,9 @@ title: "Production Incident Fixes & Post-Mortem Knowledge Base"
 
 
 ### 📊 Real-Time Operations Telemetry
-- **Total Production Incidents Documented**: `29`
+- **Total Production Incidents Documented**: `30`
 - **Active Incident Resolvers**: Automated Production Radar + Lead SRE Engineer
-- **Breakdown by Platform**: **n8n**: 13 | **Make.com**: 9 | **Bubble.io**: 4 | **Activepieces**: 1 | **Meta / Webhooks**: 1 | **Baserow**: 1
+- **Breakdown by Platform**: **n8n**: 13 | **Make.com**: 10 | **Bubble.io**: 4 | **Activepieces**: 1 | **Meta / Webhooks**: 1 | **Baserow**: 1
 - **Average Diagnosis & Root-Cause Pinpoint**: `< 15 Minutes`
 
 ---
@@ -24,6 +24,7 @@ title: "Production Incident Fixes & Post-Mortem Knowledge Base"
 
 | Ecosystem | Incident Summary | Root Cause Snapshot | Severity | Resolution Guide |
 |:----------|:-----------------|:--------------------|:--------:|:----------------:|
+| **Make.com** | [How to upload an image file to a Shopify order (write_files scope missing in the Make connection)?](cases/how-to-upload-an-image-file-to-a-shopify-order-write-files-scope.html) | The error occurs because Make’s default multi-tenant Shopify app does **not** include the `write_files` (or `read_files`) OAuth scopes in its registered manifest. Because these ... | 🟠 `HIGH` | [**View Solution →**](cases/how-to-upload-an-image-file-to-a-shopify-order-write-files-scope.html) |
 | **n8n** | [Google Gemini node: Message a Model crashes with "reading 'flatMap'" when Gemini blocks the prompt](cases/google-gemini-node-message-a-model-crashes-with-reading-flatmap-w.html) | Spot-on diagnosis! The root issue stems from the Google Gemini API returning an HTTP 200 OK containing only `promptFeedback.blockReason` while completely omitting the `candidate... | 🔴 `CRITICAL` | [**View Solution →**](cases/google-gemini-node-message-a-model-crashes-with-reading-flatmap-w.html) |
 | **n8n** | [Weaviate Vector Store: Clear Data keeps only the last insert batch](cases/weaviate-vector-store-clear-data-keeps-only-the-last-insert-batch.html) | Excellent catch and thorough root-cause identification. Having the collection/tenant deletion hook nested directly inside the batch execution loop instead of executing once prio... | 🟠 `HIGH` | [**View Solution →**](cases/weaviate-vector-store-clear-data-keeps-only-the-last-insert-batch.html) |
 | **n8n** | [Root `pnpm test` fails because the @n8n/typeorm test script needs ormconfig.json](cases/root-pnpm-test-fails-because-the-n8n-typeorm-test-script-needs-or.html) | In the root `package.json`, running `pnpm test` triggers Turborepo (`turbo run test`). Turbo executes the `test` lifecycle across all workspace packages, including `packages/Cli... | 🔴 `CRITICAL` | [**View Solution →**](cases/root-pnpm-test-fails-because-the-n8n-typeorm-test-script-needs-or.html) |
