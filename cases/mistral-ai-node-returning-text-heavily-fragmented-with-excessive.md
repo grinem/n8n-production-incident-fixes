@@ -13,13 +13,18 @@ slug: "mistral-ai-node-returning-text-heavily-fragmented-with-excessive"
 
 
 > ⚡ **Encountering this exact production bug or need an emergency automation fix?**  
-> [**Hire me on Fiverr for 1-Hour Emergency Incident Resolution**](https://www.fiverr.com/s/BRB54Qk)
+> [**🚨 Astreinte d'Urgence 1h — $99 (19000 DA) | Hire me on Fiverr**](https://www.fiverr.com/s/BRB54Qk)
+
+
+> ✅ **Confirmed Production Resolution (Timestamp: `2026-11-12T20:38:00+01:00`)**  
+> **Author (`hectorj88`) verified on [the live thread](https://github.com/n8n-io/n8n/issues/43736)**:  
+> *"Configure the Mistral API as if you were setting up the OpenAI API and the problem was solved. I even selected the same model, mistral-large-latest, and the generated responses are well-formatted without line breaks every 8 characters or between words."*
 
 
 ## Incident Metadata
 - **Platform / Ecosystem**: `n8n`
 - **Incident Severity**: `MEDIUM`
-- **Resolution Status**: `VERIFIED & RESOLVED`
+- **Resolution Status**: `CONFIRMED BY AUTHOR IN PRODUCTION`
 - **Logged Timestamp**: `2026-11-12T17:41:14.204542`
 - **Diagnosis Engine**: Autonomous Production Incident Radar
 
@@ -106,7 +111,7 @@ Let me know if pinning the model identifier resolves the issue or if you'd like 
 
 
 > ⚡ **Encountering this exact production bug or need an emergency automation fix?**  
-> [**Hire me on Fiverr for 1-Hour Emergency Incident Resolution**](https://www.fiverr.com/s/BRB54Qk)
+> [**🚨 Astreinte d'Urgence 1h — $99 (19000 DA) | Hire me on Fiverr**](https://www.fiverr.com/s/BRB54Qk)
 
 
 [← Back to Live Case Studies Index](../)
