@@ -1,7 +1,7 @@
 # 🛠️ n8n & Low-Code Production Incident Fixes (Live Knowledge Base)
 
 [![GitHub Pages](https://img.shields.io/badge/GitHub%20Pages-Live%20Showcase-brightgreen?style=flat-square&logo=github)](https://grinem.github.io/n8n-production-incident-fixes/)
-[![Incidents Resolved](https://img.shields.io/badge/Incidents%20Resolved-32%20Verified-blue?style=flat-square)](cases/)
+[![Incidents Resolved](https://img.shields.io/badge/Incidents%20Resolved-33%20Verified-blue?style=flat-square)](cases/)
 [![SLA](https://img.shields.io/badge/Emergency%20SLA-1%20Hour-orange?style=flat-square)](https://www.fiverr.com/s/BRB54Qk)
 [![Fiverr Service](https://img.shields.io/badge/Fiverr%20Gig-Hire%20Engineer-success?style=flat-square&logo=fiverr)](https://www.fiverr.com/s/BRB54Qk)
 
@@ -38,10 +38,11 @@ All incident post-mortems in this repository are autonomously generated and sync
 
 ---
 
-## 📚 Documented Production Incidents (32)
+## 📚 Documented Production Incidents (33)
 
 | Ecosystem | Incident Case Study | Root Cause Snapshot | Severity | Solution Link |
 |:----------|:--------------------|:--------------------|:--------:|:-------------:|
+| **n8n** | [Mistral AI node returning text heavily fragmented with excessive line breaks (\n) after update](cases/mistral-ai-node-returning-text-heavily-fragmented-with-excessive.md) | 1. **Model Identifier Mismatch:** The validation warning `mistral-large-latest is not supported!` occurs because the internal enum schema in the newer n8n Mistral node versions ... | 🟡 `MEDIUM` | [**Solution**](cases/mistral-ai-node-returning-text-heavily-fragmented-with-excessive.md) |
 | **n8n** | [Qdrant Vector Store: search filter leaks across nodes and is lost after the first retrieve-as-tool call](cases/qdrant-vector-store-search-filter-leaks-across-nodes-and-is-lost.md) | Outstanding forensic breakdown of this issue. You have hit the nail right on the head: storing `defaultFilter` as a `private static` field on `ExtendedQdrantVectorStore` creates... | 🟡 `MEDIUM` | [**Solution**](cases/qdrant-vector-store-search-filter-leaks-across-nodes-and-is-lost.md) |
 | **Make.com** | [How can I test native Data Store failures and a lost Telegram response in Make?](cases/how-can-i-test-native-data-store-failures-and-a-lost-telegram-res.md) | Testing network partition boundaries and distributed transaction states (the Two Generals' Problem) inside Make is tricky because Make’s execution engine abstracts low-level soc... | 🟠 `HIGH` | [**Solution**](cases/how-can-i-test-native-data-store-failures-and-a-lost-telegram-res.md) |
 | **Make.com** | [How to upload an image file to a Shopify order (write_files scope missing in the Make connection)?](cases/how-to-upload-an-image-file-to-a-shopify-order-write-files-scope.md) | The error occurs because Make’s default multi-tenant Shopify app does **not** include the `write_files` (or `read_files`) OAuth scopes in its registered manifest. Because these ... | 🟠 `HIGH` | [**Solution**](cases/how-to-upload-an-image-file-to-a-shopify-order-write-files-scope.md) |
