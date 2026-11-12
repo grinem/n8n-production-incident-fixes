@@ -1,7 +1,7 @@
 # 🛠️ n8n & Low-Code Production Incident Fixes (Live Knowledge Base)
 
 [![GitHub Pages](https://img.shields.io/badge/GitHub%20Pages-Live%20Showcase-brightgreen?style=flat-square&logo=github)](https://grinem.github.io/n8n-production-incident-fixes/)
-[![Incidents Resolved](https://img.shields.io/badge/Incidents%20Resolved-29%20Verified-blue?style=flat-square)](cases/)
+[![Incidents Resolved](https://img.shields.io/badge/Incidents%20Resolved-30%20Verified-blue?style=flat-square)](cases/)
 [![SLA](https://img.shields.io/badge/Emergency%20SLA-1%20Hour-orange?style=flat-square)](https://www.fiverr.com/s/BRB54Qk)
 [![Fiverr Service](https://img.shields.io/badge/Fiverr%20Gig-Hire%20Engineer-success?style=flat-square&logo=fiverr)](https://www.fiverr.com/s/BRB54Qk)
 
@@ -38,10 +38,11 @@ All incident post-mortems in this repository are autonomously generated and sync
 
 ---
 
-## 📚 Documented Production Incidents (29)
+## 📚 Documented Production Incidents (30)
 
 | Ecosystem | Incident Case Study | Root Cause Snapshot | Severity | Solution Link |
 |:----------|:--------------------|:--------------------|:--------:|:-------------:|
+| **Make.com** | [How to upload an image file to a Shopify order (write_files scope missing in the Make connection)?](cases/how-to-upload-an-image-file-to-a-shopify-order-write-files-scope.md) | The error occurs because Make’s default multi-tenant Shopify app does **not** include the `write_files` (or `read_files`) OAuth scopes in its registered manifest. Because these ... | 🟠 `HIGH` | [**Solution**](cases/how-to-upload-an-image-file-to-a-shopify-order-write-files-scope.md) |
 | **n8n** | [Google Gemini node: Message a Model crashes with "reading 'flatMap'" when Gemini blocks the prompt](cases/google-gemini-node-message-a-model-crashes-with-reading-flatmap-w.md) | Spot-on diagnosis! The root issue stems from the Google Gemini API returning an HTTP 200 OK containing only `promptFeedback.blockReason` while completely omitting the `candidate... | 🔴 `CRITICAL` | [**Solution**](cases/google-gemini-node-message-a-model-crashes-with-reading-flatmap-w.md) |
 | **n8n** | [Weaviate Vector Store: Clear Data keeps only the last insert batch](cases/weaviate-vector-store-clear-data-keeps-only-the-last-insert-batch.md) | Excellent catch and thorough root-cause identification. Having the collection/tenant deletion hook nested directly inside the batch execution loop instead of executing once prio... | 🟠 `HIGH` | [**Solution**](cases/weaviate-vector-store-clear-data-keeps-only-the-last-insert-batch.md) |
 | **n8n** | [Root `pnpm test` fails because the @n8n/typeorm test script needs ormconfig.json](cases/root-pnpm-test-fails-because-the-n8n-typeorm-test-script-needs-or.md) | In the root `package.json`, running `pnpm test` triggers Turborepo (`turbo run test`). Turbo executes the `test` lifecycle across all workspace packages, including `packages/Cli... | 🔴 `CRITICAL` | [**Solution**](cases/root-pnpm-test-fails-because-the-n8n-typeorm-test-script-needs-or.md) |
