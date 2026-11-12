@@ -13,9 +13,9 @@ title: "Production Incident Fixes & Post-Mortem Knowledge Base"
 
 
 ### 📊 Real-Time Operations Telemetry
-- **Total Production Incidents Documented**: `31`
+- **Total Production Incidents Documented**: `32`
 - **Active Incident Resolvers**: Automated Production Radar + Lead SRE Engineer
-- **Breakdown by Platform**: **n8n**: 13 | **Make.com**: 11 | **Bubble.io**: 4 | **Activepieces**: 1 | **Meta / Webhooks**: 1 | **Baserow**: 1
+- **Breakdown by Platform**: **n8n**: 14 | **Make.com**: 11 | **Bubble.io**: 4 | **Activepieces**: 1 | **Meta / Webhooks**: 1 | **Baserow**: 1
 - **Average Diagnosis & Root-Cause Pinpoint**: `< 15 Minutes`
 
 ---
@@ -24,6 +24,7 @@ title: "Production Incident Fixes & Post-Mortem Knowledge Base"
 
 | Ecosystem | Incident Summary | Root Cause Snapshot | Severity | Resolution Guide |
 |:----------|:-----------------|:--------------------|:--------:|:----------------:|
+| **n8n** | [Qdrant Vector Store: search filter leaks across nodes and is lost after the first retrieve-as-tool call](cases/qdrant-vector-store-search-filter-leaks-across-nodes-and-is-lost.html) | Outstanding forensic breakdown of this issue. You have hit the nail right on the head: storing `defaultFilter` as a `private static` field on `ExtendedQdrantVectorStore` creates... | 🟡 `MEDIUM` | [**View Solution →**](cases/qdrant-vector-store-search-filter-leaks-across-nodes-and-is-lost.html) |
 | **Make.com** | [How can I test native Data Store failures and a lost Telegram response in Make?](cases/how-can-i-test-native-data-store-failures-and-a-lost-telegram-res.html) | Testing network partition boundaries and distributed transaction states (the Two Generals' Problem) inside Make is tricky because Make’s execution engine abstracts low-level soc... | 🟠 `HIGH` | [**View Solution →**](cases/how-can-i-test-native-data-store-failures-and-a-lost-telegram-res.html) |
 | **Make.com** | [How to upload an image file to a Shopify order (write_files scope missing in the Make connection)?](cases/how-to-upload-an-image-file-to-a-shopify-order-write-files-scope.html) | The error occurs because Make’s default multi-tenant Shopify app does **not** include the `write_files` (or `read_files`) OAuth scopes in its registered manifest. Because these ... | 🟠 `HIGH` | [**View Solution →**](cases/how-to-upload-an-image-file-to-a-shopify-order-write-files-scope.html) |
 | **n8n** | [Google Gemini node: Message a Model crashes with "reading 'flatMap'" when Gemini blocks the prompt](cases/google-gemini-node-message-a-model-crashes-with-reading-flatmap-w.html) | Spot-on diagnosis! The root issue stems from the Google Gemini API returning an HTTP 200 OK containing only `promptFeedback.blockReason` while completely omitting the `candidate... | 🔴 `CRITICAL` | [**View Solution →**](cases/google-gemini-node-message-a-model-crashes-with-reading-flatmap-w.html) |
