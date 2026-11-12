@@ -16,7 +16,7 @@ slug: "mistral-ai-node-returning-text-heavily-fragmented-with-excessive"
 > [**🚨 Astreinte d'Urgence 1h — $99 (19000 DA) | Hire me on Fiverr**](https://www.fiverr.com/s/BRB54Qk)
 
 
-> ✅ **Confirmed Production Resolution (Timestamp: `2026-11-12T20:38:00+01:00`)**  
+> ✅ **Confirmed Production Resolution (Timestamp: `2026-11-12T22:03:40.920118+01:00`)**  
 > **Author (`hectorj88`) verified on [the live thread](https://github.com/n8n-io/n8n/issues/43736)**:  
 > *"Configure the Mistral API as if you were setting up the OpenAI API and the problem was solved. I even selected the same model, mistral-large-latest, and the generated responses are well-formatted without line breaks every 8 characters or between words."*
 
