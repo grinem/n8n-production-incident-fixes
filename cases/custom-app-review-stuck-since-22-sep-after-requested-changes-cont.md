@@ -13,7 +13,7 @@ slug: "custom-app-review-stuck-since-22-sep-after-requested-changes-cont"
 
 
 > ⚡ **Encountering this exact production bug or need an emergency automation fix?**  
-> [**Hire me on Fiverr for 1-Hour Emergency Incident Resolution**](https://www.fiverr.com/s/BRB54Qk)
+> [**🚨 Astreinte d'Urgence 1h — $99 (19000 DA) | Hire me on Fiverr**](https://www.fiverr.com/s/BRB54Qk)
 
 
 ## Incident Metadata
@@ -106,7 +106,7 @@ If you would like, I can also share a complete JSON blueprint / flow template de
 
 
 > ⚡ **Encountering this exact production bug or need an emergency automation fix?**  
-> [**Hire me on Fiverr for 1-Hour Emergency Incident Resolution**](https://www.fiverr.com/s/BRB54Qk)
+> [**🚨 Astreinte d'Urgence 1h — $99 (19000 DA) | Hire me on Fiverr**](https://www.fiverr.com/s/BRB54Qk)
 
 
 [← Back to Live Case Studies Index](../)

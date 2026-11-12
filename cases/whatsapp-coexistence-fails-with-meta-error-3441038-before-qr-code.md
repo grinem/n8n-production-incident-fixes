@@ -13,7 +13,7 @@ slug: "whatsapp-coexistence-fails-with-meta-error-3441038-before-qr-code"
 
 
 > ⚡ **Encountering this exact production bug or need an emergency automation fix?**  
-> [**Hire me on Fiverr for 1-Hour Emergency Incident Resolution**](https://www.fiverr.com/s/BRB54Qk)
+> [**🚨 Astreinte d'Urgence 1h — $99 (19000 DA) | Hire me on Fiverr**](https://www.fiverr.com/s/BRB54Qk)
 
 
 ## Incident Metadata
@@ -102,7 +102,7 @@ Let me know if disconnecting the number from the Page unblocks the QR step!
 
 
 > ⚡ **Encountering this exact production bug or need an emergency automation fix?**  
-> [**Hire me on Fiverr for 1-Hour Emergency Incident Resolution**](https://www.fiverr.com/s/BRB54Qk)
+> [**🚨 Astreinte d'Urgence 1h — $99 (19000 DA) | Hire me on Fiverr**](https://www.fiverr.com/s/BRB54Qk)
 
 
 [← Back to Live Case Studies Index](../)
