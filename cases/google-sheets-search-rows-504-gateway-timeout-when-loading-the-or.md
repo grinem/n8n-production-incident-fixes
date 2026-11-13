@@ -13,7 +13,7 @@ slug: "google-sheets-search-rows-504-gateway-timeout-when-loading-the-or"
 
 
 > ⚡ **Encountering this exact production bug or need an emergency automation fix?**  
-> [**🚨 Astreinte d'Urgence 1h — $99 | Hire me on Fiverr**](https://www.fiverr.com/s/BRB54Qk)
+> [**🚨 Astreinte d'Urgence 1h — $99 (19000 DA) | Hire me on Fiverr**](https://www.fiverr.com/s/BRB54Qk)
 
 
 ## Incident Metadata

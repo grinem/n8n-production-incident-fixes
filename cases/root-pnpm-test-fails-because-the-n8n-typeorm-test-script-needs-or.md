@@ -60,17 +60,15 @@ To align root `pnpm test` with expected monorepo behavior, update `packages/Clie
 {
   "name": "Client Case Study (User)/typeorm",
   "scripts": {
-    "test": "echo \"Skipping Client Case Study (User)/typeorm integration tests by default. Run pnpm test:upstream with configured ormconfig.json if needed.\"",
-    "test:upstream": "mocha --opts mocha.opts \"test/**/*.ts\""
+    "test": "echo "Skipping Client Case Study (User)/typeorm integration tests by default. Run pnpm test:upstream with configured ormconfig.json if needed."",
+    "test:upstream": "mocha --opts mocha.opts "test/**/*.ts""
   }
 }
 ```
 
 Alternatively, submitting a PR updating `CONTRIBUTING.md` to instruct contributors to use `pnpm test:unit` is the cleanest documentation fix.
 
-If you'd like, I can also share the complete JSON blueprint / flow template with you for free—just let me know and I'll send it over.
-
-Let me know if you run into any other turbo build target or package resolution issues while setting up your local environment!
+(Note: Already submitted and tracked in PR #43572).
 
 ---
 
