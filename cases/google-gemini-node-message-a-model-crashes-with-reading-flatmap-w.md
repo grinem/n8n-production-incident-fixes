@@ -27,16 +27,19 @@ slug: "google-gemini-node-message-a-model-crashes-with-reading-flatmap-w"
 
 ## Technical Post-Mortem & Resolution Guide
 
-Spot-on diagnosis! The root issue stems from the Google Gemini API returning an HTTP 200 OK containing only `promptFeedback.blockReason` while completely omitting the `candidates` key whenever a safety threshold or prohibited content policy is triggered. Because `GenerateContentResponse` in `helpers/interfaces[.]ts` currently marks `candidates` as strictly required, operations like `getToolCalls` immediately hit `response.candidates.flatMap(...)` and crash with an unhandled `TypeError`.
+Spot-on diagnosis! The root issue stems from the Google Gemini API returning an HTTP 200 OK containing only `promptFeedback.blockReason` while completely omitting the `candidates` array whenever a safety threshold or prohibited content policy is triggered. Because `GenerateContentResponse` in `helpers/interfaces.ts` currently marks `candidates` as strictly required, operations like `getToolCalls` immediately hit `response.candidates.flatMap(...)` and crash with an unhandled `TypeError: Cannot read properties of undefined (reading 'flatMap')`.
 
-A centralized helper in `helpers/` is definitely the cleanest and most maintainable path forward. Rather than littering ad-hoc defensive guards across `message.operation.ts`, `baseAnalyze.ts`, `transcribe.operation.ts`, and `generate.operation.ts`, a unified validator standardizes the error reporting across all sub-actions using `NodeOperationError`.
+Looking closely at the implementation:
+1. In `message.operation.ts:581` and `message.operation.ts:614`, `response.candidates` is directly mapped and accessed without verifying its presence. Adding optional chaining and a defensive check `(response.candidates ?? []).flatMap(...)` or an early guard `if (!response.candidates?.length)` prevents this crash.
+2. In fact, `image.operation.ts` already handles prompt blocking appropriately by inspecting `promptFeedback?.blockReason` before attempting to access candidate outputs. Standardizing this pattern via a shared helper or bringing the same defensive check into `message.operation.ts` ensures consistent error handling across the entire Google Gemini node.
 
-Here is an architectural patch illustrating how the shared helper and interface update can be cleanly integrated into the codebase:
+### Proposed Code Adjustment
+
+In `helpers/interfaces.ts`, `candidates` should be marked optional to reflect actual upstream API responses:
 
 ```typescript
-// helpers/interfaces.ts
 export interface GenerateContentResponse {
-	candidates?: Candidate[]; // Marked optional to match upstream API behavior
+	candidates?: Candidate[]; // Optional: omitted by Gemini when prompt is blocked
 	promptFeedback?: {
 		blockReason?: string;
 		blockReasonMessage?: string;
@@ -44,90 +47,54 @@ export interface GenerateContentResponse {
 	};
 	usageMetadata?: UsageMetadata;
 }
-
-// helpers/utils.ts
-import { NodeOperationError, type IExecuteFunctions } from 'n8n-workflow';
-import type { GenerateContentResponse } from './interfaces';
-
-export function assertNoGeminiBlockReason(
-	this: IExecuteFunctions,
-	response: GenerateContentResponse,
-): void {
-	if (response.promptFeedback?.blockReason) {
-		const reason = response.promptFeedback.blockReason;
-		const message = response.promptFeedback.blockReasonMessage
-			? `: ${response.promptFeedback.blockReasonMessage}`
-			: '';
-		throw new NodeOperationError(
-			this.getNode(),
-			`Google Gemini blocked the prompt due to policy violation (${reason}${message})`,
-		);
-	}
-
-	if (!response.candidates || response.candidates.length === 0) {
-		throw new NodeOperationError(
-			this.getNode(),
-			'Google Gemini returned an empty response with no candidates generated.',
-		);
-	}
-}
 ```
 
-### Temporary Production Workaround for Workflows
+And in `message.operation.ts` (around lines 581 & 614), guard against undefined candidates before calling `.flatMap(...)`:
 
-For anyone hitting this issue in production workflows prior to the PR being merged, you can bypass the node crash by invoking the Gemini API via the standard **HTTP Request** node followed by a **Code** node to trap `blockReason`:
-
-```json
-{
-  "nodes": [
-    {
-      "parameters": {
-        "method": "POST",
-        "url": "=[https]://generativelanguage[.]googleapis[.]com/v1beta/models/gemini-1.5-pro:generateContent",
-        "authentication": "genericCredentialType",
-        "genericAuthType": "httpQueryAuth",
-        "sendBody": true,
-        "specifyBody": "json",
-        "jsonBody": "={\n  \"contents\": [{\"parts\": [{\"text\": \"YOUR_PROMPT_HERE\"}]}]\n}",
-        "options": {}
-      },
-      "id": "gemini-raw-http",
-      "name": "Gemini HTTP Request",
-      "type": "n8n-nodes-base.httpRequest",
-      "typeVersion": 4.2,
-      "position": [460, 300]
-    },
-    {
-      "parameters": {
-        "jsCode": "const item = $input.first().json;\n\nif (item.promptFeedback?.blockReason) {\n  throw new Error(`Gemini blocked prompt: ${item.promptFeedback.blockReason}`);\n}\n\nreturn [\n  {\n    json: {\n      text: item.candidates?.[0]?.content?.parts?.[0]?.text ?? '',\n      raw: item\n    }\n  }\n];"
-      },
-      "id": "validate-gemini-response",
-      "name": "Check Safety & Parse",
-      "type": "n8n-nodes-base.code",
-      "typeVersion": 2,
-      "position": [680, 300]
-    }
-  ],
-  "connections": {
-    "Gemini HTTP Request": {
-      "main": [
-        [
-          {
-            "node": "Check Safety & Parse",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    }
-  }
+```typescript
+if (response.promptFeedback?.blockReason) {
+	throw new NodeOperationError(
+		this.getNode(),
+		`Google Gemini blocked the prompt: ${response.promptFeedback.blockReason}${
+			response.promptFeedback.blockReasonMessage ? ` - ${response.promptFeedback.blockReasonMessage}` : ''
+		}`,
+	);
 }
+
+const toolCalls = (response.candidates ?? []).flatMap((candidate) => getToolCalls(candidate));
 ```
-*(Note: Replace the bracketed protocol and domain formatting with your standard endpoint URL when importing into your canvas).*
 
-If you would like, I can also share the complete JSON blueprint / flow template with you for free—just let me know and I will provide the full export.
+### Unit Test Fixture
 
-Looking forward to seeing your PR opened!
+To verify this regression fix in `message.operation.test.ts`, here is a clean fixture simulating a safety-blocked response:
+
+```typescript
+describe('Google Gemini - Message a Model (Safety Block)', () => {
+	it('should gracefully handle responses where candidates is undefined due to blockReason', async () => {
+		const blockedResponse: GenerateContentResponse = {
+			promptFeedback: {
+				blockReason: 'SAFETY',
+				blockReasonMessage: 'Prompt violated safety policies',
+				safetyRatings: [
+					{
+						category: 'HARM_CATEGORY_HARASSMENT',
+						probability: 'HIGH',
+					},
+				],
+			},
+		};
+
+		// Mock the API client call
+		jest.spyOn(apiClient, 'generateContent').mockResolvedValue(blockedResponse);
+
+		await expect(executeMessageOperation.call(mockExecuteFunctions, blockedResponse)).rejects.toThrow(
+			/Google Gemini blocked the prompt: SAFETY/,
+		);
+	});
+});
+```
+
+Happy to review your PR once opened!
 
 ---
 
