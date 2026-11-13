@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Google Sheets Search Rows: 504 Gateway Timeout when loading the &quot;Order by&quot; field | Production Incident Fix</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+</head>
+<body class="bg-slate-900 text-slate-100 min-h-screen font-sans antialiased">
+  <!-- Top Notification CTA -->
+  <div class="bg-gradient-to-r from-amber-600 via-emerald-600 to-indigo-600 px-4 py-3 text-center text-sm font-medium text-white shadow-lg">
+    ⚡ Encountering this exact production bug or need an emergency automation hotfix?
+    <a href="https://www.fiverr.com/s/BRB54Qk" target="_blank" rel="noopener noreferrer" class="ml-2 inline-block rounded-full bg-white px-3 py-1 text-xs font-bold text-slate-900 shadow hover:bg-slate-100 transition">
+      🚨 Astreinte d'Urgence 1h &mdash; $99 (<span dir="ltr" style="display:inline-block;direction:ltr;unicode-bidi:isolate;">19000 DA</span>) &rarr;
+    </a>
+  </div>
+
+  <div class="max-w-4xl mx-auto px-4 py-8">
+    <div class="mb-6 flex items-center justify-between">
+      <a href="../" class="inline-flex items-center text-sm text-indigo-400 hover:text-indigo-300 font-semibold">
+        &larr; Back to Incident Knowledge Base
+      </a>
+      <div class="flex items-center space-x-2">
+        <span class="px-2.5 py-1 rounded text-xs font-bold uppercase tracking-wider bg-slate-800 text-slate-300 border border-slate-700">Make.com</span>
+        <span class="px-2.5 py-1 rounded text-xs font-bold uppercase tracking-wider bg-blue-500 text-white">MEDIUM</span>
+      </div>
+    </div>
+
+    <!-- Rendered Markdown Container -->
+    <article id="content" class="bg-slate-800/80 rounded-2xl p-6 sm:p-10 border border-slate-700/80 shadow-2xl prose prose-invert max-w-none prose-headings:text-indigo-200 prose-a:text-emerald-400 hover:prose-a:text-emerald-300 prose-pre:bg-slate-950 prose-pre:border prose-pre:border-slate-800">
+    </article>
+
+    <!-- Bottom CTA Card -->
+    <div class="mt-10 rounded-2xl bg-gradient-to-br from-indigo-950/80 via-slate-800 to-slate-900 border border-indigo-500/30 p-8 text-center shadow-xl">
+      <h3 class="text-2xl font-bold text-white mb-2">Need an Emergency Fix for Your Production Pipeline?</h3>
+      <p class="text-slate-300 max-w-xl mx-auto mb-6 text-sm">
+        Whether it's an OAuth token deadlock in n8n, a silent Meta webhook timeout, or a broken Make.com scenario — I diagnose and resolve live production outages under a 1-Hour SLA.
+      </p>
+      <a href="https://www.fiverr.com/s/BRB54Qk" target="_blank" rel="noopener noreferrer" class="inline-flex items-center px-6 py-3 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-extrabold shadow-lg shadow-emerald-500/20 transition transform hover:-translate-y-0.5">
+        🚀 Astreinte d'Urgence 1h &mdash; $99 (<span dir="ltr" style="display:inline-block;direction:ltr;unicode-bidi:isolate;">19000 DA</span>) | Order on Fiverr
+      </a>
+    </div>
+  </div>
+
+  <script>
+    const rawMarkdown = "---\nlayout: default\ntitle: \"Google Sheets Search Rows: 504 Gateway Timeout when loading the \\\"Order by\\\" field\"\nplatform: \"Make.com\"\nseverity: \"MEDIUM\"\nstatus: \"Resolved\"\ndate: 2026-11-13\ntags: [\"make\", \"production-fix\", \"post-mortem\", \"verified-resolution\"]\nslug: \"google-sheets-search-rows-504-gateway-timeout-when-loading-the-or\"\n---\n\n# Google Sheets Search Rows: 504 Gateway Timeout when loading the \"Order by\" field\n\n\n> \u26a1 **Encountering this exact production bug or need an emergency automation fix?**  \n> [**\ud83d\udea8 Astreinte d'Urgence 1h \u2014 $99 (19000 DA) | Hire me on Fiverr**](https://www.fiverr.com/s/BRB54Qk)\n\n\n## Incident Metadata\n- **Platform / Ecosystem**: `Make.com`\n- **Incident Severity**: `MEDIUM`\n- **Resolution Status**: `VERIFIED & RESOLVED`\n- **Logged Timestamp**: `2026-11-13T08:01:13.237987`\n- **Diagnosis Engine**: Autonomous Production Incident Radar\n\n---\n\n## Technical Post-Mortem & Resolution Guide\n\nThe 100-second `ECONNABORTED` and subsequent 504 Cloudflare timeout happen because Make's module inspector dynamically queries Google Sheets (`values:batchGet`) to introspect your columns and populate dropdowns like **Order by**.\n\nIf Google Sheets takes longer than 100s to calculate or parse the grid, Make's backend drops the connection, triggering the 504 in the builder UI.\n\nSince this was working previously and suddenly started timing out, here is what typically causes it and how to fix it:\n\n### 1. Delete \"Ghost\" Rows and Columns\nSpreadsheets often accumulate tens of thousands of blank, formatted rows or columns over time (especially from imports or copy-pastes). Google's API attempts to scan and evaluate the entire bounded grid.\n1. Open the spreadsheet in Google Sheets.\n2. Go to the last row containing actual data. Click the row number below it, press `Ctrl + Shift + Down` (or `Cmd + Shift + Down` on Mac) to select all trailing empty rows, right-click, and select **Delete rows**.\n3. Do the same for trailing empty columns: click the first unused column letter, press `Ctrl + Shift + Right`, right-click, and select **Delete columns**.\n\n### 2. Check for Heavy/Volatile Formulas\nIf this specific tab runs `IMPORTRANGE`, `QUERY`, `FILTER`, or volatile functions like `TODAY()` or `NOW()`, Google re-evaluates the entire calculation chain when Make requests the batch values. If possible:\n- Move heavy calculation logic or dynamic reporting views to a separate tab.\n- Keep the tab Make reads/writes as plain raw data.\n\n### 3. Bypass the Dropdown via the \"Map\" Toggle\nIf the sheet is inherently large and you cannot reduce its size:\n- Toggle the **Map** switch (the small slider icon next to **Order by**).\n- Instead of letting Make fetch the column names automatically, manually enter or map the column letter/name you want to sort by, or leave it blank if ordering is not mandatory at the search level.\n- Ensure your **Column range** is tightly bounded (e.g., `A1:K1` instead of scanning wide unneeded ranges).\n\nOnce you clean up the blank rows/columns, reload the Make tab and re-open the module\u2014the metadata call should resolve in under a second.\n\n---\n\n## Incident Prevention & Operational Takeaways\n1. **Audit Upstream Authentication**: Validate OAuth2 token refresh loops and ensure service credentials cannot be orphaned.\n2. **Implement Schema Boundary Validation**: Guard downstream webhooks against unexpected payload truncations.\n3. **Automate Error Interception**: Configure fallback nodes and alerting monitors before critical production executions.\n\n---\n\n\n> \u26a1 **Encountering this exact production bug or need an emergency automation fix?**  \n> [**\ud83d\udea8 Astreinte d'Urgence 1h \u2014 $99 (19000 DA) | Hire me on Fiverr**](https://www.fiverr.com/s/BRB54Qk)\n\n\n[\u2190 Back to Live Case Studies Index](../)\n";
+    // Strip YAML frontmatter
+    const mdWithoutYaml = rawMarkdown.replace(/^---[\s\S]*?---\s*/, '');
+    document.getElementById('content').innerHTML = marked.parse(mdWithoutYaml);
+  </script>
+</body>
+</html>

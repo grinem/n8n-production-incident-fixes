@@ -27,17 +27,15 @@ slug: "platform-secret-managers-aws-provider-should-accept-iam-role-auth"
 
 ## Technical Post-Mortem & Resolution Guide
 
-You hit the nail on the head. In enterprise deployments on AWS (especially EKS with IRSA or ECS Fargate/EC2 instance roles), requiring static long-lived IAM keys breaks standard security and compliance policies.
+Completely agree. In EKS (IRSA) or ECS/EC2 environments, enforcing static IAM keys conflicts directly with least-privilege security policies.
 
-The limitation stems from two points in the codebase:
-1. `packages/core/shared/src/lib/ee/secret-managers/dto.ts`: `AWSProviderConfigSchema` defines both `accessKeyId` and `secretAccessKey` as mandatory strings.
-2. `packages/server/api/src/app/ee/secret-managers/secret-manager-providers/aws-provider.ts`: `getSecretsManagerClient()` unconditionally passes `credentials: { accessKeyId, secretAccessKey }` to `SecretsManagerClient`, which directly overrides and disables the AWS SDK v3 Default Credential Provider Chain (`AWS_ROLE_ARN` / `AWS_WEB_IDENTITY_TOKEN_FILE` for IRSA, and IMDSv2 for EC2/ECS).
+The issue stems from two spots in the codebase:
+1. `packages/core/shared/src/lib/ee/secret-managers/dto.ts`: `AWSProviderConfigSchema` treats `accessKeyId` and `secretAccessKey` as required.
+2. `packages/server/api/src/app/ee/secret-managers/secret-manager-providers/aws-provider.ts`: `getSecretsManagerClient()` explicitly injects `credentials: { accessKeyId, secretAccessKey }`, which bypasses the AWS SDK v3 Default Credential Provider Chain.
 
-Here is the exact code patch that resolves this across the schema and client while ensuring full backward compatibility:
+Making these keys optional in the schema and omitting `credentials` when empty allows the SDK to automatically resolve ambient credentials via `AWS_ROLE_ARN` / `AWS_WEB_IDENTITY_TOKEN_FILE` or IMDSv2 while staying backward-compatible:
 
-### Mini-Patch Code Snippet ready to copy / PR
-
-**1. In `packages/core/shared/src/lib/ee/secret-managers/dto.ts`:**
+**1. `packages/core/shared/src/lib/ee/secret-managers/dto.ts`**
 ```typescript
 import { Static, Type } from 'Client Case Study (User)/typebox';
 
@@ -50,7 +48,7 @@ export const AWSProviderConfigSchema = Type.Object({
 export type AWSProviderConfig = Static<typeof AWSProviderConfigSchema>;
 ```
 
-**2. In `packages/server/api/src/app/ee/secret-managers/secret-manager-providers/aws-provider.ts`:**
+**2. `packages/server/api/src/app/ee/secret-managers/secret-manager-providers/aws-provider.ts`**
 ```typescript
 import { SecretsManagerClient } from 'Client Case Study (User)/client-secrets-manager';
 import { AWSProviderConfig } from 'Client Case Study (User)/shared';
@@ -62,28 +60,18 @@ export const getSecretsManagerClient = (config: AWSProviderConfig): SecretsManag
 
     return new SecretsManagerClient({
         region: config.region,
-        ...(hasStaticCredentials
-            ? {
-                  credentials: {
-                      accessKeyId: config.accessKeyId!.trim(),
-                      secretAccessKey: config.secretAccessKey!.trim(),
-                  },
-              }
-            : {}),
+        ...(hasStaticCredentials && {
+            credentials: {
+                accessKeyId: config.accessKeyId!.trim(),
+                secretAccessKey: config.secretAccessKey!.trim(),
+            },
+        }),
     });
 };
 ```
 
-**3. In `packages/core/shared/src/lib/ee/secret-managers/index.ts`:**
-Set `required: false` on `accessKeyId` and `secretAccessKey`, and add a description such as: *"Leave empty to authenticate using the ambient IAM role (IRSA / ECS task role / EC2 instance profile)"*.
-
-With this adjustment:
-- If keys are provided, it maintains backward compatibility with static IAM keys.
-- If left blank, omitting `credentials` allows `Client Case Study (User)/client-secrets-manager` to automatically resolve via the runtime container environment without any custom auth plumbing.
-
-If you'd like, I can also share the complete JSON blueprint / flow template with you for free—just let me know and I'll send it over.
-
-Let me know if you run into any permission boundary or session token issues when testing this against your EKS cluster!
+**3. `packages/core/shared/src/lib/ee/secret-managers/index.ts`**
+Set `required: false` on `accessKeyId` and `secretAccessKey`, with a UI hint indicating they can be left blank to rely on the ambient IAM role (IRSA / ECS task role / EC2 instance profile).
 
 ---
 

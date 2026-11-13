@@ -27,17 +27,15 @@ slug: "errorreporter-logs-every-error-at-error-level-when-sentry-is-not"
 
 ## Technical Post-Mortem & Resolution Guide
 
-You have accurately pinpointed the exact discrepancy in `packages/core/src/errors/error-reporter.ts`.
+This is reproducible in `packages/core/src/errors/error-reporter.ts`.
 
-### The Root Cause
-When Sentry is active, Sentry's `beforeSend` hook filters out or appropriately segments `info` and `warning` scopes. However, in standalone/self-hosted environments where Sentry is disabled, execution falls back directly to `ErrorReporter.defaultReport()`.
+### Root Cause
+When Sentry is enabled, `beforeSend` handles log level filtering (`info`, `warning`, `error`). However, when Sentry is not configured, execution falls back entirely to `ErrorReporter.defaultReport()`.
 
-Currently, `defaultReport` unconditionally delegates both the root error and each nested entry in the `cause` chain directly to `this.logger.error()`, completely disregarding `options?.level` and the intrinsic `error.level` defined by n8n error classes (`UserError` -> `info`, `NodeOperationError`/`NodeApiError` -> `warning`, `UnexpectedError` -> `error`). This causes standard 4xx HTTP responses and user scripting exceptions to pollute log collectors and trip false alarms in systems like Datadog, Grafana Loki, or CloudWatch.
+Currently, `defaultReport` routes all errors and their cause chain directly to `this.logger.error()`, ignoring both `options?.level` and the error class levels (e.g. `UserError` -> `info`, `NodeOperationError`/`NodeApiError` -> `warning`). This floods log collectors (Grafana Loki, Datadog, CloudWatch) with false `error` alerts on standard 4xx API calls and user-handled branch errors.
 
-### Recommended PR Solution
-Your proposed direction is the cleanest and most upstream-friendly architecture. In `packages/core/src/errors/error-reporter.ts`, resolve the log level dynamically using the same precedence model as the Sentry pipeline before dispatching to the logger.
-
-Here is the mini-patch snippet demonstrating how to resolve the log level dynamically in `defaultReport`:
+### Implementation Fix
+To align `defaultReport` with the Sentry pipeline, log level resolution should inspect `options.level` and the intrinsic `error.level` before dispatching to the logger:
 
 ```typescript
 // packages/core/src/errors/error-reporter.ts
@@ -80,11 +78,11 @@ defaultReport(error: unknown, options?: ReportErrorOptions): void {
 }
 ```
 
-### Temporary Workaround (Log Ingestion Pipeline)
-If you cannot run a custom container build while waiting for upstream PR merge, you can add a parser rule at your log collector level (e.g., Vector / Promtail / FluentBit). For instance, in Vector VRL:
+### Temporary Mitigation (Log Ingestion Layer)
+Until this is merged upstream, if you run a log shipper like Vector, Promtail, or Fluent Bit, you can remap these records at ingestion:
 
 ```vrl
-# Rewrite false error levels emitted by n8n Code/HTTP nodes
+# Example Vector (VRL) remapping
 if .level == "error" && exists(.metadata.function) && .metadata.function == "defaultReport" {
   if match(.message, r'Cannot read properties|TypeError|404 -|Request failed with status code 4') {
     .level = "warn"
@@ -92,11 +90,7 @@ if .level == "error" && exists(.metadata.function) && .metadata.function == "def
 }
 ```
 
-Opening a PR with this fix and accompanying tests in `error-reporter.test.ts` will certainly be welcomed by the community and maintainers, as alert fatigue on self-hosted enterprise setups is a widespread friction point.
-
-If you'd like, I can also share the complete JSON blueprint / flow template with you for free—just let me know and I'll send it over.
-
-Feel free to post your branch diff or test case results if you run into any edge cases with nested circular causes!
+Submitting a PR with corresponding test cases in `error-reporter.test.ts` to assert that `logger.warn` and `logger[.]info` are called when appropriate would be the fastest path to getting this into an upcoming release.
 
 ---
 
