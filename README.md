@@ -1,7 +1,7 @@
 # 🛠️ n8n & Low-Code Production Incident Fixes (Live Knowledge Base)
 
 [![GitHub Pages](https://img.shields.io/badge/GitHub%20Pages-Live%20Showcase-brightgreen?style=flat-square&logo=github)](https://grinem.github.io/n8n-production-incident-fixes/)
-[![Incidents Resolved](https://img.shields.io/badge/Incidents%20Resolved-43%20Verified-blue?style=flat-square)](cases/)
+[![Incidents Resolved](https://img.shields.io/badge/Incidents%20Resolved-44%20Verified-blue?style=flat-square)](cases/)
 [![SLA](https://img.shields.io/badge/Emergency%20SLA-1%20Hour-orange?style=flat-square)](https://www.fiverr.com/s/BRB54Qk)
 [![Fiverr Service](https://img.shields.io/badge/Fiverr%20Gig-Hire%20Engineer-success?style=flat-square&logo=fiverr)](https://www.fiverr.com/s/BRB54Qk)
 
@@ -38,10 +38,11 @@ All incident post-mortems in this repository are autonomously generated and sync
 
 ---
 
-## 📚 Documented Production Incidents (43)
+## 📚 Documented Production Incidents (44)
 
 | Ecosystem | Incident Case Study | Root Cause Snapshot | Severity | Solution Link |
 |:----------|:--------------------|:--------------------|:--------:|:-------------:|
+| **n8n** | [Execution data incorrectly redacted for Owner and Members in Community Edition (v2.46.6)](cases/execution-data-incorrectly-redacted-for-owner-and-members-in-comm.md) | Two key things stand out here: | 🟡 `MEDIUM` | [**Solution**](cases/execution-data-incorrectly-redacted-for-owner-and-members-in-comm.md) |
 | **n8n** | [Sort Node Incorrectly Sorts Numbers in Descending Order](cases/sort-node-incorrectly-sorts-numbers-in-descending-order.md) | Could you share a quick 3-item raw JSON snippet of the input data right before the Sort node? | 🟡 `MEDIUM` | [**Solution**](cases/sort-node-incorrectly-sorts-numbers-in-descending-order.md) |
 | **n8n** | [N8N102 – 422 on /finalize – progress stuck](cases/n8n102-422-on-finalize-progress-stuck.md) | Check your filter condition. You have a node named `FilterDelivered`, but the N8N-102 priority queue requires filtering by enterprise customers (e.g. `customer.tier === 'enterpr... | 🔴 `CRITICAL` | [**Solution**](cases/n8n102-422-on-finalize-progress-stuck.md) |
 | **n8n** | [N8n Cloud WhatsApp Trigger reports existing webhook subscription despite empty Meta App subscriptions](cases/n8n-cloud-whatsapp-trigger-reports-existing-webhook-subscription.md) | This usually happens because the Graph API Explorer queries with a User Token rather than your **App Access Token** (`APP_ID|APP_SECRET`), which returns `{ "data": [] }` even if... | 🟠 `HIGH` | [**Solution**](cases/n8n-cloud-whatsapp-trigger-reports-existing-webhook-subscription.md) |
