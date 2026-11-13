@@ -13,7 +13,7 @@ slug: "mistral-ai-node-returning-text-heavily-fragmented-with-excessive"
 
 
 > ⚡ **Encountering this exact production bug or need an emergency automation fix?**  
-> [**🚨 Astreinte d'Urgence 1h — $99 | Hire me on Fiverr**](https://www.fiverr.com/s/BRB54Qk)
+> [**🚨 1-Hour Emergency On-Call — $99 | Hire me on Fiverr**](https://www.fiverr.com/s/BRB54Qk)
 
 
 > ✅ **Confirmed Production Resolution (Timestamp: `2026-11-12T22:05:40.045293+01:00`)**  
@@ -115,7 +115,7 @@ Let me know if pinning the model identifier resolves the issue or if you'd like 
 
 
 > ⚡ **Encountering this exact production bug or need an emergency automation fix?**  
-> [**🚨 Astreinte d'Urgence 1h — $99 | Hire me on Fiverr**](https://www.fiverr.com/s/BRB54Qk)
+> [**🚨 1-Hour Emergency On-Call — $99 | Hire me on Fiverr**](https://www.fiverr.com/s/BRB54Qk)
 
 
 [← Back to Live Case Studies Index](../)

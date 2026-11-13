@@ -13,7 +13,7 @@ slug: "ai-automation-delivery-lead-make-com-builds-with-tested-ai-steps"
 
 
 > ⚡ **Encountering this exact production bug or need an emergency automation fix?**  
-> [**🚨 Astreinte d'Urgence 1h — $99 | Hire me on Fiverr**](https://www.fiverr.com/s/BRB54Qk)
+> [**🚨 1-Hour Emergency On-Call — $99 | Hire me on Fiverr**](https://www.fiverr.com/s/BRB54Qk)
 
 
 ## Incident Metadata
@@ -126,7 +126,7 @@ Solid enterprise-grade blueprint! Structuring a 27-scenario architecture with de
 
 
 > ⚡ **Encountering this exact production bug or need an emergency automation fix?**  
-> [**🚨 Astreinte d'Urgence 1h — $99 | Hire me on Fiverr**](https://www.fiverr.com/s/BRB54Qk)
+> [**🚨 1-Hour Emergency On-Call — $99 | Hire me on Fiverr**](https://www.fiverr.com/s/BRB54Qk)
 
 
 [← Back to Live Case Studies Index](../)
