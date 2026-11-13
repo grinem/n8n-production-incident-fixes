@@ -13,9 +13,9 @@ title: "Production Incident Fixes & Post-Mortem Knowledge Base"
 
 
 ### 📊 Real-Time Operations Telemetry
-- **Total Production Incidents Documented**: `38`
+- **Total Production Incidents Documented**: `39`
 - **Active Incident Resolvers**: Automated Production Radar + Lead SRE Engineer
-- **Breakdown by Platform**: **n8n**: 16 | **Make.com**: 13 | **Bubble.io**: 4 | **Activepieces**: 3 | **Meta / Webhooks**: 1 | **Baserow**: 1
+- **Breakdown by Platform**: **n8n**: 17 | **Make.com**: 13 | **Bubble.io**: 4 | **Activepieces**: 3 | **Meta / Webhooks**: 1 | **Baserow**: 1
 - **Average Diagnosis & Root-Cause Pinpoint**: `< 15 Minutes`
 
 ---
@@ -24,6 +24,7 @@ title: "Production Incident Fixes & Post-Mortem Knowledge Base"
 
 | Ecosystem | Incident Summary | Root Cause Snapshot | Severity | Resolution Guide |
 |:----------|:-----------------|:--------------------|:--------:|:----------------:|
+| **n8n** | [HTTP Request with "Never Error" keeps returning 401 when a credential with an expiring token (preAuthentication) needs a refresh](cases/http-request-with-never-error-keeps-returning-401-when-a-credenti.html) | Spot on diagnosis. The discrepancy between `requestOAuth2` (which explicitly handles resolved 401s under `simple: false`) and `requestWithAuthentication` (which strictly encapsu... | 🟠 `HIGH` | [**View Solution →**](cases/http-request-with-never-error-keeps-returning-401-when-a-credenti.html) |
 | **Make.com** | [Google Sheets Search Rows: 504 Gateway Timeout when loading the "Order by" field](cases/google-sheets-search-rows-504-gateway-timeout-when-loading-the-or.html) | The 100-second `ECONNABORTED` and subsequent 504 Cloudflare timeout happen because Make's module inspector dynamically queries Google Sheets (`values:batchGet`) to introspect yo... | 🟡 `MEDIUM` | [**View Solution →**](cases/google-sheets-search-rows-504-gateway-timeout-when-loading-the-or.html) |
 | **Make.com** | [Bitbucket OAuth connection fails with SC424 after successful authorization](cases/bitbucket-oauth-connection-fails-with-sc424-after-successful-auth.html) | The `SC424` error ("The request failed due to failure of a previous request") paired with `"Token is invalid, expired, or not supported for this endpoint"` means the initial OAu... | 🔴 `CRITICAL` | [**View Solution →**](cases/bitbucket-oauth-connection-fails-with-sc424-after-successful-auth.html) |
 | **n8n** | [Form Trigger execution succeeds but editor remains stuck on "Waiting for you to submit the form"](cases/form-trigger-execution-succeeds-but-editor-remains-stuck-on-waiti.html) | Building on Client Case Study (User)'s `/rest/push` check, on **Docker + Windows 11** this stuck *"Waiting for you to submit the form"* state almost always comes from one of two... | 🟠 `HIGH` | [**View Solution →**](cases/form-trigger-execution-succeeds-but-editor-remains-stuck-on-waiti.html) |
