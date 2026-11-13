@@ -13,9 +13,9 @@ title: "Production Incident Fixes & Post-Mortem Knowledge Base"
 
 
 ### 📊 Real-Time Operations Telemetry
-- **Total Production Incidents Documented**: `35`
+- **Total Production Incidents Documented**: `36`
 - **Active Incident Resolvers**: Automated Production Radar + Lead SRE Engineer
-- **Breakdown by Platform**: **n8n**: 15 | **Make.com**: 11 | **Bubble.io**: 4 | **Activepieces**: 3 | **Meta / Webhooks**: 1 | **Baserow**: 1
+- **Breakdown by Platform**: **n8n**: 16 | **Make.com**: 11 | **Bubble.io**: 4 | **Activepieces**: 3 | **Meta / Webhooks**: 1 | **Baserow**: 1
 - **Average Diagnosis & Root-Cause Pinpoint**: `< 15 Minutes`
 
 ---
@@ -24,6 +24,7 @@ title: "Production Incident Fixes & Post-Mortem Knowledge Base"
 
 | Ecosystem | Incident Summary | Root Cause Snapshot | Severity | Resolution Guide |
 |:----------|:-----------------|:--------------------|:--------:|:----------------:|
+| **n8n** | [Form Trigger execution succeeds but editor remains stuck on "Waiting for you to submit the form"](cases/form-trigger-execution-succeeds-but-editor-remains-stuck-on-waiti.html) | The reason your workflow executes in the background while the UI stays stuck on *"Waiting for you to submit the form"* is a breakdown in the real-time push event channel between... | 🔴 `CRITICAL` | [**View Solution →**](cases/form-trigger-execution-succeeds-but-editor-remains-stuck-on-waiti.html) |
 | **Activepieces** | [Appsumo issue](cases/appsumo-issue.html) | This behavior typically stems from an asynchronous provisioning mismatch between the AppSumo redemption webhook and the Activepieces Cloud subscription table. | 🟠 `HIGH` | [**View Solution →**](cases/appsumo-issue.html) |
 | **Activepieces** | [ConnectUC application connector - Error loading domains](cases/connectuc-application-connector-error-loading-domains.html) | This issue occurs because Activepieces dispatches an asynchronous worker query to `/api/v1/pieces/options` whenever a piece property relies on dynamic dropdown values. | 🔴 `CRITICAL` | [**View Solution →**](cases/connectuc-application-connector-error-loading-domains.html) |
 | **n8n** | [Mistral AI node returning text heavily fragmented with excessive line breaks (\n) after update](cases/mistral-ai-node-returning-text-heavily-fragmented-with-excessive.html) | 1. **Model Identifier Mismatch:** The validation warning `mistral-large-latest is not supported!` occurs because the internal enum schema in the newer n8n Mistral node versions ... | 🟡 `MEDIUM` | [**View Solution →**](cases/mistral-ai-node-returning-text-heavily-fragmented-with-excessive.html) |
