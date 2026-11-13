@@ -16,10 +16,15 @@ slug: "qdrant-vector-store-search-filter-leaks-across-nodes-and-is-lost"
 > [**🚨 1-Hour Emergency On-Call — $99 | Hire me on Fiverr**](https://www.fiverr.com/s/BRB54Qk)
 
 
+> ✅ **Confirmed Production Resolution (Timestamp: `2026-11-13T16:00:42.101961+01:00`)**  
+> **Author (`Bensonluo`) verified on [the live thread](https://github.com/n8n-io/n8n/issues/43730)**:  
+> *"Fixed on master — #43761 (cherry-picked from n8n-private#993) now keeps `defaultFilter` on the `ExtendedQdrantVectorStore` instance, guards the factory with an `instanceof` check, and merges the per-call filter with the instance filter in `similaritySearch`, with tests covering per-instance filter isolation. Closing as completed."*
+
+
 ## Incident Metadata
 - **Platform / Ecosystem**: `n8n`
 - **Incident Severity**: `MEDIUM`
-- **Resolution Status**: `VERIFIED & RESOLVED`
+- **Resolution Status**: `CONFIRMED BY AUTHOR IN PRODUCTION`
 - **Logged Timestamp**: `2026-11-12T17:20:46.742344`
 - **Diagnosis Engine**: Autonomous Production Incident Radar
 
