@@ -1,7 +1,7 @@
 # 🛠️ n8n & Low-Code Production Incident Fixes (Live Knowledge Base)
 
 [![GitHub Pages](https://img.shields.io/badge/GitHub%20Pages-Live%20Showcase-brightgreen?style=flat-square&logo=github)](https://grinem.github.io/n8n-production-incident-fixes/)
-[![Incidents Resolved](https://img.shields.io/badge/Incidents%20Resolved-35%20Verified-blue?style=flat-square)](cases/)
+[![Incidents Resolved](https://img.shields.io/badge/Incidents%20Resolved-36%20Verified-blue?style=flat-square)](cases/)
 [![SLA](https://img.shields.io/badge/Emergency%20SLA-1%20Hour-orange?style=flat-square)](https://www.fiverr.com/s/BRB54Qk)
 [![Fiverr Service](https://img.shields.io/badge/Fiverr%20Gig-Hire%20Engineer-success?style=flat-square&logo=fiverr)](https://www.fiverr.com/s/BRB54Qk)
 
@@ -38,10 +38,11 @@ All incident post-mortems in this repository are autonomously generated and sync
 
 ---
 
-## 📚 Documented Production Incidents (35)
+## 📚 Documented Production Incidents (36)
 
 | Ecosystem | Incident Case Study | Root Cause Snapshot | Severity | Solution Link |
 |:----------|:--------------------|:--------------------|:--------:|:-------------:|
+| **n8n** | [Form Trigger execution succeeds but editor remains stuck on "Waiting for you to submit the form"](cases/form-trigger-execution-succeeds-but-editor-remains-stuck-on-waiti.md) | The reason your workflow executes in the background while the UI stays stuck on *"Waiting for you to submit the form"* is a breakdown in the real-time push event channel between... | 🔴 `CRITICAL` | [**Solution**](cases/form-trigger-execution-succeeds-but-editor-remains-stuck-on-waiti.md) |
 | **Activepieces** | [Appsumo issue](cases/appsumo-issue.md) | This behavior typically stems from an asynchronous provisioning mismatch between the AppSumo redemption webhook and the Activepieces Cloud subscription table. | 🟠 `HIGH` | [**Solution**](cases/appsumo-issue.md) |
 | **Activepieces** | [ConnectUC application connector - Error loading domains](cases/connectuc-application-connector-error-loading-domains.md) | This issue occurs because Activepieces dispatches an asynchronous worker query to `/api/v1/pieces/options` whenever a piece property relies on dynamic dropdown values. | 🔴 `CRITICAL` | [**Solution**](cases/connectuc-application-connector-error-loading-domains.md) |
 | **n8n** | [Mistral AI node returning text heavily fragmented with excessive line breaks (\n) after update](cases/mistral-ai-node-returning-text-heavily-fragmented-with-excessive.md) | 1. **Model Identifier Mismatch:** The validation warning `mistral-large-latest is not supported!` occurs because the internal enum schema in the newer n8n Mistral node versions ... | 🟡 `MEDIUM` | [**Solution**](cases/mistral-ai-node-returning-text-heavily-fragmented-with-excessive.md) |

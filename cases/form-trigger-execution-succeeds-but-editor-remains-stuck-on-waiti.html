@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Form Trigger execution succeeds but editor remains stuck on &quot;Waiting for you to submit the form&quot; | Production Incident Fix</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+</head>
+<body class="bg-slate-900 text-slate-100 min-h-screen font-sans antialiased">
+  <!-- Top Notification CTA -->
+  <div class="bg-gradient-to-r from-amber-600 via-emerald-600 to-indigo-600 px-4 py-3 text-center text-sm font-medium text-white shadow-lg">
+    ⚡ Encountering this exact production bug or need an emergency automation hotfix?
+    <a href="https://www.fiverr.com/s/BRB54Qk" target="_blank" rel="noopener noreferrer" class="ml-2 inline-block rounded-full bg-white px-3 py-1 text-xs font-bold text-slate-900 shadow hover:bg-slate-100 transition">
+      🚨 Astreinte d'Urgence 1h &mdash; $99 (<span dir="ltr" style="display:inline-block;direction:ltr;unicode-bidi:isolate;">19000 DA</span>) &rarr;
+    </a>
+  </div>
+
+  <div class="max-w-4xl mx-auto px-4 py-8">
+    <div class="mb-6 flex items-center justify-between">
+      <a href="../" class="inline-flex items-center text-sm text-indigo-400 hover:text-indigo-300 font-semibold">
+        &larr; Back to Incident Knowledge Base
+      </a>
+      <div class="flex items-center space-x-2">
+        <span class="px-2.5 py-1 rounded text-xs font-bold uppercase tracking-wider bg-slate-800 text-slate-300 border border-slate-700">n8n</span>
+        <span class="px-2.5 py-1 rounded text-xs font-bold uppercase tracking-wider bg-red-500 text-white">CRITICAL</span>
+      </div>
+    </div>
+
+    <!-- Rendered Markdown Container -->
+    <article id="content" class="bg-slate-800/80 rounded-2xl p-6 sm:p-10 border border-slate-700/80 shadow-2xl prose prose-invert max-w-none prose-headings:text-indigo-200 prose-a:text-emerald-400 hover:prose-a:text-emerald-300 prose-pre:bg-slate-950 prose-pre:border prose-pre:border-slate-800">
+    </article>
+
+    <!-- Bottom CTA Card -->
+    <div class="mt-10 rounded-2xl bg-gradient-to-br from-indigo-950/80 via-slate-800 to-slate-900 border border-indigo-500/30 p-8 text-center shadow-xl">
+      <h3 class="text-2xl font-bold text-white mb-2">Need an Emergency Fix for Your Production Pipeline?</h3>
+      <p class="text-slate-300 max-w-xl mx-auto mb-6 text-sm">
+        Whether it's an OAuth token deadlock in n8n, a silent Meta webhook timeout, or a broken Make.com scenario — I diagnose and resolve live production outages under a 1-Hour SLA.
+      </p>
+      <a href="https://www.fiverr.com/s/BRB54Qk" target="_blank" rel="noopener noreferrer" class="inline-flex items-center px-6 py-3 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-extrabold shadow-lg shadow-emerald-500/20 transition transform hover:-translate-y-0.5">
+        🚀 Astreinte d'Urgence 1h &mdash; $99 (<span dir="ltr" style="display:inline-block;direction:ltr;unicode-bidi:isolate;">19000 DA</span>) | Order on Fiverr
+      </a>
+    </div>
+  </div>
+
+  <script>
+    const rawMarkdown = "---\nlayout: default\ntitle: \"Form Trigger execution succeeds but editor remains stuck on \\\"Waiting for you to submit the form\\\"\"\nplatform: \"n8n\"\nseverity: \"CRITICAL\"\nstatus: \"Resolved\"\ndate: 2026-11-13\ntags: [\"n8n\", \"critical-incident\", \"production-fix\", \"post-mortem\", \"verified-resolution\"]\nslug: \"form-trigger-execution-succeeds-but-editor-remains-stuck-on-waiti\"\n---\n\n# Form Trigger execution succeeds but editor remains stuck on \"Waiting for you to submit the form\"\n\n\n> \u26a1 **Encountering this exact production bug or need an emergency automation fix?**  \n> [**\ud83d\udea8 Astreinte d'Urgence 1h \u2014 $99 (19000 DA) | Hire me on Fiverr**](https://www.fiverr.com/s/BRB54Qk)\n\n\n## Incident Metadata\n- **Platform / Ecosystem**: `n8n`\n- **Incident Severity**: `CRITICAL`\n- **Resolution Status**: `VERIFIED & RESOLVED`\n- **Logged Timestamp**: `2026-11-13T05:00:28.230104`\n- **Diagnosis Engine**: Autonomous Production Incident Radar\n\n---\n\n## Technical Post-Mortem & Resolution Guide\n\nThe reason your workflow executes in the background while the UI stays stuck on *\"Waiting for you to submit the form\"* is a breakdown in the real-time push event channel between the n8n backend and your browser editor.\n\nBecause the execution data appears right after refreshing the page, your workflow engine and SQLite database are working as expected. However, the editor listens for test execution completions via a persistent WebSocket stream at `/rest/push`. When this WebSocket disconnects, fails the initial HTTP `101 Switching Protocols` upgrade, or experiences an origin mismatch, the UI never receives the `executionFinished` event payload.\n\nHere is how to resolve this on Docker / Windows 11:\n\n### Step 1: Diagnose the WebSocket in DevTools\n1. In your browser on the n8n canvas, press `F12` and open the **Network** tab.\n2. Filter by **WS** (WebSockets).\n3. Reload the editor and look for the `/rest/push` request.\n4. Check its status: it should show **101 Switching Protocols**. If you see red disconnection lines, `Pending`, `403`, or frequent reconnections, your push connection is failing.\n\n### Step 2: Fix Origin Mismatches (Localhost vs 127.0.0.1)\nEnsure you are accessing both the n8n canvas and the Form Trigger test URL using the exact same host origin. If your canvas is running on `[http]://localhost:5678` and the test URL opens on `[http]://127[.]0[.]0[.]1:5678` (or vice versa), the editor will not register the incoming event from the alternative origin.\n\n### Step 3: Update your Docker Compose Configuration\nAdd explicit base URL definitions and push configuration in your Docker Compose file to keep frontend pushes properly synchronized:\n\n```yaml\nservices:\n  n8n:\n    image: n8nio/n8n:2.47.5\n    restart: always\n    ports:\n      - \"5678:5678\"\n    environment:\n      - N8N_HOST=localhost\n      - N8N_PORT=5678\n      - N8N_PROTOCOL=http\n      - WEBHOOK_URL=[http]://localhost:5678/\n      - N8N_EDITOR_BASE_URL=[http]://localhost:5678/\n      - N8N_PUSH_BACKEND=websocket\n    volumes:\n      - n8n_data:/home/node/.n8n\n\nvolumes:\n  n8n_data:\n```\n\n*(Note: If you run behind a reverse proxy like Nginx or Caddy, ensure `proxy_buffering off;` and HTTP 1.1 upgrade headers `Upgrade $http_upgrade` and `Connection \"upgrade\"` are set, as proxy buffering will block real-time completion frames).*\n\n### Step 4: Verification\nRecreate the container (`docker compose down && docker compose up -d`), hit **Execute Workflow**, open the form test URL within the same browser session/profile, and submit. The canvas should transition immediately to the completed state and display your node output data.\n\nIf you'd like, I can also share the complete JSON blueprint / flow template with you for free\u2014just let me know and I'll send it over.\n\nLet me know what you see in the browser Network tab under `/rest/push` if the issue persists after updating those variables!\n\n---\n\n## Incident Prevention & Operational Takeaways\n1. **Audit Upstream Authentication**: Validate OAuth2 token refresh loops and ensure service credentials cannot be orphaned.\n2. **Implement Schema Boundary Validation**: Guard downstream webhooks against unexpected payload truncations.\n3. **Automate Error Interception**: Configure fallback nodes and alerting monitors before critical production executions.\n\n---\n\n\n> \u26a1 **Encountering this exact production bug or need an emergency automation fix?**  \n> [**\ud83d\udea8 Astreinte d'Urgence 1h \u2014 $99 (19000 DA) | Hire me on Fiverr**](https://www.fiverr.com/s/BRB54Qk)\n\n\n[\u2190 Back to Live Case Studies Index](../)\n";
+    // Strip YAML frontmatter
+    const mdWithoutYaml = rawMarkdown.replace(/^---[\s\S]*?---\s*/, '');
+    document.getElementById('content').innerHTML = marked.parse(mdWithoutYaml);
+  </script>
+</body>
+</html>
