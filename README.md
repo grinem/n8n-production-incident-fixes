@@ -1,7 +1,7 @@
 # 🛠️ n8n & Low-Code Production Incident Fixes (Live Knowledge Base)
 
 [![GitHub Pages](https://img.shields.io/badge/GitHub%20Pages-Live%20Showcase-brightgreen?style=flat-square&logo=github)](https://grinem.github.io/n8n-production-incident-fixes/)
-[![Incidents Resolved](https://img.shields.io/badge/Incidents%20Resolved-38%20Verified-blue?style=flat-square)](cases/)
+[![Incidents Resolved](https://img.shields.io/badge/Incidents%20Resolved-39%20Verified-blue?style=flat-square)](cases/)
 [![SLA](https://img.shields.io/badge/Emergency%20SLA-1%20Hour-orange?style=flat-square)](https://www.fiverr.com/s/BRB54Qk)
 [![Fiverr Service](https://img.shields.io/badge/Fiverr%20Gig-Hire%20Engineer-success?style=flat-square&logo=fiverr)](https://www.fiverr.com/s/BRB54Qk)
 
@@ -38,10 +38,11 @@ All incident post-mortems in this repository are autonomously generated and sync
 
 ---
 
-## 📚 Documented Production Incidents (38)
+## 📚 Documented Production Incidents (39)
 
 | Ecosystem | Incident Case Study | Root Cause Snapshot | Severity | Solution Link |
 |:----------|:--------------------|:--------------------|:--------:|:-------------:|
+| **n8n** | [HTTP Request with "Never Error" keeps returning 401 when a credential with an expiring token (preAuthentication) needs a refresh](cases/http-request-with-never-error-keeps-returning-401-when-a-credenti.md) | Spot on diagnosis. The discrepancy between `requestOAuth2` (which explicitly handles resolved 401s under `simple: false`) and `requestWithAuthentication` (which strictly encapsu... | 🟠 `HIGH` | [**Solution**](cases/http-request-with-never-error-keeps-returning-401-when-a-credenti.md) |
 | **Make.com** | [Google Sheets Search Rows: 504 Gateway Timeout when loading the "Order by" field](cases/google-sheets-search-rows-504-gateway-timeout-when-loading-the-or.md) | The 100-second `ECONNABORTED` and subsequent 504 Cloudflare timeout happen because Make's module inspector dynamically queries Google Sheets (`values:batchGet`) to introspect yo... | 🟡 `MEDIUM` | [**Solution**](cases/google-sheets-search-rows-504-gateway-timeout-when-loading-the-or.md) |
 | **Make.com** | [Bitbucket OAuth connection fails with SC424 after successful authorization](cases/bitbucket-oauth-connection-fails-with-sc424-after-successful-auth.md) | The `SC424` error ("The request failed due to failure of a previous request") paired with `"Token is invalid, expired, or not supported for this endpoint"` means the initial OAu... | 🔴 `CRITICAL` | [**Solution**](cases/bitbucket-oauth-connection-fails-with-sc424-after-successful-auth.md) |
 | **n8n** | [Form Trigger execution succeeds but editor remains stuck on "Waiting for you to submit the form"](cases/form-trigger-execution-succeeds-but-editor-remains-stuck-on-waiti.md) | Building on Client Case Study (User)'s `/rest/push` check, on **Docker + Windows 11** this stuck *"Waiting for you to submit the form"* state almost always comes from one of two... | 🟠 `HIGH` | [**Solution**](cases/form-trigger-execution-succeeds-but-editor-remains-stuck-on-waiti.md) |
