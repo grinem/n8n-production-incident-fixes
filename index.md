@@ -13,9 +13,9 @@ title: "Production Incident Fixes & Post-Mortem Knowledge Base"
 
 
 ### 📊 Real-Time Operations Telemetry
-- **Total Production Incidents Documented**: `40`
+- **Total Production Incidents Documented**: `43`
 - **Active Incident Resolvers**: Automated Production Radar + Lead SRE Engineer
-- **Breakdown by Platform**: **n8n**: 17 | **Make.com**: 14 | **Bubble.io**: 4 | **Activepieces**: 3 | **Meta / Webhooks**: 1 | **Baserow**: 1
+- **Breakdown by Platform**: **n8n**: 20 | **Make.com**: 14 | **Bubble.io**: 4 | **Activepieces**: 3 | **Meta / Webhooks**: 1 | **Baserow**: 1
 - **Average Diagnosis & Root-Cause Pinpoint**: `< 15 Minutes`
 
 ---
@@ -24,6 +24,9 @@ title: "Production Incident Fixes & Post-Mortem Knowledge Base"
 
 | Ecosystem | Incident Summary | Root Cause Snapshot | Severity | Resolution Guide |
 |:----------|:-----------------|:--------------------|:--------:|:----------------:|
+| **n8n** | [Sort Node Incorrectly Sorts Numbers in Descending Order](cases/sort-node-incorrectly-sorts-numbers-in-descending-order.html) | Could you share a quick 3-item raw JSON snippet of the input data right before the Sort node? | 🟡 `MEDIUM` | [**View Solution →**](cases/sort-node-incorrectly-sorts-numbers-in-descending-order.html) |
+| **n8n** | [N8N102 – 422 on /finalize – progress stuck](cases/n8n102-422-on-finalize-progress-stuck.html) | Check your filter condition. You have a node named `FilterDelivered`, but the N8N-102 priority queue requires filtering by enterprise customers (e.g. `customer.tier === 'enterpr... | 🔴 `CRITICAL` | [**View Solution →**](cases/n8n102-422-on-finalize-progress-stuck.html) |
+| **n8n** | [N8n Cloud WhatsApp Trigger reports existing webhook subscription despite empty Meta App subscriptions](cases/n8n-cloud-whatsapp-trigger-reports-existing-webhook-subscription.html) | This usually happens because the Graph API Explorer queries with a User Token rather than your **App Access Token** (`APP_ID|APP_SECRET`), which returns `{ "data": [] }` even if... | 🟠 `HIGH` | [**View Solution →**](cases/n8n-cloud-whatsapp-trigger-reports-existing-webhook-subscription.html) |
 | **Make.com** | [Filter is not working as expected](cases/filter-is-not-working-as-expected.html) | Google Forms usually returns question values as text strings rather than numbers, which makes numeric operators (`<=`) fail silently at the filter. Wrap your rating tag in `pars... | 🟡 `MEDIUM` | [**View Solution →**](cases/filter-is-not-working-as-expected.html) |
 | **n8n** | [HTTP Request with "Never Error" keeps returning 401 when a credential with an expiring token (preAuthentication) needs a refresh](cases/http-request-with-never-error-keeps-returning-401-when-a-credenti.html) | Spot on diagnosis. The discrepancy between `requestOAuth2` (which explicitly handles resolved 401s under `simple: false`) and `requestWithAuthentication` (which strictly encapsu... | 🟠 `HIGH` | [**View Solution →**](cases/http-request-with-never-error-keeps-returning-401-when-a-credenti.html) |
 | **Make.com** | [Google Sheets Search Rows: 504 Gateway Timeout when loading the "Order by" field](cases/google-sheets-search-rows-504-gateway-timeout-when-loading-the-or.html) | The 100-second `ECONNABORTED` and subsequent 504 Cloudflare timeout happen because Make's module inspector dynamically queries Google Sheets (`values:batchGet`) to introspect yo... | 🟡 `MEDIUM` | [**View Solution →**](cases/google-sheets-search-rows-504-gateway-timeout-when-loading-the-or.html) |
