@@ -13,9 +13,9 @@ title: "Production Incident Fixes & Post-Mortem Knowledge Base"
 
 
 ### 📊 Real-Time Operations Telemetry
-- **Total Production Incidents Documented**: `45`
+- **Total Production Incidents Documented**: `46`
 - **Active Incident Resolvers**: Automated Production Radar + Lead SRE Engineer
-- **Breakdown by Platform**: **n8n**: 22 | **Make.com**: 14 | **Bubble.io**: 4 | **Activepieces**: 3 | **Meta / Webhooks**: 1 | **Baserow**: 1
+- **Breakdown by Platform**: **n8n**: 22 | **Make.com**: 14 | **Bubble.io**: 4 | **Activepieces**: 3 | **Automation Engine**: 1 | **Meta / Webhooks**: 1 | **Baserow**: 1
 - **Average Diagnosis & Root-Cause Pinpoint**: `< 15 Minutes`
 
 ---
@@ -24,6 +24,7 @@ title: "Production Incident Fixes & Post-Mortem Knowledge Base"
 
 | Ecosystem | Incident Summary | Root Cause Snapshot | Severity | Resolution Guide |
 |:----------|:-----------------|:--------------------|:--------:|:----------------:|
+| **Automation Engine** | [[Bug] Human Input node timeout can leave workflow paused when resume publication fails](cases/human-input-node-timeout-can-leave-workflow-paused-when-resume-pu.html) | Spot on catch. It's a classic dual-write race where the DB commits the form as `TIMEOUT` before the Celery dispatch succeeds, leaving the parent `workflow_runs` stuck in `PAUSED... | 🔴 `CRITICAL` | [**View Solution →**](cases/human-input-node-timeout-can-leave-workflow-paused-when-resume-pu.html) |
 | **n8n** | [Switching source control branches persists the new branch before validating it exists on the remote](cases/switching-source-control-branches-persists-the-new-branch-before.html) | Great catch on the missing rollback. Re-explaining your own diagnosis isn't needed—reordering checkout before persistence is definitely the right fix here. | 🟠 `HIGH` | [**View Solution →**](cases/switching-source-control-branches-persists-the-new-branch-before.html) |
 | **n8n** | [Execution data incorrectly redacted for Owner and Members in Community Edition (v2.46.6)](cases/execution-data-incorrectly-redacted-for-owner-and-members-in-comm.html) | Two key things stand out here: | 🟡 `MEDIUM` | [**View Solution →**](cases/execution-data-incorrectly-redacted-for-owner-and-members-in-comm.html) |
 | **n8n** | [Sort Node Incorrectly Sorts Numbers in Descending Order](cases/sort-node-incorrectly-sorts-numbers-in-descending-order.html) | Could you share a quick 3-item raw JSON snippet of the input data right before the Sort node? | 🟡 `MEDIUM` | [**View Solution →**](cases/sort-node-incorrectly-sorts-numbers-in-descending-order.html) |
