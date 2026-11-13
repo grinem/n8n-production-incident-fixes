@@ -16,10 +16,19 @@ slug: "http-request-with-never-error-keeps-returning-401-when-a-credenti"
 > [**🚨 1-Hour Emergency On-Call — $99 | Hire me on Fiverr**](https://www.fiverr.com/s/BRB54Qk)
 
 
+> ✅ **Confirmed Production Resolution (Timestamp: `2026-11-13T15:40:19.423089+01:00`)**  
+> **Author (`CSchulz`) verified on [the live thread](https://github.com/n8n-io/n8n/issues/43839)**:  
+> *"@grinem Thanks for the review. The PR is open: #43834
+
+It follows the `requestOAuth2` pattern. A resolved 401 with `simple: false` now refreshes the credential and resends the request once. The retry runs outside the existing try/catch, so a failed refresh does not start a second refresh.
+
+`httpRequestWithAuthentication` with `ignoreHttpStatusErrors` has the same gap. The PR does not change it. I can do that in a follow-up PR."*
+
+
 ## Incident Metadata
 - **Platform / Ecosystem**: `n8n`
 - **Incident Severity**: `HIGH`
-- **Resolution Status**: `VERIFIED & RESOLVED`
+- **Resolution Status**: `CONFIRMED BY AUTHOR IN PRODUCTION`
 - **Logged Timestamp**: `2026-11-13T13:00:29.766811`
 - **Diagnosis Engine**: Autonomous Production Incident Radar
 
