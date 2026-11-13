@@ -1,0 +1,56 @@
+# Production Incident Fixes — Automation & AI Workflow SRE (grinem)
+
+> Live production post-mortems, root-cause diagnostics, and verified fixes for n8n, Dify, Flowise, Activepieces, Windmill, Trigger.dev, Make, and Webhook/Docker infrastructures.
+
+## Services & Emergency Support
+- Portfolio Hub: https://n8n-production-incident-fixes.pages.dev/
+- GitHub Profile: https://github.com/grinem
+- Book 1-Hour Emergency Production Fix ($99): https://www.fiverr.com/s/BRB54Qk
+
+## Documented Production Incidents (46)
+- [Automation Engine] [Bug] Human Input node timeout can leave workflow paused when resume publication fails: https://n8n-production-incident-fixes.pages.dev/cases/human-input-node-timeout-can-leave-workflow-paused-when-resume-pu.html
+- [n8n] Switching source control branches persists the new branch before validating it exists on the remote: https://n8n-production-incident-fixes.pages.dev/cases/switching-source-control-branches-persists-the-new-branch-before.html
+- [n8n] Execution data incorrectly redacted for Owner and Members in Community Edition (v2.46.6): https://n8n-production-incident-fixes.pages.dev/cases/execution-data-incorrectly-redacted-for-owner-and-members-in-comm.html
+- [n8n] Sort Node Incorrectly Sorts Numbers in Descending Order: https://n8n-production-incident-fixes.pages.dev/cases/sort-node-incorrectly-sorts-numbers-in-descending-order.html
+- [n8n] N8N102 – 422 on /finalize – progress stuck: https://n8n-production-incident-fixes.pages.dev/cases/n8n102-422-on-finalize-progress-stuck.html
+- [n8n] N8n Cloud WhatsApp Trigger reports existing webhook subscription despite empty Meta App subscriptions: https://n8n-production-incident-fixes.pages.dev/cases/n8n-cloud-whatsapp-trigger-reports-existing-webhook-subscription.html
+- [Make.com] Filter is not working as expected: https://n8n-production-incident-fixes.pages.dev/cases/filter-is-not-working-as-expected.html
+- [n8n] HTTP Request with "Never Error" keeps returning 401 when a credential with an expiring token (preAuthentication) needs a refresh: https://n8n-production-incident-fixes.pages.dev/cases/http-request-with-never-error-keeps-returning-401-when-a-credenti.html
+- [Make.com] Google Sheets Search Rows: 504 Gateway Timeout when loading the "Order by" field: https://n8n-production-incident-fixes.pages.dev/cases/google-sheets-search-rows-504-gateway-timeout-when-loading-the-or.html
+- [Make.com] Bitbucket OAuth connection fails with SC424 after successful authorization: https://n8n-production-incident-fixes.pages.dev/cases/bitbucket-oauth-connection-fails-with-sc424-after-successful-auth.html
+- [n8n] Form Trigger execution succeeds but editor remains stuck on "Waiting for you to submit the form": https://n8n-production-incident-fixes.pages.dev/cases/form-trigger-execution-succeeds-but-editor-remains-stuck-on-waiti.html
+- [Activepieces] Appsumo issue: https://n8n-production-incident-fixes.pages.dev/cases/appsumo-issue.html
+- [Activepieces] ConnectUC application connector - Error loading domains: https://n8n-production-incident-fixes.pages.dev/cases/connectuc-application-connector-error-loading-domains.html
+- [n8n] Mistral AI node returning text heavily fragmented with excessive line breaks (\n) after update: https://n8n-production-incident-fixes.pages.dev/cases/mistral-ai-node-returning-text-heavily-fragmented-with-excessive.html
+- [n8n] Qdrant Vector Store: search filter leaks across nodes and is lost after the first retrieve-as-tool call: https://n8n-production-incident-fixes.pages.dev/cases/qdrant-vector-store-search-filter-leaks-across-nodes-and-is-lost.html
+- [Make.com] How can I test native Data Store failures and a lost Telegram response in Make?: https://n8n-production-incident-fixes.pages.dev/cases/how-can-i-test-native-data-store-failures-and-a-lost-telegram-res.html
+- [Make.com] How to upload an image file to a Shopify order (write_files scope missing in the Make connection)?: https://n8n-production-incident-fixes.pages.dev/cases/how-to-upload-an-image-file-to-a-shopify-order-write-files-scope.html
+- [n8n] Google Gemini node: Message a Model crashes with "reading 'flatMap'" when Gemini blocks the prompt: https://n8n-production-incident-fixes.pages.dev/cases/google-gemini-node-message-a-model-crashes-with-reading-flatmap-w.html
+- [n8n] Weaviate Vector Store: Clear Data keeps only the last insert batch: https://n8n-production-incident-fixes.pages.dev/cases/weaviate-vector-store-clear-data-keeps-only-the-last-insert-batch.html
+- [n8n] Root `pnpm test` fails because the @n8n/typeorm test script needs ormconfig.json: https://n8n-production-incident-fixes.pages.dev/cases/root-pnpm-test-fails-because-the-n8n-typeorm-test-script-needs-or.html
+- [Activepieces] [Feature]: Platform Secret Managers: AWS provider should accept IAM role auth (default credential chain) instead of only static access keys: https://n8n-production-incident-fixes.pages.dev/cases/platform-secret-managers-aws-provider-should-accept-iam-role-auth.html
+- [n8n] ErrorReporter logs every error at error level when Sentry is not configured: https://n8n-production-incident-fixes.pages.dev/cases/errorreporter-logs-every-error-at-error-level-when-sentry-is-not.html
+- [n8n] Workflow version restore blocked by deleted credential in a disabled, disconnected node: https://n8n-production-incident-fixes.pages.dev/cases/workflow-version-restore-blocked-by-deleted-credential-in-a-disab.html
+- [Bubble.io] Platform unavailable - error code 1794338958142x997066484691378600: https://n8n-production-incident-fixes.pages.dev/cases/platform-unavailable-error-code-1794338958142x997066484691378600.html
+- [n8n] Broken CONTRIBUTING/LICENSE links in package READMEs: https://n8n-production-incident-fixes.pages.dev/cases/broken-contributing-license-links-in-package-readmes.html
+- [Meta / Webhooks] Meta Lead Ads test lead stuck in Pending status: https://n8n-production-incident-fixes.pages.dev/cases/meta-lead-ads-test-lead-stuck-in-pending-status.html
+- [Bubble.io] Error loading non-conflicting changes when merging a branch into main: https://n8n-production-incident-fixes.pages.dev/cases/error-loading-non-conflicting-changes-when-merging-a-branch-into.html
+- [Make.com] WhatsApp Coexistence fails with Meta error #3441038 before QR code: https://n8n-production-incident-fixes.pages.dev/cases/whatsapp-coexistence-fails-with-meta-error-3441038-before-qr-code.html
+- [Make.com] Does restoring a Make scenario preserve its webhook queue?: https://n8n-production-incident-fixes.pages.dev/cases/does-restoring-a-make-scenario-preserve-its-webhook-queue.html
+- [Make.com] Custom app review stuck since 22 Sep after requested changes (CONTACT AI, eu2): https://n8n-production-incident-fixes.pages.dev/cases/custom-app-review-stuck-since-22-sep-after-requested-changes-cont.html
+- [Baserow] Error: integration of e-mail address for automations: https://n8n-production-incident-fixes.pages.dev/cases/error-integration-of-e-mail-address-for-automations.html
+- [Make.com] WhatsApp Business Cloud Watch Events webhook receives no incoming messages: https://n8n-production-incident-fixes.pages.dev/cases/whatsapp-business-cloud-watch-events-webhook-receives-no-incoming.html
+- [Make.com] Does a verified app stay published if the owner downgrades to Free? (ticket form not working): https://n8n-production-incident-fixes.pages.dev/cases/does-a-verified-app-stay-published-if-the-owner-downgrades-to-fre.html
+- [Bubble.io] Spike in server timeouts Nov 9th: https://n8n-production-incident-fixes.pages.dev/cases/spike-in-server-timeouts-nov-9th.html
+- [Bubble.io] Issue with Bubble's Native Geographic Places Search: https://n8n-production-incident-fixes.pages.dev/cases/issue-with-bubble-s-native-geographic-places-search.html
+- [Make.com] Instagram for Business: Facebook Page Not Showing and Webhook Error: https://n8n-production-incident-fixes.pages.dev/cases/instagram-for-business-facebook-page-not-showing-and-webhook-erro.html
+- [n8n] Ok / failed / unknown - what we log so ambiguous failures get found: https://n8n-production-incident-fixes.pages.dev/cases/ok-failed-unknown-what-we-log-so-ambiguous-failures-get-found.html
+- [n8n] Building agents for clients: how did you find out the last time one failed silently?: https://n8n-production-incident-fixes.pages.dev/cases/building-agents-for-clients-how-did-you-find-out-the-last-time-on.html
+- [n8n] Cloud instance stuck on "Your instance is starting" for over 2 hours: https://n8n-production-incident-fixes.pages.dev/cases/cloud-instance-stuck-on-your-instance-is-starting-for-over-2-hour.html
+- [Make.com] Workflow Reliability Reviews, Webhook Testing & Automation Handoffs: https://n8n-production-incident-fixes.pages.dev/cases/workflow-reliability-reviews-webhook-testing-automation-handoffs.html
+- [n8n] 5 things that make client n8n workflows fail at 2am, and the fix for each: https://n8n-production-incident-fixes.pages.dev/cases/5-things-that-make-client-n8n-workflows-fail-at-2am-and-the-fix-f.html
+- [n8n] Duplicate bookings after a tool timeout - what the logs taught us: https://n8n-production-incident-fixes.pages.dev/cases/duplicate-bookings-after-a-tool-timeout-what-the-logs-taught-us.html
+- [n8n] Troubleshooting Telegram API Errors: 'Thumbnail as Animation' & 'No Document in Request' when using n8n HTTP Request: https://n8n-production-incident-fixes.pages.dev/cases/troubleshooting-telegram-api-errors-thumbnail-as-animation-no-doc.html
+- [n8n] Learning n8n: How Do You Handle Workflow Failures?: https://n8n-production-incident-fixes.pages.dev/cases/learning-n8n-how-do-you-handle-workflow-failures.html
+- [Make.com] NAIF Gravity — API, Webhook & JSON Troubleshooting: https://n8n-production-incident-fixes.pages.dev/cases/naif-gravity-api-webhook-json-troubleshooting.html
+- [Make.com] AI Automation Delivery Lead | Make.com builds with tested AI steps and real error handling: https://n8n-production-incident-fixes.pages.dev/cases/ai-automation-delivery-lead-make-com-builds-with-tested-ai-steps.html
