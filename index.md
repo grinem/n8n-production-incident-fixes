@@ -13,9 +13,9 @@ title: "Production Incident Fixes & Post-Mortem Knowledge Base"
 
 
 ### 📊 Real-Time Operations Telemetry
-- **Total Production Incidents Documented**: `49`
+- **Total Production Incidents Documented**: `50`
 - **Active Incident Resolvers**: Automated Production Radar + Lead SRE Engineer
-- **Breakdown by Platform**: **n8n**: 23 | **Make.com**: 14 | **Bubble.io**: 4 | **Activepieces**: 3 | **Automation Engine**: 2 | **Meta / Webhooks**: 2 | **Baserow**: 1
+- **Breakdown by Platform**: **n8n**: 23 | **Make.com**: 15 | **Bubble.io**: 4 | **Activepieces**: 3 | **Automation Engine**: 2 | **Meta / Webhooks**: 2 | **Baserow**: 1
 - **Average Diagnosis & Root-Cause Pinpoint**: `< 15 Minutes`
 
 ---
@@ -24,6 +24,7 @@ title: "Production Incident Fixes & Post-Mortem Knowledge Base"
 
 | Ecosystem | Incident Summary | Root Cause Snapshot | Severity | Resolution Guide |
 |:----------|:-----------------|:--------------------|:--------:|:----------------:|
+| **Make.com** | [Problems with Pinterest connection](cases/problems-with-pinterest-connection.html) | Pinterest's API v5 strictly requires a **Business Account** to create pins. If you authenticated with a personal account, the initial OAuth handshake succeeds in Make, but any p... | 🔴 `CRITICAL` | [**View Solution →**](cases/problems-with-pinterest-connection.html) |
 | **Automation Engine** | [Knowledge retrieval holds a database connection per dataset while it waits on the embedding model and vector store: 100 concurrent requests exhaust the pool, fail, or answer without the knowledge](cases/knowledge-retrieval-holds-a-database-connection-per-dataset-while.html) | Spot on diagnosis. `DatasetRetrieval._retriever` keeps the ambient session open across the external network boundaries (embedding model call + vector store round-trip), locking ... | 🟡 `MEDIUM` | [**View Solution →**](cases/knowledge-retrieval-holds-a-database-connection-per-dataset-while.html) |
 | **Meta / Webhooks** | [[Bug] MetaDefender result code 4 ("Cleaned / Deleted") is retried as a transient failure, so a confirmed-threat upload can be admitted](cases/metadefender-result-code-4-cleaned-deleted-is-retried-as-a-transi.html) | Good catch. Since Dify keeps the original uploaded bytes rather than pulling down the vendor's sanitized payload, mapping `4` directly to `_INFECTED` in `api/core/file_scan/scan... | 🟡 `MEDIUM` | [**View Solution →**](cases/metadefender-result-code-4-cleaned-deleted-is-retried-as-a-transi.html) |
 | **n8n** | [AI Agent merges the trigger item into tool-call arguments; Chat Trigger's `action` reaches MCP tools that have an `action` parameter](cases/ai-agent-merges-the-trigger-item-into-tool-call-arguments-chat-tr.html) | Spot-on analysis. Spreading trigger items at the root of `mergedJson` while only rendering `displayJson` in the canvas makes this silent collision a nightmare to trace. | 🟡 `MEDIUM` | [**View Solution →**](cases/ai-agent-merges-the-trigger-item-into-tool-call-arguments-chat-tr.html) |
