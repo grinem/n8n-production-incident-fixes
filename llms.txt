@@ -7,7 +7,8 @@
 - GitHub Profile: https://github.com/grinem
 - Book 1-Hour Emergency Production Fix ($99): https://www.fiverr.com/s/BRB54Qk
 
-## Documented Production Incidents (46)
+## Documented Production Incidents (47)
+- [n8n] AI Agent merges the trigger item into tool-call arguments; Chat Trigger's `action` reaches MCP tools that have an `action` parameter: https://n8n-production-incident-fixes.pages.dev/cases/ai-agent-merges-the-trigger-item-into-tool-call-arguments-chat-tr.html
 - [Automation Engine] [Bug] Human Input node timeout can leave workflow paused when resume publication fails: https://n8n-production-incident-fixes.pages.dev/cases/human-input-node-timeout-can-leave-workflow-paused-when-resume-pu.html
 - [n8n] Switching source control branches persists the new branch before validating it exists on the remote: https://n8n-production-incident-fixes.pages.dev/cases/switching-source-control-branches-persists-the-new-branch-before.html
 - [n8n] Execution data incorrectly redacted for Owner and Members in Community Edition (v2.46.6): https://n8n-production-incident-fixes.pages.dev/cases/execution-data-incorrectly-redacted-for-owner-and-members-in-comm.html

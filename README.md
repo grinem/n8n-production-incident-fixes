@@ -1,7 +1,7 @@
 # 🛠️ n8n & Low-Code Production Incident Fixes (Live Knowledge Base)
 
 [![GitHub Pages](https://img.shields.io/badge/GitHub%20Pages-Live%20Showcase-brightgreen?style=flat-square&logo=github)](https://grinem.github.io/n8n-production-incident-fixes/)
-[![Incidents Resolved](https://img.shields.io/badge/Incidents%20Resolved-46%20Verified-blue?style=flat-square)](cases/)
+[![Incidents Resolved](https://img.shields.io/badge/Incidents%20Resolved-47%20Verified-blue?style=flat-square)](cases/)
 [![SLA](https://img.shields.io/badge/Emergency%20SLA-1%20Hour-orange?style=flat-square)](https://www.fiverr.com/s/BRB54Qk)
 [![Fiverr Service](https://img.shields.io/badge/Fiverr%20Gig-Hire%20Engineer-success?style=flat-square&logo=fiverr)](https://www.fiverr.com/s/BRB54Qk)
 
@@ -38,10 +38,11 @@ All incident post-mortems in this repository are autonomously generated and sync
 
 ---
 
-## 📚 Documented Production Incidents (46)
+## 📚 Documented Production Incidents (47)
 
 | Ecosystem | Incident Case Study | Root Cause Snapshot | Severity | Solution Link |
 |:----------|:--------------------|:--------------------|:--------:|:-------------:|
+| **n8n** | [AI Agent merges the trigger item into tool-call arguments; Chat Trigger's `action` reaches MCP tools that have an `action` parameter](cases/ai-agent-merges-the-trigger-item-into-tool-call-arguments-chat-tr.md) | Spot-on analysis. Spreading trigger items at the root of `mergedJson` while only rendering `displayJson` in the canvas makes this silent collision a nightmare to trace. | 🟡 `MEDIUM` | [**Solution**](cases/ai-agent-merges-the-trigger-item-into-tool-call-arguments-chat-tr.md) |
 | **Automation Engine** | [[Bug] Human Input node timeout can leave workflow paused when resume publication fails](cases/human-input-node-timeout-can-leave-workflow-paused-when-resume-pu.md) | Spot on catch. It's a classic dual-write race where the DB commits the form as `TIMEOUT` before the Celery dispatch succeeds, leaving the parent `workflow_runs` stuck in `PAUSED... | 🔴 `CRITICAL` | [**Solution**](cases/human-input-node-timeout-can-leave-workflow-paused-when-resume-pu.md) |
 | **n8n** | [Switching source control branches persists the new branch before validating it exists on the remote](cases/switching-source-control-branches-persists-the-new-branch-before.md) | Great catch on the missing rollback. Re-explaining your own diagnosis isn't needed—reordering checkout before persistence is definitely the right fix here. | 🟠 `HIGH` | [**Solution**](cases/switching-source-control-branches-persists-the-new-branch-before.md) |
 | **n8n** | [Execution data incorrectly redacted for Owner and Members in Community Edition (v2.46.6)](cases/execution-data-incorrectly-redacted-for-owner-and-members-in-comm.md) | Two key things stand out here: | 🟡 `MEDIUM` | [**Solution**](cases/execution-data-incorrectly-redacted-for-owner-and-members-in-comm.md) |
