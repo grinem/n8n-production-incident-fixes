@@ -16,10 +16,21 @@ slug: "form-trigger-execution-succeeds-but-editor-remains-stuck-on-waiti"
 > [**🚨 1-Hour Emergency On-Call — $99 | Hire me on Fiverr**](https://www.fiverr.com/s/BRB54Qk)
 
 
+> ✅ **Confirmed Production Resolution (Timestamp: `2026-11-14T19:40:19.442109+01:00`)**  
+> **Author (`tolani-co`) verified on [the live thread](https://github.com/n8n-io/n8n/issues/43759)**:  
+> *"@grinem  I followed your suggestion to switch the push backend to SSE by setting `N8N_PUSH_BACKEND=sse`, and it worked!
+
+After recreating the Docker container with the updated environment variable, the workflow executions started appearing in the editor in real time. The Form Trigger no longer gets stuck on "Waiting for you to submit the form".
+
+I tested it with both a basic Form Trigger workflow and another workflow that includes an email node. Both executed successfully, and their executions were visible in the editor.
+
+Thank you for the suggestion. It finally resolved the issue!"*
+
+
 ## Incident Metadata
 - **Platform / Ecosystem**: `n8n`
 - **Incident Severity**: `HIGH`
-- **Resolution Status**: `VERIFIED & RESOLVED`
+- **Resolution Status**: `CONFIRMED BY AUTHOR IN PRODUCTION`
 - **Logged Timestamp**: `2026-11-13T05:00:28.230104`
 - **Diagnosis Engine**: Autonomous Production Incident Radar
 
