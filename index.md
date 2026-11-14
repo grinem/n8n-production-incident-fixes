@@ -13,9 +13,9 @@ title: "Production Incident Fixes & Post-Mortem Knowledge Base"
 
 
 ### 📊 Real-Time Operations Telemetry
-- **Total Production Incidents Documented**: `47`
+- **Total Production Incidents Documented**: `48`
 - **Active Incident Resolvers**: Automated Production Radar + Lead SRE Engineer
-- **Breakdown by Platform**: **n8n**: 23 | **Make.com**: 14 | **Bubble.io**: 4 | **Activepieces**: 3 | **Automation Engine**: 1 | **Meta / Webhooks**: 1 | **Baserow**: 1
+- **Breakdown by Platform**: **n8n**: 23 | **Make.com**: 14 | **Bubble.io**: 4 | **Activepieces**: 3 | **Meta / Webhooks**: 2 | **Automation Engine**: 1 | **Baserow**: 1
 - **Average Diagnosis & Root-Cause Pinpoint**: `< 15 Minutes`
 
 ---
@@ -24,6 +24,7 @@ title: "Production Incident Fixes & Post-Mortem Knowledge Base"
 
 | Ecosystem | Incident Summary | Root Cause Snapshot | Severity | Resolution Guide |
 |:----------|:-----------------|:--------------------|:--------:|:----------------:|
+| **Meta / Webhooks** | [[Bug] MetaDefender result code 4 ("Cleaned / Deleted") is retried as a transient failure, so a confirmed-threat upload can be admitted](cases/metadefender-result-code-4-cleaned-deleted-is-retried-as-a-transi.html) | Good catch. Since Dify keeps the original uploaded bytes rather than pulling down the vendor's sanitized payload, mapping `4` directly to `_INFECTED` in `api/core/file_scan/scan... | 🟡 `MEDIUM` | [**View Solution →**](cases/metadefender-result-code-4-cleaned-deleted-is-retried-as-a-transi.html) |
 | **n8n** | [AI Agent merges the trigger item into tool-call arguments; Chat Trigger's `action` reaches MCP tools that have an `action` parameter](cases/ai-agent-merges-the-trigger-item-into-tool-call-arguments-chat-tr.html) | Spot-on analysis. Spreading trigger items at the root of `mergedJson` while only rendering `displayJson` in the canvas makes this silent collision a nightmare to trace. | 🟡 `MEDIUM` | [**View Solution →**](cases/ai-agent-merges-the-trigger-item-into-tool-call-arguments-chat-tr.html) |
 | **Automation Engine** | [[Bug] Human Input node timeout can leave workflow paused when resume publication fails](cases/human-input-node-timeout-can-leave-workflow-paused-when-resume-pu.html) | Spot on catch. It's a classic dual-write race where the DB commits the form as `TIMEOUT` before the Celery dispatch succeeds, leaving the parent `workflow_runs` stuck in `PAUSED... | 🔴 `CRITICAL` | [**View Solution →**](cases/human-input-node-timeout-can-leave-workflow-paused-when-resume-pu.html) |
 | **n8n** | [Switching source control branches persists the new branch before validating it exists on the remote](cases/switching-source-control-branches-persists-the-new-branch-before.html) | Great catch on the missing rollback. Re-explaining your own diagnosis isn't needed—reordering checkout before persistence is definitely the right fix here. | 🟠 `HIGH` | [**View Solution →**](cases/switching-source-control-branches-persists-the-new-branch-before.html) |
