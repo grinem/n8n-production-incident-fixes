@@ -13,9 +13,9 @@ title: "Production Incident Fixes & Post-Mortem Knowledge Base"
 
 
 ### 📊 Real-Time Operations Telemetry
-- **Total Production Incidents Documented**: `52`
+- **Total Production Incidents Documented**: `53`
 - **Active Incident Resolvers**: Automated Production Radar + Lead SRE Engineer
-- **Breakdown by Platform**: **n8n**: 24 | **Make.com**: 15 | **Bubble.io**: 4 | **Automation Engine**: 3 | **Activepieces**: 3 | **Meta / Webhooks**: 2 | **Baserow**: 1
+- **Breakdown by Platform**: **n8n**: 24 | **Make.com**: 15 | **Automation Engine**: 4 | **Bubble.io**: 4 | **Activepieces**: 3 | **Meta / Webhooks**: 2 | **Baserow**: 1
 - **Average Diagnosis & Root-Cause Pinpoint**: `< 15 Minutes`
 
 ---
@@ -24,6 +24,7 @@ title: "Production Incident Fixes & Post-Mortem Knowledge Base"
 
 | Ecosystem | Incident Summary | Root Cause Snapshot | Severity | Resolution Guide |
 |:----------|:-----------------|:--------------------|:--------:|:----------------:|
+| **Automation Engine** | [Streaming a chat answer costs API CPU in proportion to the conversation length for every chunk](cases/streaming-a-chat-answer-costs-api-cpu-in-proportion-to-the-conver.html) | Spot-on analysis. The $O(N \times M)$ overhead comes down to `AppQueueManager.publish` running `self._check_for_sqlalchemy_models(event.model_dump())` on every emitted `QueueLLM... | 🟡 `MEDIUM` | [**View Solution →**](cases/streaming-a-chat-answer-costs-api-cpu-in-proportion-to-the-conver.html) |
 | **n8n** | [Agent JSON configuration drops observational memory window settings](cases/agent-json-configuration-drops-observational-memory-window-settin.html) | Client Case Study (User) Good breakdown. Confirmed that Zod strips `windowShares` because it's missing from `ObservationalMemoryConfigSchema`, plus the CLI loader doesn't forwar... | 🟡 `MEDIUM` | [**View Solution →**](cases/agent-json-configuration-drops-observational-memory-window-settin.html) |
 | **Automation Engine** | [Knowledge base retrieval API keeps the request's DB connection during retrieval: at 100 concurrent requests the pool is exhausted and most requests fail](cases/knowledge-base-retrieval-api-keeps-the-request-s-db-connection-du.html) | Great catch. Holding a session across slow network I/O (embedding generation + vector DB search) will exhaust `QueuePool` under any serious concurrency, especially if worker thr... | 🟡 `MEDIUM` | [**View Solution →**](cases/knowledge-base-retrieval-api-keeps-the-request-s-db-connection-du.html) |
 | **Make.com** | [Problems with Pinterest connection](cases/problems-with-pinterest-connection.html) | Pinterest's API v5 strictly requires a **Business Account** to create pins. If you authenticated with a personal account, the initial OAuth handshake succeeds in Make, but any p... | 🔴 `CRITICAL` | [**View Solution →**](cases/problems-with-pinterest-connection.html) |
