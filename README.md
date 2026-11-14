@@ -1,7 +1,7 @@
 # 🛠️ n8n & Low-Code Production Incident Fixes (Live Knowledge Base)
 
 [![GitHub Pages](https://img.shields.io/badge/GitHub%20Pages-Live%20Showcase-brightgreen?style=flat-square&logo=github)](https://grinem.github.io/n8n-production-incident-fixes/)
-[![Incidents Resolved](https://img.shields.io/badge/Incidents%20Resolved-48%20Verified-blue?style=flat-square)](cases/)
+[![Incidents Resolved](https://img.shields.io/badge/Incidents%20Resolved-49%20Verified-blue?style=flat-square)](cases/)
 [![SLA](https://img.shields.io/badge/Emergency%20SLA-1%20Hour-orange?style=flat-square)](https://www.fiverr.com/s/BRB54Qk)
 [![Fiverr Service](https://img.shields.io/badge/Fiverr%20Gig-Hire%20Engineer-success?style=flat-square&logo=fiverr)](https://www.fiverr.com/s/BRB54Qk)
 
@@ -38,10 +38,11 @@ All incident post-mortems in this repository are autonomously generated and sync
 
 ---
 
-## 📚 Documented Production Incidents (48)
+## 📚 Documented Production Incidents (49)
 
 | Ecosystem | Incident Case Study | Root Cause Snapshot | Severity | Solution Link |
 |:----------|:--------------------|:--------------------|:--------:|:-------------:|
+| **Automation Engine** | [Knowledge retrieval holds a database connection per dataset while it waits on the embedding model and vector store: 100 concurrent requests exhaust the pool, fail, or answer without the knowledge](cases/knowledge-retrieval-holds-a-database-connection-per-dataset-while.md) | Spot on diagnosis. `DatasetRetrieval._retriever` keeps the ambient session open across the external network boundaries (embedding model call + vector store round-trip), locking ... | 🟡 `MEDIUM` | [**Solution**](cases/knowledge-retrieval-holds-a-database-connection-per-dataset-while.md) |
 | **Meta / Webhooks** | [[Bug] MetaDefender result code 4 ("Cleaned / Deleted") is retried as a transient failure, so a confirmed-threat upload can be admitted](cases/metadefender-result-code-4-cleaned-deleted-is-retried-as-a-transi.md) | Good catch. Since Dify keeps the original uploaded bytes rather than pulling down the vendor's sanitized payload, mapping `4` directly to `_INFECTED` in `api/core/file_scan/scan... | 🟡 `MEDIUM` | [**Solution**](cases/metadefender-result-code-4-cleaned-deleted-is-retried-as-a-transi.md) |
 | **n8n** | [AI Agent merges the trigger item into tool-call arguments; Chat Trigger's `action` reaches MCP tools that have an `action` parameter](cases/ai-agent-merges-the-trigger-item-into-tool-call-arguments-chat-tr.md) | Spot-on analysis. Spreading trigger items at the root of `mergedJson` while only rendering `displayJson` in the canvas makes this silent collision a nightmare to trace. | 🟡 `MEDIUM` | [**Solution**](cases/ai-agent-merges-the-trigger-item-into-tool-call-arguments-chat-tr.md) |
 | **Automation Engine** | [[Bug] Human Input node timeout can leave workflow paused when resume publication fails](cases/human-input-node-timeout-can-leave-workflow-paused-when-resume-pu.md) | Spot on catch. It's a classic dual-write race where the DB commits the form as `TIMEOUT` before the Celery dispatch succeeds, leaving the parent `workflow_runs` stuck in `PAUSED... | 🔴 `CRITICAL` | [**Solution**](cases/human-input-node-timeout-can-leave-workflow-paused-when-resume-pu.md) |

@@ -7,7 +7,8 @@
 - GitHub Profile: https://github.com/grinem
 - Book 1-Hour Emergency Production Fix ($99): https://www.fiverr.com/s/BRB54Qk
 
-## Documented Production Incidents (48)
+## Documented Production Incidents (49)
+- [Automation Engine] Knowledge retrieval holds a database connection per dataset while it waits on the embedding model and vector store: 100 concurrent requests exhaust the pool, fail, or answer without the knowledge: https://n8n-production-incident-fixes.pages.dev/cases/knowledge-retrieval-holds-a-database-connection-per-dataset-while.html
 - [Meta / Webhooks] [Bug] MetaDefender result code 4 ("Cleaned / Deleted") is retried as a transient failure, so a confirmed-threat upload can be admitted: https://n8n-production-incident-fixes.pages.dev/cases/metadefender-result-code-4-cleaned-deleted-is-retried-as-a-transi.html
 - [n8n] AI Agent merges the trigger item into tool-call arguments; Chat Trigger's `action` reaches MCP tools that have an `action` parameter: https://n8n-production-incident-fixes.pages.dev/cases/ai-agent-merges-the-trigger-item-into-tool-call-arguments-chat-tr.html
 - [Automation Engine] [Bug] Human Input node timeout can leave workflow paused when resume publication fails: https://n8n-production-incident-fixes.pages.dev/cases/human-input-node-timeout-can-leave-workflow-paused-when-resume-pu.html

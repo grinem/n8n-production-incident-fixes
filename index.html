@@ -33,7 +33,7 @@
       <!-- Key Metric Counters -->
       <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 max-w-2xl mx-auto">
         <div class="bg-slate-800/80 rounded-xl p-4 border border-slate-700">
-          <div class="text-3xl font-extrabold text-indigo-400">48</div>
+          <div class="text-3xl font-extrabold text-indigo-400">49</div>
           <div class="text-xs text-slate-400 font-medium">Documented Fixes</div>
         </div>
         <div class="bg-slate-800/80 rounded-xl p-4 border border-slate-700">
@@ -54,9 +54,9 @@
     <!-- Filter & Search Controls -->
     <div class="mb-8 flex flex-col md:flex-row items-center justify-between gap-4">
       <div class="flex flex-wrap gap-2 justify-center md:justify-start">
-        <button class="filter-btn px-4 py-2 rounded-xl text-sm font-semibold bg-indigo-600 text-white shadow" data-filter="all">All Incidents (48)</button>
+        <button class="filter-btn px-4 py-2 rounded-xl text-sm font-semibold bg-indigo-600 text-white shadow" data-filter="all">All Incidents (49)</button>
 <button class="filter-btn px-4 py-2 rounded-xl text-sm font-semibold bg-slate-800 text-slate-300 hover:bg-slate-700 border border-slate-700 transition" data-filter="Activepieces">Activepieces (3)</button>
-<button class="filter-btn px-4 py-2 rounded-xl text-sm font-semibold bg-slate-800 text-slate-300 hover:bg-slate-700 border border-slate-700 transition" data-filter="Automation Engine">Automation Engine (1)</button>
+<button class="filter-btn px-4 py-2 rounded-xl text-sm font-semibold bg-slate-800 text-slate-300 hover:bg-slate-700 border border-slate-700 transition" data-filter="Automation Engine">Automation Engine (2)</button>
 <button class="filter-btn px-4 py-2 rounded-xl text-sm font-semibold bg-slate-800 text-slate-300 hover:bg-slate-700 border border-slate-700 transition" data-filter="Baserow">Baserow (1)</button>
 <button class="filter-btn px-4 py-2 rounded-xl text-sm font-semibold bg-slate-800 text-slate-300 hover:bg-slate-700 border border-slate-700 transition" data-filter="Bubble.io">Bubble.io (4)</button>
 <button class="filter-btn px-4 py-2 rounded-xl text-sm font-semibold bg-slate-800 text-slate-300 hover:bg-slate-700 border border-slate-700 transition" data-filter="Make.com">Make.com (14)</button>
@@ -71,6 +71,28 @@
     <!-- Case Studies Cards Grid -->
     <div id="cardsGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
       
+        <div class="incident-card bg-slate-800/90 hover:bg-slate-800 rounded-2xl p-6 border border-slate-700/80 shadow-lg hover:shadow-indigo-500/10 transition-all flex flex-col justify-between" data-eco="Automation Engine">
+          <div>
+            <div class="flex items-center justify-between mb-3">
+              <span class="px-2.5 py-1 rounded text-xs font-bold uppercase tracking-wider bg-slate-900 text-indigo-300 border border-slate-700">Automation Engine</span>
+              <span class="px-2.5 py-1 rounded text-xs font-bold uppercase tracking-wider border bg-blue-500/20 text-blue-300 border-blue-500/40">MEDIUM</span>
+            </div>
+            <h3 class="text-lg font-bold text-white mb-2 leading-snug">
+              <a href="cases/knowledge-retrieval-holds-a-database-connection-per-dataset-while.html" class="hover:text-indigo-400 transition">Knowledge retrieval holds a database connection per dataset while it waits on the embedding model and vector store: 100 concurrent requests exhaust the pool, fail, or answer without the knowledge</a>
+            </h3>
+            <p class="text-slate-400 text-sm mb-4 line-clamp-3">
+              <span class="font-semibold text-slate-300">Root Cause:</span> Spot on diagnosis. `DatasetRetrieval._retriever` keeps the ambient session open across the external network boundaries (embedding model call + vector store round-trip), locking ...
+            </p>
+          </div>
+          <div class="pt-4 border-t border-slate-700/50 flex items-center justify-between text-xs text-slate-400">
+            <span>Logged: 2026-11-14</span>
+            <a href="cases/knowledge-retrieval-holds-a-database-connection-per-dataset-while.html" class="text-emerald-400 hover:text-emerald-300 font-bold flex items-center">
+              View Fix &rarr;
+            </a>
+          </div>
+        </div>
+        
+
         <div class="incident-card bg-slate-800/90 hover:bg-slate-800 rounded-2xl p-6 border border-slate-700/80 shadow-lg hover:shadow-indigo-500/10 transition-all flex flex-col justify-between" data-eco="Meta / Webhooks">
           <div>
             <div class="flex items-center justify-between mb-3">
