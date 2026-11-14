@@ -16,9 +16,9 @@ slug: "execution-data-incorrectly-redacted-for-owner-and-members-in-comm"
 > [**🚨 1-Hour Emergency On-Call — $99 | Hire me on Fiverr**](https://www.fiverr.com/s/BRB54Qk)
 
 
-> ✅ **Confirmed Production Resolution (Timestamp: `2026-11-13T23:40:59.887814+01:00`)**  
+> ✅ **Confirmed Production Resolution (Timestamp: `2026-11-14T01:20:18.738000+01:00`)**  
 > **Author (`LUISDASARTIMANHAS`) verified on [the live thread](https://github.com/n8n-io/n8n/issues/43896)**:  
-> *"This happened after these latest updates, so as an emergency measure I reverted and fixed the previous versions."*
+> *"I recreated the credentials and it seems to have worked, even though I used the same credentials as before and logged in with the other laptop..."*
 
 
 ## Incident Metadata
