@@ -13,9 +13,9 @@ title: "Production Incident Fixes & Post-Mortem Knowledge Base"
 
 
 ### 📊 Real-Time Operations Telemetry
-- **Total Production Incidents Documented**: `50`
+- **Total Production Incidents Documented**: `51`
 - **Active Incident Resolvers**: Automated Production Radar + Lead SRE Engineer
-- **Breakdown by Platform**: **n8n**: 23 | **Make.com**: 15 | **Bubble.io**: 4 | **Activepieces**: 3 | **Automation Engine**: 2 | **Meta / Webhooks**: 2 | **Baserow**: 1
+- **Breakdown by Platform**: **n8n**: 23 | **Make.com**: 15 | **Bubble.io**: 4 | **Automation Engine**: 3 | **Activepieces**: 3 | **Meta / Webhooks**: 2 | **Baserow**: 1
 - **Average Diagnosis & Root-Cause Pinpoint**: `< 15 Minutes`
 
 ---
@@ -24,6 +24,7 @@ title: "Production Incident Fixes & Post-Mortem Knowledge Base"
 
 | Ecosystem | Incident Summary | Root Cause Snapshot | Severity | Resolution Guide |
 |:----------|:-----------------|:--------------------|:--------:|:----------------:|
+| **Automation Engine** | [Knowledge base retrieval API keeps the request's DB connection during retrieval: at 100 concurrent requests the pool is exhausted and most requests fail](cases/knowledge-base-retrieval-api-keeps-the-request-s-db-connection-du.html) | Great catch. Holding a session across slow network I/O (embedding generation + vector DB search) will exhaust `QueuePool` under any serious concurrency, especially if worker thr... | 🟡 `MEDIUM` | [**View Solution →**](cases/knowledge-base-retrieval-api-keeps-the-request-s-db-connection-du.html) |
 | **Make.com** | [Problems with Pinterest connection](cases/problems-with-pinterest-connection.html) | Pinterest's API v5 strictly requires a **Business Account** to create pins. If you authenticated with a personal account, the initial OAuth handshake succeeds in Make, but any p... | 🔴 `CRITICAL` | [**View Solution →**](cases/problems-with-pinterest-connection.html) |
 | **Automation Engine** | [Knowledge retrieval holds a database connection per dataset while it waits on the embedding model and vector store: 100 concurrent requests exhaust the pool, fail, or answer without the knowledge](cases/knowledge-retrieval-holds-a-database-connection-per-dataset-while.html) | Spot on diagnosis. `DatasetRetrieval._retriever` keeps the ambient session open across the external network boundaries (embedding model call + vector store round-trip), locking ... | 🟡 `MEDIUM` | [**View Solution →**](cases/knowledge-retrieval-holds-a-database-connection-per-dataset-while.html) |
 | **Meta / Webhooks** | [[Bug] MetaDefender result code 4 ("Cleaned / Deleted") is retried as a transient failure, so a confirmed-threat upload can be admitted](cases/metadefender-result-code-4-cleaned-deleted-is-retried-as-a-transi.html) | Good catch. Since Dify keeps the original uploaded bytes rather than pulling down the vendor's sanitized payload, mapping `4` directly to `_INFECTED` in `api/core/file_scan/scan... | 🟡 `MEDIUM` | [**View Solution →**](cases/metadefender-result-code-4-cleaned-deleted-is-retried-as-a-transi.html) |
