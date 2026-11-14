@@ -7,7 +7,8 @@
 - GitHub Profile: https://github.com/grinem
 - Book 1-Hour Emergency Production Fix ($99): https://www.fiverr.com/s/BRB54Qk
 
-## Documented Production Incidents (56)
+## Documented Production Incidents (57)
+- [n8n] Self-hosting n8n for free to use the WhatsApp Trigger: https://n8n-production-incident-fixes.pages.dev/cases/self-hosting-n8n-for-free-to-use-the-whatsapp-trigger.html
 - [n8n] HTTP Request pagination fails with ERR_INVALID_ARG_TYPE on HTTP 204 responses: https://n8n-production-incident-fixes.pages.dev/cases/http-request-pagination-fails-with-err-invalid-arg-type-on-http-2.html
 - [Make.com] Help with whatsapp business integration in automation: https://n8n-production-incident-fixes.pages.dev/cases/help-with-whatsapp-business-integration-in-automation.html
 - [n8n] Successful retries are not retained when saving successful executions is disabled: https://n8n-production-incident-fixes.pages.dev/cases/successful-retries-are-not-retained-when-saving-successful-execut.html

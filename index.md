@@ -13,9 +13,9 @@ title: "Production Incident Fixes & Post-Mortem Knowledge Base"
 
 
 ### 📊 Real-Time Operations Telemetry
-- **Total Production Incidents Documented**: `56`
+- **Total Production Incidents Documented**: `57`
 - **Active Incident Resolvers**: Automated Production Radar + Lead SRE Engineer
-- **Breakdown by Platform**: **n8n**: 26 | **Make.com**: 16 | **Automation Engine**: 4 | **Bubble.io**: 4 | **Activepieces**: 3 | **Meta / Webhooks**: 2 | **Baserow**: 1
+- **Breakdown by Platform**: **n8n**: 27 | **Make.com**: 16 | **Automation Engine**: 4 | **Bubble.io**: 4 | **Activepieces**: 3 | **Meta / Webhooks**: 2 | **Baserow**: 1
 - **Average Diagnosis & Root-Cause Pinpoint**: `< 15 Minutes`
 
 ---
@@ -24,6 +24,7 @@ title: "Production Incident Fixes & Post-Mortem Knowledge Base"
 
 | Ecosystem | Incident Summary | Root Cause Snapshot | Severity | Resolution Guide |
 |:----------|:-----------------|:--------------------|:--------:|:----------------:|
+| **n8n** | [Self-hosting n8n for free to use the WhatsApp Trigger](cases/self-hosting-n8n-for-free-to-use-the-whatsapp-trigger.html) | Yes, the Oracle Cloud (OCI) Always Free ARM instance is rock solid for n8n. You get up to 4 Ampere cores and 24 GB RAM with persistent block storage, so you won't run into the m... | 🟡 `MEDIUM` | [**View Solution →**](cases/self-hosting-n8n-for-free-to-use-the-whatsapp-trigger.html) |
 | **n8n** | [HTTP Request pagination fails with ERR_INVALID_ARG_TYPE on HTTP 204 responses](cases/http-request-pagination-fails-with-err-invalid-arg-type-on-http-2.html) | The stack trace points to internal payload normalization inside the node pagination pipeline: n8n attempts to buffer or hash the incoming page data prior to evaluating `isPagina... | 🔴 `CRITICAL` | [**View Solution →**](cases/http-request-pagination-fails-with-err-invalid-arg-type-on-http-2.html) |
 | **Make.com** | [Help with whatsapp business integration in automation](cases/help-with-whatsapp-business-integration-in-automation.html) | Make only bills for the scenario operations executed; it does not bill for WhatsApp messages. All conversation fees are paid directly to Meta, meaning your client must have an a... | 🟡 `MEDIUM` | [**View Solution →**](cases/help-with-whatsapp-business-integration-in-automation.html) |
 | **n8n** | [Successful retries are not retained when saving successful executions is disabled](cases/successful-retries-are-not-retained-when-saving-successful-execut.html) | This is an accurate catch. The issue is that the runner's execution persistence policy evaluates the child retry independently: because `EXECUTIONS_DATA_SAVE_ON_SUCCESS=none`, t... | 🟡 `MEDIUM` | [**View Solution →**](cases/successful-retries-are-not-retained-when-saving-successful-execut.html) |
