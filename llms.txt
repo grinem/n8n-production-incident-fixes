@@ -7,7 +7,8 @@
 - GitHub Profile: https://github.com/grinem
 - Book 1-Hour Emergency Production Fix ($99): https://www.fiverr.com/s/BRB54Qk
 
-## Documented Production Incidents (55)
+## Documented Production Incidents (56)
+- [n8n] HTTP Request pagination fails with ERR_INVALID_ARG_TYPE on HTTP 204 responses: https://n8n-production-incident-fixes.pages.dev/cases/http-request-pagination-fails-with-err-invalid-arg-type-on-http-2.html
 - [Make.com] Help with whatsapp business integration in automation: https://n8n-production-incident-fixes.pages.dev/cases/help-with-whatsapp-business-integration-in-automation.html
 - [n8n] Successful retries are not retained when saving successful executions is disabled: https://n8n-production-incident-fixes.pages.dev/cases/successful-retries-are-not-retained-when-saving-successful-execut.html
 - [Automation Engine] Streaming a chat answer costs API CPU in proportion to the conversation length for every chunk: https://n8n-production-incident-fixes.pages.dev/cases/streaming-a-chat-answer-costs-api-cpu-in-proportion-to-the-conver.html
