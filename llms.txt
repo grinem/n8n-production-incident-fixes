@@ -7,7 +7,8 @@
 - GitHub Profile: https://github.com/grinem
 - Book 1-Hour Emergency Production Fix ($99): https://www.fiverr.com/s/BRB54Qk
 
-## Documented Production Incidents (52)
+## Documented Production Incidents (53)
+- [Automation Engine] Streaming a chat answer costs API CPU in proportion to the conversation length for every chunk: https://n8n-production-incident-fixes.pages.dev/cases/streaming-a-chat-answer-costs-api-cpu-in-proportion-to-the-conver.html
 - [n8n] Agent JSON configuration drops observational memory window settings: https://n8n-production-incident-fixes.pages.dev/cases/agent-json-configuration-drops-observational-memory-window-settin.html
 - [Automation Engine] Knowledge base retrieval API keeps the request's DB connection during retrieval: at 100 concurrent requests the pool is exhausted and most requests fail: https://n8n-production-incident-fixes.pages.dev/cases/knowledge-base-retrieval-api-keeps-the-request-s-db-connection-du.html
 - [Make.com] Problems with Pinterest connection: https://n8n-production-incident-fixes.pages.dev/cases/problems-with-pinterest-connection.html
