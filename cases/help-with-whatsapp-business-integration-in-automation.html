@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Help with whatsapp business integration in automation | Production Incident Fix</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+</head>
+<body class="bg-slate-900 text-slate-100 min-h-screen font-sans antialiased">
+  <!-- Top Notification CTA -->
+  <div class="bg-gradient-to-r from-amber-600 via-emerald-600 to-indigo-600 px-4 py-3 text-center text-sm font-medium text-white shadow-lg">
+    ⚡ Encountering this exact production bug or need an emergency automation hotfix?
+    <a href="https://www.fiverr.com/s/BRB54Qk" target="_blank" rel="noopener noreferrer" class="ml-2 inline-block rounded-full bg-white px-3 py-1 text-xs font-bold text-slate-900 shadow hover:bg-slate-100 transition">
+      🚨 1-Hour Emergency On-Call &mdash; $99 &rarr;
+    </a>
+  </div>
+
+  <div class="max-w-4xl mx-auto px-4 py-8">
+    <div class="mb-6 flex items-center justify-between">
+      <a href="../" class="inline-flex items-center text-sm text-indigo-400 hover:text-indigo-300 font-semibold">
+        &larr; Back to Incident Knowledge Base
+      </a>
+      <div class="flex items-center space-x-2">
+        <span class="px-2.5 py-1 rounded text-xs font-bold uppercase tracking-wider bg-slate-800 text-slate-300 border border-slate-700">Make.com</span>
+        <span class="px-2.5 py-1 rounded text-xs font-bold uppercase tracking-wider bg-blue-500 text-white">MEDIUM</span>
+      </div>
+    </div>
+
+    <!-- Rendered Markdown Container -->
+    <article id="content" class="bg-slate-800/80 rounded-2xl p-6 sm:p-10 border border-slate-700/80 shadow-2xl prose prose-invert max-w-none prose-headings:text-indigo-200 prose-a:text-emerald-400 hover:prose-a:text-emerald-300 prose-pre:bg-slate-950 prose-pre:border prose-pre:border-slate-800">
+    </article>
+
+    <!-- Bottom CTA Card -->
+    <div class="mt-10 rounded-2xl bg-gradient-to-br from-indigo-950/80 via-slate-800 to-slate-900 border border-indigo-500/30 p-8 text-center shadow-xl">
+      <h3 class="text-2xl font-bold text-white mb-2">Need an Emergency Fix for Your Production Pipeline?</h3>
+      <p class="text-slate-300 max-w-xl mx-auto mb-6 text-sm">
+        Whether it's an OAuth token deadlock in n8n, a silent Meta webhook timeout, or a broken Make.com scenario — I diagnose and resolve live production outages under a 1-Hour SLA.
+      </p>
+      <a href="https://www.fiverr.com/s/BRB54Qk" target="_blank" rel="noopener noreferrer" class="inline-flex items-center px-6 py-3 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-extrabold shadow-lg shadow-emerald-500/20 transition transform hover:-translate-y-0.5">
+        🚀 1-Hour Emergency On-Call &mdash; $99 | Order on Fiverr
+      </a>
+    </div>
+  </div>
+
+  <script>
+    const rawMarkdown = "---\nlayout: default\ntitle: \"Help with whatsapp business integration in automation\"\nplatform: \"Make.com\"\nseverity: \"MEDIUM\"\nstatus: \"Resolved\"\ndate: 2026-11-14\ntags: [\"make\", \"production-fix\", \"post-mortem\", \"verified-resolution\"]\nslug: \"help-with-whatsapp-business-integration-in-automation\"\n---\n\n# Help with whatsapp business integration in automation\n\n\n> \u26a1 **Encountering this exact production bug or need an emergency automation fix?**  \n> [**\ud83d\udea8 1-Hour Emergency On-Call \u2014 $99 | Hire me on Fiverr**](https://www.fiverr.com/s/BRB54Qk)\n\n\n## Incident Metadata\n- **Platform / Ecosystem**: `Make.com`\n- **Incident Severity**: `MEDIUM`\n- **Resolution Status**: `VERIFIED & RESOLVED`\n- **Logged Timestamp**: `2026-11-14T13:40:31.986195`\n- **Diagnosis Engine**: Autonomous Production Incident Radar\n\n---\n\n## Technical Post-Mortem & Resolution Guide\n\nMake only bills for the scenario operations executed; it does not bill for WhatsApp messages. All conversation fees are paid directly to Meta, meaning your client must have an active payment method attached inside their own Meta Business Manager.\n\nFor coexistence mode, Meta Cloud API does now support running alongside the WhatsApp Business App. The simplest way to handle client permissions is to screenshare with them while setting up Make's WhatsApp Business Cloud API connection\u2014have them complete the Embedded Signup popup with their own Meta credentials so their WABA, phone number, and payment method remain cleanly under their ownership without sharing raw account logins.\n\n---\n\n## Incident Prevention & Operational Takeaways\n1. **Audit Upstream Authentication**: Validate OAuth2 token refresh loops and ensure service credentials cannot be orphaned.\n2. **Implement Schema Boundary Validation**: Guard downstream webhooks against unexpected payload truncations.\n3. **Automate Error Interception**: Configure fallback nodes and alerting monitors before critical production executions.\n\n---\n\n\n> \u26a1 **Encountering this exact production bug or need an emergency automation fix?**  \n> [**\ud83d\udea8 1-Hour Emergency On-Call \u2014 $99 | Hire me on Fiverr**](https://www.fiverr.com/s/BRB54Qk)\n\n\n[\u2190 Back to Live Case Studies Index](../)\n";
+    // Strip YAML frontmatter
+    const mdWithoutYaml = rawMarkdown.replace(/^---[\s\S]*?---\s*/, '');
+    document.getElementById('content').innerHTML = marked.parse(mdWithoutYaml);
+  </script>
+</body>
+</html>

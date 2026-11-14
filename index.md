@@ -13,9 +13,9 @@ title: "Production Incident Fixes & Post-Mortem Knowledge Base"
 
 
 ### 📊 Real-Time Operations Telemetry
-- **Total Production Incidents Documented**: `54`
+- **Total Production Incidents Documented**: `55`
 - **Active Incident Resolvers**: Automated Production Radar + Lead SRE Engineer
-- **Breakdown by Platform**: **n8n**: 25 | **Make.com**: 15 | **Automation Engine**: 4 | **Bubble.io**: 4 | **Activepieces**: 3 | **Meta / Webhooks**: 2 | **Baserow**: 1
+- **Breakdown by Platform**: **n8n**: 25 | **Make.com**: 16 | **Automation Engine**: 4 | **Bubble.io**: 4 | **Activepieces**: 3 | **Meta / Webhooks**: 2 | **Baserow**: 1
 - **Average Diagnosis & Root-Cause Pinpoint**: `< 15 Minutes`
 
 ---
@@ -24,6 +24,7 @@ title: "Production Incident Fixes & Post-Mortem Knowledge Base"
 
 | Ecosystem | Incident Summary | Root Cause Snapshot | Severity | Resolution Guide |
 |:----------|:-----------------|:--------------------|:--------:|:----------------:|
+| **Make.com** | [Help with whatsapp business integration in automation](cases/help-with-whatsapp-business-integration-in-automation.html) | Make only bills for the scenario operations executed; it does not bill for WhatsApp messages. All conversation fees are paid directly to Meta, meaning your client must have an a... | 🟡 `MEDIUM` | [**View Solution →**](cases/help-with-whatsapp-business-integration-in-automation.html) |
 | **n8n** | [Successful retries are not retained when saving successful executions is disabled](cases/successful-retries-are-not-retained-when-saving-successful-execut.html) | This is an accurate catch. The issue is that the runner's execution persistence policy evaluates the child retry independently: because `EXECUTIONS_DATA_SAVE_ON_SUCCESS=none`, t... | 🟡 `MEDIUM` | [**View Solution →**](cases/successful-retries-are-not-retained-when-saving-successful-execut.html) |
 | **Automation Engine** | [Streaming a chat answer costs API CPU in proportion to the conversation length for every chunk](cases/streaming-a-chat-answer-costs-api-cpu-in-proportion-to-the-conver.html) | Spot-on analysis. The $O(N \times M)$ overhead comes down to `AppQueueManager.publish` running `self._check_for_sqlalchemy_models(event.model_dump())` on every emitted `QueueLLM... | 🟡 `MEDIUM` | [**View Solution →**](cases/streaming-a-chat-answer-costs-api-cpu-in-proportion-to-the-conver.html) |
 | **n8n** | [Agent JSON configuration drops observational memory window settings](cases/agent-json-configuration-drops-observational-memory-window-settin.html) | Client Case Study (User) Good breakdown. Confirmed that Zod strips `windowShares` because it's missing from `ObservationalMemoryConfigSchema`, plus the CLI loader doesn't forwar... | 🟡 `MEDIUM` | [**View Solution →**](cases/agent-json-configuration-drops-observational-memory-window-settin.html) |
