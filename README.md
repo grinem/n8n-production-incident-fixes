@@ -1,7 +1,7 @@
 # 🛠️ n8n & Low-Code Production Incident Fixes (Live Knowledge Base)
 
 [![GitHub Pages](https://img.shields.io/badge/GitHub%20Pages-Live%20Showcase-brightgreen?style=flat-square&logo=github)](https://grinem.github.io/n8n-production-incident-fixes/)
-[![Incidents Resolved](https://img.shields.io/badge/Incidents%20Resolved-55%20Verified-blue?style=flat-square)](cases/)
+[![Incidents Resolved](https://img.shields.io/badge/Incidents%20Resolved-56%20Verified-blue?style=flat-square)](cases/)
 [![SLA](https://img.shields.io/badge/Emergency%20SLA-1%20Hour-orange?style=flat-square)](https://www.fiverr.com/s/BRB54Qk)
 [![Fiverr Service](https://img.shields.io/badge/Fiverr%20Gig-Hire%20Engineer-success?style=flat-square&logo=fiverr)](https://www.fiverr.com/s/BRB54Qk)
 
@@ -38,10 +38,11 @@ All incident post-mortems in this repository are autonomously generated and sync
 
 ---
 
-## 📚 Documented Production Incidents (55)
+## 📚 Documented Production Incidents (56)
 
 | Ecosystem | Incident Case Study | Root Cause Snapshot | Severity | Solution Link |
 |:----------|:--------------------|:--------------------|:--------:|:-------------:|
+| **n8n** | [HTTP Request pagination fails with ERR_INVALID_ARG_TYPE on HTTP 204 responses](cases/http-request-pagination-fails-with-err-invalid-arg-type-on-http-2.md) | The stack trace points to internal payload normalization inside the node pagination pipeline: n8n attempts to buffer or hash the incoming page data prior to evaluating `isPagina... | 🔴 `CRITICAL` | [**Solution**](cases/http-request-pagination-fails-with-err-invalid-arg-type-on-http-2.md) |
 | **Make.com** | [Help with whatsapp business integration in automation](cases/help-with-whatsapp-business-integration-in-automation.md) | Make only bills for the scenario operations executed; it does not bill for WhatsApp messages. All conversation fees are paid directly to Meta, meaning your client must have an a... | 🟡 `MEDIUM` | [**Solution**](cases/help-with-whatsapp-business-integration-in-automation.md) |
 | **n8n** | [Successful retries are not retained when saving successful executions is disabled](cases/successful-retries-are-not-retained-when-saving-successful-execut.md) | This is an accurate catch. The issue is that the runner's execution persistence policy evaluates the child retry independently: because `EXECUTIONS_DATA_SAVE_ON_SUCCESS=none`, t... | 🟡 `MEDIUM` | [**Solution**](cases/successful-retries-are-not-retained-when-saving-successful-execut.md) |
 | **Automation Engine** | [Streaming a chat answer costs API CPU in proportion to the conversation length for every chunk](cases/streaming-a-chat-answer-costs-api-cpu-in-proportion-to-the-conver.md) | Spot-on analysis. The $O(N \times M)$ overhead comes down to `AppQueueManager.publish` running `self._check_for_sqlalchemy_models(event.model_dump())` on every emitted `QueueLLM... | 🟡 `MEDIUM` | [**Solution**](cases/streaming-a-chat-answer-costs-api-cpu-in-proportion-to-the-conver.md) |
