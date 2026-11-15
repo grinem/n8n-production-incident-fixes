@@ -13,9 +13,9 @@ title: "Production Incident Fixes & Post-Mortem Knowledge Base"
 
 
 ### 📊 Real-Time Operations Telemetry
-- **Total Production Incidents Documented**: `60`
+- **Total Production Incidents Documented**: `62`
 - **Active Incident Resolvers**: Automated Production Radar + Lead SRE Engineer
-- **Breakdown by Platform**: **n8n**: 29 | **Make.com**: 16 | **Automation Engine**: 5 | **Bubble.io**: 4 | **Activepieces**: 3 | **Meta / Webhooks**: 2 | **Baserow**: 1
+- **Breakdown by Platform**: **n8n**: 30 | **Make.com**: 16 | **Automation Engine**: 5 | **Bubble.io**: 4 | **Activepieces**: 3 | **Baserow**: 2 | **Meta / Webhooks**: 2
 - **Average Diagnosis & Root-Cause Pinpoint**: `< 15 Minutes`
 
 ---
@@ -24,6 +24,8 @@ title: "Production Incident Fixes & Post-Mortem Knowledge Base"
 
 | Ecosystem | Incident Summary | Root Cause Snapshot | Severity | Resolution Guide |
 |:----------|:-----------------|:--------------------|:--------:|:----------------:|
+| **Baserow** | [Request failed with status code 500](cases/request-failed-with-status-code-500.html) | On Baserow SaaS, a 500 when switching tables or editing rows is usually caused by a broken view filter/sort or a formula referencing a field that changed type. | 🔴 `CRITICAL` | [**View Solution →**](cases/request-failed-with-status-code-500.html) |
+| **n8n** | [Mixing Seedance 2.5 and Kling 4.0 in one n8n batch: where do you validate each row before it costs money?](cases/mixing-seedance-2-5-and-kling-4-0-in-one-n8n-batch-where-do-you-v.html) | Option 1 is the cleanest approach, but don't hardcode the specs inside an n8n Code node. Store your model contract in a second tab in that same Sheet (e.g. `_models` with `model... | 🟡 `MEDIUM` | [**View Solution →**](cases/mixing-seedance-2-5-and-kling-4-0-in-one-n8n-batch-where-do-you-v.html) |
 | **n8n** | [MCP OAuth2 with Dynamic Client Registration ignores and hides the configured Scope](cases/mcp-oauth2-with-dynamic-client-registration-ignores-and-hides-the.html) | PR #41889 is definitely the right approach here—enforcing least privilege should always take precedence over discovery defaults when a narrower scope is explicitly declared. | 🟡 `MEDIUM` | [**View Solution →**](cases/mcp-oauth2-with-dynamic-client-registration-ignores-and-hides-the.html) |
 | **n8n** | [Can n8n handle tender documents on its own with no server?](cases/can-n8n-handle-tender-documents-on-its-own-with-no-server.html) | Yes, offloading via the HTTP Request node is really your only option on n8n Cloud since the sandbox won't let you run native OCR binaries or heavy Python libs anyway. | 🟡 `MEDIUM` | [**View Solution →**](cases/can-n8n-handle-tender-documents-on-its-own-with-no-server.html) |
 | **Automation Engine** | [Basic-mode chat: knowledge-base conversations get no provider prompt-cache hit because the retrieved context is rendered before the app's instructions](cases/basic-mode-chat-knowledge-base-conversations-get-no-provider-prom.html) | Completely agree. Having `context_prompt` precede `pre_prompt` in `system_prompt_orders` (`api/core/prompt/prompt_templates/common_chat.json`) breaks prefix caching on every tur... | 🟡 `MEDIUM` | [**View Solution →**](cases/basic-mode-chat-knowledge-base-conversations-get-no-provider-prom.html) |

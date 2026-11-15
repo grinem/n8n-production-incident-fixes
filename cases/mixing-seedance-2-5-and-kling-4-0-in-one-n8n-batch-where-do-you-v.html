@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mixing Seedance 2.5 and Kling 4.0 in one n8n batch: where do you validate each row before it costs money? | Production Incident Fix</title>
+  <meta name="description" content="Option 1 is the cleanest approach, but don&#x27;t hardcode the specs inside an n8n Code node. Store your model contract in a second tab in that same Sheet (e.g. `_models` with `model...">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://n8n-production-incident-fixes.pages.dev/cases/mixing-seedance-2-5-and-kling-4-0-in-one-n8n-batch-where-do-you-v.html">
+  <meta property="og:title" content="Mixing Seedance 2.5 and Kling 4.0 in one n8n batch: where do you validate each row before it costs money? | Production Incident Fix">
+  <meta property="og:description" content="Option 1 is the cleanest approach, but don&#x27;t hardcode the specs inside an n8n Code node. Store your model contract in a second tab in that same Sheet (e.g. `_models` with `model...">
+  <meta property="og:url" content="https://n8n-production-incident-fixes.pages.dev/cases/mixing-seedance-2-5-and-kling-4-0-in-one-n8n-batch-where-do-you-v.html">
+  <meta property="og:type" content="article">
+  <link rel="sitemap" type="application/xml" title="Sitemap" href="/sitemap.xml">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "TechArticle",
+    "headline": "Mixing Seedance 2.5 and Kling 4.0 in one n8n batch: where do you validate each row before it costs money?",
+    "description": "Option 1 is the cleanest approach, but don't hardcode the specs inside an n8n Code node. Store your model contract in a second tab in that same Sheet (e.g. `_models` with `model...",
+    "datePublished": "2026-11-15",
+    "author": {
+      "@type": "Person",
+      "name": "grinem"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "Production Incident Radar",
+      "url": "https://n8n-production-incident-fixes.pages.dev"
+    }
+  }
+  </script>
+</head>
+<body class="bg-slate-900 text-slate-100 min-h-screen font-sans antialiased">
+  <!-- Top Notification CTA -->
+  <div class="bg-gradient-to-r from-amber-600 via-emerald-600 to-indigo-600 px-4 py-3 text-center text-sm font-medium text-white shadow-lg">
+    ⚡ Encountering this exact production bug or need an emergency automation hotfix?
+    <a href="https://www.fiverr.com/s/BRB54Qk" target="_blank" rel="noopener noreferrer" class="ml-2 inline-block rounded-full bg-white px-3 py-1 text-xs font-bold text-slate-900 shadow hover:bg-slate-100 transition">
+      🚨 1-Hour Emergency On-Call &mdash; $99 &rarr;
+    </a>
+  </div>
+
+  <div class="max-w-4xl mx-auto px-4 py-8">
+    <div class="mb-6 flex items-center justify-between">
+      <a href="../" class="inline-flex items-center text-sm text-indigo-400 hover:text-indigo-300 font-semibold">
+        &larr; Back to Incident Knowledge Base
+      </a>
+      <div class="flex items-center space-x-2">
+        <span class="px-2.5 py-1 rounded text-xs font-bold uppercase tracking-wider bg-slate-800 text-slate-300 border border-slate-700">n8n</span>
+        <span class="px-2.5 py-1 rounded text-xs font-bold uppercase tracking-wider bg-blue-500 text-white">MEDIUM</span>
+      </div>
+    </div>
+
+    <!-- Rendered Markdown Container -->
+    <article id="content" class="bg-slate-800/80 rounded-2xl p-6 sm:p-10 border border-slate-700/80 shadow-2xl prose prose-invert max-w-none prose-headings:text-indigo-200 prose-a:text-emerald-400 hover:prose-a:text-emerald-300 prose-pre:bg-slate-950 prose-pre:border prose-pre:border-slate-800">
+    </article>
+
+    <!-- Bottom CTA Card -->
+    <div class="mt-10 rounded-2xl bg-gradient-to-br from-indigo-950/80 via-slate-800 to-slate-900 border border-indigo-500/30 p-8 text-center shadow-xl">
+      <h3 class="text-2xl font-bold text-white mb-2">Need an Emergency Fix for Your Production Pipeline?</h3>
+      <p class="text-slate-300 max-w-xl mx-auto mb-6 text-sm">
+        Whether it's an OAuth token deadlock in n8n, a silent Meta webhook timeout, or a broken Make.com scenario — I diagnose and resolve live production outages under a 1-Hour SLA.
+      </p>
+      <a href="https://www.fiverr.com/s/BRB54Qk" target="_blank" rel="noopener noreferrer" class="inline-flex items-center px-6 py-3 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-extrabold shadow-lg shadow-emerald-500/20 transition transform hover:-translate-y-0.5">
+        🚀 1-Hour Emergency On-Call &mdash; $99 | Order on Fiverr
+      </a>
+    </div>
+  </div>
+
+  <script>
+    const rawMarkdown = "---\nlayout: default\ntitle: \"Mixing Seedance 2.5 and Kling 4.0 in one n8n batch: where do you validate each row before it costs money?\"\nplatform: \"n8n\"\nseverity: \"MEDIUM\"\nstatus: \"Resolved\"\ndate: 2026-11-15\ntags: [\"n8n\", \"production-fix\", \"post-mortem\", \"verified-resolution\"]\nslug: \"mixing-seedance-2-5-and-kling-4-0-in-one-n8n-batch-where-do-you-v\"\n---\n\n# Mixing Seedance 2.5 and Kling 4.0 in one n8n batch: where do you validate each row before it costs money?\n\n\n> \u26a1 **Encountering this exact production bug or need an emergency automation fix?**  \n> [**\ud83d\udea8 1-Hour Emergency On-Call \u2014 $99 | Hire me on Fiverr**](https://www.fiverr.com/s/BRB54Qk)\n\n\n## Incident Metadata\n- **Platform / Ecosystem**: `n8n`\n- **Incident Severity**: `MEDIUM`\n- **Resolution Status**: `RADAR TRIAGED & READY FOR RESOLUTION`\n- **Logged Timestamp**: `2026-11-15T10:00:33.675332`\n- **Diagnosis Engine**: Autonomous Production Incident Radar\n\n---\n\n## Technical Post-Mortem & Resolution Guide\n\nOption 1 is the cleanest approach, but don't hardcode the specs inside an n8n Code node. Store your model contract in a second tab in that same Sheet (e.g. `_models` with `model_id`, `min_dur`, `max_dur`, `allowed_durs`, `supports_audio`, `max_refs`).\n\nFetch that config tab on execution trigger and run a quick JS Code node right after the row claim to validate against the schema:\n- Flag the row `FAILED_VALIDATION` with the exact syntax/budget mismatch and route it straight to an update node via an `If` branch, skipping the HTTP submit entirely.\n- Skip Option 3 entirely\u2014paying base compute/queue fees just to check schemas defeats the purpose of pre-flight checks.\n- If you route through an aggregator like fal or Replicate (Option 2), you can query their OpenAPI/model endpoints to hydrate your config dynamically, but storing the constraints in your source sheet is usually plenty to keep it maintainable without touching the canvas.\n\n---\n\n## Incident Prevention & Operational Takeaways\n1. **Audit Upstream Authentication**: Validate OAuth2 token refresh loops and ensure service credentials cannot be orphaned.\n2. **Implement Schema Boundary Validation**: Guard downstream webhooks against unexpected payload truncations.\n3. **Automate Error Interception**: Configure fallback nodes and alerting monitors before critical production executions.\n\n---\n\n\n> \u26a1 **Encountering this exact production bug or need an emergency automation fix?**  \n> [**\ud83d\udea8 1-Hour Emergency On-Call \u2014 $99 | Hire me on Fiverr**](https://www.fiverr.com/s/BRB54Qk)\n\n\n[\u2190 Back to Live Case Studies Index](../)\n";
+    // Strip YAML frontmatter
+    const mdWithoutYaml = rawMarkdown.replace(/^---[\s\S]*?---\s*/, '');
+    document.getElementById('content').innerHTML = marked.parse(mdWithoutYaml);
+  </script>
+
+<!-- Autonomous Async Triage Widget (Zero Calls / Zero WhatsApp) -->
+<button id="triageFab" onclick="window.openTriageModal()" class="fixed bottom-5 right-5 z-50 flex items-center gap-2 rounded-full bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-extrabold px-5 py-3.5 shadow-2xl shadow-emerald-500/30 transition transform hover:-translate-y-0.5 cursor-pointer">
+  <span>🚨</span><span>Async Incident Triage</span>
+</button>
+
+<div id="triageModal" class="fixed inset-0 z-50 hidden items-center justify-center bg-slate-950/80 backdrop-blur-sm p-4">
+  <div class="w-full max-w-xl rounded-2xl bg-slate-900 border border-slate-700 p-6 text-slate-100 shadow-2xl max-h-[90vh] overflow-y-auto">
+    <div class="flex items-center justify-between border-b border-slate-800 pb-3 mb-4">
+      <div>
+        <h3 class="text-lg font-extrabold text-white">⚡ Async Production Triage &amp; Patch/PR</h3>
+        <p class="text-xs text-emerald-400">100% Automated &bull; Guaranteed &lt; 6h &bull; Zero Video Calls</p>
+      </div>
+      <button onclick="window.closeTriageModal()" class="text-slate-400 hover:text-white text-xl font-bold px-2">&times;</button>
+    </div>
+
+    <div id="triageStep1" class="space-y-3">
+      <div>
+        <label class="block text-xs font-semibold text-slate-300 mb-1">Work Email (for Patch Delivery)</label>
+        <input id="trEmail" type="email" placeholder="cto@company.com" class="w-full rounded-lg bg-slate-800 border border-slate-700 px-3 py-2 text-sm text-white focus:outline-none focus:border-emerald-500" />
+      </div>
+      <div>
+        <label class="block text-xs font-semibold text-slate-300 mb-1">Production Symptom / Error</label>
+        <input id="trSymptom" type="text" placeholder="e.g. n8n worker OOM, OAuth 403 refresh loop, webhook timeout" class="w-full rounded-lg bg-slate-800 border border-slate-700 px-3 py-2 text-sm text-white focus:outline-none focus:border-emerald-500" />
+      </div>
+      <div>
+        <label class="block text-xs font-semibold text-slate-300 mb-1">Logs / docker-compose.yml (secrets auto-masked locally)</label>
+        <textarea id="trLogs" rows="4" placeholder="Paste error logs or compose snippet..." class="w-full rounded-lg bg-slate-800 border border-slate-700 px-3 py-2 text-xs font-mono text-white focus:outline-none focus:border-emerald-500"></textarea>
+      </div>
+      <div>
+        <label class="block text-xs font-semibold text-slate-300 mb-1">GitHub Repo URL (optional, for PR patch)</label>
+        <input id="trRepo" type="url" placeholder="https://github.com/org/repo" class="w-full rounded-lg bg-slate-800 border border-slate-700 px-3 py-2 text-sm text-white focus:outline-none focus:border-emerald-500" />
+      </div>
+      <div id="trErr1" class="text-xs text-rose-400 hidden"></div>
+      <button id="trSubmitBtn" onclick="window.submitTriage()" class="w-full rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-extrabold py-3 text-sm transition cursor-pointer">
+        Run Instant AI Triage &rarr;
+      </button>
+    </div>
+
+    <div id="triageStep2" class="hidden space-y-4">
+      <div class="rounded-xl bg-slate-800/80 border border-slate-700 p-4">
+        <div class="text-xs uppercase tracking-wider text-indigo-400 font-bold mb-1" id="trTierLabel"></div>
+        <p class="text-sm text-slate-200 whitespace-pre-line" id="trPreview"></p>
+      </div>
+
+      <div class="rounded-xl bg-emerald-950/40 border border-emerald-500/40 p-4 space-y-2">
+        <div class="flex items-center justify-between">
+          <span class="text-sm font-bold text-emerald-300">Option A: Pay with USDT (BEP20) &mdash; 20% Off</span>
+          <span class="text-sm font-extrabold text-white" id="trUsdtAmount"></span>
+        </div>
+        <p class="text-xs text-slate-300">Network: <strong>BNB Smart Chain (BEP20)</strong> &bull; Instant on-chain unlock</p>
+        <div class="flex items-center gap-2">
+          <code id="trUsdtAddr" class="flex-1 rounded bg-slate-950 px-2.5 py-2 text-xs text-emerald-300 break-all border border-slate-800"></code>
+          <button onclick="navigator.clipboard.writeText(document.getElementById('trUsdtAddr').innerText)" class="rounded bg-slate-800 hover:bg-slate-700 px-3 py-2 text-xs font-bold text-white cursor-pointer">Copy</button>
+        </div>
+        <div class="pt-2 flex gap-2">
+          <input id="trTxHash" type="text" placeholder="Paste BEP20 TxHash (0x...)" class="flex-1 rounded-lg bg-slate-950 border border-slate-700 px-3 py-2 text-xs font-mono text-white" />
+          <button id="trVerifyBtn" onclick="window.verifyUsdtTx()" class="rounded-lg bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold px-4 py-2 text-xs cursor-pointer">Verify &amp; Deliver</button>
+        </div>
+        <div id="trErr2" class="text-xs text-rose-400 hidden"></div>
+      </div>
+
+      <div class="text-center">
+        <a id="trCardBtn" href="#" target="_blank" rel="noopener noreferrer" class="inline-block w-full rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-bold py-2.5 text-xs transition">
+          Option B: Pay by Corporate Card / Invoice (<span id="trUsdAmount"></span>) &rarr;
+        </a>
+      </div>
+    </div>
+
+    <div id="triageStep3" class="hidden space-y-3">
+      <div class="rounded-xl bg-emerald-950/50 border border-emerald-500/50 p-4">
+        <h4 class="text-sm font-extrabold text-emerald-300 mb-1">✅ Payment Verified &amp; Patch Delivered</h4>
+        <p class="text-xs text-slate-300">Your full RCA + Production Patch has been emailed to you and is shown below:</p>
+      </div>
+      <pre id="trPatchOutput" class="rounded-xl bg-slate-950 border border-slate-800 p-4 text-xs text-slate-200 overflow-x-auto max-h-64 whitespace-pre-wrap"></pre>
+    </div>
+  </div>
+</div>
+
+<script>
+(function() {
+  const API = "https://triage.baitakstore.com";
+  let currentSessionId = "";
+  function maskLocal(txt) {
+    return (txt || "")
+      .replace(/\b(sk|re|ghp)_[A-Za-z0-9_-]{12,}\b/g, "[REDACTED]")
+      .replace(/(Bearer\s+)[A-Za-z0-9._-]{12,}/gi, "$1[REDACTED]")
+      .replace(/((?:PASSWORD|SECRET|TOKEN|API_KEY)\s*[:=]\s*)['"]?[^\s'";]+['"]?/gi, "$1[REDACTED]");
+  }
+  window.openTriageModal = function() {
+    const m = document.getElementById("triageModal");
+    m.classList.remove("hidden");
+    m.classList.add("flex");
+  };
+  window.closeTriageModal = function() {
+    const m = document.getElementById("triageModal");
+    m.classList.add("hidden");
+    m.classList.remove("flex");
+  };
+  window.submitTriage = async function() {
+    const email = document.getElementById("trEmail").value.trim();
+    const symptom = document.getElementById("trSymptom").value.trim();
+    const logs = maskLocal(document.getElementById("trLogs").value);
+    const repo_url = document.getElementById("trRepo").value.trim();
+    const err = document.getElementById("trErr1");
+    err.classList.add("hidden");
+    const btn = document.getElementById("trSubmitBtn");
+    btn.disabled = true; btn.innerText = "Analyzing...";
+    try {
+      const r = await fetch(API + "/api/triage", {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({email, symptom, logs, repo_url})
+      });
+      const d = await r.json();
+      if (!r.ok) throw new Error(d.error || "Triage error");
+      currentSessionId = d.session_id;
+      document.getElementById("trTierLabel").innerText = d.label + " (Session " + d.session_id + ")";
+      document.getElementById("trPreview").innerText = d.preview;
+      document.getElementById("trUsdtAmount").innerText = d.usdt_price + " USDT";
+      document.getElementById("trUsdtAddr").innerText = d.usdt_address;
+      document.getElementById("trUsdAmount").innerText = "$" + d.usd_price;
+      const cardUrl = d.lemonsqueezy_url || "https://www.fiverr.com/s/BRB54Qk";
+      document.getElementById("trCardBtn").href = cardUrl;
+      document.getElementById("triageStep1").classList.add("hidden");
+      document.getElementById("triageStep2").classList.remove("hidden");
+    } catch (e) {
+      err.innerText = e.message; err.classList.remove("hidden");
+    } finally {
+      btn.disabled = false; btn.innerText = "Run Instant AI Triage →";
+    }
+  };
+  window.verifyUsdtTx = async function() {
+    const tx_hash = document.getElementById("trTxHash").value.trim();
+    const err = document.getElementById("trErr2");
+    err.classList.add("hidden");
+    const btn = document.getElementById("trVerifyBtn");
+    btn.disabled = true; btn.innerText = "Verifying...";
+    try {
+      const r = await fetch(API + "/api/verify-payment", {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({session_id: currentSessionId, tx_hash})
+      });
+      const d = await r.json();
+      if (!r.ok || !d.ok) throw new Error(d.error || "Verification failed");
+      document.getElementById("trPatchOutput").innerText = d.patch_md || "Delivered to your email.";
+      document.getElementById("triageStep2").classList.add("hidden");
+      document.getElementById("triageStep3").classList.remove("hidden");
+    } catch (e) {
+      err.innerText = e.message; err.classList.remove("hidden");
+    } finally {
+      btn.disabled = false; btn.innerText = "Verify & Deliver";
+    }
+  };
+})();
+</script>
+
+</body>
+</html>
