@@ -13,7 +13,7 @@ slug: "qdrant-vector-store-search-filter-leaks-across-nodes-and-is-lost"
 
 
 > ⚡ **Encountering this exact production bug or need an emergency automation fix?**  
-> [**🚨 1-Hour Emergency On-Call — $99 | Hire me on Fiverr**](https://www.fiverr.com/s/BRB54Qk)
+> [**🚨 Instant Async Production Triage & Resolution (< 6h, Zero Video Calls)**](https://n8n-production-incident-fixes.pages.dev/#triage)
 
 
 > ✅ **Confirmed Production Resolution (Timestamp: `2026-11-13T16:00:42.101961+01:00`)**  
@@ -121,7 +121,7 @@ Let me know if you run into any edge cases while deploying the patch or testing 
 
 
 > ⚡ **Encountering this exact production bug or need an emergency automation fix?**  
-> [**🚨 1-Hour Emergency On-Call — $99 | Hire me on Fiverr**](https://www.fiverr.com/s/BRB54Qk)
+> [**🚨 Instant Async Production Triage & Resolution (< 6h, Zero Video Calls)**](https://n8n-production-incident-fixes.pages.dev/#triage)
 
 
 [← Back to Live Case Studies Index](../)

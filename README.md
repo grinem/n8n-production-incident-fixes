@@ -2,8 +2,8 @@
 
 [![GitHub Pages](https://img.shields.io/badge/GitHub%20Pages-Live%20Showcase-brightgreen?style=flat-square&logo=github)](https://grinem.github.io/n8n-production-incident-fixes/)
 [![Incidents Resolved](https://img.shields.io/badge/Incidents%20Resolved-64%20Verified-blue?style=flat-square)](cases/)
-[![SLA](https://img.shields.io/badge/Emergency%20SLA-1%20Hour-orange?style=flat-square)](https://www.fiverr.com/s/BRB54Qk)
-[![Fiverr Service](https://img.shields.io/badge/Fiverr%20Gig-Hire%20Engineer-success?style=flat-square&logo=fiverr)](https://www.fiverr.com/s/BRB54Qk)
+[![Emergency SLA](https://img.shields.io/badge/Incident%20SLA-%3C%206%20Hours-orange?style=flat-square)](https://n8n-production-incident-fixes.pages.dev/#triage)
+[![Async Triage](https://img.shields.io/badge/Async%20Triage-Zero%20Calls-success?style=flat-square)](https://n8n-production-incident-fixes.pages.dev/#triage)
 
 Welcome to the **Production Incident Fixes & Technical Post-Mortem Knowledge Base**.  
 This repository houses real, verified production failure diagnostics, root-cause analyses, and executable bugfixes across modern automation backends.
@@ -14,7 +14,7 @@ This repository houses real, verified production failure diagnostics, root-cause
 
 
 > ⚡ **Encountering this exact production bug or need an emergency automation fix?**  
-> [**🚨 1-Hour Emergency On-Call — $99 | Hire me on Fiverr**](https://www.fiverr.com/s/BRB54Qk)
+> [**🚨 Instant Async Production Triage & Resolution (< 6h, Zero Video Calls)**](https://n8n-production-incident-fixes.pages.dev/#triage)
 
 
 ---
@@ -118,7 +118,7 @@ I specialize in high-stakes emergency automation recovery:
 2. **Minimal-Downtime Hotfix**: Patching workflows, container environments, and database records safely.
 3. **Hardened Resilience**: Implementing retry queues, exponential backoff, and idempotent consumers.
 
-👉 [**Book Emergency 1-Hour Incident Resolution on Fiverr**](https://www.fiverr.com/s/BRB54Qk)
+👉 [**Launch Instant Async Incident Resolution (< 6h, Zero Calls)**](https://n8n-production-incident-fixes.pages.dev/#triage)
 
 ---
 

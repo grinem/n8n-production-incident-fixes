@@ -14,9 +14,9 @@
   <!-- Top Emergency Announcement -->
   <header class="bg-gradient-to-r from-emerald-600 via-indigo-600 to-purple-600 px-4 py-3 text-center text-sm font-semibold text-white shadow-md">
     🚨 Active Production Outage or Failing Automation Workflow?
-    <a href="https://www.fiverr.com/s/BRB54Qk" target="_blank" rel="noopener noreferrer" class="ml-2 inline-flex items-center rounded-full bg-white px-3.5 py-1 text-xs font-bold text-slate-900 shadow hover:bg-slate-100 transition">
-      Hire 1-Hour Emergency Incident Resolution on Fiverr &rarr;
-    </a>
+    <button onclick="window.openTriageModal()" class="ml-2 inline-flex items-center rounded-full bg-emerald-400 px-3.5 py-1 text-xs font-bold text-slate-950 shadow hover:bg-emerald-300 transition cursor-pointer">
+      Launch Instant Async Triage &rarr;
+    </button>
   </header>
 
   <!-- Hero Section -->
@@ -1489,11 +1489,11 @@
       <p class="text-slate-300 max-w-2xl mx-auto mb-8 text-base">
         Don't let broken webhook deadlocks, OAuth expiry loops, or database constraint failures stall your business operations. Book an emergency direct incident recovery session.
       </p>
-      <a href="https://www.fiverr.com/s/BRB54Qk" target="_blank" rel="noopener noreferrer" class="inline-flex items-center px-8 py-4 rounded-2xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-black text-lg shadow-xl shadow-emerald-500/25 transition transform hover:-translate-y-1">
-        ⚡ Hire 1-Hour Emergency Incident Resolution on Fiverr
-      </a>
+      <button onclick="window.openTriageModal()" class="inline-flex items-center px-8 py-4 rounded-2xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-black text-lg shadow-xl shadow-emerald-500/25 transition transform hover:-translate-y-1 cursor-pointer">
+        ⚡ Launch Instant Async Incident Resolution (< 6h, Zero Calls)
+      </button>
       <div class="mt-4 text-xs text-slate-500">
-        All service orders, communication, and guarantees are securely fulfilled via Fiverr under strict platform TOS.
+        All incident resolutions, verified patches, and SLAs are delivered autonomously with 100% verified RCA and zero video calls.
       </div>
     </section>
   </main>
@@ -1590,22 +1590,26 @@
           <span class="text-sm font-bold text-emerald-300">Option A: Pay with USDT (BEP20) &mdash; 20% Off</span>
           <span class="text-sm font-extrabold text-white" id="trUsdtAmount"></span>
         </div>
-        <p class="text-xs text-slate-300">Network: <strong>BNB Smart Chain (BEP20)</strong> &bull; Instant on-chain unlock</p>
+        <p class="text-xs text-slate-300">Network: <strong>BNB Smart Chain (BEP20)</strong> &bull; Auto-detection every 20s via BSC Watcher</p>
+        <div class="rounded bg-amber-950/60 border border-amber-500/40 px-2.5 py-1.5 text-xs text-amber-200">
+          ⚠️ Send exact amount (<strong id="trUsdtExactBadge" class="text-white underline"></strong>) for autonomous instant unlock.
+        </div>
         <div class="flex items-center gap-2">
           <code id="trUsdtAddr" class="flex-1 rounded bg-slate-950 px-2.5 py-2 text-xs text-emerald-300 break-all border border-slate-800"></code>
           <button onclick="navigator.clipboard.writeText(document.getElementById('trUsdtAddr').innerText)" class="rounded bg-slate-800 hover:bg-slate-700 px-3 py-2 text-xs font-bold text-white cursor-pointer">Copy</button>
         </div>
         <div class="pt-2 flex gap-2">
-          <input id="trTxHash" type="text" placeholder="Paste BEP20 TxHash (0x...)" class="flex-1 rounded-lg bg-slate-950 border border-slate-700 px-3 py-2 text-xs font-mono text-white" />
-          <button id="trVerifyBtn" onclick="window.verifyUsdtTx()" class="rounded-lg bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold px-4 py-2 text-xs cursor-pointer">Verify &amp; Deliver</button>
+          <input id="trTxHash" type="text" placeholder="Paste BEP20 TxHash (0x...) or wait for auto-detection..." class="flex-1 rounded-lg bg-slate-950 border border-slate-700 px-3 py-2 text-xs font-mono text-white" />
+          <button id="trVerifyBtn" onclick="window.verifyUsdtTx()" class="rounded-lg bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold px-4 py-2 text-xs cursor-pointer">Verify Now</button>
         </div>
         <div id="trErr2" class="text-xs text-rose-400 hidden"></div>
       </div>
 
       <div class="text-center">
         <a id="trCardBtn" href="#" target="_blank" rel="noopener noreferrer" class="inline-block w-full rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-bold py-2.5 text-xs transition">
-          Option B: Pay by Corporate Card / Invoice (<span id="trUsdAmount"></span>) &rarr;
+          Option B: Pay with Visa / Mastercard / Apple Pay (<span id="trUsdAmount"></span>) &rarr;
         </a>
+        <p class="text-[11px] text-slate-400 mt-1">Direct-to-Wallet on-ramp (no crypto account required).</p>
       </div>
     </div>
 
@@ -1635,6 +1639,7 @@
     m.classList.add("flex");
   };
   window.closeTriageModal = function() {
+    if (window.triagePollTimer) clearInterval(window.triagePollTimer);
     const m = document.getElementById("triageModal");
     m.classList.add("hidden");
     m.classList.remove("flex");
@@ -1659,13 +1664,33 @@
       currentSessionId = d.session_id;
       document.getElementById("trTierLabel").innerText = d.label + " (Session " + d.session_id + ")";
       document.getElementById("trPreview").innerText = d.preview;
-      document.getElementById("trUsdtAmount").innerText = d.usdt_price + " USDT";
+      const exactAmount = (d.usdt_exact ? Number(d.usdt_exact).toFixed(2) : d.usdt_price) + " USDT";
+      document.getElementById("trUsdtAmount").innerText = exactAmount;
+      document.getElementById("trUsdtExactBadge").innerText = exactAmount;
       document.getElementById("trUsdtAddr").innerText = d.usdt_address;
       document.getElementById("trUsdAmount").innerText = "$" + d.usd_price;
-      const cardUrl = d.lemonsqueezy_url || "https://www.fiverr.com/s/BRB54Qk";
+      const cardUrl = d.card_checkout_url || d.onramp_url || ("https://changenow.io/exchange?from=usd&to=usdtbsc&amount=" + d.usd_price + "&recipient=" + d.usdt_address);
       document.getElementById("trCardBtn").href = cardUrl;
       document.getElementById("triageStep1").classList.add("hidden");
       document.getElementById("triageStep2").classList.remove("hidden");
+
+      // Auto-poll session status every 6 seconds
+      if (window.triagePollTimer) clearInterval(window.triagePollTimer);
+      window.triagePollTimer = setInterval(async function() {
+        if (!currentSessionId) return;
+        try {
+          const sr = await fetch(API + "/api/session-status?session_id=" + encodeURIComponent(currentSessionId));
+          if (sr.ok) {
+            const sd = await sr.json();
+            if (sd.status === "PAID" && sd.patch_md) {
+              clearInterval(window.triagePollTimer);
+              document.getElementById("trPatchOutput").innerText = sd.patch_md;
+              document.getElementById("triageStep2").classList.add("hidden");
+              document.getElementById("triageStep3").classList.remove("hidden");
+            }
+          }
+        } catch (_) {}
+      }, 6000);
     } catch (e) {
       err.innerText = e.message; err.classList.remove("hidden");
     } finally {
@@ -1686,6 +1711,7 @@
       });
       const d = await r.json();
       if (!r.ok || !d.ok) throw new Error(d.error || "Verification failed");
+      if (window.triagePollTimer) clearInterval(window.triagePollTimer);
       document.getElementById("trPatchOutput").innerText = d.patch_md || "Delivered to your email.";
       document.getElementById("triageStep2").classList.add("hidden");
       document.getElementById("triageStep3").classList.remove("hidden");

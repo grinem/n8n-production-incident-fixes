@@ -6,7 +6,7 @@
 - Portfolio Hub: https://n8n-production-incident-fixes.pages.dev/
 - Sitemap: https://n8n-production-incident-fixes.pages.dev/sitemap.xml
 - GitHub Profile: https://github.com/grinem
-- Book 1-Hour Emergency Production Fix ($99): https://www.fiverr.com/s/BRB54Qk
+- Launch Instant Async Production Fix (< 6h, Zero Calls): https://n8n-production-incident-fixes.pages.dev/#triage
 
 ## Documented Production Incidents (64)
 - [Automation Engine] The icons for built-in tools cannot be displayed: https://n8n-production-incident-fixes.pages.dev/cases/the-icons-for-built-in-tools-cannot-be-displayed.html - Root Cause: Check your browser DevTools (**Network** tab, filter by `Img` or `Fetch/XHR`) when opening the tools page. Look at the exact URL and status code returned for the tool icon reque...
