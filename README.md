@@ -1,7 +1,7 @@
 # 🛠️ n8n & Low-Code Production Incident Fixes (Live Knowledge Base)
 
 [![GitHub Pages](https://img.shields.io/badge/GitHub%20Pages-Live%20Showcase-brightgreen?style=flat-square&logo=github)](https://grinem.github.io/n8n-production-incident-fixes/)
-[![Incidents Resolved](https://img.shields.io/badge/Incidents%20Resolved-65%20Verified-blue?style=flat-square)](cases/)
+[![Incidents Resolved](https://img.shields.io/badge/Incidents%20Resolved-66%20Verified-blue?style=flat-square)](cases/)
 [![Emergency SLA](https://img.shields.io/badge/Incident%20SLA-%3C%206%20Hours-orange?style=flat-square)](https://n8n-production-incident-fixes.pages.dev/#triage)
 [![Async Triage](https://img.shields.io/badge/Async%20Triage-Zero%20Calls-success?style=flat-square)](https://n8n-production-incident-fixes.pages.dev/#triage)
 
@@ -38,10 +38,11 @@ All incident post-mortems in this repository are autonomously generated and sync
 
 ---
 
-## 📚 Documented Production Incidents (65)
+## 📚 Documented Production Incidents (66)
 
 | Ecosystem | Incident Case Study | Root Cause Snapshot | Severity | Solution Link |
 |:----------|:--------------------|:--------------------|:--------:|:-------------:|
+| **n8n** | [Output panel copy button copies "[]" for AI sub-nodes (memory, chat model, tools)](cases/output-panel-copy-button-copies-for-ai-sub-nodes-memory-chat-mode.md) | Spot on diagnosis. In `packages/editor-ui`, the copy action in the output view explicitly reads `runData.data.main` (or defaults to `[]` when `main` is missing), completely igno... | 🟡 `MEDIUM` | [**Solution**](cases/output-panel-copy-button-copies-for-ai-sub-nodes-memory-chat-mode.md) |
 | **n8n** | [Handled, caller- or user-caused failures are logged with `logger.error` directly (unknown webhook, form-data length, polling triggers)](cases/handled-caller-or-user-caused-failures-are-logged-with-logger-err.md) | Fully agree with this direction. Firing `error`-level logs on 404s/unknown webhooks and handled stream fallbacks breaks log-based alerting for self-hosted instances. | 🟠 `HIGH` | [**Solution**](cases/handled-caller-or-user-caused-failures-are-logged-with-logger-err.md) |
 | **Automation Engine** | [The icons for built-in tools cannot be displayed](cases/the-icons-for-built-in-tools-cannot-be-displayed.md) | Check your browser DevTools (**Network** tab, filter by `Img` or `Fetch/XHR`) when opening the tools page. Look at the exact URL and status code returned for the tool icon reque... | 🟠 `HIGH` | [**Solution**](cases/the-icons-for-built-in-tools-cannot-be-displayed.md) |
 | **n8n** | [A malformed JSON file in the source control work folder breaks status, push, and pull entirely](cases/a-malformed-json-file-in-the-source-control-work-folder-breaks-st.md) | Spot-on analysis Client Case Study (User). It's an oversight from when data table handling was made defensive while credentials and projects were left with bare `jsonParse` calls. | 🟡 `MEDIUM` | [**Solution**](cases/a-malformed-json-file-in-the-source-control-work-folder-breaks-st.md) |
