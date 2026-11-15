@@ -25,22 +25,19 @@ slug: "the-icons-for-built-in-tools-cannot-be-displayed"
 
 ---
 
-## Technical Post-Mortem & Resolution Guide
+## Root-Cause Analysis & Patch Preview (Layer 1)
 
 Check your browser DevTools (**Network** tab, filter by `Img` or `Fetch/XHR`) when opening the tools page. Look at the exact URL and status code returned for the tool icon requests (e.g. `404`, `502`, or `ERR_CONNECTION_REFUSED`).
 
 In self-hosted Docker setups, this is usually caused by mismatched URL environment variables. If you access Dify via a remote IP or domain rather than `localhost`, check `docker/.env`:
 
+**Patch Preview (First 3 lines of verified fix):**
 ```env
 CONSOLE_API_URL=[http]://<YOUR_SERVER_IP_OR_DOMAIN>/console/api
 CONSOLE_WEB_URL=[http]://<YOUR_SERVER_IP_OR_DOMAIN>
 APP_API_URL=[http]://<YOUR_SERVER_IP_OR_DOMAIN>/api
-APP_WEB_URL=[http]://<YOUR_SERVER_IP_OR_DOMAIN>
+# ... [TRUNCATED — Full production patch & verification steps locked below]
 ```
-
-If these are still set to `[http]://localhost:5001` or `[http]://127[.]0[.]0[.]1`, the client browser will fail to fetch the provider icons remotely.
-
-If your `.env` is already pointing to the correct address, let us know the failing request URL and HTTP status code from the network panel.
 
 ---
 

@@ -25,18 +25,9 @@ slug: "http-request-pagination-fails-with-err-invalid-arg-type-on-http-2"
 
 ---
 
-## Technical Post-Mortem & Resolution Guide
+## Root-Cause Analysis & Patch Preview (Layer 1)
 
 The stack trace points to internal payload normalization inside the node pagination pipeline: n8n attempts to buffer or hash the incoming page data prior to evaluating `isPaginationComplete`.
-
-On a `204 No Content` response, `response.data` remains `undefined`, triggering Node's native `Buffer.from()` / crypto guard error before your completion expression can ever be parsed.
-
-Until patched upstream in the HTTP Request node pagination handler (which needs an early guard `if (response.statusCode === 204 || response.data === undefined) response.data = '';`), the only reliable workaround is to disable native pagination on this node and build an explicit canvas loop:
-
-1. In the HTTP Request node, disable native pagination and keep **Include Response Headers and Status** enabled.
-2. Follow it with an **If** node checking for terminal response:
-   `{{ $json.statusCode === 204 || !$json.body?._links?.next?.href }}`
-3. Direct `false` back into the request node using `{{ $json.body._links.next.href }}` and `true` to your downstream processing.
 
 ---
 

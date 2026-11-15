@@ -53,9 +53,37 @@
       </div>
     </div>
 
-    <!-- Rendered Markdown Container -->
+    <!-- Layer 1 (Bloc A): Free Root-Cause Analysis & 3-Line Patch Preview -->
     <article id="content" class="bg-slate-800/80 rounded-2xl p-6 sm:p-10 border border-slate-700/80 shadow-2xl prose prose-invert max-w-none prose-headings:text-indigo-200 prose-a:text-emerald-400 hover:prose-a:text-emerald-300 prose-pre:bg-slate-950 prose-pre:border prose-pre:border-slate-800">
     </article>
+
+    <!-- Layer 2 (Bloc B): Blurred Production Patch Paywall ($39 Self-Serve / $199 Turnkey PR) -->
+    <div class="mt-6 relative rounded-2xl bg-slate-900 border-2 border-emerald-500/40 p-6 sm:p-8 shadow-2xl overflow-hidden">
+      <div class="flex items-center justify-between mb-3">
+        <span class="px-3 py-1 rounded-full text-xs font-extrabold uppercase tracking-wider bg-emerald-500/20 text-emerald-300 border border-emerald-500/40">🔒 Verified Production Patch &amp; Config Diff</span>
+        <span class="text-xs text-slate-400 font-mono">Instant Automated Delivery</span>
+      </div>
+      <pre class="text-xs font-mono text-slate-300 bg-slate-950 p-4 rounded-xl border border-slate-800 select-none pointer-events-none" style="filter: blur(5.5px); user-select: none;">
+--- a/docker-compose.production.yml
++++ b/docker-compose.production.yml
+@@ -14,7 +14,12 @@ services:
+   worker:
+     environment:
+       - EXECUTIONS_DATA_PRUNE=true
+       - EXECUTIONS_DATA_MAX_AGE=168
+       - DB_POSTGRESDB_POOL_SIZE=16
+       - N8N_PAYLOAD_SIZE_MAX=64
+       - NODE_OPTIONS=--max-old-space-size=4096
+      </pre>
+      <div class="mt-5 flex flex-col sm:flex-row items-center justify-center gap-4">
+        <button onclick="window.openTriageModal(39, 'reddit_1xsw98s', 'Platform unavailable - error code 1794338958142x997066484691378600')" class="w-full sm:w-auto inline-flex items-center justify-center px-6 py-3.5 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-black text-sm shadow-lg shadow-emerald-500/25 transition cursor-pointer">
+          🔓 Unlock Full Patch &amp; Config Now &mdash; $39 (31 USDT)
+        </button>
+        <button onclick="window.openTriageModal(199, 'reddit_1xsw98s', 'Platform unavailable - error code 1794338958142x997066484691378600')" class="w-full sm:w-auto inline-flex items-center justify-center px-6 py-3.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-sm shadow-lg shadow-indigo-600/25 transition cursor-pointer">
+          ⚡ Custom Triage &amp; Turnkey PR &mdash; $199 (159 USDT)
+        </button>
+      </div>
+    </div>
 
     <!-- Bottom CTA Card -->
     <div class="mt-10 rounded-2xl bg-gradient-to-br from-indigo-950/80 via-slate-800 to-slate-900 border border-indigo-500/30 p-8 text-center shadow-xl">
@@ -70,7 +98,7 @@
   </div>
 
   <script>
-    const rawMarkdown = "---\nlayout: default\ntitle: \"Platform unavailable - error code 1794338958142x997066484691378600\"\nplatform: \"Bubble.io\"\nseverity: \"CRITICAL\"\nstatus: \"Resolved\"\ndate: 2026-11-11\ntags: [\"bubble\", \"critical-incident\", \"production-fix\", \"post-mortem\", \"verified-resolution\"]\nslug: \"platform-unavailable-error-code-1794338958142x997066484691378600\"\n---\n\n# Platform unavailable - error code 1794338958142x997066484691378600\n\n\n> \u26a1 **Encountering this exact production bug or need an emergency automation fix?**  \n> [**\ud83d\udea8 Instant Async Production Triage & Resolution (< 6h, Zero Video Calls)**](https://n8n-production-incident-fixes.pages.dev/#triage)\n\n\n## Incident Metadata\n- **Platform / Ecosystem**: `Bubble.io`\n- **Incident Severity**: `CRITICAL`\n- **Resolution Status**: `RADAR TRIAGED & READY FOR RESOLUTION`\n- **Logged Timestamp**: `2026-11-11T14:01:15.052045`\n- **Diagnosis Engine**: Autonomous Production Incident Radar\n\n---\n\n## Technical Post-Mortem & Resolution Guide\n\nThat error format (`[timestamp]x[internal_id]`) means your app's isolated container hit an unhandled fatal crash or process timeout, rather than a global Bubble infrastructure outage.\n\nA few quick checks to isolate it:\n\n1. **Check Server Logs for the Correlation ID:**\n   In your Bubble editor, go to **Logs** > **Server logs**, paste `1794338958142x997066484691378600` into the search bar, and run the search over the last 24 hours. If the app runtime caught it before crashing, it will point directly to the failing workflow, plugin, or database query.\n\n2. **Isolate Environment:**\n   Does this happen on both `live` and `version-test`? If `version-test` works fine, check if your production database or a heavy scheduled backend workflow (under **Logs** > **Scheduler**) is hammering capacity or causing database locks.\n\n3. **Check for SSR / Initial Page Load Overload:**\n   If the error hits immediately when loading a specific page, it's typically an Out of Memory (OOM) error on server-side rendering\u2014often caused by a search query on page load (or in a header reusable element) fetching too many unconstrained records or deeply nested relational data.\n\nIf your Server Logs show zero results for that ID, the crash occurred at the routing/container layer before Bubble's application logger could record it. In that case, submit a bug report directly to Bubble Support with that exact code\u2014they can look up that correlation hash in their cluster logs immediately to tell you which container failed.\n\n---\n\n## Incident Prevention & Operational Takeaways\n1. **Audit Upstream Authentication**: Validate OAuth2 token refresh loops and ensure service credentials cannot be orphaned.\n2. **Implement Schema Boundary Validation**: Guard downstream webhooks against unexpected payload truncations.\n3. **Automate Error Interception**: Configure fallback nodes and alerting monitors before critical production executions.\n\n---\n\n\n> \u26a1 **Encountering this exact production bug or need an emergency automation fix?**  \n> [**\ud83d\udea8 Instant Async Production Triage & Resolution (< 6h, Zero Video Calls)**](https://n8n-production-incident-fixes.pages.dev/#triage)\n\n\n[\u2190 Back to Live Case Studies Index](../)\n";
+    const rawMarkdown = "---\nlayout: default\ntitle: \"Platform unavailable - error code 1794338958142x997066484691378600\"\nplatform: \"Bubble.io\"\nseverity: \"CRITICAL\"\nstatus: \"Resolved\"\ndate: 2026-11-11\ntags: [\"bubble\", \"critical-incident\", \"production-fix\", \"post-mortem\", \"verified-resolution\"]\nslug: \"platform-unavailable-error-code-1794338958142x997066484691378600\"\n---\n\n# Platform unavailable - error code 1794338958142x997066484691378600\n\n\n> \u26a1 **Encountering this exact production bug or need an emergency automation fix?**  \n> [**\ud83d\udea8 Instant Async Production Triage & Resolution (< 6h, Zero Video Calls)**](https://n8n-production-incident-fixes.pages.dev/#triage)\n\n\n## Incident Metadata\n- **Platform / Ecosystem**: `Bubble.io`\n- **Incident Severity**: `CRITICAL`\n- **Resolution Status**: `RADAR TRIAGED & READY FOR RESOLUTION`\n- **Logged Timestamp**: `2026-11-11T14:01:15.052045`\n- **Diagnosis Engine**: Autonomous Production Incident Radar\n\n---\n\n## Root-Cause Analysis & Patch Preview (Layer 1)\n\nThat error format (`[timestamp]x[internal_id]`) means your app's isolated container hit an unhandled fatal crash or process timeout, rather than a global Bubble infrastructure outage.\n\n---\n\n## Incident Prevention & Operational Takeaways\n1. **Audit Upstream Authentication**: Validate OAuth2 token refresh loops and ensure service credentials cannot be orphaned.\n2. **Implement Schema Boundary Validation**: Guard downstream webhooks against unexpected payload truncations.\n3. **Automate Error Interception**: Configure fallback nodes and alerting monitors before critical production executions.\n\n---\n\n\n> \u26a1 **Encountering this exact production bug or need an emergency automation fix?**  \n> [**\ud83d\udea8 Instant Async Production Triage & Resolution (< 6h, Zero Video Calls)**](https://n8n-production-incident-fixes.pages.dev/#triage)\n\n\n[\u2190 Back to Live Case Studies Index](../)\n";
     // Strip YAML frontmatter
     const mdWithoutYaml = rawMarkdown.replace(/^---[\s\S]*?---\s*/, '');
     document.getElementById('content').innerHTML = marked.parse(mdWithoutYaml);
@@ -174,7 +202,21 @@
       .replace(/(Bearer\s+)[A-Za-z0-9._-]{12,}/gi, "$1[REDACTED]")
       .replace(/((?:PASSWORD|SECRET|TOKEN|API_KEY)\s*[:=]\s*)['"]?[^\s'";]+['"]?/gi, "$1[REDACTED]");
   }
-  window.openTriageModal = function() {
+  window.selectedTriageTier = null;
+  window.selectedLeadId = "";
+  window.openTriageModal = function(tier, leadId, issueTitle) {
+    window.selectedTriageTier = tier || null;
+    window.selectedLeadId = leadId || "";
+    if (issueTitle) {
+      const symEl = document.getElementById("trSymptom");
+      if (symEl) symEl.value = issueTitle;
+    }
+    const btn = document.getElementById("trSubmitBtn");
+    if (btn) {
+      if (tier === 39) btn.innerText = "Unlock Full Production Patch ($39 / 31 USDT) →";
+      else if (tier === 199) btn.innerText = "Launch Custom Triage & Turnkey PR ($199 / 159 USDT) →";
+      else btn.innerText = "Run Instant AI Triage →";
+    }
     const m = document.getElementById("triageModal");
     m.classList.remove("hidden");
     m.classList.add("flex");
@@ -198,7 +240,7 @@
       const r = await fetch(API + "/api/triage", {
         method: "POST",
         headers: {"Content-Type": "application/json"},
-        body: JSON.stringify({email, symptom, logs, repo_url})
+        body: JSON.stringify({email, symptom, logs, repo_url, tier: window.selectedTriageTier, lead_id: window.selectedLeadId})
       });
       const d = await r.json();
       if (!r.ok) throw new Error(d.error || "Triage error");

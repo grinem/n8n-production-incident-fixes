@@ -25,15 +25,9 @@ slug: "self-hosting-n8n-for-free-to-use-the-whatsapp-trigger"
 
 ---
 
-## Technical Post-Mortem & Resolution Guide
+## Root-Cause Analysis & Patch Preview (Layer 1)
 
 Yes, the Oracle Cloud (OCI) Always Free ARM instance is rock solid for n8n. You get up to 4 Ampere cores and 24 GB RAM with persistent block storage, so you won't run into the memory or sleep issues you hit on Render.
-
-Just keep two common OCI gotchas in mind:
-1. You have to open ports 80 and 443 both in the OCI VCN Ingress Rules *and* inside the instance's OS firewall (Ubuntu's default `iptables` will drop incoming traffic even if the VCN allows it).
-2. Pair it with a free DuckDNS domain and Caddy in your Docker Compose setup for instant automatic SSL. Set `WEBHOOK_URL` in your n8n env to your public domain, and the WhatsApp verification handshake will work immediately.
-
-If OCI registration rejects your card (their fraud filter is notoriously aggressive), running it at home on a Raspberry Pi/old PC with a free Cloudflare Tunnel (`cloudflared`) is the next best zero-cost path.
 
 ---
 

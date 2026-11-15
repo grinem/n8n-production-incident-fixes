@@ -30,14 +30,9 @@ slug: "execution-data-incorrectly-redacted-for-owner-and-members-in-comm"
 
 ---
 
-## Technical Post-Mortem & Resolution Guide
+## Root-Cause Analysis & Patch Preview (Layer 1)
 
 Two key things stand out here:
-
-1. Your debug info lists `license: enterprise (production)`. When an Enterprise license is applied (or was previously active/expired), n8n enforces strict project-level credential isolation across personal workspaces. Even the instance Owner cannot view execution data containing credentials belonging to another user's personal project unless that credential is explicitly shared.
-2. The redirect to the subscription page on "Give yourself access" usually happens when the instance detects multi-project credential sharing but the active license tier lacks the RBAC/Advanced Permissions entitlement to manage cross-project access.
-
-Until the core team looks at the Linear ticket (GHC-9760), the immediate workaround is to recreate the Gmail credential directly within the Owner account (or have the workflow run strictly under the project that owns the credential) so execution data isn't flagged as foreign and redacted.
 
 ---
 

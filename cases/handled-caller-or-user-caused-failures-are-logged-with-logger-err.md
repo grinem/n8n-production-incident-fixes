@@ -25,13 +25,9 @@ slug: "handled-caller-or-user-caused-failures-are-logged-with-logger-err"
 
 ---
 
-## Technical Post-Mortem & Resolution Guide
+## Root-Cause Analysis & Patch Preview (Layer 1)
 
 Fully agree with this direction. Firing `error`-level logs on 404s/unknown webhooks and handled stream fallbacks breaks log-based alerting for self-hosted instances.
-
-Downgrading `WebhookNotFoundError` to `warn` and the `FormData` length fallback to `debug`/`warn` is completely sane. For the polling triggers, delegating to `ErrorReporter` (or aligning on `NodeApiError` / `NodeOperationError` severity) makes a lot more sense than direct `logger.error` calls that cause duplicate reports.
-
-If you open a PR, splitting the network/webhook log levels from the polling node refactor into separate commits (or PRs) will make it much faster for the core team to review and merge.
 
 ---
 

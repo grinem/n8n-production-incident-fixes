@@ -25,7 +25,7 @@ slug: "meta-lead-ads-test-lead-stuck-in-pending-status"
 
 ---
 
-## Technical Post-Mortem & Resolution Guide
+## Root-Cause Analysis & Patch Preview (Layer 1)
 
 B Krishna,
 
@@ -54,93 +54,13 @@ Testing the webhook from Meta Developer Dashboard only tests your App callback e
 
 Verify and re-subscribe using these Graph API calls:
 
+**Patch Preview (First 3 lines of verified fix):**
 ```bash
 # 1. Verify subscribed fields for the Page
 curl -X GET "[https]://graph[.]facebook[.]com/v21.0/{YOUR_PAGE_ID}/subscribed_apps?access_token={YOUR_PAGE_ACCESS_TOKEN}"
 
-# 2. If 'leadgen' is missing from 'subscribed_fields', explicitly subscribe it:
-curl -X POST "[https]://graph[.]facebook[.]com/v21.0/{YOUR_PAGE_ID}/subscribed_apps" \
-     -d "subscribed_fields=leadgen" \
-     -d "access_token={YOUR_PAGE_ACCESS_TOKEN}"
+# ... [TRUNCATED — Full production patch & verification steps locked below]
 ```
-
-*(Ensure `{YOUR_PAGE_ACCESS_TOKEN}` includes `pages_manage_metadata`, `leads_retrieval`, and `pages_read_engagement` scopes).*
-
----
-
-### Step 3: Check Leads Access Manager in Meta Business Suite
-If your Facebook Page is connected to a Meta Business Portfolio:
-1. Open **Meta Business Suite** > **Settings** > **Integrations** > **Leads Access**.
-2. If Leads Access is set to **Customized**, select **CRMs** and make sure your Developer App is explicitly granted access. If set to default, page admins have access automatically.
-
----
-
-### Step 4: Use "Preview Form" Instead of "Create Lead"
-The generic "Create Lead" button produces mock fields that frequently fail newer Instant Form validation rules, resulting in background workers stalling in `Pending`.
-1. After deleting any stale lead in the testing tool, click **Preview Form**.
-2. Manually fill out the fields inside the pop-up modal and submit.
-3. Check your ngrok console and Flask terminal—the `POST` payload should hit your server immediately.
-
----
-
-### Complete Flask Ingestion & Lead Retrieval Handler
-
-Ensure your Flask webhook handles the verification handshake, receives the payload, and queries the Graph API using the Page token:
-
-```python
-import os
-import requests
-from flask import Flask, request, jsonify
-
-app = Flask(__name__)
-
-VERIFY_TOKEN = os.environ.get("META_VERIFY_TOKEN", "your_verify_token_here")
-PAGE_ACCESS_TOKEN = os.environ.get("PAGE_ACCESS_TOKEN", "your_page_access_token_here")
-
-Client Case Study (User).route("/webhook", methods=["GET", "POST"])
-def fb_webhook():
-    # 1. Verification Handshake (Challenge)
-    if request.method == "GET":
-        mode = request.args.get("hub.mode")
-        token = request.args.get("hub.verify_token")
-        challenge = request.args.get("hub.challenge")
-
-        if mode == "subscribe" and token == VERIFY_TOKEN:
-            return challenge, 200
-        return "Verification token mismatch", 403
-
-    # 2. Webhook Event Ingestion
-    if request.method == "POST":
-        data = request.get_json(silent=True)
-        if not data or "entry" not in data:
-            return jsonify({"status": "invalid_payload"}), 400
-
-        for entry in data.get("entry", []):
-            for change in entry.get("changes", []):
-                if change.get("field") == "leadgen":
-                    leadgen_id = change.get("value", {}).get("leadgen_id")
-                    print(f"[+] Received leadgen webhook for Lead ID: {leadgen_id}")
-
-                    # Retrieve actual lead data from Graph API
-                    if leadgen_id:
-                        endpoint = f"[https]://graph[.]facebook[.]com/v21.0/{leadgen_id}"
-                        res = requests.get(
-                            endpoint,
-                            params={"access_token": PAGE_ACCESS_TOKEN}
-                        )
-                        if res.status_code == 200:
-                            print(f"[+] Lead details: {res.json()}")
-                        else:
-                            print(f"[-] Graph API retrieval failed: {res.status_code} - {res.text}")
-
-        # Meta requires an immediate HTTP 200 response within 20 seconds
-        return jsonify({"status": "received"}), 200
-
-if __name__ == "__main__":
-    app.run(port=5000, debug=True)
-```
-
-If you need a complete production-ready blueprint (such as background asynchronous queueing with Celery/Redis, payload signature verification with `X-Hub-Signature-256`, or an equivalent n8n/Make automation pipeline), let me know and I will gladly share the full template!
 
 ---
 

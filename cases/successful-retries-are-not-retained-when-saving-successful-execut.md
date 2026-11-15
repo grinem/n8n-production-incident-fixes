@@ -25,13 +25,9 @@ slug: "successful-retries-are-not-retained-when-saving-successful-execut"
 
 ---
 
-## Technical Post-Mortem & Resolution Guide
+## Root-Cause Analysis & Patch Preview (Layer 1)
 
 This is an accurate catch. The issue is that the runner's execution persistence policy evaluates the child retry independently: because `EXECUTIONS_DATA_SAVE_ON_SUCCESS=none`, the child record is dropped before or without committing the foreign key update (`execution_entity.retrySuccessId`) back onto the parent failed execution.
-
-Until core decouples retry-lineage tracking from raw success retention, two practical workarounds:
-1. Enable `EXECUTIONS_DATA_SAVE_ON_SUCCESS=all` paired with aggressive pruning (`EXECUTIONS_DATA_MAX_AGE=24` or lower) so metadata is written and settled before being pruned.
-2. If retrying via API, check the synchronous response of `POST /api/v1/executions/{id}/retry` directly for `status: "success"` and track settled parent IDs in an external set/cache rather than polling `retrySuccessId` from n8n's DB.
 
 ---
 

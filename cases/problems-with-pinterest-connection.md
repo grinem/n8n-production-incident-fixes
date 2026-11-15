@@ -25,11 +25,9 @@ slug: "problems-with-pinterest-connection"
 
 ---
 
-## Technical Post-Mortem & Resolution Guide
+## Root-Cause Analysis & Patch Preview (Layer 1)
 
 Pinterest's API v5 strictly requires a **Business Account** to create pins. If you authenticated with a personal account, the initial OAuth handshake succeeds in Make, but any pin creation request immediately fails with a permissions/403 error.
-
-Convert the Pinterest account to a free Business account in Pinterest settings, then revoke and recreate the connection in Make. Also make sure the target board is owned directly by your account, as posting to collaborator boards via API will also trigger permission errors.
 
 ---
 

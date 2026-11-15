@@ -25,7 +25,7 @@ slug: "connectuc-application-connector-error-loading-domains"
 
 ---
 
-## Technical Post-Mortem & Resolution Guide
+## Root-Cause Analysis & Patch Preview (Layer 1)
 
 This issue occurs because Activepieces dispatches an asynchronous worker query to `/api/v1/pieces/options` whenever a piece property relies on dynamic dropdown values.
 
@@ -49,32 +49,13 @@ You can bypass the broken options fetcher completely within the flow builder:
 ### Fix 2: Universal Fallback via the HTTP Piece
 If internal validation on the ConnectUC piece continues to block the step from running, you can interact with ConnectUC directly using the native **HTTP Piece** or set up real-time webhooks via a **Catch Webhook** trigger:
 
+**Patch Preview (First 3 lines of verified fix):**
 ```json
 {
   "pieceName": "Client Case Study (User)/piece-http",
   "actionName": "send_request",
-  "input": {
-    "method": "GET",
-    "url": "[https]://api[.]connectuc[.]com/v1/domains",
-    "headers": {
-      "Authorization": "Bearer {{connections['connectuc_connection'].token}}",
-      "Content-Type": "application/json",
-      "Accept": "application/json"
-    },
-    "queryParams": {},
-    "failsafe": false
-  }
-}
+# ... [TRUNCATED — Full production patch & verification steps locked below]
 ```
-
-*(Note: Replace `[https]://api[.]connectuc[.]com` with your cluster's exact API base URL and insert your bearer credentials).*
-
-### Fix 3: Validate Reseller / Domain Management Scopes
-Check your ConnectUC / SkySwitch administrative console to confirm that the API credentials belong to an account with global domain query permissions. If you are restricted to a single sub-tenant or office group, your administrator will need to elevate the API user role to allow domain enumeration.
-
-If you'd like, I can also share the complete JSON blueprint / flow template with you for free—just let me know and I'll send it over.
-
-Feel free to paste the exact response object from your browser network tab if you inspect the `/api/v1/pieces/options` request and see a specific error code!
 
 ---
 

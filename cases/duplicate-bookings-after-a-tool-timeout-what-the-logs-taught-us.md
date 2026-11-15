@@ -25,7 +25,7 @@ slug: "duplicate-bookings-after-a-tool-timeout-what-the-logs-taught-us"
 
 ---
 
-## Technical Post-Mortem & Resolution Guide
+## Root-Cause Analysis & Patch Preview (Layer 1)
 
 ### SECTION 0: RESUME DU PROBLEME EN FRANCAIS
 
@@ -57,58 +57,13 @@ Before the HTTP call or inside the Custom Code Tool, compute a SHA-256 hash deri
 
 In a **Code Node** preceding the HTTP Request (or directly within the tool code):
 
+**Patch Preview (First 3 lines of verified fix):**
 ```javascript
 const crypto = require('crypto');
 
 const patientId = $json.patient_id;
-const slotStart = $json.appointment_time; // ISO8601 string
-const clinicId = $json.clinic_id || 'main';
-
-// Derive unique key: identical requests produce the identical hash
-const rawSeed = `${patientId}_${clinicId}_${slotStart}`;
-const idempotencyKey = crypto.createHash('sha256').update(rawSeed).digest('hex');
-
-return {
-  json: {
-    ...$json,
-    idempotency_key: idempotencyKey
-  }
-};
+# ... [TRUNCATED — Full production patch & verification steps locked below]
 ```
-
-#### Step 2: Configure the HTTP Request Node / Tool Node
-Ensure the HTTP request strictly passes the idempotency header and sets explicit timeout bounds.
-
-* **Method:** `POST`
-* **URL:** `https://api.yourclinic.com/v1/appointments`
-* **Headers:**
-  * `Content-Type`: `application/json`
-  * `Idempotency-Key`: `{{ $json.idempotency_key }}`
-* **Timeout Settings:**
-  * Go to **Node Options** > **Timeout** > Set to `15000` (15s instead of hanging indefinitely).
-* **Error Handling:**
-  * Toggle **Continue On Fail (Never Error)** to `true`.
-
-#### Step 3: Parse and Structure the Output for the AI Agent
-Do not return raw errors to the LLM. Intercept the HTTP node response with an evaluation node:
-
-```javascript
-// Output Evaluator Node
-const response = $input.item.json;
-
-if (response.error || response.status >= 400 || response.code === 'ETIMEDOUT') {
-  return {
-    json: {
-      status: "UNKNOWN_STATE_TIMEOUT",
-      success: false,
-      escalate_to_human: true,
-      message_to_agent: "TRANSACTION STATE UNCERTAIN: Tool timed out. DO NOT confirm booking to the patient. Tell the user their request is being verified by clinic staff."
-    }
-  };
-}
-
-return {
-  json: {
 
 ---
 

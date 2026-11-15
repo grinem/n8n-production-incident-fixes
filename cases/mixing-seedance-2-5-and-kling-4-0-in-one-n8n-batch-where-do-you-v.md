@@ -25,14 +25,9 @@ slug: "mixing-seedance-2-5-and-kling-4-0-in-one-n8n-batch-where-do-you-v"
 
 ---
 
-## Technical Post-Mortem & Resolution Guide
+## Root-Cause Analysis & Patch Preview (Layer 1)
 
 Option 1 is the cleanest approach, but don't hardcode the specs inside an n8n Code node. Store your model contract in a second tab in that same Sheet (e.g. `_models` with `model_id`, `min_dur`, `max_dur`, `allowed_durs`, `supports_audio`, `max_refs`).
-
-Fetch that config tab on execution trigger and run a quick JS Code node right after the row claim to validate against the schema:
-- Flag the row `FAILED_VALIDATION` with the exact syntax/budget mismatch and route it straight to an update node via an `If` branch, skipping the HTTP submit entirely.
-- Skip Option 3 entirely—paying base compute/queue fees just to check schemas defeats the purpose of pre-flight checks.
-- If you route through an aggregator like fal or Replicate (Option 2), you can query their OpenAPI/model endpoints to hydrate your config dynamically, but storing the constraints in your source sheet is usually plenty to keep it maintainable without touching the canvas.
 
 ---
 

@@ -25,18 +25,18 @@ slug: "ai-agent-merges-the-trigger-item-into-tool-call-arguments-chat-tr"
 
 ---
 
-## Technical Post-Mortem & Resolution Guide
+## Root-Cause Analysis & Patch Preview (Layer 1)
 
 Spot-on analysis. Spreading trigger items at the root of `mergedJson` while only rendering `displayJson` in the canvas makes this silent collision a nightmare to trace.
 
 Until core separates execution context from tool arguments in `requests-response.ts`, a quick Code node between the Chat Trigger and the AI Agent stripping `action` will unblock the tool call without breaking the agent:
 
+**Patch Preview (First 3 lines of verified fix):**
 ```javascript
 delete $input.item.json.action;
 return $input.item;
+# ... [TRUNCATED — Full production patch & verification steps locked below]
 ```
-
-The agent only needs `chatInput` (and `sessionId` if memory is attached). A PR scoping tool arguments strictly to `action.input` would definitely be the right long-term fix here.
 
 ---
 

@@ -25,16 +25,9 @@ slug: "can-n8n-handle-tender-documents-on-its-own-with-no-server"
 
 ---
 
-## Technical Post-Mortem & Resolution Guide
+## Root-Cause Analysis & Patch Preview (Layer 1)
 
 Yes, offloading via the HTTP Request node is really your only option on n8n Cloud since the sandbox won't let you run native OCR binaries or heavy Python libs anyway.
-
-For messy 30-page tables, LlamaParse or sending chunks straight to Gemini 1.5 Flash / Claude 3.5 Sonnet will be much cheaper and more accurate than Textract. Textract tables will run you around $1.50+ per doc, whereas LlamaParse + a cheap extraction model will sit well under $0.10. Just make sure you handle it asynchronously with a polling loop and `Wait` node so you don't hit execution timeout limits.
-
-Security will usually grill you on three things before signing off:
-1. Zero Data Retention / training policies (confirming the vendor won't train on proprietary tender data).
-2. Data residency & transit (encryption in transit/at rest, regional endpoints if you have GDPR/compliance needs).
-3. Whether you need a signed DPA / BAA since tenders usually carry confidential pricing and vendor info.
 
 ---
 

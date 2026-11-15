@@ -25,7 +25,7 @@ slug: "learning-n8n-how-do-you-handle-workflow-failures"
 
 ---
 
-## Technical Post-Mortem & Resolution Guide
+## Root-Cause Analysis & Patch Preview (Layer 1)
 
 === SECTION 0: RESUME DU PROBLEME EN FRANCAIS ===
 L'utilisateur cherche à structurer une stratégie d'observabilité et de tolérance aux pannes de niveau entreprise au sein de ses automatisations n8n. Il fait face aux problématiques structurelles de tout pipeline d'intégration : les interruptions brutales lors d'erreurs HTTP transitoires (erreurs 429 ou 5xx), le risque d'injection de doublons lors des ré-exécutions manuelles, et l'absence de monitoring centralisé des pannes en production. Sans implémentation de patterns d'idempotence et d'un routeur d'erreur dédié (Dead Letter Queue), tout échec au milieu d'un graphe d'exécution laisse les systèmes cibles dans un état désynchronisé et bloque le flux de travail.
@@ -51,43 +51,14 @@ Dans chaque nœud **HTTP Request**, activez la politique de résilience intégr�
 ### Étape 2 : Implémenter l'idempotence et éliminer les doublons
 Pour rendre une ré-exécution sûre :
 - **Au niveau API :** Injectez un en-tête d'idempotence dans les requêtes POST/PATCH :
-  ```json
-  {
+
+**Patch Preview (First 3 lines of verified fix):**
+```json
+{
     "Idempotency-Key": "={{ $json.id }}_{{ $json.updated_at || $now.toFormat('yyyyMMdd') }}"
   }
-  ```
-- **Au niveau Base de Données :** Remplacez les `INSERT` standards par des requêtes de type `UPSERT` (ex. PostgreSQL : `ON CONFLICT (external_id) DO UPDATE SET ...`).
-- **Au niveau n8n (Deduplication) :** Utilisez le nœud **Remove Duplicates** configuré sur `Compare: Selected Properties` avec la clé primaire métier (`id`, `order_number` ou `hash`).
-
-### Étape 3 : Créer le Workflow Centralisé de Gestion des Pannes (Dead Letter Queue)
-Créez un workflow indépendant nommé `[System] Global Error Handler` :
-1. Nœud Déclencheur : **Error Trigger**.
-2. Ce nœud reçoit automatiquement la charge utile suivante :
-   ```json
-   {
-     "execution": {
-       "id": "10492",
-       "url": "https://n8n.yourdomain.com/execution/10492",
-       "error": {
-         "message": "404 - Not Found",
-         "stack": "NodeApiError: 404 - Not Found..."
-       },
-       "lastNodeExecuted": "HTTP Request - Charge Stripe",
-       "mode": "webhook"
-     },
-     "workflow": {
-       "id": "42",
-       "name": "Sync Orders to ERP"
-     }
-   }
-   ```
-3. Connectez un nœud **Slack** (ou Discord/Teams/Webhook) avec le bloc d'alerte suivant :
-   ```json
-   {
-     "text": "🚨 *Workflow Execution Failed*",
-     "attachments": [
-       {
-         "color": "#FF0
+# ... [TRUNCATED — Full production patch & verification steps locked below]
+```
 
 ---
 

@@ -34,13 +34,9 @@ It follows the `requestOAuth2` pattern. A resolved 401 with `simple: false` now 
 
 ---
 
-## Technical Post-Mortem & Resolution Guide
+## Root-Cause Analysis & Patch Preview (Layer 1)
 
 Spot on diagnosis. The discrepancy between `requestOAuth2` (which explicitly handles resolved 401s under `simple: false`) and `requestWithAuthentication` (which strictly encapsulates `credentialsHelper.preAuthentication` in `catch`) is definitely an oversight in the execution engine.
-
-If you already have a working patch mirroring the `oauth.ts` retry pattern, please open a PR against `master` and link it to Linear ticket `GHC-9757`.
-
-In the meantime, handling the failure via the node's generic **Settings > On Error > Continue Regular Output** rather than the HTTP-level "Never Error" (`simple: false`) lets the underlying client throw, hit the `catch` block to refresh the token, and keep your workflow running.
 
 ---
 

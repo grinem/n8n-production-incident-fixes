@@ -25,11 +25,9 @@ slug: "help-with-whatsapp-business-integration-in-automation"
 
 ---
 
-## Technical Post-Mortem & Resolution Guide
+## Root-Cause Analysis & Patch Preview (Layer 1)
 
 Make only bills for the scenario operations executed; it does not bill for WhatsApp messages. All conversation fees are paid directly to Meta, meaning your client must have an active payment method attached inside their own Meta Business Manager.
-
-For coexistence mode, Meta Cloud API does now support running alongside the WhatsApp Business App. The simplest way to handle client permissions is to screenshare with them while setting up Make's WhatsApp Business Cloud API connection—have them complete the Embedded Signup popup with their own Meta credentials so their WABA, phone number, and payment method remain cleanly under their ownership without sharing raw account logins.
 
 ---
 

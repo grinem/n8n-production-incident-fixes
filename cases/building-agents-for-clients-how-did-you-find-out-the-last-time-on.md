@@ -25,21 +25,9 @@ slug: "building-agents-for-clients-how-did-you-find-out-the-last-time-on"
 
 ---
 
-## Technical Post-Mortem & Resolution Guide
+## Root-Cause Analysis & Patch Preview (Layer 1)
 
 Hello @/u/Ok-Machine7983,
-
-Here is what is likely causing this issue and how to resolve it:
-
-### 1. Forcer la validation de schéma déterministe (Post-LLM Guardrail)
-Insérez immédiatement un nœud **Code (JavaScript)** après la sortie de votre Agent / Structured Output Parser pour valider strictement le schéma avant toute mutation API :
-
-```javascript
-// Strict Payload Validator (Sub-node Code n8n)
-const requiredFields = ['customerEmail', 'appointmentTimestamp', 'serviceId'];
-const input = 
-
-Hope this helps point you in the right direction! Let me know if you hit any snag with the configuration.
 
 ---
 

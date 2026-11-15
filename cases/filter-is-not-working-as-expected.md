@@ -25,11 +25,9 @@ slug: "filter-is-not-working-as-expected"
 
 ---
 
-## Technical Post-Mortem & Resolution Guide
+## Root-Cause Analysis & Patch Preview (Layer 1)
 
 Google Forms usually returns question values as text strings rather than numbers, which makes numeric operators (`<=`) fail silently at the filter. Wrap your rating tag in `parseNumber(...)` in the filter condition and ensure you're using the numeric `<=`, not text.
-
-As for the blinking module, right-click Google Forms, select **Choose where to start**, pick a specific past response that has a rating of 1 or 2, then hit **Run once** to verify the path opens.
 
 ---
 

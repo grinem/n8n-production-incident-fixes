@@ -25,7 +25,7 @@ slug: "troubleshooting-telegram-api-errors-thumbnail-as-animation-no-doc"
 
 ---
 
-## Technical Post-Mortem & Resolution Guide
+## Root-Cause Analysis & Patch Preview (Layer 1)
 
 === SECTION 0: RESUME DU PROBLEME EN FRANCAIS ===
 L'utilisateur cherche à relayer des animations, stickers et documents via l'API Telegram à l'aide du nœud HTTP Request de n8n en réutilisant des `file_id` existants. Son flux échouait sur deux erreurs bloquantes de l'API Telegram (HTTP 400) : *« can’t use file of type Thumbnail as Animation »* et *« there is no document in the request »*. Ces interruptions résultent d'une part de la sélection de la clé imbriquée de vignette (`thumb.file_id` au lieu du `file_id` racine du média), et d'autre part de l'envoi d'un en-tête `multipart/form-data` mal formé au lieu d'un format `application/json` natif qui est le standard requis par Telegram lors du référencement d'un identifiant déjà hébergé sur leurs serveurs.
@@ -66,47 +66,14 @@ Basculez impérativement la méthode d'envoi en JSON pur.
 7. **Specify Body** : `Using JSON`
 
 **Payload JSON exact :**
+
+**Patch Preview (First 3 lines of verified fix):**
 ```json
 {
   "chat_id": "={{ $json.chat_id }}",
   "document": "={{ $json.message.document.file_id }}",
-  "caption": "Fichier transféré avec succès"
-}
+# ... [TRUNCATED — Full production patch & verification steps locked below]
 ```
-
-*Pour les animations (`/sendAnimation`) :*
-```json
-{
-  "chat_id": "={{ $json.chat_id }}",
-  "animation": "={{ $json.message.animation.file_id }}"
-}
-```
-
-*Pour les stickers (`/sendSticker`) :*
-```json
-{
-  "chat_id": "={{ $json.chat_id }}",
-  "sticker": "={{ $json.message.sticker.file_id }}"
-}
-```
-
----
-
-### Étape 3 : Snippet JSON n8n prêt à l'emploi (Workflow)
-Copiez-collez ce nœud directement dans votre canvas n8n :
-
-```json
-{
-  "nodes": [
-    {
-      "parameters": {
-        "method": "POST",
-        "url": "=https://api.telegram.org/bot{{ $vars.TELEGRAM_BOT_TOKEN }}/sendDocument",
-        "sendHeaders": true,
-        "headerParameters": {
-          "parameters": [
-            {
-              "name": "Content-
 
 ---
 

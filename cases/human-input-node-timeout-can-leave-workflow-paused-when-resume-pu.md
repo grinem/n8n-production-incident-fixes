@@ -25,13 +25,9 @@ slug: "human-input-node-timeout-can-leave-workflow-paused-when-resume-pu"
 
 ---
 
-## Technical Post-Mortem & Resolution Guide
+## Root-Cause Analysis & Patch Preview (Layer 1)
 
 Spot on catch. It's a classic dual-write race where the DB commits the form as `TIMEOUT` before the Celery dispatch succeeds, leaving the parent `workflow_runs` stuck in `PAUSED` with no retry path.
-
-Upstream, the cleanest fix is either rolling back the form status on broker publish failure so the existing sweep retries it, or adding a reconciliation sweep that queries `HumanInputForm.status == 'TIMEOUT'` alongside `WorkflowRun.status == 'PAUSED'`.
-
-If you're already preparing a PR for this, happy to help review it.
 
 ---
 

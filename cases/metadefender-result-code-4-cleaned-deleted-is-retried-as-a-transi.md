@@ -25,11 +25,9 @@ slug: "metadefender-result-code-4-cleaned-deleted-is-retried-as-a-transi"
 
 ---
 
-## Technical Post-Mortem & Resolution Guide
+## Root-Cause Analysis & Patch Preview (Layer 1)
 
 Good catch. Since Dify keeps the original uploaded bytes rather than pulling down the vendor's sanitized payload, mapping `4` directly to `_INFECTED` in `api/core/file_scan/scanners/metadefender.py` is definitely the right move to prevent fail-open behavior.
-
-If you already have this patched locally, please open a PR adding `4` to `_INFECTED` along with the corresponding test case in `tests/unit_tests/core/file_scan/test_scanners.py`.
 
 ---
 

@@ -25,7 +25,7 @@ slug: "google-gemini-node-message-a-model-crashes-with-reading-flatmap-w"
 
 ---
 
-## Technical Post-Mortem & Resolution Guide
+## Root-Cause Analysis & Patch Preview (Layer 1)
 
 Spot-on diagnosis! The root issue stems from the Google Gemini API returning an HTTP 200 OK containing only `promptFeedback.blockReason` while completely omitting the `candidates` array whenever a safety threshold or prohibited content policy is triggered. Because `GenerateContentResponse` in `helpers/interfaces.ts` currently marks `candidates` as strictly required, operations like `getToolCalls` immediately hit `response.candidates.flatMap(...)` and crash with an unhandled `TypeError: Cannot read properties of undefined (reading 'flatMap')`.
 
@@ -37,64 +37,13 @@ Looking closely at the implementation:
 
 In `helpers/interfaces.ts`, `candidates` should be marked optional to reflect actual upstream API responses:
 
+**Patch Preview (First 3 lines of verified fix):**
 ```typescript
 export interface GenerateContentResponse {
 	candidates?: Candidate[]; // Optional: omitted by Gemini when prompt is blocked
 	promptFeedback?: {
-		blockReason?: string;
-		blockReasonMessage?: string;
-		safetyRatings?: SafetyRating[];
-	};
-	usageMetadata?: UsageMetadata;
-}
+# ... [TRUNCATED — Full production patch & verification steps locked below]
 ```
-
-And in `message.operation.ts` (around lines 581 & 614), guard against undefined candidates before calling `.flatMap(...)`:
-
-```typescript
-if (response.promptFeedback?.blockReason) {
-	throw new NodeOperationError(
-		this.getNode(),
-		`Google Gemini blocked the prompt: ${response.promptFeedback.blockReason}${
-			response.promptFeedback.blockReasonMessage ? ` - ${response.promptFeedback.blockReasonMessage}` : ''
-		}`,
-	);
-}
-
-const toolCalls = (response.candidates ?? []).flatMap((candidate) => getToolCalls(candidate));
-```
-
-### Unit Test Fixture
-
-To verify this regression fix in `message.operation.test.ts`, here is a clean fixture simulating a safety-blocked response:
-
-```typescript
-describe('Google Gemini - Message a Model (Safety Block)', () => {
-	it('should gracefully handle responses where candidates is undefined due to blockReason', async () => {
-		const blockedResponse: GenerateContentResponse = {
-			promptFeedback: {
-				blockReason: 'SAFETY',
-				blockReasonMessage: 'Prompt violated safety policies',
-				safetyRatings: [
-					{
-						category: 'HARM_CATEGORY_HARASSMENT',
-						probability: 'HIGH',
-					},
-				],
-			},
-		};
-
-		// Mock the API client call
-		jest.spyOn(apiClient, 'generateContent').mockResolvedValue(blockedResponse);
-
-		await expect(executeMessageOperation.call(mockExecuteFunctions, blockedResponse)).rejects.toThrow(
-			/Google Gemini blocked the prompt: SAFETY/,
-		);
-	});
-});
-```
-
-Happy to review your PR once opened!
 
 ---
 

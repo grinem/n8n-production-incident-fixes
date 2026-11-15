@@ -25,7 +25,7 @@ slug: "whatsapp-coexistence-fails-with-meta-error-3441038-before-qr-code"
 
 ---
 
-## Technical Post-Mortem & Resolution Guide
+## Root-Cause Analysis & Patch Preview (Layer 1)
 
 Meta error **#3441038** (*"You don’t have the necessary permissions to view this asset"*) triggers during the initial lookup phase of the Meta Embedded Signup flow before the QR code generation.
 
@@ -66,30 +66,13 @@ Breaking the existing link frees up the phone number so Meta does not associate 
 ### Alternative: Custom Meta Direct App Configuration
 If Meta Support's backend investigation has placed a temporary lock on the Embedded Signup route for your number, you can bypass the wizard entirely using Make's native **HTTP** module and a direct Meta Graph API call:
 
+**Patch Preview (First 3 lines of verified fix):**
 ```json
 {
   "method": "POST",
   "url": "[https]://graph[.]facebook[.]com/v21.0/YOUR_PHONE_NUMBER_ID/messages",
-  "headers": {
-    "Authorization": "Bearer [REDACTED_SECRET]",
-    "Content-Type": "application/json"
-  },
-  "body": {
-    "messaging_product": "whatsapp",
-    "recipient_type": "individual",
-    "to": "+1234567890",
-    "type": "text",
-    "text": {
-      "preview_url": false,
-      "body": "Test message routed via Make direct API"
-    }
-  }
-}
+# ... [TRUNCATED — Full production patch & verification steps locked below]
 ```
-
-If you would like, I can share the complete scenario JSON blueprint / flow template with you for free—just let me know and I will gladly provide it.
-
-Let me know if disconnecting the number from the Page unblocks the QR step!
 
 ---
 

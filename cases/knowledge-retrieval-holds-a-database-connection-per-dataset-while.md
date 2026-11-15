@@ -25,7 +25,7 @@ slug: "knowledge-retrieval-holds-a-database-connection-per-dataset-while"
 
 ---
 
-## Technical Post-Mortem & Resolution Guide
+## Root-Cause Analysis & Patch Preview (Layer 1)
 
 Spot on diagnosis. `DatasetRetrieval._retriever` keeps the ambient session open across the external network boundaries (embedding model call + vector store round-trip), locking checked-out pool connections in `idle in transaction`.
 
@@ -34,25 +34,13 @@ The fix here is scoping the dataset metadata lookup strictly before firing off r
 1. Materialize and detach the required configuration fields (`index_struct_dict`, `tenant_id`, etc.) upfront.
 2. Explicitly commit/close or wrap the lookup in a standalone context manager before invoking `embedding_model` and `vector_store.search_by_vector`:
 
+**Patch Preview (First 3 lines of verified fix):**
 ```python
 with session_factory() as session:
     dataset = session.get(Dataset, dataset_id)
     if not dataset:
-        return []
-    index_config = dataset.index_struct_dict
-    tenant_id = dataset.tenant_id
-
-# Connection released before remote I/O
-embeddings = embedding_model.get_text_embedding(query_text)
-search_results = vector_store.search_by_vector(
-    tenant_id=tenant_id,
-    index_config=index_config,
-    vector=embeddings,
-    ...
-)
+# ... [TRUNCATED — Full production patch & verification steps locked below]
 ```
-
-If you're already prepping a PR to decouple session lifecycle from the retrieval execution path, definitely open it—this is a critical bottleneck under concurrent load. In the interim on self-hosted instances, bumping `SQLALCHEMY_POOL_SIZE` alongside Postgres `max_connections` (or placing PgBouncer in transaction pooling mode) is the only short-term buffer against connection starvation.
 
 ---
 

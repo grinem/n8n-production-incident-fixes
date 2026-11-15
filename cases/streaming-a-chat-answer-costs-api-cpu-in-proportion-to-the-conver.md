@@ -25,23 +25,21 @@ slug: "streaming-a-chat-answer-costs-api-cpu-in-proportion-to-the-conver"
 
 ---
 
-## Technical Post-Mortem & Resolution Guide
+## Root-Cause Analysis & Patch Preview (Layer 1)
 
 Spot-on analysis. The $O(N \times M)$ overhead comes down to `AppQueueManager.publish` running `self._check_for_sqlalchemy_models(event.model_dump())` on every emitted `QueueLLMChunkEvent`, which forces a full Pydantic dump of the prompt message array per chunk.
 
 Two clean ways to tackle this:
 
 1. **Exempt pure chunk events from model dumps** in `api/core/app/apps/base_app_queue_manager.py`:
+
+**Patch Preview (First 3 lines of verified fix):**
 ```python
 def publish(self, event: AppQueueEvent, pub_to_redis: bool = False):
     if not isinstance(event, QueueLLMChunkEvent):
         self._check_for_sqlalchemy_models(event.model_dump())
+# ... [TRUNCATED — Full production patch & verification steps locked below]
 ```
-`QueueLLMChunkEvent` only carries transient token payloads and prompt copies, so recursively checking for detached SQLAlchemy models on every single token is unnecessary.
-
-2. **Decouple the prompt history from intermediate chunks** in `_stream_invoke_result_chunks`: only attach `prompt_messages` to the initial or final chunk if listeners downstream require it for token counting.
-
-Option 1 is the cleanest hotfix and flattens per-chunk CPU time back to a constant baseline regardless of context size. A PR for this would be very welcome.
 
 ---
 

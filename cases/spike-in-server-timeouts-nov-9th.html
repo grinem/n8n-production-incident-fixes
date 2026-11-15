@@ -53,9 +53,37 @@
       </div>
     </div>
 
-    <!-- Rendered Markdown Container -->
+    <!-- Layer 1 (Bloc A): Free Root-Cause Analysis & 3-Line Patch Preview -->
     <article id="content" class="bg-slate-800/80 rounded-2xl p-6 sm:p-10 border border-slate-700/80 shadow-2xl prose prose-invert max-w-none prose-headings:text-indigo-200 prose-a:text-emerald-400 hover:prose-a:text-emerald-300 prose-pre:bg-slate-950 prose-pre:border prose-pre:border-slate-800">
     </article>
+
+    <!-- Layer 2 (Bloc B): Blurred Production Patch Paywall ($39 Self-Serve / $199 Turnkey PR) -->
+    <div class="mt-6 relative rounded-2xl bg-slate-900 border-2 border-emerald-500/40 p-6 sm:p-8 shadow-2xl overflow-hidden">
+      <div class="flex items-center justify-between mb-3">
+        <span class="px-3 py-1 rounded-full text-xs font-extrabold uppercase tracking-wider bg-emerald-500/20 text-emerald-300 border border-emerald-500/40">🔒 Verified Production Patch &amp; Config Diff</span>
+        <span class="text-xs text-slate-400 font-mono">Instant Automated Delivery</span>
+      </div>
+      <pre class="text-xs font-mono text-slate-300 bg-slate-950 p-4 rounded-xl border border-slate-800 select-none pointer-events-none" style="filter: blur(5.5px); user-select: none;">
+--- a/docker-compose.production.yml
++++ b/docker-compose.production.yml
+@@ -14,7 +14,12 @@ services:
+   worker:
+     environment:
+       - EXECUTIONS_DATA_PRUNE=true
+       - EXECUTIONS_DATA_MAX_AGE=168
+       - DB_POSTGRESDB_POOL_SIZE=16
+       - N8N_PAYLOAD_SIZE_MAX=64
+       - NODE_OPTIONS=--max-old-space-size=4096
+      </pre>
+      <div class="mt-5 flex flex-col sm:flex-row items-center justify-center gap-4">
+        <button onclick="window.openTriageModal(39, 'bubble_402763', 'Spike in server timeouts Nov 9th')" class="w-full sm:w-auto inline-flex items-center justify-center px-6 py-3.5 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-black text-sm shadow-lg shadow-emerald-500/25 transition cursor-pointer">
+          🔓 Unlock Full Patch &amp; Config Now &mdash; $39 (31 USDT)
+        </button>
+        <button onclick="window.openTriageModal(199, 'bubble_402763', 'Spike in server timeouts Nov 9th')" class="w-full sm:w-auto inline-flex items-center justify-center px-6 py-3.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-sm shadow-lg shadow-indigo-600/25 transition cursor-pointer">
+          ⚡ Custom Triage &amp; Turnkey PR &mdash; $199 (159 USDT)
+        </button>
+      </div>
+    </div>
 
     <!-- Bottom CTA Card -->
     <div class="mt-10 rounded-2xl bg-gradient-to-br from-indigo-950/80 via-slate-800 to-slate-900 border border-indigo-500/30 p-8 text-center shadow-xl">
@@ -70,7 +98,7 @@
   </div>
 
   <script>
-    const rawMarkdown = "---\nlayout: default\ntitle: \"Spike in server timeouts Nov 9th\"\nplatform: \"Bubble.io\"\nseverity: \"HIGH\"\nstatus: \"Resolved\"\ndate: 2026-11-10\ntags: [\"bubble\", \"production-fix\", \"post-mortem\", \"verified-resolution\"]\nslug: \"spike-in-server-timeouts-nov-9th\"\n---\n\n# Spike in server timeouts Nov 9th\n\n\n> \u26a1 **Encountering this exact production bug or need an emergency automation fix?**  \n> [**\ud83d\udea8 Instant Async Production Triage & Resolution (< 6h, Zero Video Calls)**](https://n8n-production-incident-fixes.pages.dev/#triage)\n\n\n## Incident Metadata\n- **Platform / Ecosystem**: `Bubble.io`\n- **Incident Severity**: `HIGH`\n- **Resolution Status**: `RADAR TRIAGED & READY FOR RESOLUTION`\n- **Logged Timestamp**: `2026-11-10T12:16:43.153082`\n- **Diagnosis Engine**: Autonomous Production Incident Radar\n\n---\n\n## Technical Post-Mortem & Resolution Guide\n\nTransient timeouts on jobs that usually execute in milliseconds are almost always caused by one of two things: underlying infrastructure noise (cluster/proxy saturation) or internal DB/thread contention during simultaneous executions.\n\nSince Bubble removed the public median latency breakdown on the status page, here is a reliable method to isolate whether this is localized to your app or platform-wide, along with immediate mitigations:\n\n### 1. Deploy a \"Canary\" Health Check Workflow\nTo definitively know whether Bubble is having cluster-wide hiccups:\n- In **Backend Workflows**, expose a public API workflow named `ping` or `health_check`.\n- Do **not** query or write to the database in this workflow; simply use the `Return data from API` action to return formatted JSON: `{\"status\": \"ok\", \"time\": Current date/time}`.\n- Point a lightweight synthetic monitor (e.g., Better Stack or UptimeRobot) at this endpoint pinging every 60 seconds.\n- **Verdict:** If your canary endpoint spikes to >5,000ms or throws 504s during these incidents, the issue is at the Bubble/AWS/Cloudflare gateway layer. If the canary stays under 100ms while your regular jobs time out, the bottleneck is localized to database locking or workload queue saturation.\n\n### 2. Inspect Server Logs & Workload Charts\n- Go to **Logs > Server logs**, expand the search, and filter strictly for errors around the timestamps of your Nov 9th spikes.\n- Check **Logs > Workload**: look at the minute-by-minute WU consumption chart. A sudden concurrent spike in recursive workflows or scheduled tasks can temporarily throttle incoming requests, pushing short jobs over Bubble's ~30-second synchronous HTTP timeout limit.\n\n### 3. Decouple Synchronous Workflows\nIf these fast jobs are triggered via incoming webhooks or user-facing API calls:\n- Avoid executing database writes or API Connector calls synchronously within the primary webhook flow.\n- Instead, capture the payload, immediately return a `200 OK` using `Return data from API`, and hand off the logic using `Schedule API Workflow` with a delay of `0` seconds. This shifts execution from the strict HTTP gateway timeout (~30s) to the backend background worker pool (~5m).\n\nIf you are comfortable sharing whether these timeouts show up on API endpoints (HTTP 504) or backend scheduled workflows, let me know and I'll be glad to help inspect the logs or workflow structure!\n\n---\n\n## Incident Prevention & Operational Takeaways\n1. **Audit Upstream Authentication**: Validate OAuth2 token refresh loops and ensure service credentials cannot be orphaned.\n2. **Implement Schema Boundary Validation**: Guard downstream webhooks against unexpected payload truncations.\n3. **Automate Error Interception**: Configure fallback nodes and alerting monitors before critical production executions.\n\n---\n\n\n> \u26a1 **Encountering this exact production bug or need an emergency automation fix?**  \n> [**\ud83d\udea8 Instant Async Production Triage & Resolution (< 6h, Zero Video Calls)**](https://n8n-production-incident-fixes.pages.dev/#triage)\n\n\n[\u2190 Back to Live Case Studies Index](../)\n";
+    const rawMarkdown = "---\nlayout: default\ntitle: \"Spike in server timeouts Nov 9th\"\nplatform: \"Bubble.io\"\nseverity: \"HIGH\"\nstatus: \"Resolved\"\ndate: 2026-11-10\ntags: [\"bubble\", \"production-fix\", \"post-mortem\", \"verified-resolution\"]\nslug: \"spike-in-server-timeouts-nov-9th\"\n---\n\n# Spike in server timeouts Nov 9th\n\n\n> \u26a1 **Encountering this exact production bug or need an emergency automation fix?**  \n> [**\ud83d\udea8 Instant Async Production Triage & Resolution (< 6h, Zero Video Calls)**](https://n8n-production-incident-fixes.pages.dev/#triage)\n\n\n## Incident Metadata\n- **Platform / Ecosystem**: `Bubble.io`\n- **Incident Severity**: `HIGH`\n- **Resolution Status**: `RADAR TRIAGED & READY FOR RESOLUTION`\n- **Logged Timestamp**: `2026-11-10T12:16:43.153082`\n- **Diagnosis Engine**: Autonomous Production Incident Radar\n\n---\n\n## Root-Cause Analysis & Patch Preview (Layer 1)\n\nTransient timeouts on jobs that usually execute in milliseconds are almost always caused by one of two things: underlying infrastructure noise (cluster/proxy saturation) or internal DB/thread contention during simultaneous executions.\n\n---\n\n## Incident Prevention & Operational Takeaways\n1. **Audit Upstream Authentication**: Validate OAuth2 token refresh loops and ensure service credentials cannot be orphaned.\n2. **Implement Schema Boundary Validation**: Guard downstream webhooks against unexpected payload truncations.\n3. **Automate Error Interception**: Configure fallback nodes and alerting monitors before critical production executions.\n\n---\n\n\n> \u26a1 **Encountering this exact production bug or need an emergency automation fix?**  \n> [**\ud83d\udea8 Instant Async Production Triage & Resolution (< 6h, Zero Video Calls)**](https://n8n-production-incident-fixes.pages.dev/#triage)\n\n\n[\u2190 Back to Live Case Studies Index](../)\n";
     // Strip YAML frontmatter
     const mdWithoutYaml = rawMarkdown.replace(/^---[\s\S]*?---\s*/, '');
     document.getElementById('content').innerHTML = marked.parse(mdWithoutYaml);
@@ -174,7 +202,21 @@
       .replace(/(Bearer\s+)[A-Za-z0-9._-]{12,}/gi, "$1[REDACTED]")
       .replace(/((?:PASSWORD|SECRET|TOKEN|API_KEY)\s*[:=]\s*)['"]?[^\s'";]+['"]?/gi, "$1[REDACTED]");
   }
-  window.openTriageModal = function() {
+  window.selectedTriageTier = null;
+  window.selectedLeadId = "";
+  window.openTriageModal = function(tier, leadId, issueTitle) {
+    window.selectedTriageTier = tier || null;
+    window.selectedLeadId = leadId || "";
+    if (issueTitle) {
+      const symEl = document.getElementById("trSymptom");
+      if (symEl) symEl.value = issueTitle;
+    }
+    const btn = document.getElementById("trSubmitBtn");
+    if (btn) {
+      if (tier === 39) btn.innerText = "Unlock Full Production Patch ($39 / 31 USDT) →";
+      else if (tier === 199) btn.innerText = "Launch Custom Triage & Turnkey PR ($199 / 159 USDT) →";
+      else btn.innerText = "Run Instant AI Triage →";
+    }
     const m = document.getElementById("triageModal");
     m.classList.remove("hidden");
     m.classList.add("flex");
@@ -198,7 +240,7 @@
       const r = await fetch(API + "/api/triage", {
         method: "POST",
         headers: {"Content-Type": "application/json"},
-        body: JSON.stringify({email, symptom, logs, repo_url})
+        body: JSON.stringify({email, symptom, logs, repo_url, tier: window.selectedTriageTier, lead_id: window.selectedLeadId})
       });
       const d = await r.json();
       if (!r.ok) throw new Error(d.error || "Triage error");

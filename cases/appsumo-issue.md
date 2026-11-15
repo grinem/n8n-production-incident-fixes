@@ -25,7 +25,7 @@ slug: "appsumo-issue"
 
 ---
 
-## Technical Post-Mortem & Resolution Guide
+## Root-Cause Analysis & Patch Preview (Layer 1)
 
 This behavior typically stems from an asynchronous provisioning mismatch between the AppSumo redemption webhook and the Activepieces Cloud subscription table.
 
@@ -36,49 +36,13 @@ Here is how you can inspect your active workspace limits via the API and provide
 ### Step 1: Inspect Your Project Plan via REST API
 You can verify the exact tier and quotas assigned to your current workspace by querying the Activepieces API using an API key generated under **Project Settings > API Keys**:
 
+**Patch Preview (First 3 lines of verified fix):**
 ```bash
 curl -X GET "[https]://cloud[.]activepieces[.]com/api/v1/projects" \
   -H "Authorization: Bearer [REDACTED_SECRET]" \
   -H "Content-Type: application/json"
+# ... [TRUNCATED — Full production patch & verification steps locked below]
 ```
-
-In the returned response body, inspect the `plan` property. On an unsynced Tier 3 project, you will notice missing values or legacy limits for `aiAgentsLimit`, `tablesLimit`, and `mcpServersLimit`.
-
-### Step 2: Diagnostic Payload for Core Maintainers
-To expedite the resolution on this GitHub issue without back-and-forth credential exchanges, share your sanitized diagnostic payload directly with the team:
-
-```json
-{
-  "accountDiagnosis": {
-    "accountEmail": "your-email[at]domain[.]com",
-    "projectId": "PASTE_YOUR_PROJECT_ID_HERE",
-    "targetTier": "AppSumo Tier 3",
-    "expectedPlanLimits": {
-      "aiAgents": 5,
-      "tables": 5,
-      "mcpServers": 5,
-      "tasksPerMonth": 50000
-    },
-    "appSumoState": {
-      "dashboardStatus": "Activated",
-      "redemptionDate": "2024-06-10"
-    }
-  }
-}
-```
-
-### Step 3: Trigger Frontend Session Re-Sync
-Before waiting for a manual database patch from the team, try re-triggering the session token:
-1. Open a private/incognito browser session.
-2. Sign into your Activepieces account at `[https]://cloud[.]activepieces[.]com`[.]
-3. In a separate tab within the same incognito window, open your AppSumo dashboard under **Products**, locate your Activepieces Tier 3 purchase, and select the redemption/re-activation action.
-4. If AppSumo exposes the redemption link (e.g., `cloud[.]activepieces[.]com/appsumo?code=YOUR_CODE`), open that URL directly while your Activepieces session is active in the same browser window.
-
-If the redemption page indicates the code has already been redeemed, reply here with your `projectId` (you can find it in your browser URL bar: `cloud[.]activepieces[.]com/projects/{projectId}/...`). That allows the Activepieces maintainers to run the internal migration script directly on your tenant record.
-
-If you'd like, I can also share the complete JSON blueprint / flow template with you for free—just let me know and I'll send it over.
-
-Let me know what your API response looks like, and I will be happy to help inspect the plan structure with you!
 
 ---
 

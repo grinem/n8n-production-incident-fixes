@@ -25,13 +25,9 @@ slug: "n8n102-422-on-finalize-progress-stuck"
 
 ---
 
-## Technical Post-Mortem & Resolution Guide
+## Root-Cause Analysis & Patch Preview (Layer 1)
 
 Check your filter condition. You have a node named `FilterDelivered`, but the N8N-102 priority queue requires filtering by enterprise customers (e.g. `customer.tier === 'enterprise'`), not delivered order status.
-
-Even if the count matched 12, the backend inspects the actual order payloads pushed to the queue and fails validation on `/finalize`.
-
-Fix the filter to target enterprise tier, make sure your finalize payload passes native numbers/booleans in raw JSON (not strings), and trigger the run again—you don't need an administrative reset.
 
 ---
 

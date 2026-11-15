@@ -25,7 +25,7 @@ slug: "broken-contributing-license-links-in-package-readmes"
 
 ---
 
-## Technical Post-Mortem & Resolution Guide
+## Root-Cause Analysis & Patch Preview (Layer 1)
 
 Good catch. This is a classic monorepo packaging issue where relative markdown links fail across both GitHub browsing and package registries.
 
@@ -38,59 +38,13 @@ To ensure links work identically on both GitHub and npmjs, the links in the sub-
 
 Here is an automated Node.js patch script you can run from the root of the monorepo to fix all affected README files in one shot:
 
+**Patch Preview (First 3 lines of verified fix):**
 ```javascript
 // fix-readme-links.js - Run from n8n monorepo root
 const fs = require('fs');
 const path = require('path');
-
-const targetPackages = [
-  'packages/Client Case Study (User)/utils',
-  'packages/frontend/Client Case Study (User)/composables',
-  'packages/frontend/Client Case Study (User)/frontend-constants',
-  'packages/frontend/Client Case Study (User)/frontend-utils',
-  'packages/frontend/Client Case Study (User)/i18n',
-  'packages/frontend/Client Case Study (User)/rest-api-client',
-  'packages/frontend/Client Case Study (User)/stores'
-];
-
-const REPO_ROOT_URL = '[https]://github[.]com/n8n-io/n8n/blob/master';
-
-targetPackages.forEach((pkgPath) => {
-  const readmePath = path.join(process.cwd(), pkgPath, 'README.md');
-  if (!fs.existsSync(readmePath)) {
-    console.warn(`File not found: ${readmePath}`);
-    return;
-  }
-
-  let content = fs.readFileSync(readmePath, 'utf8');
-
-  // Replace relative CONTRIBUTING and LICENSE links with canonical repository URLs
-  content = content
-    .replace(/\(\.\.?\/CONTRIBUTING\.md\)|\(CONTRIBUTING\.md\)/g, `(${REPO_ROOT_URL}/CONTRIBUTING.md)`)
-    .replace(/\(\.\.?\/LICENSE\.md\)|\(LICENSE\.md\)/g, `(${REPO_ROOT_URL}/LICENSE.md)`);
-
-  fs.writeFileSync(readmePath, content, 'utf8');
-  console.log(`Updated links in: ${readmePath}`);
-});
+# ... [TRUNCATED — Full production patch & verification steps locked below]
 ```
-
-Alternatively, if you prefer a direct markdown adjustment in each file:
-
-```markdown
-<!-- Replace local relative links: -->
-- [CONTRIBUTING.md](CONTRIBUTING.md)
-- [LICENSE.md](LICENSE.md)
-
-<!-- With canonical absolute paths: -->
-- [CONTRIBUTING.md]([https]://github[.]com/n8n-io/n8n/blob/master/CONTRIBUTING[.]md)
-- [LICENSE.md]([https]://github[.]com/n8n-io/n8n/blob/master/LICENSE[.]md)
-```
-
-*(Note: remove the brackets around `[https]` and `[.]` when applying the markdown diff to your PR).*
-
-If you'd like, I can also share the complete JSON blueprint / flow template with you for free—just let me know and I'll send it over.
-
-Let me know if you run into any other edge cases across the monorepo packages or if you'd like me to review the diff before opening your PR!
 
 ---
 

@@ -25,11 +25,9 @@ slug: "a-malformed-json-file-in-the-source-control-work-folder-breaks-st"
 
 ---
 
-## Technical Post-Mortem & Resolution Guide
+## Root-Cause Analysis & Patch Preview (Layer 1)
 
 Spot-on analysis Client Case Study (User). It's an oversight from when data table handling was made defensive while credentials and projects were left with bare `jsonParse` calls.
-
-If you're opening a PR for this, mirroring the `try/catch` + `logger.warn` pattern from the data tables batch and filtering out `undefined` before downstream diffing should be an easy merge. Just remember to add a unit test in `source-control-import.service.ee.test.ts` covering a corrupted file in the work folder to prevent regressions.
 
 ---
 

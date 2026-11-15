@@ -25,7 +25,7 @@ slug: "weaviate-vector-store-clear-data-keeps-only-the-last-insert-batch"
 
 ---
 
-## Technical Post-Mortem & Resolution Guide
+## Root-Cause Analysis & Patch Preview (Layer 1)
 
 Excellent catch and thorough root-cause identification. Having the collection/tenant deletion hook nested directly inside the batch execution loop instead of executing once prior to the document chunking explains the silent data loss whenever `Embedding Batch Size` is smaller than the total record count.
 
@@ -41,45 +41,13 @@ Until PR #43518 is reviewed, merged, and cut into an official release, you can p
 
 You can copy and paste this JSON snippet directly onto your n8n workflow canvas:
 
+**Patch Preview (First 3 lines of verified fix):**
 ```json
 {
   "nodes": [
     {
-      "parameters": {
-        "method": "DELETE",
-        "url": "[https]://YOUR_WEAVIATE_HOST/v1/schema/YOUR_CLASS_NAME",
-        "authentication": "genericCredentialType",
-        "genericAuthType": "httpHeaderAuth",
-        "options": {
-          "allowUnauthorizedCerts": false,
-          "response": {
-            "response": {
-              "neverError": true
-            }
-          }
-        }
-      },
-      "id": "e0b82142-9999-4d22-b5e1-9871c5a00001",
-      "name": "Weaviate - Purge Collection Once",
-      "type": "n8n-nodes-base.httpRequest",
-      "typeVersion": 4.2,
-      "position": [
-        260,
-        300
-      ]
-    }
-  ],
-  "connections": {}
-}
+# ... [TRUNCATED — Full production patch & verification steps locked below]
 ```
-
-*(Note: Replace `YOUR_WEAVIATE_HOST` with your local or cloud Weaviate endpoint formatted as `[http]://localhost:8080` or `[https]://your-cluster[.]weaviate[.]cloud`, and replace `YOUR_CLASS_NAME` with your target class).*
-
-Alternatively, if you are working with a modest dataset that will not exceed your embedding model's rate limits or context window, temporarily setting the **Embedding Batch Size** parameter higher than the total document count forces a single batch execution, bypassing the looping deletion.
-
-If you'd like, I can also share the complete JSON blueprint / flow template with you for free—just let me know and I'll send it over.
-
-Let me know if your tenant setup requires multi-tenancy headers or if you hit any edge cases while testing the workaround!
 
 ---
 

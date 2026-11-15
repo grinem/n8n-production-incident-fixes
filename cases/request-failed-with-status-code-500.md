@@ -25,11 +25,9 @@ slug: "request-failed-with-status-code-500"
 
 ---
 
-## Technical Post-Mortem & Resolution Guide
+## Root-Cause Analysis & Patch Preview (Layer 1)
 
 On Baserow SaaS, a 500 when switching tables or editing rows is usually caused by a broken view filter/sort or a formula referencing a field that changed type.
-
-Open your browser's DevTools (`F12`), go to the **Network** tab, trigger the error, and click on the failed red request (status 500). What JSON error payload does it return in the **Response** tab? That will show the exact `error` code or field ID crashing the backend.
 
 ---
 

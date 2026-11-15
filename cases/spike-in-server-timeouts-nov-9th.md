@@ -25,29 +25,9 @@ slug: "spike-in-server-timeouts-nov-9th"
 
 ---
 
-## Technical Post-Mortem & Resolution Guide
+## Root-Cause Analysis & Patch Preview (Layer 1)
 
 Transient timeouts on jobs that usually execute in milliseconds are almost always caused by one of two things: underlying infrastructure noise (cluster/proxy saturation) or internal DB/thread contention during simultaneous executions.
-
-Since Bubble removed the public median latency breakdown on the status page, here is a reliable method to isolate whether this is localized to your app or platform-wide, along with immediate mitigations:
-
-### 1. Deploy a "Canary" Health Check Workflow
-To definitively know whether Bubble is having cluster-wide hiccups:
-- In **Backend Workflows**, expose a public API workflow named `ping` or `health_check`.
-- Do **not** query or write to the database in this workflow; simply use the `Return data from API` action to return formatted JSON: `{"status": "ok", "time": Current date/time}`.
-- Point a lightweight synthetic monitor (e.g., Better Stack or UptimeRobot) at this endpoint pinging every 60 seconds.
-- **Verdict:** If your canary endpoint spikes to >5,000ms or throws 504s during these incidents, the issue is at the Bubble/AWS/Cloudflare gateway layer. If the canary stays under 100ms while your regular jobs time out, the bottleneck is localized to database locking or workload queue saturation.
-
-### 2. Inspect Server Logs & Workload Charts
-- Go to **Logs > Server logs**, expand the search, and filter strictly for errors around the timestamps of your Nov 9th spikes.
-- Check **Logs > Workload**: look at the minute-by-minute WU consumption chart. A sudden concurrent spike in recursive workflows or scheduled tasks can temporarily throttle incoming requests, pushing short jobs over Bubble's ~30-second synchronous HTTP timeout limit.
-
-### 3. Decouple Synchronous Workflows
-If these fast jobs are triggered via incoming webhooks or user-facing API calls:
-- Avoid executing database writes or API Connector calls synchronously within the primary webhook flow.
-- Instead, capture the payload, immediately return a `200 OK` using `Return data from API`, and hand off the logic using `Schedule API Workflow` with a delay of `0` seconds. This shifts execution from the strict HTTP gateway timeout (~30s) to the backend background worker pool (~5m).
-
-If you are comfortable sharing whether these timeouts show up on API endpoints (HTTP 504) or backend scheduled workflows, let me know and I'll be glad to help inspect the logs or workflow structure!
 
 ---
 

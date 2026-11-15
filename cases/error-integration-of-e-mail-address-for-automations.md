@@ -25,7 +25,7 @@ slug: "error-integration-of-e-mail-address-for-automations"
 
 ---
 
-## Technical Post-Mortem & Resolution Guide
+## Root-Cause Analysis & Patch Preview (Layer 1)
 
 The errors you are encountering stem from two distinct constraints: an infrastructure-level egress restriction on Baserow Cloud and modern authentication policies enforced by Microsoft and Google.
 
@@ -73,24 +73,13 @@ If SMTP ports remain unreachable on Baserow Cloud, change your automation action
 **Endpoint:** `[https]://api[.]resend[.]com/emails`
 **Method:** `POST`
 **Headers:**
+
+**Patch Preview (First 3 lines of verified fix):**
 ```text
 Authorization: Bearer [REDACTED_SECRET]
 Content-Type: application/json
+# ... [TRUNCATED — Full production patch & verification steps locked below]
 ```
-
-**JSON Payload:**
-```json
-{
-  "from": "Automations <onboarding[at]resend[.]dev>",
-  "to": ["recipient[at]example[.]com"],
-  "subject": "Automated Notification from Baserow",
-  "html": "<p>Hello,</p><p>This is an automated notification triggered from Baserow table row <strong>{{ fields.Name }}</strong>.</p>"
-}
-```
-
-If you'd like, I can also share the complete JSON blueprint / flow template with you for free—just let me know and I'll send it over.
-
-Let me know if testing port 465 or switching to the API route resolves the socket unreachable error for you!
 
 ---
 

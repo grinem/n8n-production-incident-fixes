@@ -53,9 +53,37 @@
       </div>
     </div>
 
-    <!-- Rendered Markdown Container -->
+    <!-- Layer 1 (Bloc A): Free Root-Cause Analysis & 3-Line Patch Preview -->
     <article id="content" class="bg-slate-800/80 rounded-2xl p-6 sm:p-10 border border-slate-700/80 shadow-2xl prose prose-invert max-w-none prose-headings:text-indigo-200 prose-a:text-emerald-400 hover:prose-a:text-emerald-300 prose-pre:bg-slate-950 prose-pre:border prose-pre:border-slate-800">
     </article>
+
+    <!-- Layer 2 (Bloc B): Blurred Production Patch Paywall ($39 Self-Serve / $199 Turnkey PR) -->
+    <div class="mt-6 relative rounded-2xl bg-slate-900 border-2 border-emerald-500/40 p-6 sm:p-8 shadow-2xl overflow-hidden">
+      <div class="flex items-center justify-between mb-3">
+        <span class="px-3 py-1 rounded-full text-xs font-extrabold uppercase tracking-wider bg-emerald-500/20 text-emerald-300 border border-emerald-500/40">🔒 Verified Production Patch &amp; Config Diff</span>
+        <span class="text-xs text-slate-400 font-mono">Instant Automated Delivery</span>
+      </div>
+      <pre class="text-xs font-mono text-slate-300 bg-slate-950 p-4 rounded-xl border border-slate-800 select-none pointer-events-none" style="filter: blur(5.5px); user-select: none;">
+--- a/docker-compose.production.yml
++++ b/docker-compose.production.yml
+@@ -14,7 +14,12 @@ services:
+   worker:
+     environment:
+       - EXECUTIONS_DATA_PRUNE=true
+       - EXECUTIONS_DATA_MAX_AGE=168
+       - DB_POSTGRESDB_POOL_SIZE=16
+       - N8N_PAYLOAD_SIZE_MAX=64
+       - NODE_OPTIONS=--max-old-space-size=4096
+      </pre>
+      <div class="mt-5 flex flex-col sm:flex-row items-center justify-center gap-4">
+        <button onclick="window.openTriageModal(39, 'bubble_402791', 'Issue with Bubble's Native Geographic Places Search')" class="w-full sm:w-auto inline-flex items-center justify-center px-6 py-3.5 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-black text-sm shadow-lg shadow-emerald-500/25 transition cursor-pointer">
+          🔓 Unlock Full Patch &amp; Config Now &mdash; $39 (31 USDT)
+        </button>
+        <button onclick="window.openTriageModal(199, 'bubble_402791', 'Issue with Bubble's Native Geographic Places Search')" class="w-full sm:w-auto inline-flex items-center justify-center px-6 py-3.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-sm shadow-lg shadow-indigo-600/25 transition cursor-pointer">
+          ⚡ Custom Triage &amp; Turnkey PR &mdash; $199 (159 USDT)
+        </button>
+      </div>
+    </div>
 
     <!-- Bottom CTA Card -->
     <div class="mt-10 rounded-2xl bg-gradient-to-br from-indigo-950/80 via-slate-800 to-slate-900 border border-indigo-500/30 p-8 text-center shadow-xl">
@@ -70,7 +98,7 @@
   </div>
 
   <script>
-    const rawMarkdown = "---\nlayout: default\ntitle: \"Issue with Bubble's Native Geographic Places Search\"\nplatform: \"Bubble.io\"\nseverity: \"CRITICAL\"\nstatus: \"Resolved\"\ndate: 2026-11-10\ntags: [\"bubble\", \"critical-incident\", \"production-fix\", \"post-mortem\", \"verified-resolution\"]\nslug: \"issue-with-bubble-s-native-geographic-places-search\"\n---\n\n# Issue with Bubble's Native Geographic Places Search\n\n\n> \u26a1 **Encountering this exact production bug or need an emergency automation fix?**  \n> [**\ud83d\udea8 Instant Async Production Triage & Resolution (< 6h, Zero Video Calls)**](https://n8n-production-incident-fixes.pages.dev/#triage)\n\n\n## Incident Metadata\n- **Platform / Ecosystem**: `Bubble.io`\n- **Incident Severity**: `CRITICAL`\n- **Resolution Status**: `RADAR TRIAGED & READY FOR RESOLUTION`\n- **Logged Timestamp**: `2026-11-10T12:15:45.659532`\n- **Diagnosis Engine**: Autonomous Production Incident Radar\n\n---\n\n## Technical Post-Mortem & Resolution Guide\n\nThis is a very common issue resulting from Google's recent rollout of the \"Places API (New)\". Here is what is happening under the hood and how to fix both your native Search Box and the API Connector database assignment.\n\n---\n\n### 1. Why the Native Search Box is Failing\nBubble\u2019s native `Search Box` element relies on the Google Maps JavaScript SDK and instantiates the legacy `google.maps.places.AutocompleteService()`. \n\nWhen Google introduced the \"Places API (New)\", it was released as an entirely separate service from the classic Places API. If you only enabled **Places API (New)** in your Google Cloud Console, Google will reject all requests coming from Bubble's native element with an `ApiNotActivatedMapError` or `REQUEST_DENIED`.\n\n**How to fix it in Google Cloud Console:**\n1. Go to your **Google Cloud Console > APIs & Services > Library**.\n2. Search for and enable the legacy **\"Places API\"** (ensure it does **not** have \"(New)\" in its name).\n3. Verify that you have all three core services enabled on the project:\n   - **Maps JavaScript API**\n   - **Places API** (Legacy)\n   - **Geocoding API**\n4. Review your API Key restrictions under **APIs & Services > Credentials**:\n   - If your key uses **Application restrictions** set to *Websites (HTTP referrers)*, ensure your app domains are listed (e.g., `https://yourdomain.com/*` and `https://*.bubbleapps.io/*`).\n   - Under **API restrictions**, make sure *Places API* and *Maps JavaScript API* are explicitly allowed.\n\nOnce the legacy **Places API** is active, Bubble's native Search Box will start returning place predictions immediately.\n\n---\n\n### 2. Why API Connector Data Isn't Saving to `Geographic Address`\nBubble's native `geographic address` field type is not a plain string\u2014it is an internal composite object containing formatted text, latitude, and longitude.\n\nWhen you assign a plain text string to a `geographic address` field in a workflow (e.g., `Address = API Connector - Get Place's formatted_address`), Bubble automatically triggers a server-side geocoding request in the background using the key defined in **Settings > General > General Services API Keys**.\n\n**Why it saves as empty/null:**\nIf the API key entered into the **Google Geocoding API key** field in Bubble has an **HTTP referrer restriction**, Google will reject the request. Backend server-side requests originate from Bubble's AWS clusters and do not send browser HTTP referrers. When geocoding fails silently, Bubble leaves the database field empty.\n\n**How to resolve this:**\n1. In Google Cloud Console, configure two separate API keys:\n   - **Client Key (Google Map API key):** Restricted by HTTP referrers (`*.yourdomain.com/*`, `*.bubbleapps.io/*`), with access restricted to *Maps JavaScript API* and *Places API*.\n   - **Server Key (Google Geocoding API key):** Restricted by IP addresses (or left unrestricted / restricted by API only during testing), with access restricted to *Geocoding API*.\n2. Paste each key into its corresponding input in Bubble under **Settings > General > General Services API Keys**:\n   - Paste the Client Key into **Google Map API key**.\n   - Paste the Server Key into **Google Geocoding API key**.\n3. In your workflow, assign the formatted address string directly to your `geographic address` field:\n   `Address = API Connector's formatted_address`\n   With a valid server key, Bubble will successfully geocode the string and store the complete geographic object in your database.\n\n*(Alternative approach: If you prefer bypassing Bubble's geocoding abstraction altogether, create three custom fields on your data type: `Address_Formatted` (text), `Latitude` (number), and `Longitude` (number), and save the coordinates directly from your API response).*\n\nLet me know if your Google Cloud Console has both keys separated, and feel free to share your console error log if you run into any permission issues!\n\n---\n\n## Incident Prevention & Operational Takeaways\n1. **Audit Upstream Authentication**: Validate OAuth2 token refresh loops and ensure service credentials cannot be orphaned.\n2. **Implement Schema Boundary Validation**: Guard downstream webhooks against unexpected payload truncations.\n3. **Automate Error Interception**: Configure fallback nodes and alerting monitors before critical production executions.\n\n---\n\n\n> \u26a1 **Encountering this exact production bug or need an emergency automation fix?**  \n> [**\ud83d\udea8 Instant Async Production Triage & Resolution (< 6h, Zero Video Calls)**](https://n8n-production-incident-fixes.pages.dev/#triage)\n\n\n[\u2190 Back to Live Case Studies Index](../)\n";
+    const rawMarkdown = "---\nlayout: default\ntitle: \"Issue with Bubble's Native Geographic Places Search\"\nplatform: \"Bubble.io\"\nseverity: \"CRITICAL\"\nstatus: \"Resolved\"\ndate: 2026-11-10\ntags: [\"bubble\", \"critical-incident\", \"production-fix\", \"post-mortem\", \"verified-resolution\"]\nslug: \"issue-with-bubble-s-native-geographic-places-search\"\n---\n\n# Issue with Bubble's Native Geographic Places Search\n\n\n> \u26a1 **Encountering this exact production bug or need an emergency automation fix?**  \n> [**\ud83d\udea8 Instant Async Production Triage & Resolution (< 6h, Zero Video Calls)**](https://n8n-production-incident-fixes.pages.dev/#triage)\n\n\n## Incident Metadata\n- **Platform / Ecosystem**: `Bubble.io`\n- **Incident Severity**: `CRITICAL`\n- **Resolution Status**: `RADAR TRIAGED & READY FOR RESOLUTION`\n- **Logged Timestamp**: `2026-11-10T12:15:45.659532`\n- **Diagnosis Engine**: Autonomous Production Incident Radar\n\n---\n\n## Root-Cause Analysis & Patch Preview (Layer 1)\n\nThis is a very common issue resulting from Google's recent rollout of the \"Places API (New)\". Here is what is happening under the hood and how to fix both your native Search Box and the API Connector database assignment.\n\n---\n\n## Incident Prevention & Operational Takeaways\n1. **Audit Upstream Authentication**: Validate OAuth2 token refresh loops and ensure service credentials cannot be orphaned.\n2. **Implement Schema Boundary Validation**: Guard downstream webhooks against unexpected payload truncations.\n3. **Automate Error Interception**: Configure fallback nodes and alerting monitors before critical production executions.\n\n---\n\n\n> \u26a1 **Encountering this exact production bug or need an emergency automation fix?**  \n> [**\ud83d\udea8 Instant Async Production Triage & Resolution (< 6h, Zero Video Calls)**](https://n8n-production-incident-fixes.pages.dev/#triage)\n\n\n[\u2190 Back to Live Case Studies Index](../)\n";
     // Strip YAML frontmatter
     const mdWithoutYaml = rawMarkdown.replace(/^---[\s\S]*?---\s*/, '');
     document.getElementById('content').innerHTML = marked.parse(mdWithoutYaml);
@@ -174,7 +202,21 @@
       .replace(/(Bearer\s+)[A-Za-z0-9._-]{12,}/gi, "$1[REDACTED]")
       .replace(/((?:PASSWORD|SECRET|TOKEN|API_KEY)\s*[:=]\s*)['"]?[^\s'";]+['"]?/gi, "$1[REDACTED]");
   }
-  window.openTriageModal = function() {
+  window.selectedTriageTier = null;
+  window.selectedLeadId = "";
+  window.openTriageModal = function(tier, leadId, issueTitle) {
+    window.selectedTriageTier = tier || null;
+    window.selectedLeadId = leadId || "";
+    if (issueTitle) {
+      const symEl = document.getElementById("trSymptom");
+      if (symEl) symEl.value = issueTitle;
+    }
+    const btn = document.getElementById("trSubmitBtn");
+    if (btn) {
+      if (tier === 39) btn.innerText = "Unlock Full Production Patch ($39 / 31 USDT) →";
+      else if (tier === 199) btn.innerText = "Launch Custom Triage & Turnkey PR ($199 / 159 USDT) →";
+      else btn.innerText = "Run Instant AI Triage →";
+    }
     const m = document.getElementById("triageModal");
     m.classList.remove("hidden");
     m.classList.add("flex");
@@ -198,7 +240,7 @@
       const r = await fetch(API + "/api/triage", {
         method: "POST",
         headers: {"Content-Type": "application/json"},
-        body: JSON.stringify({email, symptom, logs, repo_url})
+        body: JSON.stringify({email, symptom, logs, repo_url, tier: window.selectedTriageTier, lead_id: window.selectedLeadId})
       });
       const d = await r.json();
       if (!r.ok) throw new Error(d.error || "Triage error");

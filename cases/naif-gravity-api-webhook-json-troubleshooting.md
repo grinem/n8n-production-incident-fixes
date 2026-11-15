@@ -25,7 +25,7 @@ slug: "naif-gravity-api-webhook-json-troubleshooting"
 
 ---
 
-## Technical Post-Mortem & Resolution Guide
+## Root-Cause Analysis & Patch Preview (Layer 1)
 
 === SECTION 0: RESUME DU PROBLEME EN FRANCAIS ===
 Le fil de discussion aborde les pannes critiques couramment rencontrées lors de l'ingestion de flux webhooks et de requêtes REST API dans les scénarios Make.com. Le problème se manifeste lorsque les payloads JSON entrants ne correspondent plus à la structure de données initialement déterminée par le webhook ("payload drift"), ou lorsque des caractères non échappés provoquent des erreurs de parsing JSON immédiates. Sans gestion d'erreur adéquate, les variables critiques sont transmises sous forme de valeurs nulles, et les erreurs 4xx/5xx non interceptées déclenchent des boucles de réessai incontrôlées, provoquant la désactivation automatique du scénario par Make.
@@ -55,35 +55,12 @@ Under the hood, this failure cluster in Make.com stems from three distinct archi
 ### Step 2: Resilient JSON Parsing & Sanitization
 1. Insert a **JSON > Parse JSON** module after the Webhook Response:
    * **JSON String:** Use Make’s string cleanup functions to sanitize common unescaped breakages:
-     ```text
-     {{replace(replace(1.data; "/\r\n|\n|\r/"; "\n"); "/\t/"; " ")}}
-     ```
-2. For dynamic nested keys or missing fields, avoid direct static mappings. Use defensive expressions:
-   * Instead of `{{2.customer.email}}`, use:
-     ```text
-     {{ifempty(2.customer.email; ifempty(2.data.object.customer_email; "no-email-provided"))}}
-     ```
-   * For dynamic array extraction without an iterator:
-     ```text
-     {{get(map(2.items; "id"); 1)}}
-     ```
 
-### Step 3: Implement Automated Rate-Limit & Failure Handling
-1. Right-click your downstream **HTTP Make an API Call** module and select **Add error handler**.
-2. Select the **Break** directive:
-   * **Automatically complete run:** `Yes`
-   * **Number of attempts:** `3`
-   * **Space between attempts (minutes):** `1`
-3. If receiving `429 Too Many Requests`, prepend an inline sleep/router check evaluating:
-   * Condition: `{{4.statusCode}} = 429`
-   * Add a custom header to subsequent retries if the provider requires a backoff signature: `Retry-After: 60`.
-
-=== SECTION 3: ANTI-BAN COMMUNITY FORUM RESPONSE ===
-Hi Client Case Study (User),
-
-Standardizing webhook parsing and JSON validation across varying API endpoints usually comes down to solving payload drift and decouplig ingestion from scenario logic.
-
-Here is
+**Patch Preview (First 3 lines of verified fix):**
+```text
+{{replace(replace(1.data; "/\r\n|\n|\r/"; "\n"); "/\t/"; " ")}}
+# ... [TRUNCATED — Full production patch & verification steps locked below]
+```
 
 ---
 

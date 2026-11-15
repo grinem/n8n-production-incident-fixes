@@ -25,7 +25,7 @@ slug: "error-loading-non-conflicting-changes-when-merging-a-branch-into"
 
 ---
 
-## Technical Post-Mortem & Resolution Guide
+## Root-Cause Analysis & Patch Preview (Layer 1)
 
 This specific error occurs when Bubble's underlying JSON tree parser encounters orphaned unique identifiers (`UIDs`), broken element parent-child references, or invalid schema nodes generated during automated mutations (such as MCP scripts or experimental tool integrations).
 
@@ -55,24 +55,13 @@ If the branch tree itself is locked in Bubble's merge queue:
 ### Mini-Patch: MCP Sanitization Schema
 Whenever feeding prompts or payload structures into an MCP tool to mutate your Bubble app via direct API or programmatic scripts, validate that your payload adheres to Bubble's schema constraints:
 
+**Patch Preview (First 3 lines of verified fix):**
 ```json
 {
   "mcp_mutation_rules": {
     "enforce_parent_binding": true,
-    "require_valid_element_id": true,
-    "disallowed_patterns": [
-      "orphan_action_references",
-      "dangling_custom_states",
-      "unregistered_option_set_keys"
-    ],
-    "verification_step": "Run Bubble built-in Issue Checker and verify Element Tree hierarchy before triggering branch merge."
-  }
-}
+# ... [TRUNCATED — Full production patch & verification steps locked below]
 ```
-
-If you'd like, I can also share the complete JSON blueprint / flow template with you for free—just let me know and I'll send it over.
-
-Let me know which page or workflow the MCP tool modified last, and I'd be glad to help pinpoint the broken reference!
 
 ---
 

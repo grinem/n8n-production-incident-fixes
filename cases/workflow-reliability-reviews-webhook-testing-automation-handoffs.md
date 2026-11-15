@@ -25,18 +25,9 @@ slug: "workflow-reliability-reviews-webhook-testing-automation-handoffs"
 
 ---
 
-## Technical Post-Mortem & Resolution Guide
+## Root-Cause Analysis & Patch Preview (Layer 1)
 
 Here is what is likely causing this issue and how to resolve it:
-
-Pour transposer la logique de résilience (comme les tests Python/SQLite) directement au sein du moteur Make.com, implémentez l'architecture standard à 3 couches :
-
-### Étape 1 : Découplage Ingestion / Traitement (Fast ACK Pattern)
-1. Placez immédiatement après le déclencheur **Custom Webhook** le module **Webhook Response**.
-   - **Status :** `200` (ou `202 Accepted`).
-   - **Body :** `{"status": 
-
-Hope this helps point you in the right direction! Let me know if you hit any snag with the configuration.
 
 ---
 

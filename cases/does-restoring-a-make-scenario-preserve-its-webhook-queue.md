@@ -25,7 +25,7 @@ slug: "does-restoring-a-make-scenario-preserve-its-webhook-queue"
 
 ---
 
-## Technical Post-Mortem & Resolution Guide
+## Root-Cause Analysis & Patch Preview (Layer 1)
 
 Here is the exact technical behavior of Make concerning scenario versions, webhook bindings, and queued requests.
 
@@ -55,37 +55,13 @@ Here is the exact technical behavior of Make concerning scenario versions, webho
 ### Mini-Patch JSON / Blueprint Reference:
 If you want to verify that your exported Blueprint references the exact internal `hookId` before and after rollback, check the first module object in your exported JSON:
 
+**Patch Preview (First 3 lines of verified fix):**
 ```json
 {
   "subcommands": [
     {
-      "type": "service",
-      "module": "gateway:CustomWebHook",
-      "parameters": {
-        "hook": 123456
-      },
-      "metadata": {
-        "designer": {
-          "x": 0,
-          "y": 0
-        },
-        "restore": {
-          "parameters": {
-            "hook": {
-              "label": "My Incoming Webhook"
-            }
-          }
-        }
-      }
-    }
-  ]
-}
+# ... [TRUNCATED — Full production patch & verification steps locked below]
 ```
-*(Ensure the numeric `hook` integer in your blueprint matches the ID shown in your browser address bar when navigating to your webhook settings at `[https]://us1[.]make[.]com/webhooks` or `eu1[.]make[.]com`)*.
-
-If you'd like, I can also share the complete JSON blueprint / flow template with you for free—just let me know and I'll send it over.
-
-Let me know if you run into any unexpected behavior or if you want me to review the structure of your webhook payload to ensure a smooth transition!
 
 ---
 

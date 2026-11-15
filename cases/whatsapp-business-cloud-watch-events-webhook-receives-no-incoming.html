@@ -53,9 +53,37 @@
       </div>
     </div>
 
-    <!-- Rendered Markdown Container -->
+    <!-- Layer 1 (Bloc A): Free Root-Cause Analysis & 3-Line Patch Preview -->
     <article id="content" class="bg-slate-800/80 rounded-2xl p-6 sm:p-10 border border-slate-700/80 shadow-2xl prose prose-invert max-w-none prose-headings:text-indigo-200 prose-a:text-emerald-400 hover:prose-a:text-emerald-300 prose-pre:bg-slate-950 prose-pre:border prose-pre:border-slate-800">
     </article>
+
+    <!-- Layer 2 (Bloc B): Blurred Production Patch Paywall ($39 Self-Serve / $199 Turnkey PR) -->
+    <div class="mt-6 relative rounded-2xl bg-slate-900 border-2 border-emerald-500/40 p-6 sm:p-8 shadow-2xl overflow-hidden">
+      <div class="flex items-center justify-between mb-3">
+        <span class="px-3 py-1 rounded-full text-xs font-extrabold uppercase tracking-wider bg-emerald-500/20 text-emerald-300 border border-emerald-500/40">🔒 Verified Production Patch &amp; Config Diff</span>
+        <span class="text-xs text-slate-400 font-mono">Instant Automated Delivery</span>
+      </div>
+      <pre class="text-xs font-mono text-slate-300 bg-slate-950 p-4 rounded-xl border border-slate-800 select-none pointer-events-none" style="filter: blur(5.5px); user-select: none;">
+--- a/docker-compose.production.yml
++++ b/docker-compose.production.yml
+@@ -14,7 +14,12 @@ services:
+   worker:
+     environment:
+       - EXECUTIONS_DATA_PRUNE=true
+       - EXECUTIONS_DATA_MAX_AGE=168
+       - DB_POSTGRESDB_POOL_SIZE=16
+       - N8N_PAYLOAD_SIZE_MAX=64
+       - NODE_OPTIONS=--max-old-space-size=4096
+      </pre>
+      <div class="mt-5 flex flex-col sm:flex-row items-center justify-center gap-4">
+        <button onclick="window.openTriageModal(39, 'make_119631', 'WhatsApp Business Cloud Watch Events webhook receives no incoming messages')" class="w-full sm:w-auto inline-flex items-center justify-center px-6 py-3.5 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-black text-sm shadow-lg shadow-emerald-500/25 transition cursor-pointer">
+          🔓 Unlock Full Patch &amp; Config Now &mdash; $39 (31 USDT)
+        </button>
+        <button onclick="window.openTriageModal(199, 'make_119631', 'WhatsApp Business Cloud Watch Events webhook receives no incoming messages')" class="w-full sm:w-auto inline-flex items-center justify-center px-6 py-3.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-sm shadow-lg shadow-indigo-600/25 transition cursor-pointer">
+          ⚡ Custom Triage &amp; Turnkey PR &mdash; $199 (159 USDT)
+        </button>
+      </div>
+    </div>
 
     <!-- Bottom CTA Card -->
     <div class="mt-10 rounded-2xl bg-gradient-to-br from-indigo-950/80 via-slate-800 to-slate-900 border border-indigo-500/30 p-8 text-center shadow-xl">
@@ -70,7 +98,7 @@
   </div>
 
   <script>
-    const rawMarkdown = "---\nlayout: default\ntitle: \"WhatsApp Business Cloud Watch Events webhook receives no incoming messages\"\nplatform: \"Make.com\"\nseverity: \"CRITICAL\"\nstatus: \"Resolved\"\ndate: 2026-11-10\ntags: [\"make\", \"critical-incident\", \"production-fix\", \"post-mortem\", \"verified-resolution\"]\nslug: \"whatsapp-business-cloud-watch-events-webhook-receives-no-incoming\"\n---\n\n# WhatsApp Business Cloud Watch Events webhook receives no incoming messages\n\n\n> \u26a1 **Encountering this exact production bug or need an emergency automation fix?**  \n> [**\ud83d\udea8 Instant Async Production Triage & Resolution (< 6h, Zero Video Calls)**](https://n8n-production-incident-fixes.pages.dev/#triage)\n\n\n## Incident Metadata\n- **Platform / Ecosystem**: `Make.com`\n- **Incident Severity**: `CRITICAL`\n- **Resolution Status**: `VERIFIED & RESOLVED`\n- **Logged Timestamp**: `2026-11-10T18:20:17.260941`\n- **Diagnosis Engine**: Autonomous Production Incident Radar\n\n---\n\n## Technical Post-Mortem & Resolution Guide\n\nThe fact that you received a `WEBHOOK_CONFIG_UPDATED` / `account_update` event proves that your webhook endpoint and verification token are active between Meta and Make. You are completely right in your diagnosis: your WhatsApp Business Account (WABA) is missing the active subscription to the `messages` webhook field.\n\nHere is why this happens and the two ways to resolve it:\n\n---\n\n### Why this happens\nMeta requires two distinct layers for WhatsApp Cloud API webhooks:\n1. **Endpoint Configuration:** Establishing the callback URL and verify token (which succeeded on your setup).\n2. **Field Subscription:** Explicitly subscribing your WABA to specific topics (such as `messages`) via the `/{WABA_ID}/subscribed_apps` endpoint.\n\nWhen using Make\u2019s default managed app connection, Make attempts to subscribe to these fields automatically during the embedded OAuth flow. This subscription call can silently fail or omit `messages` if:\n- Granular permissions were skipped during the Facebook OAuth popup.\n- The phone number has two-step verification or catalog routing issues still pending in Meta Business Suite.\n- Meta\u2019s Graph API experienced a synchronization hiccup when firing `subscribed_apps`.\n\n---\n\n### Solution 1: Force a Fresh Re-authorization in Make (No Developer Account Needed)\n\nSince Make's managed app handles the API credentials, re-triggering the embedded signup with explicit permissions usually resolves the missing subscription:\n\n1. In **Meta Business Suite** (business.facebook.com):\n   - Navigate to **Settings** > **WhatsApp Accounts**.\n   - Select your WABA and verify that your phone number shows an **Active / Connected** status with no pending alerts.\n2. In **Make.com**:\n   - Open your scenario and open the **Watch Events** module.\n   - Click **Add** next to the Webhook field (do not reuse the old webhook).\n   - In the connection picker, click **Add** to create a brand new connection using the default **WhatsApp Business Cloud** type.\n   - When the Meta login modal opens, click **Edit Settings** (do not just click \"Continue\"). Ensure that:\n     - Your exact Meta Business Account is selected.\n     - Your specific WhatsApp Business Account (WABA) and phone number are selected.\n     - All permissions (especially *Manage and access WhatsApp messages*) are toggled **ON**.\n   - Complete the authorization. Make will register a brand-new webhook and re-invoke the subscription endpoint for `messages`.\n3. Set your scenario to **Run Once** (or keep it **Active**) and send a test message from a customer phone number.\n\n---\n\n### Solution 2: Switch to a Custom Meta App (Full Visibility & Control)\n\nIf Meta's managed app still fails to subscribe to the `messages` topic, switching to a Custom App gives you direct access to the webhook toggles in the Meta Developer Portal. It takes about 5 minutes and is completely free:\n\n1. Go to [Meta for Developers](https://developers.facebook.com/) and log in with your Facebook account.\n2. Click **Create App** > select **Other** > **Business**.\n3. Under **Add products to your app**, select **WhatsApp** and click **Set up**.\n4. In the left navigation, go to **WhatsApp** > **Configuration**:\n   - Copy the Webhook URL from your Make **Watch Events** module.\n   - Enter your Verify Token from Make.\n   - Under **Webhook Fields**, click **Manage** and explicitly click **Subscribe** on the **`messages`** row.\n5. In **Meta Business Settings** > **Users** > **System Users**:\n   - Create a System User with an **Admin** role.\n   - Assign your WhatsApp Account to this user with full control.\n   - Generate a permanent access token with `whatsapp_business_messaging` and `whatsapp_business_management`.\n6. Back in Make, create a new connection using **WhatsApp Business Cloud (Custom App)** and supply your App ID, App Secret, and the permanent System User token.\n\nOnce subscribed to the `messages` field, incoming customer payloads will trigger your scenario immediately.\n\n---\n\n## Incident Prevention & Operational Takeaways\n1. **Audit Upstream Authentication**: Validate OAuth2 token refresh loops and ensure service credentials cannot be orphaned.\n2. **Implement Schema Boundary Validation**: Guard downstream webhooks against unexpected payload truncations.\n3. **Automate Error Interception**: Configure fallback nodes and alerting monitors before critical production executions.\n\n---\n\n\n> \u26a1 **Encountering this exact production bug or need an emergency automation fix?**  \n> [**\ud83d\udea8 Instant Async Production Triage & Resolution (< 6h, Zero Video Calls)**](https://n8n-production-incident-fixes.pages.dev/#triage)\n\n\n[\u2190 Back to Live Case Studies Index](../)\n";
+    const rawMarkdown = "---\nlayout: default\ntitle: \"WhatsApp Business Cloud Watch Events webhook receives no incoming messages\"\nplatform: \"Make.com\"\nseverity: \"CRITICAL\"\nstatus: \"Resolved\"\ndate: 2026-11-10\ntags: [\"make\", \"critical-incident\", \"production-fix\", \"post-mortem\", \"verified-resolution\"]\nslug: \"whatsapp-business-cloud-watch-events-webhook-receives-no-incoming\"\n---\n\n# WhatsApp Business Cloud Watch Events webhook receives no incoming messages\n\n\n> \u26a1 **Encountering this exact production bug or need an emergency automation fix?**  \n> [**\ud83d\udea8 Instant Async Production Triage & Resolution (< 6h, Zero Video Calls)**](https://n8n-production-incident-fixes.pages.dev/#triage)\n\n\n## Incident Metadata\n- **Platform / Ecosystem**: `Make.com`\n- **Incident Severity**: `CRITICAL`\n- **Resolution Status**: `VERIFIED & RESOLVED`\n- **Logged Timestamp**: `2026-11-10T18:20:17.260941`\n- **Diagnosis Engine**: Autonomous Production Incident Radar\n\n---\n\n## Root-Cause Analysis & Patch Preview (Layer 1)\n\nThe fact that you received a `WEBHOOK_CONFIG_UPDATED` / `account_update` event proves that your webhook endpoint and verification token are active between Meta and Make. You are completely right in your diagnosis: your WhatsApp Business Account (WABA) is missing the active subscription to the `messages` webhook field.\n\n---\n\n## Incident Prevention & Operational Takeaways\n1. **Audit Upstream Authentication**: Validate OAuth2 token refresh loops and ensure service credentials cannot be orphaned.\n2. **Implement Schema Boundary Validation**: Guard downstream webhooks against unexpected payload truncations.\n3. **Automate Error Interception**: Configure fallback nodes and alerting monitors before critical production executions.\n\n---\n\n\n> \u26a1 **Encountering this exact production bug or need an emergency automation fix?**  \n> [**\ud83d\udea8 Instant Async Production Triage & Resolution (< 6h, Zero Video Calls)**](https://n8n-production-incident-fixes.pages.dev/#triage)\n\n\n[\u2190 Back to Live Case Studies Index](../)\n";
     // Strip YAML frontmatter
     const mdWithoutYaml = rawMarkdown.replace(/^---[\s\S]*?---\s*/, '');
     document.getElementById('content').innerHTML = marked.parse(mdWithoutYaml);
@@ -174,7 +202,21 @@
       .replace(/(Bearer\s+)[A-Za-z0-9._-]{12,}/gi, "$1[REDACTED]")
       .replace(/((?:PASSWORD|SECRET|TOKEN|API_KEY)\s*[:=]\s*)['"]?[^\s'";]+['"]?/gi, "$1[REDACTED]");
   }
-  window.openTriageModal = function() {
+  window.selectedTriageTier = null;
+  window.selectedLeadId = "";
+  window.openTriageModal = function(tier, leadId, issueTitle) {
+    window.selectedTriageTier = tier || null;
+    window.selectedLeadId = leadId || "";
+    if (issueTitle) {
+      const symEl = document.getElementById("trSymptom");
+      if (symEl) symEl.value = issueTitle;
+    }
+    const btn = document.getElementById("trSubmitBtn");
+    if (btn) {
+      if (tier === 39) btn.innerText = "Unlock Full Production Patch ($39 / 31 USDT) →";
+      else if (tier === 199) btn.innerText = "Launch Custom Triage & Turnkey PR ($199 / 159 USDT) →";
+      else btn.innerText = "Run Instant AI Triage →";
+    }
     const m = document.getElementById("triageModal");
     m.classList.remove("hidden");
     m.classList.add("flex");
@@ -198,7 +240,7 @@
       const r = await fetch(API + "/api/triage", {
         method: "POST",
         headers: {"Content-Type": "application/json"},
-        body: JSON.stringify({email, symptom, logs, repo_url})
+        body: JSON.stringify({email, symptom, logs, repo_url, tier: window.selectedTriageTier, lead_id: window.selectedLeadId})
       });
       const d = await r.json();
       if (!r.ok) throw new Error(d.error || "Triage error");

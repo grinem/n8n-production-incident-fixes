@@ -25,7 +25,7 @@ slug: "ai-automation-delivery-lead-make-com-builds-with-tested-ai-steps"
 
 ---
 
-## Technical Post-Mortem & Resolution Guide
+## Root-Cause Analysis & Patch Preview (Layer 1)
 
 === SECTION 0: RESUME DU PROBLEME EN FRANCAIS ===
 L'auteur présente l'architecture de son projet "Apex Climate Solutions" comprenant 27 scénarios Make.com, intégrant l'ingestion multicanale (WhatsApp, formulaires, agent vocal), des étapes LLM et un pipeline PDF avec fallback OCR vers une base PostgreSQL/pgvector. Dans ce type d'écosystème distribué, la vulnérabilité majeure réside dans le traitement synchrone des fichiers lourds via OCR et l'instabilité structurelle des sorties LLM injectées dans des modules déterministes. Sans découplage asynchrone, le webhook d'entrée subit un dépassement de délai (timeout Make à 40 secondes) dès qu'un document sans couche texte déclenche l'OCR, provoquant un échec silencieux ou un rejet HTTP 504. De plus, l'absence de validation stricte (`response_format: json_schema`) sur les étapes d'arbitrage IA génère des erreurs de parsing JSON qui bloquent l'exécution des modules fixes en aval.
@@ -53,67 +53,14 @@ Dans l'architecture à 27 scénarios décrite, les goulets d'étranglement et po
 
 ### Étape 2 : Sécurisation Stricte des Sorties LLM (Structured Outputs)
 Dans chaque module d'appel IA (OpenAI / Anthropic / Custom HTTP), forcer l'usage du paramètre `response_format` avec schéma JSON strict pour garantir la compatibilité descendante :
+
+**Patch Preview (First 3 lines of verified fix):**
 ```json
 {
   "model": "gpt-4o-mini",
   "messages": [
-    {
-      "role": "system",
-      "content": "Tu es un classificateur d'urgence HVAC. Analyse les détails et renvoie les attributs au format exact spécifié."
-    },
-    {
-      "role": "user",
-      "content": "{{1.body.message_text}}"
-    }
-  ],
-  "response_format": {
-    "type": "json_schema",
-    "json_schema": {
-      "name": "hvac_triage_payload",
-      "strict": true,
-      "schema": {
-        "type": "object",
-        "properties": {
-          "is_junk": { "type": "boolean" },
-          "urgency_rating": { "type": "integer", "enum": [1, 2, 3, 4, 5] },
-          "extracted_details": {
-            "type": "object",
-            "properties": {
-              "equipment_model": { "type": ["string", "null"] },
-              "issue_summary": { "type": "string" }
-            },
-            "required": ["equipment_model", "issue_summary"],
-            "additionalProperties": false
-          }
-        },
-        "required": ["is_junk", "urgency_rating", "extracted_details"],
-        "additionalProperties": false
-      }
-    }
-  }
-}
+# ... [TRUNCATED — Full production patch & verification steps locked below]
 ```
-
-### Étape 3 : Routage d'Erreur Robuste (Dead-Letter Queue Slack)
-Sur les modules critiques (OCR API, Vector Embeddings, PostgreSQL) :
-1. Clic droit sur le module > **Add error handler**.
-2. Sélectionner une directive de type **Commit** précédée d'un module Slack **Create a Message** configuré vers un canal `#alerts-watchdog` :
-   - **Channel** : `alerts-watchdog`
-   - **Text** : 
-     ```text
-     ⚠️ Erreur Détectée sur Scénario: {{var.scenario.name}}
-     • Module ID: {{1.module_id}}
-     • Type: {{1.error.type}}
-     • Message: {{1.error.message}}
-     • Payload: {{toCollection(1.body)}}
-     ```
-3. Cela prévient l'arrêt inopiné du scénario tout en archivant l'erreur pour rejeu ultérieur.
-
-=== SECTION 3: ANTI-BAN COMMUNITY FORUM RESPONSE ===
-
-Hi Client Case Study (User),
-
-Solid enterprise-grade blueprint! Structuring a 27-scenario architecture with dedicated AI gates, pgvector storage, and OCR fallbacks is exactly
 
 ---
 

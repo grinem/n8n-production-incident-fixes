@@ -25,7 +25,7 @@ slug: "5-things-that-make-client-n8n-workflows-fail-at-2am-and-the-fix-f"
 
 ---
 
-## Technical Post-Mortem & Resolution Guide
+## Root-Cause Analysis & Patch Preview (Layer 1)
 
 === SECTION 0: RESUME DU PROBLEME EN FRANCAIS ===
 L'auteur met en évidence les vulnérabilités structurelles qui provoquent l'interruption silencieuse des workflows n8n en production chez les clients. Les blocages surviennent principalement lors de ruptures d'authentification OAuth2 (notamment le code `invalid_grant` causé par la limitation à 7 jours des applications Google Cloud en statut "Testing"), de duplications de données dues à des retries sans clé d'idempotence, ou d'erreurs non catchées issues d'une altération de schéma JSON. En l'absence d'un workflow dédié branché sur un déclencheur d'erreur global (`Error Trigger`) et avec l'utilisation par défaut de SQLite sous forte charge, les flux s'arrêtent net sans notification, masquant la perte de données jusqu'à la réclamation du client final.
@@ -62,23 +62,13 @@ Les 5 pannes nocturnes identifiées reposent sur des mécanismes de protocoles p
 2. Ajouter le nœud **Error Trigger**.
 3. Relier un nœud **HTTP Request** ou **Telegram/Slack** avec le payload formaté :
 
+**Patch Preview (First 3 lines of verified fix):**
 ```json
 {
   "workflow_id": "{{ $json.workflow.id }}",
   "workflow_name": "{{ $json.workflow.name }}",
-  "execution_id": "{{ $json.execution.id }}",
-  "error_message": "{{ $json.execution.error.message }}",
-  "node_failed": "{{ $json.execution.error.node.name }}",
-  "execution_url": "{{ $json.execution.url }}"
-}
+# ... [TRUNCATED — Full production patch & verification steps locked below]
 ```
-
-4. Dans chaque workflow de production, aller dans **Workflow Settings > Error Workflow** et sélectionner `[SYS] Global Error Catcher`.
-
----
-
-### Étape 3 : Implémentation du Schema Guard & Idempotence
-Ajouter un nœud **Code** immédiatement après le Webhook déclencheur pour valider le schéma et générer un hash d'idempotence
 
 ---
 

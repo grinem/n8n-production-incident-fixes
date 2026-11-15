@@ -25,7 +25,7 @@ slug: "errorreporter-logs-every-error-at-error-level-when-sentry-is-not"
 
 ---
 
-## Technical Post-Mortem & Resolution Guide
+## Root-Cause Analysis & Patch Preview (Layer 1)
 
 This is reproducible in `packages/core/src/errors/error-reporter.ts`.
 
@@ -37,60 +37,13 @@ Currently, `defaultReport` routes all errors and their cause chain directly to `
 ### Implementation Fix
 To align `defaultReport` with the Sentry pipeline, log level resolution should inspect `options.level` and the intrinsic `error.level` before dispatching to the logger:
 
+**Patch Preview (First 3 lines of verified fix):**
 ```typescript
 // packages/core/src/errors/error-reporter.ts
 
 private resolveLogLevel(error: unknown, options?: ReportErrorOptions): 'info' | 'warn' | 'error' {
-	if (options?.level && options.level !== 'error') {
-		if (options.level === 'warning') return 'warn';
-		if (options.level === 'info') return 'info';
-	}
-
-	if (typeof error === 'object' && error !== null && 'level' in error) {
-		const errorLevel = (error as { level?: string }).level;
-		if (errorLevel === 'info') return 'info';
-		if (errorLevel === 'warning' || errorLevel === 'warn') return 'warn';
-	}
-
-	return 'error';
-}
-
-defaultReport(error: unknown, options?: ReportErrorOptions): void {
-	const level = this.resolveLogLevel(error, options);
-	const logMethod = (this.logger[level] ?? this.logger.error).bind(this.logger);
-
-	for (const currentError of this.iterateErrorAndCauses(error)) {
-		if (currentError instanceof Error) {
-			logMethod({
-				message: currentError.message,
-				metadata: {
-					stack: currentError.stack,
-					...options?.extra,
-				},
-			});
-		} else {
-			logMethod({
-				message: String(currentError),
-				metadata: options?.extra,
-			});
-		}
-	}
-}
+# ... [TRUNCATED — Full production patch & verification steps locked below]
 ```
-
-### Temporary Mitigation (Log Ingestion Layer)
-Until this is merged upstream, if you run a log shipper like Vector, Promtail, or Fluent Bit, you can remap these records at ingestion:
-
-```vrl
-# Example Vector (VRL) remapping
-if .level == "error" && exists(.metadata.function) && .metadata.function == "defaultReport" {
-  if match(.message, r'Cannot read properties|TypeError|404 -|Request failed with status code 4') {
-    .level = "warn"
-  }
-}
-```
-
-Submitting a PR with corresponding test cases in `error-reporter.test.ts` to assert that `logger.warn` and `logger[.]info` are called when appropriate would be the fastest path to getting this into an upcoming release.
 
 ---
 

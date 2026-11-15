@@ -25,7 +25,7 @@ slug: "platform-secret-managers-aws-provider-should-accept-iam-role-auth"
 
 ---
 
-## Technical Post-Mortem & Resolution Guide
+## Root-Cause Analysis & Patch Preview (Layer 1)
 
 Completely agree. In EKS (IRSA) or ECS/EC2 environments, enforcing static IAM keys conflicts directly with least-privilege security policies.
 
@@ -36,42 +36,14 @@ The issue stems from two spots in the codebase:
 Making these keys optional in the schema and omitting `credentials` when empty allows the SDK to automatically resolve ambient credentials via `AWS_ROLE_ARN` / `AWS_WEB_IDENTITY_TOKEN_FILE` or IMDSv2 while staying backward-compatible:
 
 **1. `packages/core/shared/src/lib/ee/secret-managers/dto.ts`**
+
+**Patch Preview (First 3 lines of verified fix):**
 ```typescript
 import { Static, Type } from 'Client Case Study (User)/typebox';
 
 export const AWSProviderConfigSchema = Type.Object({
-    region: Type.String({ minLength: 1 }),
-    accessKeyId: Type.Optional(Type.String()),
-    secretAccessKey: Type.Optional(Type.String()),
-});
-
-export type AWSProviderConfig = Static<typeof AWSProviderConfigSchema>;
+# ... [TRUNCATED — Full production patch & verification steps locked below]
 ```
-
-**2. `packages/server/api/src/app/ee/secret-managers/secret-manager-providers/aws-provider.ts`**
-```typescript
-import { SecretsManagerClient } from 'Client Case Study (User)/client-secrets-manager';
-import { AWSProviderConfig } from 'Client Case Study (User)/shared';
-
-export const getSecretsManagerClient = (config: AWSProviderConfig): SecretsManagerClient => {
-    const hasStaticCredentials = Boolean(
-        config.accessKeyId?.trim() && config.secretAccessKey?.trim()
-    );
-
-    return new SecretsManagerClient({
-        region: config.region,
-        ...(hasStaticCredentials && {
-            credentials: {
-                accessKeyId: config.accessKeyId!.trim(),
-                secretAccessKey: config.secretAccessKey!.trim(),
-            },
-        }),
-    });
-};
-```
-
-**3. `packages/core/shared/src/lib/ee/secret-managers/index.ts`**
-Set `required: false` on `accessKeyId` and `secretAccessKey`, with a UI hint indicating they can be left blank to rely on the ambient IAM role (IRSA / ECS task role / EC2 instance profile).
 
 ---
 

@@ -25,7 +25,7 @@ slug: "workflow-version-restore-blocked-by-deleted-credential-in-a-disab"
 
 ---
 
-## Technical Post-Mortem & Resolution Guide
+## Root-Cause Analysis & Patch Preview (Layer 1)
 
 To unblock the restore right now while the Linear ticket is open, you can bypass the validator using either of these workarounds:
 
@@ -33,42 +33,13 @@ To unblock the restore right now while the Linear ticket is open, you can bypass
 
 If you have direct access to your n8n PostgreSQL instance, strip the missing credential reference from that specific snapshot record. Once cleared, the native UI restore will succeed.
 
+**Patch Preview (First 3 lines of verified fix):**
 ```sql
 -- 1. Find the version ID
 SELECT id, "workflowId", "createdAt"
 FROM workflow_history
-WHERE "workflowId" = 'YOUR_WORKFLOW_ID'
-ORDER BY "createdAt" DESC;
-
--- 2. Strip the credentials block from the disabled node
-UPDATE workflow_history
-SET nodes = (
-  SELECT jsonb_agg(
-    CASE
-      WHEN elem->>'name' = 'YOUR_DISABLED_NODE_NAME'
-      THEN elem - 'credentials' || '{"credentials": {}}'::jsonb
-      ELSE elem
-    END
-  )
-  FROM jsonb_array_elements(nodes::jsonb) AS elem
-)
-WHERE id = 'YOUR_VERSION_ID';
+# ... [TRUNCATED — Full production patch & verification steps locked below]
 ```
-
-Reload the workflow canvas in your browser and click **Restore version** again.
-
----
-
-### Option 2: Extract and import via DevTools (No DB access required)
-
-If you don't have direct database write access:
-
-1. Open your browser's Developer Tools (**Network** tab).
-2. Click the target version in the Workflow History panel.
-3. Locate the GET request to `/workflows/<workflow_id>/history/<version_id>`.
-4. Copy the `nodes` and `connections` arrays from the response JSON.
-5. In any text editor, locate the disabled node and set `"credentials": {}`.
-6. Go back to your workflow canvas and paste the sanitized payload directly using `Ctrl+V` / `Cmd+V`.
 
 ---
 

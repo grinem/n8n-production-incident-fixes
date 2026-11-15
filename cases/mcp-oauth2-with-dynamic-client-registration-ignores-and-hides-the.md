@@ -25,11 +25,9 @@ slug: "mcp-oauth2-with-dynamic-client-registration-ignores-and-hides-the"
 
 ---
 
-## Technical Post-Mortem & Resolution Guide
+## Root-Cause Analysis & Patch Preview (Layer 1)
 
 PR #41889 is definitely the right approach here—enforcing least privilege should always take precedence over discovery defaults when a narrower scope is explicitly declared.
-
-One thing worth double-checking in the PR tests: make sure that when tokens rotate via refresh token flow, the persisted credential keeps the requested narrowed scope rather than re-merging `scopes_supported` from the metadata cache. Aside from that, the fallback to discovered scopes when left blank makes complete sense.
 
 ---
 

@@ -25,13 +25,9 @@ slug: "sort-node-incorrectly-sorts-numbers-in-descending-order"
 
 ---
 
-## Technical Post-Mortem & Resolution Guide
+## Root-Cause Analysis & Patch Preview (Layer 1)
 
 Could you share a quick 3-item raw JSON snippet of the input data right before the Sort node?
-
-Usually this happens when the values are actually typed as strings (common with Postgres `BIGINT`/API payloads returning `"100"` instead of `100`), where lexicographical descending order puts `"9"` before `"100"`. Check the input in JSON view to see if the values are quoted or raw numbers.
-
-If you've already verified they are strict numbers and descending is still inverted, drop the sample input payload so maintainers can reproduce the comparator regression on 2.47.7.
 
 ---
 

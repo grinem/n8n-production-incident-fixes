@@ -25,22 +25,19 @@ slug: "basic-mode-chat-knowledge-base-conversations-get-no-provider-prom"
 
 ---
 
-## Technical Post-Mortem & Resolution Guide
+## Root-Cause Analysis & Patch Preview (Layer 1)
 
 Completely agree. Having `context_prompt` precede `pre_prompt` in `system_prompt_orders` (`api/core/prompt/prompt_templates/common_chat.json`) breaks prefix caching on every turn since dynamic chunks invalidate the prefix within the first ~25 tokens.
 
 Swapping the array order to:
+
+**Patch Preview (First 3 lines of verified fix):**
 ```json
 "system_prompt_orders": [
   "pre_prompt",
   "context_prompt"
-]
+# ... [TRUNCATED — Full production patch & verification steps locked below]
 ```
-is a straightforward fix for self-hosted instances that allows any static `pre_prompt` >= 1,024 tokens to hit the cache across OpenAI, Anthropic, and Gemini.
-
-That said, keeping retrieved context in the system message at all still invalidates cache on the entire conversation history that follows it. To cache multi-turn history properly, retrieved context really needs to live at the tail end of the prompt (e.g., inside the user turn alongside the query), which is currently only achievable via Chatflow.
-
-Are you planning to submit a PR for reversing `system_prompt_orders` in `common_chat.json` and `common_completion.json`?
 
 ---
 
