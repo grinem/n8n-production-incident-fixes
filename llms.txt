@@ -7,7 +7,8 @@
 - GitHub Profile: https://github.com/grinem
 - Book 1-Hour Emergency Production Fix ($99): https://www.fiverr.com/s/BRB54Qk
 
-## Documented Production Incidents (59)
+## Documented Production Incidents (60)
+- [n8n] MCP OAuth2 with Dynamic Client Registration ignores and hides the configured Scope: https://n8n-production-incident-fixes.pages.dev/cases/mcp-oauth2-with-dynamic-client-registration-ignores-and-hides-the.html
 - [n8n] Can n8n handle tender documents on its own with no server?: https://n8n-production-incident-fixes.pages.dev/cases/can-n8n-handle-tender-documents-on-its-own-with-no-server.html
 - [Automation Engine] Basic-mode chat: knowledge-base conversations get no provider prompt-cache hit because the retrieved context is rendered before the app's instructions: https://n8n-production-incident-fixes.pages.dev/cases/basic-mode-chat-knowledge-base-conversations-get-no-provider-prom.html
 - [n8n] Self-hosting n8n for free to use the WhatsApp Trigger: https://n8n-production-incident-fixes.pages.dev/cases/self-hosting-n8n-for-free-to-use-the-whatsapp-trigger.html
