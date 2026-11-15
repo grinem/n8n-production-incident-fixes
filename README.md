@@ -1,7 +1,7 @@
 # 🛠️ n8n & Low-Code Production Incident Fixes (Live Knowledge Base)
 
 [![GitHub Pages](https://img.shields.io/badge/GitHub%20Pages-Live%20Showcase-brightgreen?style=flat-square&logo=github)](https://grinem.github.io/n8n-production-incident-fixes/)
-[![Incidents Resolved](https://img.shields.io/badge/Incidents%20Resolved-58%20Verified-blue?style=flat-square)](cases/)
+[![Incidents Resolved](https://img.shields.io/badge/Incidents%20Resolved-59%20Verified-blue?style=flat-square)](cases/)
 [![SLA](https://img.shields.io/badge/Emergency%20SLA-1%20Hour-orange?style=flat-square)](https://www.fiverr.com/s/BRB54Qk)
 [![Fiverr Service](https://img.shields.io/badge/Fiverr%20Gig-Hire%20Engineer-success?style=flat-square&logo=fiverr)](https://www.fiverr.com/s/BRB54Qk)
 
@@ -38,10 +38,11 @@ All incident post-mortems in this repository are autonomously generated and sync
 
 ---
 
-## 📚 Documented Production Incidents (58)
+## 📚 Documented Production Incidents (59)
 
 | Ecosystem | Incident Case Study | Root Cause Snapshot | Severity | Solution Link |
 |:----------|:--------------------|:--------------------|:--------:|:-------------:|
+| **n8n** | [Can n8n handle tender documents on its own with no server?](cases/can-n8n-handle-tender-documents-on-its-own-with-no-server.md) | Yes, offloading via the HTTP Request node is really your only option on n8n Cloud since the sandbox won't let you run native OCR binaries or heavy Python libs anyway. | 🟡 `MEDIUM` | [**Solution**](cases/can-n8n-handle-tender-documents-on-its-own-with-no-server.md) |
 | **Automation Engine** | [Basic-mode chat: knowledge-base conversations get no provider prompt-cache hit because the retrieved context is rendered before the app's instructions](cases/basic-mode-chat-knowledge-base-conversations-get-no-provider-prom.md) | Completely agree. Having `context_prompt` precede `pre_prompt` in `system_prompt_orders` (`api/core/prompt/prompt_templates/common_chat.json`) breaks prefix caching on every tur... | 🟡 `MEDIUM` | [**Solution**](cases/basic-mode-chat-knowledge-base-conversations-get-no-provider-prom.md) |
 | **n8n** | [Self-hosting n8n for free to use the WhatsApp Trigger](cases/self-hosting-n8n-for-free-to-use-the-whatsapp-trigger.md) | Yes, the Oracle Cloud (OCI) Always Free ARM instance is rock solid for n8n. You get up to 4 Ampere cores and 24 GB RAM with persistent block storage, so you won't run into the m... | 🟡 `MEDIUM` | [**Solution**](cases/self-hosting-n8n-for-free-to-use-the-whatsapp-trigger.md) |
 | **n8n** | [HTTP Request pagination fails with ERR_INVALID_ARG_TYPE on HTTP 204 responses](cases/http-request-pagination-fails-with-err-invalid-arg-type-on-http-2.md) | The stack trace points to internal payload normalization inside the node pagination pipeline: n8n attempts to buffer or hash the incoming page data prior to evaluating `isPagina... | 🔴 `CRITICAL` | [**Solution**](cases/http-request-pagination-fails-with-err-invalid-arg-type-on-http-2.md) |
