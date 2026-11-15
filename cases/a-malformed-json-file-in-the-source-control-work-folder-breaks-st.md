@@ -19,7 +19,7 @@ slug: "a-malformed-json-file-in-the-source-control-work-folder-breaks-st"
 ## Incident Metadata
 - **Platform / Ecosystem**: `n8n`
 - **Incident Severity**: `MEDIUM`
-- **Resolution Status**: `RADAR TRIAGED & READY FOR RESOLUTION`
+- **Resolution Status**: `VERIFIED & RESOLVED`
 - **Logged Timestamp**: `2026-11-15T10:40:49.805101`
 - **Diagnosis Engine**: Autonomous Production Incident Radar
 
