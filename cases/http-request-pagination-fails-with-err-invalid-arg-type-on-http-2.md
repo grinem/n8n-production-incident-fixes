@@ -19,7 +19,7 @@ slug: "http-request-pagination-fails-with-err-invalid-arg-type-on-http-2"
 ## Incident Metadata
 - **Platform / Ecosystem**: `n8n`
 - **Incident Severity**: `CRITICAL`
-- **Resolution Status**: `VERIFIED & RESOLVED`
+- **Resolution Status**: `RADAR TRIAGED & READY FOR RESOLUTION`
 - **Logged Timestamp**: `2026-11-14T14:20:33.391165`
 - **Diagnosis Engine**: Autonomous Production Incident Radar
 

@@ -19,7 +19,7 @@ slug: "sort-node-incorrectly-sorts-numbers-in-descending-order"
 ## Incident Metadata
 - **Platform / Ecosystem**: `n8n`
 - **Incident Severity**: `MEDIUM`
-- **Resolution Status**: `VERIFIED & RESOLVED`
+- **Resolution Status**: `RADAR TRIAGED & READY FOR RESOLUTION`
 - **Logged Timestamp**: `2026-11-13T15:22:18.056995`
 - **Diagnosis Engine**: Autonomous Production Incident Radar
 

@@ -4,8 +4,34 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Qdrant Vector Store: search filter leaks across nodes and is lost after the first retrieve-as-tool call | Production Incident Fix</title>
+  <meta name="description" content="Outstanding forensic breakdown of this issue. You have hit the nail right on the head: storing `defaultFilter` as a `private static` field on `ExtendedQdrantVectorStore` creates...">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://n8n-production-incident-fixes.pages.dev/cases/qdrant-vector-store-search-filter-leaks-across-nodes-and-is-lost.html">
+  <meta property="og:title" content="Qdrant Vector Store: search filter leaks across nodes and is lost after the first retrieve-as-tool call | Production Incident Fix">
+  <meta property="og:description" content="Outstanding forensic breakdown of this issue. You have hit the nail right on the head: storing `defaultFilter` as a `private static` field on `ExtendedQdrantVectorStore` creates...">
+  <meta property="og:url" content="https://n8n-production-incident-fixes.pages.dev/cases/qdrant-vector-store-search-filter-leaks-across-nodes-and-is-lost.html">
+  <meta property="og:type" content="article">
+  <link rel="sitemap" type="application/xml" title="Sitemap" href="/sitemap.xml">
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "TechArticle",
+    "headline": "Qdrant Vector Store: search filter leaks across nodes and is lost after the first retrieve-as-tool call",
+    "description": "Outstanding forensic breakdown of this issue. You have hit the nail right on the head: storing `defaultFilter` as a `private static` field on `ExtendedQdrantVectorStore` creates...",
+    "datePublished": "2026-11-12",
+    "author": {
+      "@type": "Person",
+      "name": "grinem"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "Production Incident Radar",
+      "url": "https://n8n-production-incident-fixes.pages.dev"
+    }
+  }
+  </script>
 </head>
 <body class="bg-slate-900 text-slate-100 min-h-screen font-sans antialiased">
   <!-- Top Notification CTA -->

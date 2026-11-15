@@ -4,8 +4,34 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Filter is not working as expected | Production Incident Fix</title>
+  <meta name="description" content="Google Forms usually returns question values as text strings rather than numbers, which makes numeric operators (`&lt;=`) fail silently at the filter. Wrap your rating tag in `pars...">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://n8n-production-incident-fixes.pages.dev/cases/filter-is-not-working-as-expected.html">
+  <meta property="og:title" content="Filter is not working as expected | Production Incident Fix">
+  <meta property="og:description" content="Google Forms usually returns question values as text strings rather than numbers, which makes numeric operators (`&lt;=`) fail silently at the filter. Wrap your rating tag in `pars...">
+  <meta property="og:url" content="https://n8n-production-incident-fixes.pages.dev/cases/filter-is-not-working-as-expected.html">
+  <meta property="og:type" content="article">
+  <link rel="sitemap" type="application/xml" title="Sitemap" href="/sitemap.xml">
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "TechArticle",
+    "headline": "Filter is not working as expected",
+    "description": "Google Forms usually returns question values as text strings rather than numbers, which makes numeric operators (`<=`) fail silently at the filter. Wrap your rating tag in `pars...",
+    "datePublished": "2026-11-13",
+    "author": {
+      "@type": "Person",
+      "name": "grinem"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "Production Incident Radar",
+      "url": "https://n8n-production-incident-fixes.pages.dev"
+    }
+  }
+  </script>
 </head>
 <body class="bg-slate-900 text-slate-100 min-h-screen font-sans antialiased">
   <!-- Top Notification CTA -->
@@ -44,7 +70,7 @@
   </div>
 
   <script>
-    const rawMarkdown = "---\nlayout: default\ntitle: \"Filter is not working as expected\"\nplatform: \"Make.com\"\nseverity: \"MEDIUM\"\nstatus: \"Resolved\"\ndate: 2026-11-13\ntags: [\"make\", \"production-fix\", \"post-mortem\", \"verified-resolution\"]\nslug: \"filter-is-not-working-as-expected\"\n---\n\n# Filter is not working as expected\n\n\n> \u26a1 **Encountering this exact production bug or need an emergency automation fix?**  \n> [**\ud83d\udea8 1-Hour Emergency On-Call \u2014 $99 | Hire me on Fiverr**](https://www.fiverr.com/s/BRB54Qk)\n\n\n## Incident Metadata\n- **Platform / Ecosystem**: `Make.com`\n- **Incident Severity**: `MEDIUM`\n- **Resolution Status**: `VERIFIED & RESOLVED`\n- **Logged Timestamp**: `2026-11-13T15:01:11.975931`\n- **Diagnosis Engine**: Autonomous Production Incident Radar\n\n---\n\n## Technical Post-Mortem & Resolution Guide\n\nGoogle Forms usually returns question values as text strings rather than numbers, which makes numeric operators (`<=`) fail silently at the filter. Wrap your rating tag in `parseNumber(...)` in the filter condition and ensure you're using the numeric `<=`, not text.\n\nAs for the blinking module, right-click Google Forms, select **Choose where to start**, pick a specific past response that has a rating of 1 or 2, then hit **Run once** to verify the path opens.\n\n---\n\n## Incident Prevention & Operational Takeaways\n1. **Audit Upstream Authentication**: Validate OAuth2 token refresh loops and ensure service credentials cannot be orphaned.\n2. **Implement Schema Boundary Validation**: Guard downstream webhooks against unexpected payload truncations.\n3. **Automate Error Interception**: Configure fallback nodes and alerting monitors before critical production executions.\n\n---\n\n\n> \u26a1 **Encountering this exact production bug or need an emergency automation fix?**  \n> [**\ud83d\udea8 1-Hour Emergency On-Call \u2014 $99 | Hire me on Fiverr**](https://www.fiverr.com/s/BRB54Qk)\n\n\n[\u2190 Back to Live Case Studies Index](../)\n";
+    const rawMarkdown = "---\nlayout: default\ntitle: \"Filter is not working as expected\"\nplatform: \"Make.com\"\nseverity: \"MEDIUM\"\nstatus: \"Resolved\"\ndate: 2026-11-13\ntags: [\"make\", \"production-fix\", \"post-mortem\", \"verified-resolution\"]\nslug: \"filter-is-not-working-as-expected\"\n---\n\n# Filter is not working as expected\n\n\n> \u26a1 **Encountering this exact production bug or need an emergency automation fix?**  \n> [**\ud83d\udea8 1-Hour Emergency On-Call \u2014 $99 | Hire me on Fiverr**](https://www.fiverr.com/s/BRB54Qk)\n\n\n## Incident Metadata\n- **Platform / Ecosystem**: `Make.com`\n- **Incident Severity**: `MEDIUM`\n- **Resolution Status**: `RADAR TRIAGED & READY FOR RESOLUTION`\n- **Logged Timestamp**: `2026-11-13T15:01:11.975931`\n- **Diagnosis Engine**: Autonomous Production Incident Radar\n\n---\n\n## Technical Post-Mortem & Resolution Guide\n\nGoogle Forms usually returns question values as text strings rather than numbers, which makes numeric operators (`<=`) fail silently at the filter. Wrap your rating tag in `parseNumber(...)` in the filter condition and ensure you're using the numeric `<=`, not text.\n\nAs for the blinking module, right-click Google Forms, select **Choose where to start**, pick a specific past response that has a rating of 1 or 2, then hit **Run once** to verify the path opens.\n\n---\n\n## Incident Prevention & Operational Takeaways\n1. **Audit Upstream Authentication**: Validate OAuth2 token refresh loops and ensure service credentials cannot be orphaned.\n2. **Implement Schema Boundary Validation**: Guard downstream webhooks against unexpected payload truncations.\n3. **Automate Error Interception**: Configure fallback nodes and alerting monitors before critical production executions.\n\n---\n\n\n> \u26a1 **Encountering this exact production bug or need an emergency automation fix?**  \n> [**\ud83d\udea8 1-Hour Emergency On-Call \u2014 $99 | Hire me on Fiverr**](https://www.fiverr.com/s/BRB54Qk)\n\n\n[\u2190 Back to Live Case Studies Index](../)\n";
     // Strip YAML frontmatter
     const mdWithoutYaml = rawMarkdown.replace(/^---[\s\S]*?---\s*/, '');
     document.getElementById('content').innerHTML = marked.parse(mdWithoutYaml);

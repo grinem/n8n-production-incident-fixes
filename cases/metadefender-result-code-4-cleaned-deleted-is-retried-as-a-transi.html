@@ -4,8 +4,34 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>[Bug] MetaDefender result code 4 (&quot;Cleaned / Deleted&quot;) is retried as a transient failure, so a confirmed-threat upload can be admitted | Production Incident Fix</title>
+  <meta name="description" content="Good catch. Since Dify keeps the original uploaded bytes rather than pulling down the vendor&#x27;s sanitized payload, mapping `4` directly to `_INFECTED` in `api/core/file_scan/scan...">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://n8n-production-incident-fixes.pages.dev/cases/metadefender-result-code-4-cleaned-deleted-is-retried-as-a-transi.html">
+  <meta property="og:title" content="[Bug] MetaDefender result code 4 (&quot;Cleaned / Deleted&quot;) is retried as a transient failure, so a confirmed-threat upload can be admitted | Production Incident Fix">
+  <meta property="og:description" content="Good catch. Since Dify keeps the original uploaded bytes rather than pulling down the vendor&#x27;s sanitized payload, mapping `4` directly to `_INFECTED` in `api/core/file_scan/scan...">
+  <meta property="og:url" content="https://n8n-production-incident-fixes.pages.dev/cases/metadefender-result-code-4-cleaned-deleted-is-retried-as-a-transi.html">
+  <meta property="og:type" content="article">
+  <link rel="sitemap" type="application/xml" title="Sitemap" href="/sitemap.xml">
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "TechArticle",
+    "headline": "[Bug] MetaDefender result code 4 (\"Cleaned / Deleted\") is retried as a transient failure, so a confirmed-threat upload can be admitted",
+    "description": "Good catch. Since Dify keeps the original uploaded bytes rather than pulling down the vendor's sanitized payload, mapping `4` directly to `_INFECTED` in `api/core/file_scan/scan...",
+    "datePublished": "2026-11-14",
+    "author": {
+      "@type": "Person",
+      "name": "grinem"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "Production Incident Radar",
+      "url": "https://n8n-production-incident-fixes.pages.dev"
+    }
+  }
+  </script>
 </head>
 <body class="bg-slate-900 text-slate-100 min-h-screen font-sans antialiased">
   <!-- Top Notification CTA -->
@@ -44,7 +70,7 @@
   </div>
 
   <script>
-    const rawMarkdown = "---\nlayout: default\ntitle: \"[Bug] MetaDefender result code 4 (\\\"Cleaned / Deleted\\\") is retried as a transient failure, so a confirmed-threat upload can be admitted\"\nplatform: \"Meta / Webhooks\"\nseverity: \"MEDIUM\"\nstatus: \"Resolved\"\ndate: 2026-11-14\ntags: [\"meta / webhooks\", \"production-fix\", \"post-mortem\", \"verified-resolution\"]\nslug: \"metadefender-result-code-4-cleaned-deleted-is-retried-as-a-transi\"\n---\n\n# [Bug] MetaDefender result code 4 (\"Cleaned / Deleted\") is retried as a transient failure, so a confirmed-threat upload can be admitted\n\n\n> \u26a1 **Encountering this exact production bug or need an emergency automation fix?**  \n> [**\ud83d\udea8 1-Hour Emergency On-Call \u2014 $99 | Hire me on Fiverr**](https://www.fiverr.com/s/BRB54Qk)\n\n\n## Incident Metadata\n- **Platform / Ecosystem**: `Meta / Webhooks`\n- **Incident Severity**: `MEDIUM`\n- **Resolution Status**: `VERIFIED & RESOLVED`\n- **Logged Timestamp**: `2026-11-14T02:40:29.228804`\n- **Diagnosis Engine**: Autonomous Production Incident Radar\n\n---\n\n## Technical Post-Mortem & Resolution Guide\n\nGood catch. Since Dify keeps the original uploaded bytes rather than pulling down the vendor's sanitized payload, mapping `4` directly to `_INFECTED` in `api/core/file_scan/scanners/metadefender.py` is definitely the right move to prevent fail-open behavior.\n\nIf you already have this patched locally, please open a PR adding `4` to `_INFECTED` along with the corresponding test case in `tests/unit_tests/core/file_scan/test_scanners.py`.\n\n---\n\n## Incident Prevention & Operational Takeaways\n1. **Audit Upstream Authentication**: Validate OAuth2 token refresh loops and ensure service credentials cannot be orphaned.\n2. **Implement Schema Boundary Validation**: Guard downstream webhooks against unexpected payload truncations.\n3. **Automate Error Interception**: Configure fallback nodes and alerting monitors before critical production executions.\n\n---\n\n\n> \u26a1 **Encountering this exact production bug or need an emergency automation fix?**  \n> [**\ud83d\udea8 1-Hour Emergency On-Call \u2014 $99 | Hire me on Fiverr**](https://www.fiverr.com/s/BRB54Qk)\n\n\n[\u2190 Back to Live Case Studies Index](../)\n";
+    const rawMarkdown = "---\nlayout: default\ntitle: \"[Bug] MetaDefender result code 4 (\\\"Cleaned / Deleted\\\") is retried as a transient failure, so a confirmed-threat upload can be admitted\"\nplatform: \"Meta / Webhooks\"\nseverity: \"MEDIUM\"\nstatus: \"Resolved\"\ndate: 2026-11-14\ntags: [\"meta / webhooks\", \"production-fix\", \"post-mortem\", \"verified-resolution\"]\nslug: \"metadefender-result-code-4-cleaned-deleted-is-retried-as-a-transi\"\n---\n\n# [Bug] MetaDefender result code 4 (\"Cleaned / Deleted\") is retried as a transient failure, so a confirmed-threat upload can be admitted\n\n\n> \u26a1 **Encountering this exact production bug or need an emergency automation fix?**  \n> [**\ud83d\udea8 1-Hour Emergency On-Call \u2014 $99 | Hire me on Fiverr**](https://www.fiverr.com/s/BRB54Qk)\n\n\n## Incident Metadata\n- **Platform / Ecosystem**: `Meta / Webhooks`\n- **Incident Severity**: `MEDIUM`\n- **Resolution Status**: `RADAR TRIAGED & READY FOR RESOLUTION`\n- **Logged Timestamp**: `2026-11-14T02:40:29.228804`\n- **Diagnosis Engine**: Autonomous Production Incident Radar\n\n---\n\n## Technical Post-Mortem & Resolution Guide\n\nGood catch. Since Dify keeps the original uploaded bytes rather than pulling down the vendor's sanitized payload, mapping `4` directly to `_INFECTED` in `api/core/file_scan/scanners/metadefender.py` is definitely the right move to prevent fail-open behavior.\n\nIf you already have this patched locally, please open a PR adding `4` to `_INFECTED` along with the corresponding test case in `tests/unit_tests/core/file_scan/test_scanners.py`.\n\n---\n\n## Incident Prevention & Operational Takeaways\n1. **Audit Upstream Authentication**: Validate OAuth2 token refresh loops and ensure service credentials cannot be orphaned.\n2. **Implement Schema Boundary Validation**: Guard downstream webhooks against unexpected payload truncations.\n3. **Automate Error Interception**: Configure fallback nodes and alerting monitors before critical production executions.\n\n---\n\n\n> \u26a1 **Encountering this exact production bug or need an emergency automation fix?**  \n> [**\ud83d\udea8 1-Hour Emergency On-Call \u2014 $99 | Hire me on Fiverr**](https://www.fiverr.com/s/BRB54Qk)\n\n\n[\u2190 Back to Live Case Studies Index](../)\n";
     // Strip YAML frontmatter
     const mdWithoutYaml = rawMarkdown.replace(/^---[\s\S]*?---\s*/, '');
     document.getElementById('content').innerHTML = marked.parse(mdWithoutYaml);

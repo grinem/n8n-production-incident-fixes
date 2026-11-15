@@ -19,7 +19,7 @@ slug: "switching-source-control-branches-persists-the-new-branch-before"
 ## Incident Metadata
 - **Platform / Ecosystem**: `n8n`
 - **Incident Severity**: `HIGH`
-- **Resolution Status**: `VERIFIED & RESOLVED`
+- **Resolution Status**: `RADAR TRIAGED & READY FOR RESOLUTION`
 - **Logged Timestamp**: `2026-11-13T19:00:33.112278`
 - **Diagnosis Engine**: Autonomous Production Incident Radar
 

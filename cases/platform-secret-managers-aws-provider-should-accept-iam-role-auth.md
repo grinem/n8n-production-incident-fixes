@@ -19,7 +19,7 @@ slug: "platform-secret-managers-aws-provider-should-accept-iam-role-auth"
 ## Incident Metadata
 - **Platform / Ecosystem**: `Activepieces`
 - **Incident Severity**: `MEDIUM`
-- **Resolution Status**: `VERIFIED & RESOLVED`
+- **Resolution Status**: `RADAR TRIAGED & READY FOR RESOLUTION`
 - **Logged Timestamp**: `2026-11-11T17:41:10.063471`
 - **Diagnosis Engine**: Autonomous Production Incident Radar
 

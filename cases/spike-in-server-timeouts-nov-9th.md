@@ -19,7 +19,7 @@ slug: "spike-in-server-timeouts-nov-9th"
 ## Incident Metadata
 - **Platform / Ecosystem**: `Bubble.io`
 - **Incident Severity**: `HIGH`
-- **Resolution Status**: `VERIFIED & RESOLVED`
+- **Resolution Status**: `RADAR TRIAGED & READY FOR RESOLUTION`
 - **Logged Timestamp**: `2026-11-10T12:16:43.153082`
 - **Diagnosis Engine**: Autonomous Production Incident Radar
 

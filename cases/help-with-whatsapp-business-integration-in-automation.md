@@ -19,7 +19,7 @@ slug: "help-with-whatsapp-business-integration-in-automation"
 ## Incident Metadata
 - **Platform / Ecosystem**: `Make.com`
 - **Incident Severity**: `MEDIUM`
-- **Resolution Status**: `VERIFIED & RESOLVED`
+- **Resolution Status**: `RADAR TRIAGED & READY FOR RESOLUTION`
 - **Logged Timestamp**: `2026-11-14T13:40:31.986195`
 - **Diagnosis Engine**: Autonomous Production Incident Radar
 

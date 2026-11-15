@@ -19,7 +19,7 @@ slug: "problems-with-pinterest-connection"
 ## Incident Metadata
 - **Platform / Ecosystem**: `Make.com`
 - **Incident Severity**: `CRITICAL`
-- **Resolution Status**: `VERIFIED & RESOLVED`
+- **Resolution Status**: `RADAR TRIAGED & READY FOR RESOLUTION`
 - **Logged Timestamp**: `2026-11-14T04:40:31.582965`
 - **Diagnosis Engine**: Autonomous Production Incident Radar
 

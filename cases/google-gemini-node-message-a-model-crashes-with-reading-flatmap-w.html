@@ -4,8 +4,34 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Google Gemini node: Message a Model crashes with &quot;reading &#x27;flatMap&#x27;&quot; when Gemini blocks the prompt | Production Incident Fix</title>
+  <meta name="description" content="Spot-on diagnosis! The root issue stems from the Google Gemini API returning an HTTP 200 OK containing only `promptFeedback.blockReason` while completely omitting the `candidate...">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://n8n-production-incident-fixes.pages.dev/cases/google-gemini-node-message-a-model-crashes-with-reading-flatmap-w.html">
+  <meta property="og:title" content="Google Gemini node: Message a Model crashes with &quot;reading &#x27;flatMap&#x27;&quot; when Gemini blocks the prompt | Production Incident Fix">
+  <meta property="og:description" content="Spot-on diagnosis! The root issue stems from the Google Gemini API returning an HTTP 200 OK containing only `promptFeedback.blockReason` while completely omitting the `candidate...">
+  <meta property="og:url" content="https://n8n-production-incident-fixes.pages.dev/cases/google-gemini-node-message-a-model-crashes-with-reading-flatmap-w.html">
+  <meta property="og:type" content="article">
+  <link rel="sitemap" type="application/xml" title="Sitemap" href="/sitemap.xml">
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "TechArticle",
+    "headline": "Google Gemini node: Message a Model crashes with \"reading 'flatMap'\" when Gemini blocks the prompt",
+    "description": "Spot-on diagnosis! The root issue stems from the Google Gemini API returning an HTTP 200 OK containing only `promptFeedback.blockReason` while completely omitting the `candidate...",
+    "datePublished": "2026-11-12",
+    "author": {
+      "@type": "Person",
+      "name": "grinem"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "Production Incident Radar",
+      "url": "https://n8n-production-incident-fixes.pages.dev"
+    }
+  }
+  </script>
 </head>
 <body class="bg-slate-900 text-slate-100 min-h-screen font-sans antialiased">
   <!-- Top Notification CTA -->

@@ -19,7 +19,7 @@ slug: "knowledge-base-retrieval-api-keeps-the-request-s-db-connection-du"
 ## Incident Metadata
 - **Platform / Ecosystem**: `Automation Engine`
 - **Incident Severity**: `MEDIUM`
-- **Resolution Status**: `VERIFIED & RESOLVED`
+- **Resolution Status**: `RADAR TRIAGED & READY FOR RESOLUTION`
 - **Logged Timestamp**: `2026-11-14T07:40:31.008246`
 - **Diagnosis Engine**: Autonomous Production Incident Radar
 

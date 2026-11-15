@@ -19,7 +19,7 @@ slug: "n8n102-422-on-finalize-progress-stuck"
 ## Incident Metadata
 - **Platform / Ecosystem**: `n8n`
 - **Incident Severity**: `CRITICAL`
-- **Resolution Status**: `VERIFIED & RESOLVED`
+- **Resolution Status**: `RADAR TRIAGED & READY FOR RESOLUTION`
 - **Logged Timestamp**: `2026-11-13T15:21:22.256067`
 - **Diagnosis Engine**: Autonomous Production Incident Radar
 

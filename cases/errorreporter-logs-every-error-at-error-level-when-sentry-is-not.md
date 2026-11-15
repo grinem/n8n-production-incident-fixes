@@ -19,7 +19,7 @@ slug: "errorreporter-logs-every-error-at-error-level-when-sentry-is-not"
 ## Incident Metadata
 - **Platform / Ecosystem**: `n8n`
 - **Incident Severity**: `HIGH`
-- **Resolution Status**: `VERIFIED & RESOLVED`
+- **Resolution Status**: `RADAR TRIAGED & READY FOR RESOLUTION`
 - **Logged Timestamp**: `2026-11-11T17:40:27.818079`
 - **Diagnosis Engine**: Autonomous Production Incident Radar
 

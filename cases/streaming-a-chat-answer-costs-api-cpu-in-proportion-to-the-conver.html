@@ -4,8 +4,34 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Streaming a chat answer costs API CPU in proportion to the conversation length for every chunk | Production Incident Fix</title>
+  <meta name="description" content="Spot-on analysis. The $O(N \times M)$ overhead comes down to `AppQueueManager.publish` running `self._check_for_sqlalchemy_models(event.model_dump())` on every emitted `QueueLLM...">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://n8n-production-incident-fixes.pages.dev/cases/streaming-a-chat-answer-costs-api-cpu-in-proportion-to-the-conver.html">
+  <meta property="og:title" content="Streaming a chat answer costs API CPU in proportion to the conversation length for every chunk | Production Incident Fix">
+  <meta property="og:description" content="Spot-on analysis. The $O(N \times M)$ overhead comes down to `AppQueueManager.publish` running `self._check_for_sqlalchemy_models(event.model_dump())` on every emitted `QueueLLM...">
+  <meta property="og:url" content="https://n8n-production-incident-fixes.pages.dev/cases/streaming-a-chat-answer-costs-api-cpu-in-proportion-to-the-conver.html">
+  <meta property="og:type" content="article">
+  <link rel="sitemap" type="application/xml" title="Sitemap" href="/sitemap.xml">
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "TechArticle",
+    "headline": "Streaming a chat answer costs API CPU in proportion to the conversation length for every chunk",
+    "description": "Spot-on analysis. The $O(N \\times M)$ overhead comes down to `AppQueueManager.publish` running `self._check_for_sqlalchemy_models(event.model_dump())` on every emitted `QueueLLM...",
+    "datePublished": "2026-11-14",
+    "author": {
+      "@type": "Person",
+      "name": "grinem"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "Production Incident Radar",
+      "url": "https://n8n-production-incident-fixes.pages.dev"
+    }
+  }
+  </script>
 </head>
 <body class="bg-slate-900 text-slate-100 min-h-screen font-sans antialiased">
   <!-- Top Notification CTA -->

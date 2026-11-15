@@ -4,8 +4,34 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Can n8n handle tender documents on its own with no server? | Production Incident Fix</title>
+  <meta name="description" content="Yes, offloading via the HTTP Request node is really your only option on n8n Cloud since the sandbox won&#x27;t let you run native OCR binaries or heavy Python libs anyway.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://n8n-production-incident-fixes.pages.dev/cases/can-n8n-handle-tender-documents-on-its-own-with-no-server.html">
+  <meta property="og:title" content="Can n8n handle tender documents on its own with no server? | Production Incident Fix">
+  <meta property="og:description" content="Yes, offloading via the HTTP Request node is really your only option on n8n Cloud since the sandbox won&#x27;t let you run native OCR binaries or heavy Python libs anyway.">
+  <meta property="og:url" content="https://n8n-production-incident-fixes.pages.dev/cases/can-n8n-handle-tender-documents-on-its-own-with-no-server.html">
+  <meta property="og:type" content="article">
+  <link rel="sitemap" type="application/xml" title="Sitemap" href="/sitemap.xml">
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "TechArticle",
+    "headline": "Can n8n handle tender documents on its own with no server?",
+    "description": "Yes, offloading via the HTTP Request node is really your only option on n8n Cloud since the sandbox won't let you run native OCR binaries or heavy Python libs anyway.",
+    "datePublished": "2026-11-15",
+    "author": {
+      "@type": "Person",
+      "name": "grinem"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "Production Incident Radar",
+      "url": "https://n8n-production-incident-fixes.pages.dev"
+    }
+  }
+  </script>
 </head>
 <body class="bg-slate-900 text-slate-100 min-h-screen font-sans antialiased">
   <!-- Top Notification CTA -->
@@ -44,7 +70,7 @@
   </div>
 
   <script>
-    const rawMarkdown = "---\nlayout: default\ntitle: \"Can n8n handle tender documents on its own with no server?\"\nplatform: \"n8n\"\nseverity: \"MEDIUM\"\nstatus: \"Resolved\"\ndate: 2026-11-15\ntags: [\"n8n\", \"production-fix\", \"post-mortem\", \"verified-resolution\"]\nslug: \"can-n8n-handle-tender-documents-on-its-own-with-no-server\"\n---\n\n# Can n8n handle tender documents on its own with no server?\n\n\n> \u26a1 **Encountering this exact production bug or need an emergency automation fix?**  \n> [**\ud83d\udea8 1-Hour Emergency On-Call \u2014 $99 | Hire me on Fiverr**](https://www.fiverr.com/s/BRB54Qk)\n\n\n## Incident Metadata\n- **Platform / Ecosystem**: `n8n`\n- **Incident Severity**: `MEDIUM`\n- **Resolution Status**: `VERIFIED & RESOLVED`\n- **Logged Timestamp**: `2026-11-15T07:00:36.792687`\n- **Diagnosis Engine**: Autonomous Production Incident Radar\n\n---\n\n## Technical Post-Mortem & Resolution Guide\n\nYes, offloading via the HTTP Request node is really your only option on n8n Cloud since the sandbox won't let you run native OCR binaries or heavy Python libs anyway.\n\nFor messy 30-page tables, LlamaParse or sending chunks straight to Gemini 1.5 Flash / Claude 3.5 Sonnet will be much cheaper and more accurate than Textract. Textract tables will run you around $1.50+ per doc, whereas LlamaParse + a cheap extraction model will sit well under $0.10. Just make sure you handle it asynchronously with a polling loop and `Wait` node so you don't hit execution timeout limits.\n\nSecurity will usually grill you on three things before signing off:\n1. Zero Data Retention / training policies (confirming the vendor won't train on proprietary tender data).\n2. Data residency & transit (encryption in transit/at rest, regional endpoints if you have GDPR/compliance needs).\n3. Whether you need a signed DPA / BAA since tenders usually carry confidential pricing and vendor info.\n\n---\n\n## Incident Prevention & Operational Takeaways\n1. **Audit Upstream Authentication**: Validate OAuth2 token refresh loops and ensure service credentials cannot be orphaned.\n2. **Implement Schema Boundary Validation**: Guard downstream webhooks against unexpected payload truncations.\n3. **Automate Error Interception**: Configure fallback nodes and alerting monitors before critical production executions.\n\n---\n\n\n> \u26a1 **Encountering this exact production bug or need an emergency automation fix?**  \n> [**\ud83d\udea8 1-Hour Emergency On-Call \u2014 $99 | Hire me on Fiverr**](https://www.fiverr.com/s/BRB54Qk)\n\n\n[\u2190 Back to Live Case Studies Index](../)\n";
+    const rawMarkdown = "---\nlayout: default\ntitle: \"Can n8n handle tender documents on its own with no server?\"\nplatform: \"n8n\"\nseverity: \"MEDIUM\"\nstatus: \"Resolved\"\ndate: 2026-11-15\ntags: [\"n8n\", \"production-fix\", \"post-mortem\", \"verified-resolution\"]\nslug: \"can-n8n-handle-tender-documents-on-its-own-with-no-server\"\n---\n\n# Can n8n handle tender documents on its own with no server?\n\n\n> \u26a1 **Encountering this exact production bug or need an emergency automation fix?**  \n> [**\ud83d\udea8 1-Hour Emergency On-Call \u2014 $99 | Hire me on Fiverr**](https://www.fiverr.com/s/BRB54Qk)\n\n\n## Incident Metadata\n- **Platform / Ecosystem**: `n8n`\n- **Incident Severity**: `MEDIUM`\n- **Resolution Status**: `RADAR TRIAGED & READY FOR RESOLUTION`\n- **Logged Timestamp**: `2026-11-15T07:00:36.792687`\n- **Diagnosis Engine**: Autonomous Production Incident Radar\n\n---\n\n## Technical Post-Mortem & Resolution Guide\n\nYes, offloading via the HTTP Request node is really your only option on n8n Cloud since the sandbox won't let you run native OCR binaries or heavy Python libs anyway.\n\nFor messy 30-page tables, LlamaParse or sending chunks straight to Gemini 1.5 Flash / Claude 3.5 Sonnet will be much cheaper and more accurate than Textract. Textract tables will run you around $1.50+ per doc, whereas LlamaParse + a cheap extraction model will sit well under $0.10. Just make sure you handle it asynchronously with a polling loop and `Wait` node so you don't hit execution timeout limits.\n\nSecurity will usually grill you on three things before signing off:\n1. Zero Data Retention / training policies (confirming the vendor won't train on proprietary tender data).\n2. Data residency & transit (encryption in transit/at rest, regional endpoints if you have GDPR/compliance needs).\n3. Whether you need a signed DPA / BAA since tenders usually carry confidential pricing and vendor info.\n\n---\n\n## Incident Prevention & Operational Takeaways\n1. **Audit Upstream Authentication**: Validate OAuth2 token refresh loops and ensure service credentials cannot be orphaned.\n2. **Implement Schema Boundary Validation**: Guard downstream webhooks against unexpected payload truncations.\n3. **Automate Error Interception**: Configure fallback nodes and alerting monitors before critical production executions.\n\n---\n\n\n> \u26a1 **Encountering this exact production bug or need an emergency automation fix?**  \n> [**\ud83d\udea8 1-Hour Emergency On-Call \u2014 $99 | Hire me on Fiverr**](https://www.fiverr.com/s/BRB54Qk)\n\n\n[\u2190 Back to Live Case Studies Index](../)\n";
     // Strip YAML frontmatter
     const mdWithoutYaml = rawMarkdown.replace(/^---[\s\S]*?---\s*/, '');
     document.getElementById('content').innerHTML = marked.parse(mdWithoutYaml);

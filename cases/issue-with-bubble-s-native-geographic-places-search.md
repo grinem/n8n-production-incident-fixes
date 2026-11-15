@@ -19,7 +19,7 @@ slug: "issue-with-bubble-s-native-geographic-places-search"
 ## Incident Metadata
 - **Platform / Ecosystem**: `Bubble.io`
 - **Incident Severity**: `CRITICAL`
-- **Resolution Status**: `VERIFIED & RESOLVED`
+- **Resolution Status**: `RADAR TRIAGED & READY FOR RESOLUTION`
 - **Logged Timestamp**: `2026-11-10T12:15:45.659532`
 - **Diagnosis Engine**: Autonomous Production Incident Radar
 

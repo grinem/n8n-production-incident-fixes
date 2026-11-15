@@ -19,7 +19,7 @@ slug: "instagram-for-business-facebook-page-not-showing-and-webhook-erro"
 ## Incident Metadata
 - **Platform / Ecosystem**: `Make.com`
 - **Incident Severity**: `CRITICAL`
-- **Resolution Status**: `VERIFIED & RESOLVED`
+- **Resolution Status**: `RADAR TRIAGED & READY FOR RESOLUTION`
 - **Logged Timestamp**: `2026-11-10T12:14:58.850682`
 - **Diagnosis Engine**: Autonomous Production Incident Radar
 

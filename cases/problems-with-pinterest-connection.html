@@ -4,8 +4,34 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Problems with Pinterest connection | Production Incident Fix</title>
+  <meta name="description" content="Pinterest&#x27;s API v5 strictly requires a **Business Account** to create pins. If you authenticated with a personal account, the initial OAuth handshake succeeds in Make, but any p...">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://n8n-production-incident-fixes.pages.dev/cases/problems-with-pinterest-connection.html">
+  <meta property="og:title" content="Problems with Pinterest connection | Production Incident Fix">
+  <meta property="og:description" content="Pinterest&#x27;s API v5 strictly requires a **Business Account** to create pins. If you authenticated with a personal account, the initial OAuth handshake succeeds in Make, but any p...">
+  <meta property="og:url" content="https://n8n-production-incident-fixes.pages.dev/cases/problems-with-pinterest-connection.html">
+  <meta property="og:type" content="article">
+  <link rel="sitemap" type="application/xml" title="Sitemap" href="/sitemap.xml">
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "TechArticle",
+    "headline": "Problems with Pinterest connection",
+    "description": "Pinterest's API v5 strictly requires a **Business Account** to create pins. If you authenticated with a personal account, the initial OAuth handshake succeeds in Make, but any p...",
+    "datePublished": "2026-11-14",
+    "author": {
+      "@type": "Person",
+      "name": "grinem"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "Production Incident Radar",
+      "url": "https://n8n-production-incident-fixes.pages.dev"
+    }
+  }
+  </script>
 </head>
 <body class="bg-slate-900 text-slate-100 min-h-screen font-sans antialiased">
   <!-- Top Notification CTA -->
@@ -44,7 +70,7 @@
   </div>
 
   <script>
-    const rawMarkdown = "---\nlayout: default\ntitle: \"Problems with Pinterest connection\"\nplatform: \"Make.com\"\nseverity: \"CRITICAL\"\nstatus: \"Resolved\"\ndate: 2026-11-14\ntags: [\"make\", \"critical-incident\", \"production-fix\", \"post-mortem\", \"verified-resolution\"]\nslug: \"problems-with-pinterest-connection\"\n---\n\n# Problems with Pinterest connection\n\n\n> \u26a1 **Encountering this exact production bug or need an emergency automation fix?**  \n> [**\ud83d\udea8 1-Hour Emergency On-Call \u2014 $99 | Hire me on Fiverr**](https://www.fiverr.com/s/BRB54Qk)\n\n\n## Incident Metadata\n- **Platform / Ecosystem**: `Make.com`\n- **Incident Severity**: `CRITICAL`\n- **Resolution Status**: `VERIFIED & RESOLVED`\n- **Logged Timestamp**: `2026-11-14T04:40:31.582965`\n- **Diagnosis Engine**: Autonomous Production Incident Radar\n\n---\n\n## Technical Post-Mortem & Resolution Guide\n\nPinterest's API v5 strictly requires a **Business Account** to create pins. If you authenticated with a personal account, the initial OAuth handshake succeeds in Make, but any pin creation request immediately fails with a permissions/403 error.\n\nConvert the Pinterest account to a free Business account in Pinterest settings, then revoke and recreate the connection in Make. Also make sure the target board is owned directly by your account, as posting to collaborator boards via API will also trigger permission errors.\n\n---\n\n## Incident Prevention & Operational Takeaways\n1. **Audit Upstream Authentication**: Validate OAuth2 token refresh loops and ensure service credentials cannot be orphaned.\n2. **Implement Schema Boundary Validation**: Guard downstream webhooks against unexpected payload truncations.\n3. **Automate Error Interception**: Configure fallback nodes and alerting monitors before critical production executions.\n\n---\n\n\n> \u26a1 **Encountering this exact production bug or need an emergency automation fix?**  \n> [**\ud83d\udea8 1-Hour Emergency On-Call \u2014 $99 | Hire me on Fiverr**](https://www.fiverr.com/s/BRB54Qk)\n\n\n[\u2190 Back to Live Case Studies Index](../)\n";
+    const rawMarkdown = "---\nlayout: default\ntitle: \"Problems with Pinterest connection\"\nplatform: \"Make.com\"\nseverity: \"CRITICAL\"\nstatus: \"Resolved\"\ndate: 2026-11-14\ntags: [\"make\", \"critical-incident\", \"production-fix\", \"post-mortem\", \"verified-resolution\"]\nslug: \"problems-with-pinterest-connection\"\n---\n\n# Problems with Pinterest connection\n\n\n> \u26a1 **Encountering this exact production bug or need an emergency automation fix?**  \n> [**\ud83d\udea8 1-Hour Emergency On-Call \u2014 $99 | Hire me on Fiverr**](https://www.fiverr.com/s/BRB54Qk)\n\n\n## Incident Metadata\n- **Platform / Ecosystem**: `Make.com`\n- **Incident Severity**: `CRITICAL`\n- **Resolution Status**: `RADAR TRIAGED & READY FOR RESOLUTION`\n- **Logged Timestamp**: `2026-11-14T04:40:31.582965`\n- **Diagnosis Engine**: Autonomous Production Incident Radar\n\n---\n\n## Technical Post-Mortem & Resolution Guide\n\nPinterest's API v5 strictly requires a **Business Account** to create pins. If you authenticated with a personal account, the initial OAuth handshake succeeds in Make, but any pin creation request immediately fails with a permissions/403 error.\n\nConvert the Pinterest account to a free Business account in Pinterest settings, then revoke and recreate the connection in Make. Also make sure the target board is owned directly by your account, as posting to collaborator boards via API will also trigger permission errors.\n\n---\n\n## Incident Prevention & Operational Takeaways\n1. **Audit Upstream Authentication**: Validate OAuth2 token refresh loops and ensure service credentials cannot be orphaned.\n2. **Implement Schema Boundary Validation**: Guard downstream webhooks against unexpected payload truncations.\n3. **Automate Error Interception**: Configure fallback nodes and alerting monitors before critical production executions.\n\n---\n\n\n> \u26a1 **Encountering this exact production bug or need an emergency automation fix?**  \n> [**\ud83d\udea8 1-Hour Emergency On-Call \u2014 $99 | Hire me on Fiverr**](https://www.fiverr.com/s/BRB54Qk)\n\n\n[\u2190 Back to Live Case Studies Index](../)\n";
     // Strip YAML frontmatter
     const mdWithoutYaml = rawMarkdown.replace(/^---[\s\S]*?---\s*/, '');
     document.getElementById('content').innerHTML = marked.parse(mdWithoutYaml);

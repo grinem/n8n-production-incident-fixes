@@ -19,7 +19,7 @@ slug: "can-n8n-handle-tender-documents-on-its-own-with-no-server"
 ## Incident Metadata
 - **Platform / Ecosystem**: `n8n`
 - **Incident Severity**: `MEDIUM`
-- **Resolution Status**: `VERIFIED & RESOLVED`
+- **Resolution Status**: `RADAR TRIAGED & READY FOR RESOLUTION`
 - **Logged Timestamp**: `2026-11-15T07:00:36.792687`
 - **Diagnosis Engine**: Autonomous Production Incident Radar
 

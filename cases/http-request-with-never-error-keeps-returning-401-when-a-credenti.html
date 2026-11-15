@@ -4,8 +4,34 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>HTTP Request with &quot;Never Error&quot; keeps returning 401 when a credential with an expiring token (preAuthentication) needs a refresh | Production Incident Fix</title>
+  <meta name="description" content="Spot on diagnosis. The discrepancy between `requestOAuth2` (which explicitly handles resolved 401s under `simple: false`) and `requestWithAuthentication` (which strictly encapsu...">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://n8n-production-incident-fixes.pages.dev/cases/http-request-with-never-error-keeps-returning-401-when-a-credenti.html">
+  <meta property="og:title" content="HTTP Request with &quot;Never Error&quot; keeps returning 401 when a credential with an expiring token (preAuthentication) needs a refresh | Production Incident Fix">
+  <meta property="og:description" content="Spot on diagnosis. The discrepancy between `requestOAuth2` (which explicitly handles resolved 401s under `simple: false`) and `requestWithAuthentication` (which strictly encapsu...">
+  <meta property="og:url" content="https://n8n-production-incident-fixes.pages.dev/cases/http-request-with-never-error-keeps-returning-401-when-a-credenti.html">
+  <meta property="og:type" content="article">
+  <link rel="sitemap" type="application/xml" title="Sitemap" href="/sitemap.xml">
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "TechArticle",
+    "headline": "HTTP Request with \"Never Error\" keeps returning 401 when a credential with an expiring token (preAuthentication) needs a refresh",
+    "description": "Spot on diagnosis. The discrepancy between `requestOAuth2` (which explicitly handles resolved 401s under `simple: false`) and `requestWithAuthentication` (which strictly encapsu...",
+    "datePublished": "2026-11-13",
+    "author": {
+      "@type": "Person",
+      "name": "grinem"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "Production Incident Radar",
+      "url": "https://n8n-production-incident-fixes.pages.dev"
+    }
+  }
+  </script>
 </head>
 <body class="bg-slate-900 text-slate-100 min-h-screen font-sans antialiased">
   <!-- Top Notification CTA -->
