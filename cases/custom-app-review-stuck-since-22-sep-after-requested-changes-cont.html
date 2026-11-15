@@ -120,31 +120,33 @@
         <p class="text-sm text-slate-200 whitespace-pre-line" id="trPreview"></p>
       </div>
 
-      <div class="rounded-xl bg-emerald-950/40 border border-emerald-500/40 p-4 space-y-2">
-        <div class="flex items-center justify-between">
-          <span class="text-sm font-bold text-emerald-300">Option A: Pay with USDT (BEP20) &mdash; 20% Off</span>
-          <span class="text-sm font-extrabold text-white" id="trUsdtAmount"></span>
-        </div>
-        <p class="text-xs text-slate-300">Network: <strong>BNB Smart Chain (BEP20)</strong> &bull; Auto-detection every 20s via BSC Watcher</p>
-        <div class="rounded bg-amber-950/60 border border-amber-500/40 px-2.5 py-1.5 text-xs text-amber-200">
-          ⚠️ Send exact amount (<strong id="trUsdtExactBadge" class="text-white underline"></strong>) for autonomous instant unlock.
-        </div>
-        <div class="flex items-center gap-2">
-          <code id="trUsdtAddr" class="flex-1 rounded bg-slate-950 px-2.5 py-2 text-xs text-emerald-300 break-all border border-slate-800"></code>
-          <button onclick="navigator.clipboard.writeText(document.getElementById('trUsdtAddr').innerText)" class="rounded bg-slate-800 hover:bg-slate-700 px-3 py-2 text-xs font-bold text-white cursor-pointer">Copy</button>
-        </div>
-        <div class="pt-2 flex gap-2">
-          <input id="trTxHash" type="text" placeholder="Paste BEP20 TxHash (0x...) or wait for auto-detection..." class="flex-1 rounded-lg bg-slate-950 border border-slate-700 px-3 py-2 text-xs font-mono text-white" />
-          <button id="trVerifyBtn" onclick="window.verifyUsdtTx()" class="rounded-lg bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold px-4 py-2 text-xs cursor-pointer">Verify Now</button>
-        </div>
-        <div id="trErr2" class="text-xs text-rose-400 hidden"></div>
+      <!-- 1-Click Card Checkout -->
+      <div>
+        <a id="trCardBtn" href="#" target="_blank" rel="noopener noreferrer" class="flex items-center justify-center gap-2 w-full rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-extrabold py-3.5 px-4 text-sm shadow-lg shadow-indigo-600/30 transition transform hover:-translate-y-0.5 cursor-pointer">
+          <span>💳</span><span>Pay with Visa / Mastercard / Apple Pay (<span id="trUsdAmount">$199</span>)</span>
+        </a>
+        <p class="text-[11px] text-center text-slate-400 mt-1.5">Direct instant card checkout (no crypto wallet required).</p>
       </div>
 
-      <div class="text-center">
-        <a id="trCardBtn" href="#" target="_blank" rel="noopener noreferrer" class="inline-block w-full rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-bold py-2.5 text-xs transition">
-          Option B: Pay with Visa / Mastercard / Apple Pay (<span id="trUsdAmount"></span>) &rarr;
-        </a>
-        <p class="text-[11px] text-slate-400 mt-1">Direct-to-Wallet on-ramp (no crypto account required).</p>
+      <!-- 1-Click Web3 USDT Checkout -->
+      <div class="space-y-2">
+        <button id="trWeb3Btn" onclick="window.payWithWeb3()" class="flex items-center justify-center gap-2 w-full rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-black py-3.5 px-4 text-sm shadow-lg shadow-emerald-500/25 transition transform hover:-translate-y-0.5 cursor-pointer">
+          <span>⚡</span><span>1-Click Crypto Checkout (MetaMask / Trust / Binance Web3) &mdash; <span id="trUsdtAmount">159.20 USDT</span></span>
+        </button>
+        <div id="trWeb3Status" class="text-xs text-center text-emerald-400 hidden"></div>
+        <p class="text-[11px] text-center text-slate-400">BNB Smart Chain (BEP20) &bull; Zero copy-paste &bull; 1-Click auto-sign</p>
+      </div>
+
+      <!-- Real-Time Auto-Verification Status Banner -->
+      <div class="rounded-xl bg-slate-950/80 border border-emerald-500/30 p-3.5 flex items-center gap-3">
+        <div class="relative flex h-3 w-3 flex-shrink-0">
+          <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+          <span class="relative inline-flex rounded-full h-3 w-3 bg-emerald-500"></span>
+        </div>
+        <div class="flex-1 text-xs text-slate-300">
+          <div class="font-bold text-white flex items-center gap-1.5"><span>🔄</span> Auto-Verification Active</div>
+          <p class="text-[11px] text-slate-400 mt-0.5">Waiting for payment confirmation... Your patch unlocks automatically on this screen &amp; by email in &lt; 20s.</p>
+        </div>
       </div>
     </div>
 
@@ -162,6 +164,10 @@
 (function() {
   const API = "https://triage.baitakstore.com";
   let currentSessionId = "";
+  let targetUsdtAddress = "0x57A817bd5D42F14325eE4ec7B67F69D5f884758B";
+  let targetUsdtExact = 159.20;
+  let targetUsdPrice = 199;
+
   function maskLocal(txt) {
     return (txt || "")
       .replace(/\b(sk|re|ghp)_[A-Za-z0-9_-]{12,}\b/g, "[REDACTED]")
@@ -197,19 +203,22 @@
       const d = await r.json();
       if (!r.ok) throw new Error(d.error || "Triage error");
       currentSessionId = d.session_id;
+      if (d.usdt_address) targetUsdtAddress = d.usdt_address;
+      if (d.usdt_exact) targetUsdtExact = Number(d.usdt_exact);
+      else if (d.usdt_price) targetUsdtExact = Number(d.usdt_price);
+      if (d.usd_price) targetUsdPrice = Number(d.usd_price);
+
       document.getElementById("trTierLabel").innerText = d.label + " (Session " + d.session_id + ")";
       document.getElementById("trPreview").innerText = d.preview;
       const exactAmount = (d.usdt_exact ? Number(d.usdt_exact).toFixed(2) : d.usdt_price) + " USDT";
       document.getElementById("trUsdtAmount").innerText = exactAmount;
-      document.getElementById("trUsdtExactBadge").innerText = exactAmount;
-      document.getElementById("trUsdtAddr").innerText = d.usdt_address;
       document.getElementById("trUsdAmount").innerText = "$" + d.usd_price;
-      const cardUrl = d.card_checkout_url || d.onramp_url || ("https://changenow.io/exchange?from=usd&to=usdtbsc&amount=" + d.usd_price + "&recipient=" + d.usdt_address);
+      const cardUrl = d.card_checkout_url || d.onramp_url || ("https://changenow.io/exchange?from=usd&to=usdtbsc&amount=" + d.usd_price + "&recipient=" + targetUsdtAddress);
       document.getElementById("trCardBtn").href = cardUrl;
       document.getElementById("triageStep1").classList.add("hidden");
       document.getElementById("triageStep2").classList.remove("hidden");
 
-      // Auto-poll session status every 6 seconds
+      // Auto-poll session status every 5 seconds
       if (window.triagePollTimer) clearInterval(window.triagePollTimer);
       window.triagePollTimer = setInterval(async function() {
         if (!currentSessionId) return;
@@ -225,35 +234,89 @@
             }
           }
         } catch (_) {}
-      }, 6000);
+      }, 5000);
     } catch (e) {
       err.innerText = e.message; err.classList.remove("hidden");
     } finally {
       btn.disabled = false; btn.innerText = "Run Instant AI Triage →";
     }
   };
-  window.verifyUsdtTx = async function() {
-    const tx_hash = document.getElementById("trTxHash").value.trim();
-    const err = document.getElementById("trErr2");
-    err.classList.add("hidden");
-    const btn = document.getElementById("trVerifyBtn");
-    btn.disabled = true; btn.innerText = "Verifying...";
+
+  window.payWithWeb3 = async function() {
+    const statusEl = document.getElementById("trWeb3Status");
+    const btn = document.getElementById("trWeb3Btn");
+    statusEl.classList.remove("hidden");
+    statusEl.className = "text-xs text-center text-indigo-400";
+    statusEl.innerText = "Connecting to Web3 wallet...";
+
+    if (typeof window.ethereum === "undefined") {
+      statusEl.className = "text-xs text-center text-amber-300";
+      statusEl.innerHTML = "Opening Web3 wallet deep link... (or use Card checkout above)";
+      const amountWei = BigInt(Math.floor(targetUsdtExact * 100)) * BigInt(10**16);
+      const eip681 = "ethereum:0x55d398326f99059ff775485246999027b3197955@56/transfer?address=" + targetUsdtAddress + "&uint256=" + amountWei.toString();
+      window.location.href = eip681;
+      return;
+    }
+
     try {
-      const r = await fetch(API + "/api/verify-payment", {
-        method: "POST",
-        headers: {"Content-Type": "application/json"},
-        body: JSON.stringify({session_id: currentSessionId, tx_hash})
+      btn.disabled = true;
+      try {
+        await window.ethereum.request({
+          method: "wallet_switchEthereumChain",
+          params: [{ chainId: "0x38" }]
+        });
+      } catch (switchError) {
+        if (switchError.code === 4902) {
+          await window.ethereum.request({
+            method: "wallet_addEthereumChain",
+            params: [{
+              chainId: "0x38",
+              chainName: "BNB Smart Chain Mainnet",
+              nativeCurrency: { name: "BNB", symbol: "BNB", decimals: 18 },
+              rpcUrls: ["https://bsc-dataseed.binance.org/"],
+              blockExplorerUrls: ["https://bscscan.com/"]
+            }]
+          });
+        } else {
+          throw switchError;
+        }
+      }
+
+      const accounts = await window.ethereum.request({ method: "eth_requestAccounts" });
+      const userAccount = accounts[0];
+      statusEl.innerText = "Connected (" + userAccount.slice(0,6) + "..." + userAccount.slice(-4) + "). Please confirm in wallet...";
+
+      const methodId = "0xa9059cbb";
+      const cleanTo = targetUsdtAddress.toLowerCase().replace(/^0x/, "").padStart(64, "0");
+      const amountWei = BigInt(Math.floor(targetUsdtExact * 100)) * BigInt(10**16);
+      const amountHex = amountWei.toString(16).padStart(64, "0");
+      const data = methodId + cleanTo + amountHex;
+
+      const txHash = await window.ethereum.request({
+        method: "eth_sendTransaction",
+        params: [{
+          from: userAccount,
+          to: "0x55d398326f99059ff775485246999027b3197955",
+          data: data
+        }]
       });
-      const d = await r.json();
-      if (!r.ok || !d.ok) throw new Error(d.error || "Verification failed");
-      if (window.triagePollTimer) clearInterval(window.triagePollTimer);
-      document.getElementById("trPatchOutput").innerText = d.patch_md || "Delivered to your email.";
-      document.getElementById("triageStep2").classList.add("hidden");
-      document.getElementById("triageStep3").classList.remove("hidden");
-    } catch (e) {
-      err.innerText = e.message; err.classList.remove("hidden");
+
+      statusEl.className = "text-xs text-center text-emerald-400 font-bold";
+      statusEl.innerText = "Transaction sent: " + txHash.slice(0, 10) + "... Auto-verifying in background...";
+
+      try {
+        await fetch(API + "/api/verify-payment", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ session_id: currentSessionId, tx_hash: txHash })
+        });
+      } catch (_) {}
+
+    } catch (err) {
+      statusEl.className = "text-xs text-center text-rose-400";
+      statusEl.innerText = err.message || "Payment cancelled";
     } finally {
-      btn.disabled = false; btn.innerText = "Verify & Deliver";
+      btn.disabled = false;
     }
   };
 })();
