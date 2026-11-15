@@ -13,9 +13,9 @@ title: "Production Incident Fixes & Post-Mortem Knowledge Base"
 
 
 ### 📊 Real-Time Operations Telemetry
-- **Total Production Incidents Documented**: `62`
+- **Total Production Incidents Documented**: `63`
 - **Active Incident Resolvers**: Automated Production Radar + Lead SRE Engineer
-- **Breakdown by Platform**: **n8n**: 30 | **Make.com**: 16 | **Automation Engine**: 5 | **Bubble.io**: 4 | **Activepieces**: 3 | **Baserow**: 2 | **Meta / Webhooks**: 2
+- **Breakdown by Platform**: **n8n**: 31 | **Make.com**: 16 | **Automation Engine**: 5 | **Bubble.io**: 4 | **Activepieces**: 3 | **Baserow**: 2 | **Meta / Webhooks**: 2
 - **Average Diagnosis & Root-Cause Pinpoint**: `< 15 Minutes`
 
 ---
@@ -24,6 +24,7 @@ title: "Production Incident Fixes & Post-Mortem Knowledge Base"
 
 | Ecosystem | Incident Summary | Root Cause Snapshot | Severity | Resolution Guide |
 |:----------|:-----------------|:--------------------|:--------:|:----------------:|
+| **n8n** | [A malformed JSON file in the source control work folder breaks status, push, and pull entirely](cases/a-malformed-json-file-in-the-source-control-work-folder-breaks-st.html) | Spot-on analysis Client Case Study (User). It's an oversight from when data table handling was made defensive while credentials and projects were left with bare `jsonParse` calls. | 🟡 `MEDIUM` | [**View Solution →**](cases/a-malformed-json-file-in-the-source-control-work-folder-breaks-st.html) |
 | **Baserow** | [Request failed with status code 500](cases/request-failed-with-status-code-500.html) | On Baserow SaaS, a 500 when switching tables or editing rows is usually caused by a broken view filter/sort or a formula referencing a field that changed type. | 🔴 `CRITICAL` | [**View Solution →**](cases/request-failed-with-status-code-500.html) |
 | **n8n** | [Mixing Seedance 2.5 and Kling 4.0 in one n8n batch: where do you validate each row before it costs money?](cases/mixing-seedance-2-5-and-kling-4-0-in-one-n8n-batch-where-do-you-v.html) | Option 1 is the cleanest approach, but don't hardcode the specs inside an n8n Code node. Store your model contract in a second tab in that same Sheet (e.g. `_models` with `model... | 🟡 `MEDIUM` | [**View Solution →**](cases/mixing-seedance-2-5-and-kling-4-0-in-one-n8n-batch-where-do-you-v.html) |
 | **n8n** | [MCP OAuth2 with Dynamic Client Registration ignores and hides the configured Scope](cases/mcp-oauth2-with-dynamic-client-registration-ignores-and-hides-the.html) | PR #41889 is definitely the right approach here—enforcing least privilege should always take precedence over discovery defaults when a narrower scope is explicitly declared. | 🟡 `MEDIUM` | [**View Solution →**](cases/mcp-oauth2-with-dynamic-client-registration-ignores-and-hides-the.html) |

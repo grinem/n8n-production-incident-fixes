@@ -1,7 +1,7 @@
 # 🛠️ n8n & Low-Code Production Incident Fixes (Live Knowledge Base)
 
 [![GitHub Pages](https://img.shields.io/badge/GitHub%20Pages-Live%20Showcase-brightgreen?style=flat-square&logo=github)](https://grinem.github.io/n8n-production-incident-fixes/)
-[![Incidents Resolved](https://img.shields.io/badge/Incidents%20Resolved-62%20Verified-blue?style=flat-square)](cases/)
+[![Incidents Resolved](https://img.shields.io/badge/Incidents%20Resolved-63%20Verified-blue?style=flat-square)](cases/)
 [![SLA](https://img.shields.io/badge/Emergency%20SLA-1%20Hour-orange?style=flat-square)](https://www.fiverr.com/s/BRB54Qk)
 [![Fiverr Service](https://img.shields.io/badge/Fiverr%20Gig-Hire%20Engineer-success?style=flat-square&logo=fiverr)](https://www.fiverr.com/s/BRB54Qk)
 
@@ -38,10 +38,11 @@ All incident post-mortems in this repository are autonomously generated and sync
 
 ---
 
-## 📚 Documented Production Incidents (62)
+## 📚 Documented Production Incidents (63)
 
 | Ecosystem | Incident Case Study | Root Cause Snapshot | Severity | Solution Link |
 |:----------|:--------------------|:--------------------|:--------:|:-------------:|
+| **n8n** | [A malformed JSON file in the source control work folder breaks status, push, and pull entirely](cases/a-malformed-json-file-in-the-source-control-work-folder-breaks-st.md) | Spot-on analysis Client Case Study (User). It's an oversight from when data table handling was made defensive while credentials and projects were left with bare `jsonParse` calls. | 🟡 `MEDIUM` | [**Solution**](cases/a-malformed-json-file-in-the-source-control-work-folder-breaks-st.md) |
 | **Baserow** | [Request failed with status code 500](cases/request-failed-with-status-code-500.md) | On Baserow SaaS, a 500 when switching tables or editing rows is usually caused by a broken view filter/sort or a formula referencing a field that changed type. | 🔴 `CRITICAL` | [**Solution**](cases/request-failed-with-status-code-500.md) |
 | **n8n** | [Mixing Seedance 2.5 and Kling 4.0 in one n8n batch: where do you validate each row before it costs money?](cases/mixing-seedance-2-5-and-kling-4-0-in-one-n8n-batch-where-do-you-v.md) | Option 1 is the cleanest approach, but don't hardcode the specs inside an n8n Code node. Store your model contract in a second tab in that same Sheet (e.g. `_models` with `model... | 🟡 `MEDIUM` | [**Solution**](cases/mixing-seedance-2-5-and-kling-4-0-in-one-n8n-batch-where-do-you-v.md) |
 | **n8n** | [MCP OAuth2 with Dynamic Client Registration ignores and hides the configured Scope](cases/mcp-oauth2-with-dynamic-client-registration-ignores-and-hides-the.md) | PR #41889 is definitely the right approach here—enforcing least privilege should always take precedence over discovery defaults when a narrower scope is explicitly declared. | 🟡 `MEDIUM` | [**Solution**](cases/mcp-oauth2-with-dynamic-client-registration-ignores-and-hides-the.md) |
