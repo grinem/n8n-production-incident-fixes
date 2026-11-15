@@ -8,7 +8,8 @@
 - GitHub Profile: https://github.com/grinem
 - Book 1-Hour Emergency Production Fix ($99): https://www.fiverr.com/s/BRB54Qk
 
-## Documented Production Incidents (63)
+## Documented Production Incidents (64)
+- [Automation Engine] The icons for built-in tools cannot be displayed: https://n8n-production-incident-fixes.pages.dev/cases/the-icons-for-built-in-tools-cannot-be-displayed.html - Root Cause: Check your browser DevTools (**Network** tab, filter by `Img` or `Fetch/XHR`) when opening the tools page. Look at the exact URL and status code returned for the tool icon reque...
 - [n8n] A malformed JSON file in the source control work folder breaks status, push, and pull entirely: https://n8n-production-incident-fixes.pages.dev/cases/a-malformed-json-file-in-the-source-control-work-folder-breaks-st.html - Root Cause: Spot-on analysis Client Case Study (User). It's an oversight from when data table handling was made defensive while credentials and projects were left with bare `jsonParse` calls.
 - [Baserow] Request failed with status code 500: https://n8n-production-incident-fixes.pages.dev/cases/request-failed-with-status-code-500.html - Root Cause: On Baserow SaaS, a 500 when switching tables or editing rows is usually caused by a broken view filter/sort or a formula referencing a field that changed type.
 - [n8n] Mixing Seedance 2.5 and Kling 4.0 in one n8n batch: where do you validate each row before it costs money?: https://n8n-production-incident-fixes.pages.dev/cases/mixing-seedance-2-5-and-kling-4-0-in-one-n8n-batch-where-do-you-v.html - Root Cause: Option 1 is the cleanest approach, but don't hardcode the specs inside an n8n Code node. Store your model contract in a second tab in that same Sheet (e.g. `_models` with `model...
