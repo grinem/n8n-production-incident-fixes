@@ -13,9 +13,9 @@ title: "Production Incident Fixes & Post-Mortem Knowledge Base"
 
 
 ### 📊 Real-Time Operations Telemetry
-- **Total Production Incidents Documented**: `64`
+- **Total Production Incidents Documented**: `65`
 - **Active Incident Resolvers**: Automated Production Radar + Lead SRE Engineer
-- **Breakdown by Platform**: **n8n**: 31 | **Make.com**: 16 | **Automation Engine**: 6 | **Bubble.io**: 4 | **Activepieces**: 3 | **Baserow**: 2 | **Meta / Webhooks**: 2
+- **Breakdown by Platform**: **n8n**: 32 | **Make.com**: 16 | **Automation Engine**: 6 | **Bubble.io**: 4 | **Activepieces**: 3 | **Baserow**: 2 | **Meta / Webhooks**: 2
 - **Average Diagnosis & Root-Cause Pinpoint**: `< 15 Minutes`
 
 ---
@@ -24,6 +24,7 @@ title: "Production Incident Fixes & Post-Mortem Knowledge Base"
 
 | Ecosystem | Incident Summary | Root Cause Snapshot | Severity | Resolution Guide |
 |:----------|:-----------------|:--------------------|:--------:|:----------------:|
+| **n8n** | [Handled, caller- or user-caused failures are logged with `logger.error` directly (unknown webhook, form-data length, polling triggers)](cases/handled-caller-or-user-caused-failures-are-logged-with-logger-err.html) | Fully agree with this direction. Firing `error`-level logs on 404s/unknown webhooks and handled stream fallbacks breaks log-based alerting for self-hosted instances. | 🟠 `HIGH` | [**View Solution →**](cases/handled-caller-or-user-caused-failures-are-logged-with-logger-err.html) |
 | **Automation Engine** | [The icons for built-in tools cannot be displayed](cases/the-icons-for-built-in-tools-cannot-be-displayed.html) | Check your browser DevTools (**Network** tab, filter by `Img` or `Fetch/XHR`) when opening the tools page. Look at the exact URL and status code returned for the tool icon reque... | 🟠 `HIGH` | [**View Solution →**](cases/the-icons-for-built-in-tools-cannot-be-displayed.html) |
 | **n8n** | [A malformed JSON file in the source control work folder breaks status, push, and pull entirely](cases/a-malformed-json-file-in-the-source-control-work-folder-breaks-st.html) | Spot-on analysis Client Case Study (User). It's an oversight from when data table handling was made defensive while credentials and projects were left with bare `jsonParse` calls. | 🟡 `MEDIUM` | [**View Solution →**](cases/a-malformed-json-file-in-the-source-control-work-folder-breaks-st.html) |
 | **Baserow** | [Request failed with status code 500](cases/request-failed-with-status-code-500.html) | On Baserow SaaS, a 500 when switching tables or editing rows is usually caused by a broken view filter/sort or a formula referencing a field that changed type. | 🔴 `CRITICAL` | [**View Solution →**](cases/request-failed-with-status-code-500.html) |

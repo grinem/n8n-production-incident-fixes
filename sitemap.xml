@@ -7,6 +7,12 @@
     <priority>1.0</priority>
   </url>
   <url>
+    <loc>https://n8n-production-incident-fixes.pages.dev/cases/handled-caller-or-user-caused-failures-are-logged-with-logger-err.html</loc>
+    <lastmod>2026-11-15</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://n8n-production-incident-fixes.pages.dev/cases/the-icons-for-built-in-tools-cannot-be-displayed.html</loc>
     <lastmod>2026-11-15</lastmod>
     <changefreq>weekly</changefreq>
