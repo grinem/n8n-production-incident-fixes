@@ -16,13 +16,20 @@ slug: "mistral-ai-node-returning-text-heavily-fragmented-with-excessive"
 > [**🚨 1-Hour Emergency On-Call — $99 | Hire me on Fiverr**](https://www.fiverr.com/s/BRB54Qk)
 
 
-> ✅ **Confirmed Production Resolution (Timestamp: `2026-11-12T22:05:40.045293+01:00`)**  
-> **Author (`hectorj88`) verified on [the live thread](https://github.com/n8n-io/n8n/issues/43736)**:  
-> *"Hi @grinem 
+> ✅ **Confirmed Production Resolution (Timestamp: `2026-11-15T11:40:17.464325+01:00`)**  
+> **Author (`sinehypernova-0718`) verified on [the live thread](https://github.com/n8n-io/n8n/issues/43736)**:  
+> *"Hi! @hectorj88 
 
-Configure the Mistral API as if you were setting up the OpenAI API and the problem was solved.
+Thanks for the report, this seems to be a duplicate of #43173.
 
-I even selected the same model, 'mistral-large-latest', and the generated responses are well-formatted without line breaks every 8 characters or between words."*
+The newlines come from the AI Agent's final-output step, not from the Mistral model itself. `handleAgentFinishOutput` was joining streamed text blocks with \n, assuming each block was a full paragraph. `@langchain/mistralai@1.1.0` emits one text block per delta with no index, so the blocks never merge and the join puts a newline after every fragment.
+
+This is fixed on master by #43252 and backported to `2.48.x` and `2.47.x` via #43822 and #43823. Those backports merged on 2026-11-13 after the `2.48.4` / `2.47.7` tags were cut, so the fix will be in the next patch release on each track. You're on 2.48.2, which predates all of it. Also, it is live in the pre-release of n8n-v3, [n8n@3.2.2](https://github.com/n8n-io/n8n/releases/tag/n8n%403.2.2)
+
+Until that patch ships, the workaround from the community thread works: use the OpenAI Chat Model node with https://api.mistral.ai/v1 as the base URL and your Mistral API key. That bypasses the Mistral content-block mapping entirely.
+
+The mistral-large-latest is not supported warning is a separate model-selector validation issue and is not related to the newlines.
+Let me know if it works for you!"*
 
 
 ## Incident Metadata
