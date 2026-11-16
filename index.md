@@ -13,9 +13,9 @@ title: "Production Incident Fixes & Post-Mortem Knowledge Base"
 
 
 ### 📊 Real-Time Operations Telemetry
-- **Total Production Incidents Documented**: `67`
+- **Total Production Incidents Documented**: `68`
 - **Active Incident Resolvers**: Automated Production Radar + Lead SRE Engineer
-- **Breakdown by Platform**: **n8n**: 33 | **Make.com**: 16 | **Automation Engine**: 7 | **Bubble.io**: 4 | **Activepieces**: 3 | **Baserow**: 2 | **Meta / Webhooks**: 2
+- **Breakdown by Platform**: **n8n**: 33 | **Make.com**: 16 | **Automation Engine**: 8 | **Bubble.io**: 4 | **Activepieces**: 3 | **Baserow**: 2 | **Meta / Webhooks**: 2
 - **Average Diagnosis & Root-Cause Pinpoint**: `< 15 Minutes`
 
 ---
@@ -24,6 +24,7 @@ title: "Production Incident Fixes & Post-Mortem Knowledge Base"
 
 | Ecosystem | Incident Summary | Root Cause Snapshot | Severity | Resolution Guide |
 |:----------|:-----------------|:--------------------|:--------:|:----------------:|
+| **Automation Engine** | [Workflow run cleanup fails with TypeError when API_WORKFLOW_NODE_EXECUTION_REPOSITORY uses LogStore](cases/workflow-run-cleanup-fails-with-typeerror-when-api-workflow-node.html) | Nice catch Client Case Study (User). | 🔴 `CRITICAL` | [**View Solution →**](cases/workflow-run-cleanup-fails-with-typeerror-when-api-workflow-node.html) |
 | **Automation Engine** | [Improve Human Input channel setup and prompt editing usability](cases/improve-human-input-channel-setup-and-prompt-editing-usability.html) | Nice catch on the `{` picker keyboard routing. Intercepting `ArrowUp`/`ArrowDown`/`Enter` with `preventDefault()` while the menu is open—and bailing early on `event.isComposing ... | 🟡 `MEDIUM` | [**View Solution →**](cases/improve-human-input-channel-setup-and-prompt-editing-usability.html) |
 | **n8n** | [Output panel copy button copies "[]" for AI sub-nodes (memory, chat model, tools)](cases/output-panel-copy-button-copies-for-ai-sub-nodes-memory-chat-mode.html) | Spot on diagnosis. In `packages/editor-ui`, the copy action in the output view explicitly reads `runData.data.main` (or defaults to `[]` when `main` is missing), completely igno... | 🟡 `MEDIUM` | [**View Solution →**](cases/output-panel-copy-button-copies-for-ai-sub-nodes-memory-chat-mode.html) |
 | **n8n** | [Handled, caller- or user-caused failures are logged with `logger.error` directly (unknown webhook, form-data length, polling triggers)](cases/handled-caller-or-user-caused-failures-are-logged-with-logger-err.html) | Fully agree with this direction. Firing `error`-level logs on 404s/unknown webhooks and handled stream fallbacks breaks log-based alerting for self-hosted instances. | 🟠 `HIGH` | [**View Solution →**](cases/handled-caller-or-user-caused-failures-are-logged-with-logger-err.html) |

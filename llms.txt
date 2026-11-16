@@ -8,7 +8,8 @@
 - GitHub Profile: https://github.com/grinem
 - Launch Instant Async Production Fix (< 6h, Zero Calls): https://n8n-production-incident-fixes.pages.dev/#triage
 
-## Documented Production Incidents (67)
+## Documented Production Incidents (68)
+- [Automation Engine] Workflow run cleanup fails with TypeError when API_WORKFLOW_NODE_EXECUTION_REPOSITORY uses LogStore: https://n8n-production-incident-fixes.pages.dev/cases/workflow-run-cleanup-fails-with-typeerror-when-api-workflow-node.html - Root Cause: Nice catch Client Case Study (User).
 - [Automation Engine] Improve Human Input channel setup and prompt editing usability: https://n8n-production-incident-fixes.pages.dev/cases/improve-human-input-channel-setup-and-prompt-editing-usability.html - Root Cause: Nice catch on the `{` picker keyboard routing. Intercepting `ArrowUp`/`ArrowDown`/`Enter` with `preventDefault()` while the menu is open—and bailing early on `event.isComposing ...
 - [n8n] Output panel copy button copies "[]" for AI sub-nodes (memory, chat model, tools): https://n8n-production-incident-fixes.pages.dev/cases/output-panel-copy-button-copies-for-ai-sub-nodes-memory-chat-mode.html - Root Cause: Spot on diagnosis. In `packages/editor-ui`, the copy action in the output view explicitly reads `runData.data.main` (or defaults to `[]` when `main` is missing), completely igno...
 - [n8n] Handled, caller- or user-caused failures are logged with `logger.error` directly (unknown webhook, form-data length, polling triggers): https://n8n-production-incident-fixes.pages.dev/cases/handled-caller-or-user-caused-failures-are-logged-with-logger-err.html - Root Cause: Fully agree with this direction. Firing `error`-level logs on 404s/unknown webhooks and handled stream fallbacks breaks log-based alerting for self-hosted instances.
