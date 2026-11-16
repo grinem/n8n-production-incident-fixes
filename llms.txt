@@ -8,7 +8,8 @@
 - GitHub Profile: https://github.com/grinem
 - Launch Instant Async Production Fix (< 6h, Zero Calls): https://n8n-production-incident-fixes.pages.dev/#triage
 
-## Documented Production Incidents (84)
+## Documented Production Incidents (85)
+- [n8n] [Microsoft SharePoint Node] Creating or updating list items with Multi-Choice columns fails with 500 Internal Server Error: https://n8n-production-incident-fixes.pages.dev/cases/creating-or-updating-list-items-with-multi-choice-columns-fails-w.html - Root Cause: Graph API's OData parser throws a generic 500 whenever multi-choice collection fields lack explicit OData annotations or receive plain strings instead of arrays.
 - [Make.com] Google sheets "Search rows" return 0 bundles when matching phone number from Twilio Webhook (causing A0:ZZ0 error in Update a Row): https://n8n-production-incident-fixes.pages.dev/cases/google-sheets-search-rows-return-0-bundles-when-matching-phone-nu.html - Root Cause: Yes, that's exactly what's happening. When you write digits without a `+` into Google Sheets with default formatting, Sheets automatically casts the cell to a Number, while `Tex...
 - [n8n] Microsoft OAuth2 credential never refreshes when the API returns 403 on an expired token (Power BI): https://n8n-production-incident-fixes.pages.dev/cases/microsoft-oauth2-credential-never-refreshes-when-the-api-returns.html - Root Cause: Spot on. For a PR, since Graph and Flow APIs return 401 while Power BI returns 403, hardcoding 403 as a default on `microsoftOAuth2Api` would break the former unless `resolveTok...
 - [n8n] Microsoft Outlook v1 Add attachment reads the binary field name from item 0 for every item: https://n8n-production-incident-fixes.pages.dev/cases/microsoft-outlook-v1-add-attachment-reads-the-binary-field-name-f.html - Root Cause: Spot on, thanks for tracking down that parity gap with #44021. Swapping `0` for `i` in `this.getNodeParameter('binaryPropertyName', i)` is definitely the right fix.
