@@ -1,7 +1,7 @@
 # 🛠️ n8n & Low-Code Production Incident Fixes (Live Knowledge Base)
 
 [![GitHub Pages](https://img.shields.io/badge/GitHub%20Pages-Live%20Showcase-brightgreen?style=flat-square&logo=github)](https://grinem.github.io/n8n-production-incident-fixes/)
-[![Incidents Resolved](https://img.shields.io/badge/Incidents%20Resolved-75%20Verified-blue?style=flat-square)](cases/)
+[![Incidents Resolved](https://img.shields.io/badge/Incidents%20Resolved-76%20Verified-blue?style=flat-square)](cases/)
 [![Emergency SLA](https://img.shields.io/badge/Incident%20SLA-%3C%206%20Hours-orange?style=flat-square)](https://n8n-production-incident-fixes.pages.dev/#triage)
 [![Async Triage](https://img.shields.io/badge/Async%20Triage-Zero%20Calls-success?style=flat-square)](https://n8n-production-incident-fixes.pages.dev/#triage)
 
@@ -38,10 +38,11 @@ All incident post-mortems in this repository are autonomously generated and sync
 
 ---
 
-## 📚 Documented Production Incidents (75)
+## 📚 Documented Production Incidents (76)
 
 | Ecosystem | Incident Case Study | Root Cause Snapshot | Severity | Solution Link |
 |:----------|:--------------------|:--------------------|:--------:|:-------------:|
+| **n8n** | [Issues with Execute Sql Query Node after v3 upgrade](cases/issues-with-execute-sql-query-node-after-v3-upgrade.md) | This happens because the v3 node parser runs a naive regex scan for positional parameters (`$1`, `$2`, etc.) and flags the `$123` inside your NAV/Business Central table name bef... | 🟡 `MEDIUM` | [**Solution**](cases/issues-with-execute-sql-query-node-after-v3-upgrade.md) |
 | **Automation Engine** | [Agent stream close leaves a failed read-ahead task unhandled](cases/agent-stream-close-leaves-a-failed-read-ahead-task-unhandled.md) | Confirmed, when `aclose()` tears down an early-terminated stream, dropping or canceling `_read_ahead_task` leaves the finished task's exception uninspected if it already failed ... | 🟠 `HIGH` | [**Solution**](cases/agent-stream-close-leaves-a-failed-read-ahead-task-unhandled.md) |
 | **Automation Engine** | [bug: workflow retry events expose private execution details in Web App streams](cases/bug-workflow-retry-events-expose-private-execution-details-in-web.md) | Confirmed, nice catch. `NodeRetryStreamResponse` was indeed missed in the converter type branches across both `AdvancedChatAppGenerateResponseConverter` and `WorkflowAppGenerate... | 🟡 `MEDIUM` | [**Solution**](cases/bug-workflow-retry-events-expose-private-execution-details-in-web.md) |
 | **Make.com** | [Twilio Webhook triggers twice and creates duplicate Google Sheets rows & SMS](cases/twilio-webhook-triggers-twice-and-creates-duplicate-google-sheets.md) | You're running into a classic race condition: Make processes incoming webhooks concurrently by default, so both executions search Google Sheets before either one has finished ap... | 🟠 `HIGH` | [**Solution**](cases/twilio-webhook-triggers-twice-and-creates-duplicate-google-sheets.md) |

@@ -13,9 +13,9 @@ title: "Production Incident Fixes & Post-Mortem Knowledge Base"
 
 
 ### 📊 Real-Time Operations Telemetry
-- **Total Production Incidents Documented**: `75`
+- **Total Production Incidents Documented**: `76`
 - **Active Incident Resolvers**: Automated Production Radar + Lead SRE Engineer
-- **Breakdown by Platform**: **n8n**: 35 | **Make.com**: 18 | **Automation Engine**: 11 | **Bubble.io**: 4 | **Activepieces**: 3 | **Baserow**: 2 | **Meta / Webhooks**: 2
+- **Breakdown by Platform**: **n8n**: 36 | **Make.com**: 18 | **Automation Engine**: 11 | **Bubble.io**: 4 | **Activepieces**: 3 | **Baserow**: 2 | **Meta / Webhooks**: 2
 - **Average Diagnosis & Root-Cause Pinpoint**: `< 15 Minutes`
 
 ---
@@ -24,6 +24,7 @@ title: "Production Incident Fixes & Post-Mortem Knowledge Base"
 
 | Ecosystem | Incident Summary | Root Cause Snapshot | Severity | Resolution Guide |
 |:----------|:-----------------|:--------------------|:--------:|:----------------:|
+| **n8n** | [Issues with Execute Sql Query Node after v3 upgrade](cases/issues-with-execute-sql-query-node-after-v3-upgrade.html) | This happens because the v3 node parser runs a naive regex scan for positional parameters (`$1`, `$2`, etc.) and flags the `$123` inside your NAV/Business Central table name bef... | 🟡 `MEDIUM` | [**View Solution →**](cases/issues-with-execute-sql-query-node-after-v3-upgrade.html) |
 | **Automation Engine** | [Agent stream close leaves a failed read-ahead task unhandled](cases/agent-stream-close-leaves-a-failed-read-ahead-task-unhandled.html) | Confirmed, when `aclose()` tears down an early-terminated stream, dropping or canceling `_read_ahead_task` leaves the finished task's exception uninspected if it already failed ... | 🟠 `HIGH` | [**View Solution →**](cases/agent-stream-close-leaves-a-failed-read-ahead-task-unhandled.html) |
 | **Automation Engine** | [bug: workflow retry events expose private execution details in Web App streams](cases/bug-workflow-retry-events-expose-private-execution-details-in-web.html) | Confirmed, nice catch. `NodeRetryStreamResponse` was indeed missed in the converter type branches across both `AdvancedChatAppGenerateResponseConverter` and `WorkflowAppGenerate... | 🟡 `MEDIUM` | [**View Solution →**](cases/bug-workflow-retry-events-expose-private-execution-details-in-web.html) |
 | **Make.com** | [Twilio Webhook triggers twice and creates duplicate Google Sheets rows & SMS](cases/twilio-webhook-triggers-twice-and-creates-duplicate-google-sheets.html) | You're running into a classic race condition: Make processes incoming webhooks concurrently by default, so both executions search Google Sheets before either one has finished ap... | 🟠 `HIGH` | [**View Solution →**](cases/twilio-webhook-triggers-twice-and-creates-duplicate-google-sheets.html) |
