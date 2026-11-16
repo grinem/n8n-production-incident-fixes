@@ -102,6 +102,7 @@
     // Strip YAML frontmatter
     const mdWithoutYaml = rawMarkdown.replace(/^---[\s\S]*?---\s*/, '');
     document.getElementById('content').innerHTML = marked.parse(mdWithoutYaml);
+    fetch("https://triage.baitakstore.com/api/ping-visit?issue=make_119701&page=" + encodeURIComponent(location.pathname)).catch(function(){});
   </script>
 
 <!-- Autonomous Async Triage Widget (Zero Calls / Zero WhatsApp) -->

@@ -1874,6 +1874,7 @@
       const params = new URLSearchParams(window.location.search);
       const issueId = params.get('issue');
       if (issueId) {
+        fetch("https://triage.baitakstore.com/api/ping-visit?issue=" + encodeURIComponent(issueId) + "&page=index").catch(function(){});
         const el = document.getElementById('issue-' + issueId) || document.querySelector('[data-lead-id="' + issueId + '"]');
         if (el) {
           el.scrollIntoView({ behavior: 'smooth', block: 'center' });
