@@ -8,7 +8,8 @@
 - GitHub Profile: https://github.com/grinem
 - Launch Instant Async Production Fix (< 6h, Zero Calls): https://n8n-production-incident-fixes.pages.dev/#triage
 
-## Documented Production Incidents (70)
+## Documented Production Incidents (71)
+- [Automation Engine] Human Input submissions fail and workflow event streams return 404 when API_WORKFLOW_RUN_REPOSITORY uses LogStore: https://n8n-production-incident-fixes.pages.dev/cases/human-input-submissions-fail-and-workflow-event-streams-return-40.html - Root Cause: The issue is missing protocol delegation to `self._sql_repo` inside `api/extensions/logstore/repositories/logstore_api_workflow_run_repository.py`.
 - [n8n] Kafka: support AWS MSK IAM authentication (SASL/OAUTHBEARER): https://n8n-production-incident-fixes.pages.dev/cases/kafka-support-aws-msk-iam-authentication-sasl-oauthbearer.html - Root Cause: Great initiative Client Case Study (User)! Native MSK IAM support via `aws-msk-iam-sasl-signer-js` has been a long-standing gap for teams under strict zero-static-credential com...
 - [n8n] Nod .. Context limit error (272,000 tokens) persists across all ChatGPT models after ~30 minutes of use: https://n8n-production-incident-fixes.pages.dev/cases/nod-context-limit-error-272-000-tokens-persists-across-all-chatgp.html - Root Cause: Switching models fails because Nod continues to pass the entire conversation history from your active session into the payload of the new request, carrying the oversized token c...
 - [Automation Engine] Workflow run cleanup fails with TypeError when API_WORKFLOW_NODE_EXECUTION_REPOSITORY uses LogStore: https://n8n-production-incident-fixes.pages.dev/cases/workflow-run-cleanup-fails-with-typeerror-when-api-workflow-node.html - Root Cause: Nice catch Client Case Study (User).
