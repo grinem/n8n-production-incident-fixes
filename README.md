@@ -1,7 +1,7 @@
 # 🛠️ n8n & Low-Code Production Incident Fixes (Live Knowledge Base)
 
 [![GitHub Pages](https://img.shields.io/badge/GitHub%20Pages-Live%20Showcase-brightgreen?style=flat-square&logo=github)](https://grinem.github.io/n8n-production-incident-fixes/)
-[![Incidents Resolved](https://img.shields.io/badge/Incidents%20Resolved-73%20Verified-blue?style=flat-square)](cases/)
+[![Incidents Resolved](https://img.shields.io/badge/Incidents%20Resolved-75%20Verified-blue?style=flat-square)](cases/)
 [![Emergency SLA](https://img.shields.io/badge/Incident%20SLA-%3C%206%20Hours-orange?style=flat-square)](https://n8n-production-incident-fixes.pages.dev/#triage)
 [![Async Triage](https://img.shields.io/badge/Async%20Triage-Zero%20Calls-success?style=flat-square)](https://n8n-production-incident-fixes.pages.dev/#triage)
 
@@ -38,10 +38,12 @@ All incident post-mortems in this repository are autonomously generated and sync
 
 ---
 
-## 📚 Documented Production Incidents (73)
+## 📚 Documented Production Incidents (75)
 
 | Ecosystem | Incident Case Study | Root Cause Snapshot | Severity | Solution Link |
 |:----------|:--------------------|:--------------------|:--------:|:-------------:|
+| **Automation Engine** | [Agent stream close leaves a failed read-ahead task unhandled](cases/agent-stream-close-leaves-a-failed-read-ahead-task-unhandled.md) | Confirmed, when `aclose()` tears down an early-terminated stream, dropping or canceling `_read_ahead_task` leaves the finished task's exception uninspected if it already failed ... | 🟠 `HIGH` | [**Solution**](cases/agent-stream-close-leaves-a-failed-read-ahead-task-unhandled.md) |
+| **Automation Engine** | [bug: workflow retry events expose private execution details in Web App streams](cases/bug-workflow-retry-events-expose-private-execution-details-in-web.md) | Confirmed, nice catch. `NodeRetryStreamResponse` was indeed missed in the converter type branches across both `AdvancedChatAppGenerateResponseConverter` and `WorkflowAppGenerate... | 🟡 `MEDIUM` | [**Solution**](cases/bug-workflow-retry-events-expose-private-execution-details-in-web.md) |
 | **Make.com** | [Twilio Webhook triggers twice and creates duplicate Google Sheets rows & SMS](cases/twilio-webhook-triggers-twice-and-creates-duplicate-google-sheets.md) | You're running into a classic race condition: Make processes incoming webhooks concurrently by default, so both executions search Google Sheets before either one has finished ap... | 🟠 `HIGH` | [**Solution**](cases/twilio-webhook-triggers-twice-and-creates-duplicate-google-sheets.md) |
 | **Make.com** | [WhatsApp Business Cloud – Existing Connection Fails Reauthorisation (Error 400 / Coexistence)](cases/whatsapp-business-cloud-existing-connection-fails-reauthorisation.md) | This error comes directly from Meta's Embedded Signup check: Meta recently enforced that tech provider apps must explicitly support the new coexistence flow to onboard numbers c... | 🔴 `CRITICAL` | [**Solution**](cases/whatsapp-business-cloud-existing-connection-fails-reauthorisation.md) |
 | **Automation Engine** | [Human Input submissions fail and workflow event streams return 404 when API_WORKFLOW_RUN_REPOSITORY uses LogStore](cases/human-input-submissions-fail-and-workflow-event-streams-return-40.md) | The issue is missing protocol delegation to `self._sql_repo` inside `api/extensions/logstore/repositories/logstore_api_workflow_run_repository.py`. | 🟡 `MEDIUM` | [**Solution**](cases/human-input-submissions-fail-and-workflow-event-streams-return-40.md) |

@@ -13,9 +13,9 @@ title: "Production Incident Fixes & Post-Mortem Knowledge Base"
 
 
 ### 📊 Real-Time Operations Telemetry
-- **Total Production Incidents Documented**: `73`
+- **Total Production Incidents Documented**: `75`
 - **Active Incident Resolvers**: Automated Production Radar + Lead SRE Engineer
-- **Breakdown by Platform**: **n8n**: 35 | **Make.com**: 18 | **Automation Engine**: 9 | **Bubble.io**: 4 | **Activepieces**: 3 | **Baserow**: 2 | **Meta / Webhooks**: 2
+- **Breakdown by Platform**: **n8n**: 35 | **Make.com**: 18 | **Automation Engine**: 11 | **Bubble.io**: 4 | **Activepieces**: 3 | **Baserow**: 2 | **Meta / Webhooks**: 2
 - **Average Diagnosis & Root-Cause Pinpoint**: `< 15 Minutes`
 
 ---
@@ -24,6 +24,8 @@ title: "Production Incident Fixes & Post-Mortem Knowledge Base"
 
 | Ecosystem | Incident Summary | Root Cause Snapshot | Severity | Resolution Guide |
 |:----------|:-----------------|:--------------------|:--------:|:----------------:|
+| **Automation Engine** | [Agent stream close leaves a failed read-ahead task unhandled](cases/agent-stream-close-leaves-a-failed-read-ahead-task-unhandled.html) | Confirmed, when `aclose()` tears down an early-terminated stream, dropping or canceling `_read_ahead_task` leaves the finished task's exception uninspected if it already failed ... | 🟠 `HIGH` | [**View Solution →**](cases/agent-stream-close-leaves-a-failed-read-ahead-task-unhandled.html) |
+| **Automation Engine** | [bug: workflow retry events expose private execution details in Web App streams](cases/bug-workflow-retry-events-expose-private-execution-details-in-web.html) | Confirmed, nice catch. `NodeRetryStreamResponse` was indeed missed in the converter type branches across both `AdvancedChatAppGenerateResponseConverter` and `WorkflowAppGenerate... | 🟡 `MEDIUM` | [**View Solution →**](cases/bug-workflow-retry-events-expose-private-execution-details-in-web.html) |
 | **Make.com** | [Twilio Webhook triggers twice and creates duplicate Google Sheets rows & SMS](cases/twilio-webhook-triggers-twice-and-creates-duplicate-google-sheets.html) | You're running into a classic race condition: Make processes incoming webhooks concurrently by default, so both executions search Google Sheets before either one has finished ap... | 🟠 `HIGH` | [**View Solution →**](cases/twilio-webhook-triggers-twice-and-creates-duplicate-google-sheets.html) |
 | **Make.com** | [WhatsApp Business Cloud – Existing Connection Fails Reauthorisation (Error 400 / Coexistence)](cases/whatsapp-business-cloud-existing-connection-fails-reauthorisation.html) | This error comes directly from Meta's Embedded Signup check: Meta recently enforced that tech provider apps must explicitly support the new coexistence flow to onboard numbers c... | 🔴 `CRITICAL` | [**View Solution →**](cases/whatsapp-business-cloud-existing-connection-fails-reauthorisation.html) |
 | **Automation Engine** | [Human Input submissions fail and workflow event streams return 404 when API_WORKFLOW_RUN_REPOSITORY uses LogStore](cases/human-input-submissions-fail-and-workflow-event-streams-return-40.html) | The issue is missing protocol delegation to `self._sql_repo` inside `api/extensions/logstore/repositories/logstore_api_workflow_run_repository.py`. | 🟡 `MEDIUM` | [**View Solution →**](cases/human-input-submissions-fail-and-workflow-event-streams-return-40.html) |
