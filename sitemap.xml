@@ -7,6 +7,18 @@
     <priority>1.0</priority>
   </url>
   <url>
+    <loc>https://n8n-production-incident-fixes.pages.dev/cases/weaviate-vector-store-drops-a-max-vector-distance-of-0.html</loc>
+    <lastmod>2026-11-16</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://n8n-production-incident-fixes.pages.dev/cases/mcp-client-tool-returns-no-error-when-the-tool-name-is-not-on-the.html</loc>
+    <lastmod>2026-11-16</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://n8n-production-incident-fixes.pages.dev/cases/issues-with-execute-sql-query-node-after-v3-upgrade.html</loc>
     <lastmod>2026-11-16</lastmod>
     <changefreq>weekly</changefreq>
