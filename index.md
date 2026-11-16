@@ -13,9 +13,9 @@ title: "Production Incident Fixes & Post-Mortem Knowledge Base"
 
 
 ### 📊 Real-Time Operations Telemetry
-- **Total Production Incidents Documented**: `71`
+- **Total Production Incidents Documented**: `73`
 - **Active Incident Resolvers**: Automated Production Radar + Lead SRE Engineer
-- **Breakdown by Platform**: **n8n**: 35 | **Make.com**: 16 | **Automation Engine**: 9 | **Bubble.io**: 4 | **Activepieces**: 3 | **Baserow**: 2 | **Meta / Webhooks**: 2
+- **Breakdown by Platform**: **n8n**: 35 | **Make.com**: 18 | **Automation Engine**: 9 | **Bubble.io**: 4 | **Activepieces**: 3 | **Baserow**: 2 | **Meta / Webhooks**: 2
 - **Average Diagnosis & Root-Cause Pinpoint**: `< 15 Minutes`
 
 ---
@@ -24,6 +24,8 @@ title: "Production Incident Fixes & Post-Mortem Knowledge Base"
 
 | Ecosystem | Incident Summary | Root Cause Snapshot | Severity | Resolution Guide |
 |:----------|:-----------------|:--------------------|:--------:|:----------------:|
+| **Make.com** | [Twilio Webhook triggers twice and creates duplicate Google Sheets rows & SMS](cases/twilio-webhook-triggers-twice-and-creates-duplicate-google-sheets.html) | You're running into a classic race condition: Make processes incoming webhooks concurrently by default, so both executions search Google Sheets before either one has finished ap... | 🟠 `HIGH` | [**View Solution →**](cases/twilio-webhook-triggers-twice-and-creates-duplicate-google-sheets.html) |
+| **Make.com** | [WhatsApp Business Cloud – Existing Connection Fails Reauthorisation (Error 400 / Coexistence)](cases/whatsapp-business-cloud-existing-connection-fails-reauthorisation.html) | This error comes directly from Meta's Embedded Signup check: Meta recently enforced that tech provider apps must explicitly support the new coexistence flow to onboard numbers c... | 🔴 `CRITICAL` | [**View Solution →**](cases/whatsapp-business-cloud-existing-connection-fails-reauthorisation.html) |
 | **Automation Engine** | [Human Input submissions fail and workflow event streams return 404 when API_WORKFLOW_RUN_REPOSITORY uses LogStore](cases/human-input-submissions-fail-and-workflow-event-streams-return-40.html) | The issue is missing protocol delegation to `self._sql_repo` inside `api/extensions/logstore/repositories/logstore_api_workflow_run_repository.py`. | 🟡 `MEDIUM` | [**View Solution →**](cases/human-input-submissions-fail-and-workflow-event-streams-return-40.html) |
 | **n8n** | [Kafka: support AWS MSK IAM authentication (SASL/OAUTHBEARER)](cases/kafka-support-aws-msk-iam-authentication-sasl-oauthbearer.html) | Great initiative Client Case Study (User)! Native MSK IAM support via `aws-msk-iam-sasl-signer-js` has been a long-standing gap for teams under strict zero-static-credential com... | 🟡 `MEDIUM` | [**View Solution →**](cases/kafka-support-aws-msk-iam-authentication-sasl-oauthbearer.html) |
 | **n8n** | [Nod .. Context limit error (272,000 tokens) persists across all ChatGPT models after ~30 minutes of use](cases/nod-context-limit-error-272-000-tokens-persists-across-all-chatgp.html) | Switching models fails because Nod continues to pass the entire conversation history from your active session into the payload of the new request, carrying the oversized token c... | 🔴 `CRITICAL` | [**View Solution →**](cases/nod-context-limit-error-272-000-tokens-persists-across-all-chatgp.html) |

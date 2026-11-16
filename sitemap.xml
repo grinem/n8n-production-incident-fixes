@@ -7,6 +7,18 @@
     <priority>1.0</priority>
   </url>
   <url>
+    <loc>https://n8n-production-incident-fixes.pages.dev/cases/twilio-webhook-triggers-twice-and-creates-duplicate-google-sheets.html</loc>
+    <lastmod>2026-11-16</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://n8n-production-incident-fixes.pages.dev/cases/whatsapp-business-cloud-existing-connection-fails-reauthorisation.html</loc>
+    <lastmod>2026-11-16</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://n8n-production-incident-fixes.pages.dev/cases/human-input-submissions-fail-and-workflow-event-streams-return-40.html</loc>
     <lastmod>2026-11-16</lastmod>
     <changefreq>weekly</changefreq>
