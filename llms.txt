@@ -8,7 +8,8 @@
 - GitHub Profile: https://github.com/grinem
 - Launch Instant Async Production Fix (< 6h, Zero Calls): https://n8n-production-incident-fixes.pages.dev/#triage
 
-## Documented Production Incidents (66)
+## Documented Production Incidents (67)
+- [Automation Engine] Improve Human Input channel setup and prompt editing usability: https://n8n-production-incident-fixes.pages.dev/cases/improve-human-input-channel-setup-and-prompt-editing-usability.html - Root Cause: Nice catch on the `{` picker keyboard routing. Intercepting `ArrowUp`/`ArrowDown`/`Enter` with `preventDefault()` while the menu is open—and bailing early on `event.isComposing ...
 - [n8n] Output panel copy button copies "[]" for AI sub-nodes (memory, chat model, tools): https://n8n-production-incident-fixes.pages.dev/cases/output-panel-copy-button-copies-for-ai-sub-nodes-memory-chat-mode.html - Root Cause: Spot on diagnosis. In `packages/editor-ui`, the copy action in the output view explicitly reads `runData.data.main` (or defaults to `[]` when `main` is missing), completely igno...
 - [n8n] Handled, caller- or user-caused failures are logged with `logger.error` directly (unknown webhook, form-data length, polling triggers): https://n8n-production-incident-fixes.pages.dev/cases/handled-caller-or-user-caused-failures-are-logged-with-logger-err.html - Root Cause: Fully agree with this direction. Firing `error`-level logs on 404s/unknown webhooks and handled stream fallbacks breaks log-based alerting for self-hosted instances.
 - [Automation Engine] The icons for built-in tools cannot be displayed: https://n8n-production-incident-fixes.pages.dev/cases/the-icons-for-built-in-tools-cannot-be-displayed.html - Root Cause: Check your browser DevTools (**Network** tab, filter by `Img` or `Fetch/XHR`) when opening the tools page. Look at the exact URL and status code returned for the tool icon reque...
