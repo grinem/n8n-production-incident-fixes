@@ -13,9 +13,9 @@ title: "Production Incident Fixes & Post-Mortem Knowledge Base"
 
 
 ### 📊 Real-Time Operations Telemetry
-- **Total Production Incidents Documented**: `83`
+- **Total Production Incidents Documented**: `84`
 - **Active Incident Resolvers**: Automated Production Radar + Lead SRE Engineer
-- **Breakdown by Platform**: **n8n**: 42 | **Make.com**: 18 | **Automation Engine**: 11 | **Activepieces**: 4 | **Bubble.io**: 4 | **Baserow**: 2 | **Meta / Webhooks**: 2
+- **Breakdown by Platform**: **n8n**: 42 | **Make.com**: 19 | **Automation Engine**: 11 | **Activepieces**: 4 | **Bubble.io**: 4 | **Baserow**: 2 | **Meta / Webhooks**: 2
 - **Average Diagnosis & Root-Cause Pinpoint**: `< 15 Minutes`
 
 ---
@@ -24,6 +24,7 @@ title: "Production Incident Fixes & Post-Mortem Knowledge Base"
 
 | Ecosystem | Incident Summary | Root Cause Snapshot | Severity | Resolution Guide |
 |:----------|:-----------------|:--------------------|:--------:|:----------------:|
+| **Make.com** | [Google sheets "Search rows" return 0 bundles when matching phone number from Twilio Webhook (causing A0:ZZ0 error in Update a Row)](cases/google-sheets-search-rows-return-0-bundles-when-matching-phone-nu.html) | Yes, that's exactly what's happening. When you write digits without a `+` into Google Sheets with default formatting, Sheets automatically casts the cell to a Number, while `Tex... | 🟠 `HIGH` | [**View Solution →**](cases/google-sheets-search-rows-return-0-bundles-when-matching-phone-nu.html) |
 | **n8n** | [Microsoft OAuth2 credential never refreshes when the API returns 403 on an expired token (Power BI)](cases/microsoft-oauth2-credential-never-refreshes-when-the-api-returns.html) | Spot on. For a PR, since Graph and Flow APIs return 401 while Power BI returns 403, hardcoding 403 as a default on `microsoftOAuth2Api` would break the former unless `resolveTok... | 🟠 `HIGH` | [**View Solution →**](cases/microsoft-oauth2-credential-never-refreshes-when-the-api-returns.html) |
 | **n8n** | [Microsoft Outlook v1 Add attachment reads the binary field name from item 0 for every item](cases/microsoft-outlook-v1-add-attachment-reads-the-binary-field-name-f.html) | Spot on, thanks for tracking down that parity gap with #44021. Swapping `0` for `i` in `this.getNodeParameter('binaryPropertyName', i)` is definitely the right fix. | 🟡 `MEDIUM` | [**View Solution →**](cases/microsoft-outlook-v1-add-attachment-reads-the-binary-field-name-f.html) |
 | **n8n** | [Microsoft OneDrive upload reads the binary field name from item 0 for every item](cases/microsoft-onedrive-upload-reads-the-binary-field-name-from-item-0.html) | Nice spot on `getNodeParameter('binaryPropertyName', 0)`. | 🟡 `MEDIUM` | [**View Solution →**](cases/microsoft-onedrive-upload-reads-the-binary-field-name-from-item-0.html) |

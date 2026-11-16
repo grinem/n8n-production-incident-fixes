@@ -1,7 +1,7 @@
 # 🛠️ n8n & Low-Code Production Incident Fixes (Live Knowledge Base)
 
 [![GitHub Pages](https://img.shields.io/badge/GitHub%20Pages-Live%20Showcase-brightgreen?style=flat-square&logo=github)](https://grinem.github.io/n8n-production-incident-fixes/)
-[![Incidents Resolved](https://img.shields.io/badge/Incidents%20Resolved-83%20Verified-blue?style=flat-square)](cases/)
+[![Incidents Resolved](https://img.shields.io/badge/Incidents%20Resolved-84%20Verified-blue?style=flat-square)](cases/)
 [![Emergency SLA](https://img.shields.io/badge/Incident%20SLA-%3C%206%20Hours-orange?style=flat-square)](https://n8n-production-incident-fixes.pages.dev/#triage)
 [![Async Triage](https://img.shields.io/badge/Async%20Triage-Zero%20Calls-success?style=flat-square)](https://n8n-production-incident-fixes.pages.dev/#triage)
 
@@ -38,10 +38,11 @@ All incident post-mortems in this repository are autonomously generated and sync
 
 ---
 
-## 📚 Documented Production Incidents (83)
+## 📚 Documented Production Incidents (84)
 
 | Ecosystem | Incident Case Study | Root Cause Snapshot | Severity | Solution Link |
 |:----------|:--------------------|:--------------------|:--------:|:-------------:|
+| **Make.com** | [Google sheets "Search rows" return 0 bundles when matching phone number from Twilio Webhook (causing A0:ZZ0 error in Update a Row)](cases/google-sheets-search-rows-return-0-bundles-when-matching-phone-nu.md) | Yes, that's exactly what's happening. When you write digits without a `+` into Google Sheets with default formatting, Sheets automatically casts the cell to a Number, while `Tex... | 🟠 `HIGH` | [**Solution**](cases/google-sheets-search-rows-return-0-bundles-when-matching-phone-nu.md) |
 | **n8n** | [Microsoft OAuth2 credential never refreshes when the API returns 403 on an expired token (Power BI)](cases/microsoft-oauth2-credential-never-refreshes-when-the-api-returns.md) | Spot on. For a PR, since Graph and Flow APIs return 401 while Power BI returns 403, hardcoding 403 as a default on `microsoftOAuth2Api` would break the former unless `resolveTok... | 🟠 `HIGH` | [**Solution**](cases/microsoft-oauth2-credential-never-refreshes-when-the-api-returns.md) |
 | **n8n** | [Microsoft Outlook v1 Add attachment reads the binary field name from item 0 for every item](cases/microsoft-outlook-v1-add-attachment-reads-the-binary-field-name-f.md) | Spot on, thanks for tracking down that parity gap with #44021. Swapping `0` for `i` in `this.getNodeParameter('binaryPropertyName', i)` is definitely the right fix. | 🟡 `MEDIUM` | [**Solution**](cases/microsoft-outlook-v1-add-attachment-reads-the-binary-field-name-f.md) |
 | **n8n** | [Microsoft OneDrive upload reads the binary field name from item 0 for every item](cases/microsoft-onedrive-upload-reads-the-binary-field-name-from-item-0.md) | Nice spot on `getNodeParameter('binaryPropertyName', 0)`. | 🟡 `MEDIUM` | [**Solution**](cases/microsoft-onedrive-upload-reads-the-binary-field-name-from-item-0.md) |
