@@ -13,9 +13,9 @@ title: "Production Incident Fixes & Post-Mortem Knowledge Base"
 
 
 ### 📊 Real-Time Operations Telemetry
-- **Total Production Incidents Documented**: `78`
+- **Total Production Incidents Documented**: `79`
 - **Active Incident Resolvers**: Automated Production Radar + Lead SRE Engineer
-- **Breakdown by Platform**: **n8n**: 38 | **Make.com**: 18 | **Automation Engine**: 11 | **Bubble.io**: 4 | **Activepieces**: 3 | **Baserow**: 2 | **Meta / Webhooks**: 2
+- **Breakdown by Platform**: **n8n**: 38 | **Make.com**: 18 | **Automation Engine**: 11 | **Activepieces**: 4 | **Bubble.io**: 4 | **Baserow**: 2 | **Meta / Webhooks**: 2
 - **Average Diagnosis & Root-Cause Pinpoint**: `< 15 Minutes`
 
 ---
@@ -24,6 +24,7 @@ title: "Production Incident Fixes & Post-Mortem Knowledge Base"
 
 | Ecosystem | Incident Summary | Root Cause Snapshot | Severity | Resolution Guide |
 |:----------|:-----------------|:--------------------|:--------:|:----------------:|
+| **Activepieces** | [[Feature]: Tables: paginate records on the table page (currently loads every record in one request)](cases/tables-paginate-records-on-the-table-page-currently-loads-every-r.html) | Spot on diagnosis. The in-memory slice in `recordService.list` is definitely a footgun once tables grow, especially with `staleTime: 0` hammering it on focus. | 🟡 `MEDIUM` | [**View Solution →**](cases/tables-paginate-records-on-the-table-page-currently-loads-every-r.html) |
 | **n8n** | [Weaviate Vector Store drops a max vector distance of 0](cases/weaviate-vector-store-drops-a-max-vector-distance-of-0.html) | Spot on. Since you already have the reproduction dialed in `VectorStoreWeaviate.node.test.ts`, consider opening a quick PR swapping `options.maxVectorDistance || undefined` to `... | 🟡 `MEDIUM` | [**View Solution →**](cases/weaviate-vector-store-drops-a-max-vector-distance-of-0.html) |
 | **n8n** | [MCP Client Tool returns no error when the tool name is not on the server](cases/mcp-client-tool-returns-no-error-when-the-tool-name-is-not-on-the.html) | Confirming the issue—returning `[]` here violates the tool-calling contract because the agent assumes the tool executed successfully with empty output rather than failing at loo... | 🟠 `HIGH` | [**View Solution →**](cases/mcp-client-tool-returns-no-error-when-the-tool-name-is-not-on-the.html) |
 | **n8n** | [Issues with Execute Sql Query Node after v3 upgrade](cases/issues-with-execute-sql-query-node-after-v3-upgrade.html) | This happens because the v3 node parser runs a naive regex scan for positional parameters (`$1`, `$2`, etc.) and flags the `$123` inside your NAV/Business Central table name bef... | 🟡 `MEDIUM` | [**View Solution →**](cases/issues-with-execute-sql-query-node-after-v3-upgrade.html) |
