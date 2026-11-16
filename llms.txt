@@ -8,7 +8,8 @@
 - GitHub Profile: https://github.com/grinem
 - Launch Instant Async Production Fix (< 6h, Zero Calls): https://n8n-production-incident-fixes.pages.dev/#triage
 
-## Documented Production Incidents (82)
+## Documented Production Incidents (83)
+- [n8n] Microsoft OAuth2 credential never refreshes when the API returns 403 on an expired token (Power BI): https://n8n-production-incident-fixes.pages.dev/cases/microsoft-oauth2-credential-never-refreshes-when-the-api-returns.html - Root Cause: Spot on. For a PR, since Graph and Flow APIs return 401 while Power BI returns 403, hardcoding 403 as a default on `microsoftOAuth2Api` would break the former unless `resolveTok...
 - [n8n] Microsoft Outlook v1 Add attachment reads the binary field name from item 0 for every item: https://n8n-production-incident-fixes.pages.dev/cases/microsoft-outlook-v1-add-attachment-reads-the-binary-field-name-f.html - Root Cause: Spot on, thanks for tracking down that parity gap with #44021. Swapping `0` for `i` in `this.getNodeParameter('binaryPropertyName', i)` is definitely the right fix.
 - [n8n] Microsoft OneDrive upload reads the binary field name from item 0 for every item: https://n8n-production-incident-fixes.pages.dev/cases/microsoft-onedrive-upload-reads-the-binary-field-name-from-item-0.html - Root Cause: Nice spot on `getNodeParameter('binaryPropertyName', 0)`.
 - [n8n] Editor: Hints in the node output panel are hardcoded English: https://n8n-production-incident-fixes.pages.dev/cases/editor-hints-in-the-node-output-panel-are-hardcoded-english.html - Root Cause: Nice catch Client Case Study (User).
