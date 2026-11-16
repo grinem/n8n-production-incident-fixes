@@ -7,6 +7,12 @@
     <priority>1.0</priority>
   </url>
   <url>
+    <loc>https://n8n-production-incident-fixes.pages.dev/cases/microsoft-outlook-v1-add-attachment-reads-the-binary-field-name-f.html</loc>
+    <lastmod>2026-11-16</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://n8n-production-incident-fixes.pages.dev/cases/microsoft-onedrive-upload-reads-the-binary-field-name-from-item-0.html</loc>
     <lastmod>2026-11-16</lastmod>
     <changefreq>weekly</changefreq>

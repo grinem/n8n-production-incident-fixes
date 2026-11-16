@@ -13,9 +13,9 @@ title: "Production Incident Fixes & Post-Mortem Knowledge Base"
 
 
 ### 📊 Real-Time Operations Telemetry
-- **Total Production Incidents Documented**: `81`
+- **Total Production Incidents Documented**: `82`
 - **Active Incident Resolvers**: Automated Production Radar + Lead SRE Engineer
-- **Breakdown by Platform**: **n8n**: 40 | **Make.com**: 18 | **Automation Engine**: 11 | **Activepieces**: 4 | **Bubble.io**: 4 | **Baserow**: 2 | **Meta / Webhooks**: 2
+- **Breakdown by Platform**: **n8n**: 41 | **Make.com**: 18 | **Automation Engine**: 11 | **Activepieces**: 4 | **Bubble.io**: 4 | **Baserow**: 2 | **Meta / Webhooks**: 2
 - **Average Diagnosis & Root-Cause Pinpoint**: `< 15 Minutes`
 
 ---
@@ -24,6 +24,7 @@ title: "Production Incident Fixes & Post-Mortem Knowledge Base"
 
 | Ecosystem | Incident Summary | Root Cause Snapshot | Severity | Resolution Guide |
 |:----------|:-----------------|:--------------------|:--------:|:----------------:|
+| **n8n** | [Microsoft Outlook v1 Add attachment reads the binary field name from item 0 for every item](cases/microsoft-outlook-v1-add-attachment-reads-the-binary-field-name-f.html) | Spot on, thanks for tracking down that parity gap with #44021. Swapping `0` for `i` in `this.getNodeParameter('binaryPropertyName', i)` is definitely the right fix. | 🟡 `MEDIUM` | [**View Solution →**](cases/microsoft-outlook-v1-add-attachment-reads-the-binary-field-name-f.html) |
 | **n8n** | [Microsoft OneDrive upload reads the binary field name from item 0 for every item](cases/microsoft-onedrive-upload-reads-the-binary-field-name-from-item-0.html) | Nice spot on `getNodeParameter('binaryPropertyName', 0)`. | 🟡 `MEDIUM` | [**View Solution →**](cases/microsoft-onedrive-upload-reads-the-binary-field-name-from-item-0.html) |
 | **n8n** | [Editor: Hints in the node output panel are hardcoded English](cases/editor-hints-in-the-node-output-panel-are-hardcoded-english.html) | Nice catch Client Case Study (User). | 🟡 `MEDIUM` | [**View Solution →**](cases/editor-hints-in-the-node-output-panel-are-hardcoded-english.html) |
 | **Activepieces** | [[Feature]: Tables: paginate records on the table page (currently loads every record in one request)](cases/tables-paginate-records-on-the-table-page-currently-loads-every-r.html) | Spot on diagnosis. The in-memory slice in `recordService.list` is definitely a footgun once tables grow, especially with `staleTime: 0` hammering it on focus. | 🟡 `MEDIUM` | [**View Solution →**](cases/tables-paginate-records-on-the-table-page-currently-loads-every-r.html) |

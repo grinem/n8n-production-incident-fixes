@@ -1,7 +1,7 @@
 # 🛠️ n8n & Low-Code Production Incident Fixes (Live Knowledge Base)
 
 [![GitHub Pages](https://img.shields.io/badge/GitHub%20Pages-Live%20Showcase-brightgreen?style=flat-square&logo=github)](https://grinem.github.io/n8n-production-incident-fixes/)
-[![Incidents Resolved](https://img.shields.io/badge/Incidents%20Resolved-81%20Verified-blue?style=flat-square)](cases/)
+[![Incidents Resolved](https://img.shields.io/badge/Incidents%20Resolved-82%20Verified-blue?style=flat-square)](cases/)
 [![Emergency SLA](https://img.shields.io/badge/Incident%20SLA-%3C%206%20Hours-orange?style=flat-square)](https://n8n-production-incident-fixes.pages.dev/#triage)
 [![Async Triage](https://img.shields.io/badge/Async%20Triage-Zero%20Calls-success?style=flat-square)](https://n8n-production-incident-fixes.pages.dev/#triage)
 
@@ -38,10 +38,11 @@ All incident post-mortems in this repository are autonomously generated and sync
 
 ---
 
-## 📚 Documented Production Incidents (81)
+## 📚 Documented Production Incidents (82)
 
 | Ecosystem | Incident Case Study | Root Cause Snapshot | Severity | Solution Link |
 |:----------|:--------------------|:--------------------|:--------:|:-------------:|
+| **n8n** | [Microsoft Outlook v1 Add attachment reads the binary field name from item 0 for every item](cases/microsoft-outlook-v1-add-attachment-reads-the-binary-field-name-f.md) | Spot on, thanks for tracking down that parity gap with #44021. Swapping `0` for `i` in `this.getNodeParameter('binaryPropertyName', i)` is definitely the right fix. | 🟡 `MEDIUM` | [**Solution**](cases/microsoft-outlook-v1-add-attachment-reads-the-binary-field-name-f.md) |
 | **n8n** | [Microsoft OneDrive upload reads the binary field name from item 0 for every item](cases/microsoft-onedrive-upload-reads-the-binary-field-name-from-item-0.md) | Nice spot on `getNodeParameter('binaryPropertyName', 0)`. | 🟡 `MEDIUM` | [**Solution**](cases/microsoft-onedrive-upload-reads-the-binary-field-name-from-item-0.md) |
 | **n8n** | [Editor: Hints in the node output panel are hardcoded English](cases/editor-hints-in-the-node-output-panel-are-hardcoded-english.md) | Nice catch Client Case Study (User). | 🟡 `MEDIUM` | [**Solution**](cases/editor-hints-in-the-node-output-panel-are-hardcoded-english.md) |
 | **Activepieces** | [[Feature]: Tables: paginate records on the table page (currently loads every record in one request)](cases/tables-paginate-records-on-the-table-page-currently-loads-every-r.md) | Spot on diagnosis. The in-memory slice in `recordService.list` is definitely a footgun once tables grow, especially with `staleTime: 0` hammering it on focus. | 🟡 `MEDIUM` | [**Solution**](cases/tables-paginate-records-on-the-table-page-currently-loads-every-r.md) |
