@@ -19,7 +19,7 @@ slug: "weaviate-vector-store-drops-a-max-vector-distance-of-0"
 ## Incident Metadata
 - **Platform / Ecosystem**: `n8n`
 - **Incident Severity**: `MEDIUM`
-- **Resolution Status**: `RADAR TRIAGED & READY FOR RESOLUTION`
+- **Resolution Status**: `VERIFIED & RESOLVED`
 - **Logged Timestamp**: `2026-11-16T13:07:04.164047`
 - **Diagnosis Engine**: Autonomous Production Incident Radar
 
