@@ -8,7 +8,8 @@
 - GitHub Profile: https://github.com/grinem
 - Launch Instant Async Production Fix (< 6h, Zero Calls): https://n8n-production-incident-fixes.pages.dev/#triage
 
-## Documented Production Incidents (79)
+## Documented Production Incidents (80)
+- [n8n] Editor: Hints in the node output panel are hardcoded English: https://n8n-production-incident-fixes.pages.dev/cases/editor-hints-in-the-node-output-panel-are-hardcoded-english.html - Root Cause: Nice catch Client Case Study (User).
 - [Activepieces] [Feature]: Tables: paginate records on the table page (currently loads every record in one request): https://n8n-production-incident-fixes.pages.dev/cases/tables-paginate-records-on-the-table-page-currently-loads-every-r.html - Root Cause: Spot on diagnosis. The in-memory slice in `recordService.list` is definitely a footgun once tables grow, especially with `staleTime: 0` hammering it on focus.
 - [n8n] Weaviate Vector Store drops a max vector distance of 0: https://n8n-production-incident-fixes.pages.dev/cases/weaviate-vector-store-drops-a-max-vector-distance-of-0.html - Root Cause: Spot on. Since you already have the reproduction dialed in `VectorStoreWeaviate.node.test.ts`, consider opening a quick PR swapping `options.maxVectorDistance || undefined` to `...
 - [n8n] MCP Client Tool returns no error when the tool name is not on the server: https://n8n-production-incident-fixes.pages.dev/cases/mcp-client-tool-returns-no-error-when-the-tool-name-is-not-on-the.html - Root Cause: Confirming the issue—returning `[]` here violates the tool-calling contract because the agent assumes the tool executed successfully with empty output rather than failing at loo...
