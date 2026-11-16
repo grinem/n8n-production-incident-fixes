@@ -1,7 +1,7 @@
 # 🛠️ n8n & Low-Code Production Incident Fixes (Live Knowledge Base)
 
 [![GitHub Pages](https://img.shields.io/badge/GitHub%20Pages-Live%20Showcase-brightgreen?style=flat-square&logo=github)](https://grinem.github.io/n8n-production-incident-fixes/)
-[![Incidents Resolved](https://img.shields.io/badge/Incidents%20Resolved-68%20Verified-blue?style=flat-square)](cases/)
+[![Incidents Resolved](https://img.shields.io/badge/Incidents%20Resolved-70%20Verified-blue?style=flat-square)](cases/)
 [![Emergency SLA](https://img.shields.io/badge/Incident%20SLA-%3C%206%20Hours-orange?style=flat-square)](https://n8n-production-incident-fixes.pages.dev/#triage)
 [![Async Triage](https://img.shields.io/badge/Async%20Triage-Zero%20Calls-success?style=flat-square)](https://n8n-production-incident-fixes.pages.dev/#triage)
 
@@ -38,10 +38,12 @@ All incident post-mortems in this repository are autonomously generated and sync
 
 ---
 
-## 📚 Documented Production Incidents (68)
+## 📚 Documented Production Incidents (70)
 
 | Ecosystem | Incident Case Study | Root Cause Snapshot | Severity | Solution Link |
 |:----------|:--------------------|:--------------------|:--------:|:-------------:|
+| **n8n** | [Kafka: support AWS MSK IAM authentication (SASL/OAUTHBEARER)](cases/kafka-support-aws-msk-iam-authentication-sasl-oauthbearer.md) | Great initiative Client Case Study (User)! Native MSK IAM support via `aws-msk-iam-sasl-signer-js` has been a long-standing gap for teams under strict zero-static-credential com... | 🟡 `MEDIUM` | [**Solution**](cases/kafka-support-aws-msk-iam-authentication-sasl-oauthbearer.md) |
+| **n8n** | [Nod .. Context limit error (272,000 tokens) persists across all ChatGPT models after ~30 minutes of use](cases/nod-context-limit-error-272-000-tokens-persists-across-all-chatgp.md) | Switching models fails because Nod continues to pass the entire conversation history from your active session into the payload of the new request, carrying the oversized token c... | 🔴 `CRITICAL` | [**Solution**](cases/nod-context-limit-error-272-000-tokens-persists-across-all-chatgp.md) |
 | **Automation Engine** | [Workflow run cleanup fails with TypeError when API_WORKFLOW_NODE_EXECUTION_REPOSITORY uses LogStore](cases/workflow-run-cleanup-fails-with-typeerror-when-api-workflow-node.md) | Nice catch Client Case Study (User). | 🔴 `CRITICAL` | [**Solution**](cases/workflow-run-cleanup-fails-with-typeerror-when-api-workflow-node.md) |
 | **Automation Engine** | [Improve Human Input channel setup and prompt editing usability](cases/improve-human-input-channel-setup-and-prompt-editing-usability.md) | Nice catch on the `{` picker keyboard routing. Intercepting `ArrowUp`/`ArrowDown`/`Enter` with `preventDefault()` while the menu is open—and bailing early on `event.isComposing ... | 🟡 `MEDIUM` | [**Solution**](cases/improve-human-input-channel-setup-and-prompt-editing-usability.md) |
 | **n8n** | [Output panel copy button copies "[]" for AI sub-nodes (memory, chat model, tools)](cases/output-panel-copy-button-copies-for-ai-sub-nodes-memory-chat-mode.md) | Spot on diagnosis. In `packages/editor-ui`, the copy action in the output view explicitly reads `runData.data.main` (or defaults to `[]` when `main` is missing), completely igno... | 🟡 `MEDIUM` | [**Solution**](cases/output-panel-copy-button-copies-for-ai-sub-nodes-memory-chat-mode.md) |

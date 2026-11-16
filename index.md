@@ -13,9 +13,9 @@ title: "Production Incident Fixes & Post-Mortem Knowledge Base"
 
 
 ### 📊 Real-Time Operations Telemetry
-- **Total Production Incidents Documented**: `68`
+- **Total Production Incidents Documented**: `70`
 - **Active Incident Resolvers**: Automated Production Radar + Lead SRE Engineer
-- **Breakdown by Platform**: **n8n**: 33 | **Make.com**: 16 | **Automation Engine**: 8 | **Bubble.io**: 4 | **Activepieces**: 3 | **Baserow**: 2 | **Meta / Webhooks**: 2
+- **Breakdown by Platform**: **n8n**: 35 | **Make.com**: 16 | **Automation Engine**: 8 | **Bubble.io**: 4 | **Activepieces**: 3 | **Baserow**: 2 | **Meta / Webhooks**: 2
 - **Average Diagnosis & Root-Cause Pinpoint**: `< 15 Minutes`
 
 ---
@@ -24,6 +24,8 @@ title: "Production Incident Fixes & Post-Mortem Knowledge Base"
 
 | Ecosystem | Incident Summary | Root Cause Snapshot | Severity | Resolution Guide |
 |:----------|:-----------------|:--------------------|:--------:|:----------------:|
+| **n8n** | [Kafka: support AWS MSK IAM authentication (SASL/OAUTHBEARER)](cases/kafka-support-aws-msk-iam-authentication-sasl-oauthbearer.html) | Great initiative Client Case Study (User)! Native MSK IAM support via `aws-msk-iam-sasl-signer-js` has been a long-standing gap for teams under strict zero-static-credential com... | 🟡 `MEDIUM` | [**View Solution →**](cases/kafka-support-aws-msk-iam-authentication-sasl-oauthbearer.html) |
+| **n8n** | [Nod .. Context limit error (272,000 tokens) persists across all ChatGPT models after ~30 minutes of use](cases/nod-context-limit-error-272-000-tokens-persists-across-all-chatgp.html) | Switching models fails because Nod continues to pass the entire conversation history from your active session into the payload of the new request, carrying the oversized token c... | 🔴 `CRITICAL` | [**View Solution →**](cases/nod-context-limit-error-272-000-tokens-persists-across-all-chatgp.html) |
 | **Automation Engine** | [Workflow run cleanup fails with TypeError when API_WORKFLOW_NODE_EXECUTION_REPOSITORY uses LogStore](cases/workflow-run-cleanup-fails-with-typeerror-when-api-workflow-node.html) | Nice catch Client Case Study (User). | 🔴 `CRITICAL` | [**View Solution →**](cases/workflow-run-cleanup-fails-with-typeerror-when-api-workflow-node.html) |
 | **Automation Engine** | [Improve Human Input channel setup and prompt editing usability](cases/improve-human-input-channel-setup-and-prompt-editing-usability.html) | Nice catch on the `{` picker keyboard routing. Intercepting `ArrowUp`/`ArrowDown`/`Enter` with `preventDefault()` while the menu is open—and bailing early on `event.isComposing ... | 🟡 `MEDIUM` | [**View Solution →**](cases/improve-human-input-channel-setup-and-prompt-editing-usability.html) |
 | **n8n** | [Output panel copy button copies "[]" for AI sub-nodes (memory, chat model, tools)](cases/output-panel-copy-button-copies-for-ai-sub-nodes-memory-chat-mode.html) | Spot on diagnosis. In `packages/editor-ui`, the copy action in the output view explicitly reads `runData.data.main` (or defaults to `[]` when `main` is missing), completely igno... | 🟡 `MEDIUM` | [**View Solution →**](cases/output-panel-copy-button-copies-for-ai-sub-nodes-memory-chat-mode.html) |

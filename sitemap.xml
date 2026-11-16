@@ -7,6 +7,18 @@
     <priority>1.0</priority>
   </url>
   <url>
+    <loc>https://n8n-production-incident-fixes.pages.dev/cases/kafka-support-aws-msk-iam-authentication-sasl-oauthbearer.html</loc>
+    <lastmod>2026-11-16</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://n8n-production-incident-fixes.pages.dev/cases/nod-context-limit-error-272-000-tokens-persists-across-all-chatgp.html</loc>
+    <lastmod>2026-11-16</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://n8n-production-incident-fixes.pages.dev/cases/workflow-run-cleanup-fails-with-typeerror-when-api-workflow-node.html</loc>
     <lastmod>2026-11-16</lastmod>
     <changefreq>weekly</changefreq>
