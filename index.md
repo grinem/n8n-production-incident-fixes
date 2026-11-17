@@ -13,9 +13,9 @@ title: "Production Incident Fixes & Post-Mortem Knowledge Base"
 
 
 ### 📊 Real-Time Operations Telemetry
-- **Total Production Incidents Documented**: `103`
+- **Total Production Incidents Documented**: `105`
 - **Active Incident Resolvers**: Automated Production Radar + Lead SRE Engineer
-- **Breakdown by Platform**: **n8n**: 50 | **Make.com**: 21 | **Automation Engine**: 19 | **Activepieces**: 5 | **Bubble.io**: 4 | **Baserow**: 2 | **Meta / Webhooks**: 2
+- **Breakdown by Platform**: **n8n**: 50 | **Make.com**: 22 | **Automation Engine**: 19 | **Activepieces**: 6 | **Bubble.io**: 4 | **Baserow**: 2 | **Meta / Webhooks**: 2
 - **Average Diagnosis & Root-Cause Pinpoint**: `< 15 Minutes`
 
 ---
@@ -24,6 +24,8 @@ title: "Production Incident Fixes & Post-Mortem Knowledge Base"
 
 | Ecosystem | Incident Summary | Root Cause Snapshot | Severity | Resolution Guide |
 |:----------|:-----------------|:--------------------|:--------:|:----------------:|
+| **Make.com** | [[Feature]: Make Scopes optional on the HTTP (OAuth2) connection](cases/make-scopes-optional-on-the-http-oauth2-connection.html) | Makes total sense—RFC 6749 treats `scope` as optional, and providers like SAP strictly reject empty `scope=` query params or body fields. | 🟡 `MEDIUM` | [**View Solution →**](cases/make-scopes-optional-on-the-http-oauth2-connection.html) |
+| **Activepieces** | [[BUG]: ConnectUC integration - persistent "Error loading domains" failure.](cases/connectuc-integration-persistent-error-loading-domains-failure.html) | Client Case Study (User) If you open browser DevTools (Network tab) and trigger the dropdown, what HTTP status code and body come back on the POST to `/api/v1/pieces/options`? | 🟠 `HIGH` | [**View Solution →**](cases/connectuc-integration-persistent-error-loading-domains-failure.html) |
 | **Make.com** | [[Feature]: Make the Test Step / Test Trigger button bolder and independent of the brand colour](cases/make-the-test-step-test-trigger-button-bolder-and-independent-of.html) | Makes complete sense—soft accent tints completely wash out with pastel/yellow tenant palettes, especially stacked with `disabled:opacity-50`. | 🟡 `MEDIUM` | [**View Solution →**](cases/make-the-test-step-test-trigger-button-bolder-and-independent-of.html) |
 | **n8n** | [Postgres pool never recovers after a primary switchover: pings stay "not counted, no pooled connection free"](cases/postgres-pool-never-recovers-after-a-primary-switchover-pings-sta.html) | Spot on. Returning early on `PooledConnectionUnavailableError` without running `probeOutsidePool()` or bumping `consecutiveFailures` creates a permanent deadlock whenever the ex... | 🔴 `CRITICAL` | [**View Solution →**](cases/postgres-pool-never-recovers-after-a-primary-switchover-pings-sta.html) |
 | **Automation Engine** | [Knowledge base list embeds Base64 custom icons, producing a ~7 MB response and slow loading](cases/knowledge-base-list-embeds-base64-custom-icons-producing-a-7-mb-r.html) | Good catch. The frontend icon picker dumps the raw `readImageDataURL` string directly into `datasets.icon_info` rather than uploading the asset via `/console/api/files/upload` a... | 🟡 `MEDIUM` | [**View Solution →**](cases/knowledge-base-list-embeds-base64-custom-icons-producing-a-7-mb-r.html) |

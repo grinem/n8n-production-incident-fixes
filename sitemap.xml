@@ -7,6 +7,18 @@
     <priority>1.0</priority>
   </url>
   <url>
+    <loc>https://n8n-production-incident-fixes.pages.dev/cases/make-scopes-optional-on-the-http-oauth2-connection.html</loc>
+    <lastmod>2026-11-17</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://n8n-production-incident-fixes.pages.dev/cases/connectuc-integration-persistent-error-loading-domains-failure.html</loc>
+    <lastmod>2026-11-17</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://n8n-production-incident-fixes.pages.dev/cases/make-the-test-step-test-trigger-button-bolder-and-independent-of.html</loc>
     <lastmod>2026-11-17</lastmod>
     <changefreq>weekly</changefreq>
