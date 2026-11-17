@@ -1,7 +1,7 @@
 # 🛠️ n8n & Low-Code Production Incident Fixes (Live Knowledge Base)
 
 [![GitHub Pages](https://img.shields.io/badge/GitHub%20Pages-Live%20Showcase-brightgreen?style=flat-square&logo=github)](https://grinem.github.io/n8n-production-incident-fixes/)
-[![Incidents Resolved](https://img.shields.io/badge/Incidents%20Resolved-101%20Verified-blue?style=flat-square)](cases/)
+[![Incidents Resolved](https://img.shields.io/badge/Incidents%20Resolved-102%20Verified-blue?style=flat-square)](cases/)
 [![Emergency SLA](https://img.shields.io/badge/Incident%20SLA-%3C%206%20Hours-orange?style=flat-square)](https://n8n-production-incident-fixes.pages.dev/#triage)
 [![Async Triage](https://img.shields.io/badge/Async%20Triage-Zero%20Calls-success?style=flat-square)](https://n8n-production-incident-fixes.pages.dev/#triage)
 
@@ -38,10 +38,11 @@ All incident post-mortems in this repository are autonomously generated and sync
 
 ---
 
-## 📚 Documented Production Incidents (101)
+## 📚 Documented Production Incidents (102)
 
 | Ecosystem | Incident Case Study | Root Cause Snapshot | Severity | Solution Link |
 |:----------|:--------------------|:--------------------|:--------:|:-------------:|
+| **n8n** | [Postgres pool never recovers after a primary switchover: pings stay "not counted, no pooled connection free"](cases/postgres-pool-never-recovers-after-a-primary-switchover-pings-sta.md) | Spot on. Returning early on `PooledConnectionUnavailableError` without running `probeOutsidePool()` or bumping `consecutiveFailures` creates a permanent deadlock whenever the ex... | 🔴 `CRITICAL` | [**Solution**](cases/postgres-pool-never-recovers-after-a-primary-switchover-pings-sta.md) |
 | **Automation Engine** | [Knowledge base list embeds Base64 custom icons, producing a ~7 MB response and slow loading](cases/knowledge-base-list-embeds-base64-custom-icons-producing-a-7-mb-r.md) | Good catch. The frontend icon picker dumps the raw `readImageDataURL` string directly into `datasets.icon_info` rather than uploading the asset via `/console/api/files/upload` a... | 🟡 `MEDIUM` | [**Solution**](cases/knowledge-base-list-embeds-base64-custom-icons-producing-a-7-mb-r.md) |
 | **Activepieces** | [IMAP piece leaks its socket when login fails; 5 minutes later the socket timeout crashes an unrelated flow run (`SANDBOX_INTERNAL_ERROR`)](cases/imap-piece-leaks-its-socket-when-login-fails-5-minutes-later-the.md) | Spot-on diagnosis. In `SANDBOX_CODE_ONLY`, process reuse causes any unhandled socket error emitted after the promise rejects to bubble up as an `uncaughtException` in the worker... | 🔴 `CRITICAL` | [**Solution**](cases/imap-piece-leaks-its-socket-when-login-fails-5-minutes-later-the.md) |
 | **Automation Engine** | [Dify Agent server examples omit the configured bearer token](cases/dify-agent-server-examples-omit-the-configured-bearer-token.md) | Spot on. When #40735 introduced the control-plane auth dependency, the agent runtime routes began enforcing bearer tokens whenever `DIFY_AGENT_API_TOKEN` is set, but none of the... | 🟡 `MEDIUM` | [**Solution**](cases/dify-agent-server-examples-omit-the-configured-bearer-token.md) |
