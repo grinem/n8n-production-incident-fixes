@@ -12,7 +12,41 @@
   <meta property="og:url" content="https://n8n-production-incident-fixes.pages.dev/cases/broken-contributing-license-links-in-package-readmes.html">
   <meta property="og:type" content="article">
   <link rel="sitemap" type="application/xml" title="Sitemap" href="/sitemap.xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
   <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'ui-sans-serif', 'system-ui', '-apple-system', 'sans-serif'],
+            mono: ['JetBrains Mono', 'ui-monospace', 'SFMono-Regular', 'Menlo', 'Monaco', 'Consolas', 'monospace']
+          }
+        }
+      }
+    };
+  </script>
+  <style>
+    html, body { background-color: #000000; color: #f0f0f0; font-family: 'Inter', ui-sans-serif, system-ui, sans-serif; }
+    code, pre, .font-mono { font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace; }
+    #content h1 { font-size: 1.875rem; line-height: 2.25rem; font-weight: 600; letter-spacing: -0.03em; color: #f0f0f0; margin-bottom: 1.25rem; }
+    #content h2 { font-size: 1.25rem; line-height: 1.75rem; font-weight: 600; letter-spacing: -0.02em; color: #f0f0f0; margin-top: 2rem; margin-bottom: 0.75rem; padding-bottom: 0.5rem; border-bottom: 1px solid #212629; }
+    #content h3 { font-size: 1.05rem; line-height: 1.5rem; font-weight: 600; color: #f0f0f0; margin-top: 1.5rem; margin-bottom: 0.5rem; }
+    #content p, #content li { color: #a1a4a5; font-size: 0.9375rem; line-height: 1.7; margin-bottom: 0.75rem; }
+    #content strong { color: #f0f0f0; font-weight: 600; }
+    #content a { color: #f0f0f0; text-decoration: underline; text-decoration-color: #3b4345; text-underline-offset: 3px; }
+    #content a:hover { text-decoration-color: #f0f0f0; }
+    #content blockquote { border-left: 2px solid #293034; background: #0a0b0c; padding: 0.875rem 1.125rem; border-radius: 0.75rem; margin: 1.25rem 0; color: #a1a4a5; }
+    #content blockquote p { margin-bottom: 0; }
+    #content code { font-size: 0.8125rem; background: #191b1e; border: 1px solid #212629; color: #f0f0f0; padding: 0.125rem 0.375rem; border-radius: 0.375rem; }
+    #content pre { background: #0a0b0c; border: 1px solid #212629; border-radius: 1rem; padding: 1rem 1.25rem; overflow-x: auto; margin: 1.25rem 0; }
+    #content pre code { background: transparent; border: none; padding: 0; color: #e2e8f0; font-size: 0.8125rem; line-height: 1.6; }
+    #content ul { list-style-type: disc; padding-left: 1.35rem; margin: 0.75rem 0; }
+    #content ol { list-style-type: decimal; padding-left: 1.35rem; margin: 0.75rem 0; }
+    #content hr { border: none; border-top: 1px solid #212629; margin: 1.75rem 0; }
+  </style>
   <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
   <script type="application/ld+json">
   {
@@ -33,37 +67,43 @@
   }
   </script>
 </head>
-<body class="bg-slate-900 text-slate-100 min-h-screen font-sans antialiased">
-  <!-- Top Notification CTA -->
-  <div class="bg-gradient-to-r from-amber-600 via-emerald-600 to-indigo-600 px-4 py-3 text-center text-sm font-medium text-white shadow-lg">
-    ⚡ Encountering this exact production bug or need an emergency automation hotfix?
-    <button onclick="window.openTriageModal()" class="ml-2 inline-block rounded-full bg-emerald-400 px-3 py-1 text-xs font-bold text-slate-950 shadow hover:bg-emerald-300 transition cursor-pointer">
-      🚨 Launch Instant Async Triage &rarr;
-    </button>
-  </div>
-
-  <div class="max-w-4xl mx-auto px-4 py-8">
-    <div class="mb-6 flex items-center justify-between">
-      <a href="../" class="inline-flex items-center text-sm text-indigo-400 hover:text-indigo-300 font-semibold">
-        &larr; Back to Incident Knowledge Base
+<body class="bg-[#000000] text-[#f0f0f0] min-h-screen font-sans antialiased selection:bg-white/20 selection:text-white">
+  <!-- Minimal Sticky Top Bar -->
+  <header class="sticky top-0 z-40 h-[58px] bg-black/75 backdrop-blur-md border-b border-[#212629]">
+    <div class="max-w-5xl mx-auto h-full px-6 flex items-center justify-between gap-4">
+      <a href="../" class="inline-flex items-center gap-2 text-sm font-medium text-[#a1a4a5] hover:text-[#f0f0f0] transition">
+        <span>&larr;</span><span>Incident Knowledge Base</span>
       </a>
-      <div class="flex items-center space-x-2">
-        <span class="px-2.5 py-1 rounded text-xs font-bold uppercase tracking-wider bg-slate-800 text-slate-300 border border-slate-700">n8n</span>
-        <span class="px-2.5 py-1 rounded text-xs font-bold uppercase tracking-wider bg-blue-500 text-white">MEDIUM</span>
+      <button onclick="window.openTriageModal()" class="inline-flex items-center gap-2 rounded-xl bg-white hover:bg-white/90 text-black text-xs font-semibold px-3.5 py-2 transition cursor-pointer">
+        <span class="h-1.5 w-1.5 rounded-full bg-[#00d294]"></span>
+        <span>Launch Async Triage</span>
+      </button>
+    </div>
+  </header>
+
+  <div class="max-w-4xl mx-auto px-6 py-10 sm:py-14">
+    <div class="mb-6 flex flex-wrap items-center justify-between gap-3">
+      <div class="text-xs font-mono text-[#878d8f]">Case Study &bull; 2026-11-11</div>
+      <div class="flex items-center gap-2">
+        <span class="px-2.5 py-1 rounded-full text-[11px] font-mono font-medium bg-[#141517] text-[#a1a4a5] border border-[#212629]">n8n</span>
+        <span class="px-2.5 py-1 rounded-full text-[11px] font-mono font-medium border bg-[#141517] text-[#a1a4a5] border-[#212629]">MEDIUM</span>
       </div>
     </div>
 
     <!-- Layer 1 (Bloc A): Free Root-Cause Analysis & 3-Line Patch Preview -->
-    <article id="content" class="bg-slate-800/80 rounded-2xl p-6 sm:p-10 border border-slate-700/80 shadow-2xl prose prose-invert max-w-none prose-headings:text-indigo-200 prose-a:text-emerald-400 hover:prose-a:text-emerald-300 prose-pre:bg-slate-950 prose-pre:border prose-pre:border-slate-800">
+    <article id="content" class="bg-[#141517] rounded-3xl p-6 sm:p-10 border border-[#212629]">
     </article>
 
     <!-- Layer 2 (Bloc B): Blurred Production Patch Paywall ($39 Self-Serve / $199 Turnkey PR) -->
-    <div class="mt-6 relative rounded-2xl bg-slate-900 border-2 border-emerald-500/40 p-6 sm:p-8 shadow-2xl overflow-hidden">
-      <div class="flex items-center justify-between mb-3">
-        <span class="px-3 py-1 rounded-full text-xs font-extrabold uppercase tracking-wider bg-emerald-500/20 text-emerald-300 border border-emerald-500/40">🔒 Verified Production Patch &amp; Config Diff</span>
-        <span class="text-xs text-slate-400 font-mono">Instant Automated Delivery</span>
+    <div class="mt-6 relative rounded-3xl bg-[#141517] border border-[#212629] p-6 sm:p-8 overflow-hidden">
+      <div class="flex flex-wrap items-center justify-between gap-2 mb-4">
+        <span class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-medium bg-[#191b1e] text-[#f0f0f0] border border-[#212629]">
+          <span class="h-1.5 w-1.5 rounded-full bg-[#00d294]"></span>
+          <span>Verified Production Patch &amp; Config Diff</span>
+        </span>
+        <span class="text-xs text-[#878d8f] font-mono">Instant Automated Delivery</span>
       </div>
-      <pre class="text-xs font-mono text-slate-300 bg-slate-950 p-4 rounded-xl border border-slate-800 select-none pointer-events-none" style="filter: blur(5.5px); user-select: none;">
+      <pre class="text-xs font-mono text-[#a1a4a5] bg-[#0a0b0c] p-4 rounded-2xl border border-[#212629] select-none pointer-events-none" style="filter: blur(5.5px); user-select: none;">
 --- a/docker-compose.production.yml
 +++ b/docker-compose.production.yml
 @@ -14,7 +14,12 @@ services:
@@ -75,24 +115,25 @@
        - N8N_PAYLOAD_SIZE_MAX=64
        - NODE_OPTIONS=--max-old-space-size=4096
       </pre>
-      <div class="mt-5 flex flex-col sm:flex-row items-center justify-center gap-4">
-        <button onclick="window.openTriageModal(39, 'github_n8n-io_n8n_43491', 'Broken CONTRIBUTING/LICENSE links in package READMEs')" class="w-full sm:w-auto inline-flex items-center justify-center px-6 py-3.5 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-black text-sm shadow-lg shadow-emerald-500/25 transition cursor-pointer">
-          🔓 Unlock Full Patch &amp; Config Now &mdash; $39 (31 USDT)
+      <div class="mt-6 flex flex-col sm:flex-row items-center justify-center gap-3">
+        <button onclick="window.openTriageModal(39, 'github_n8n-io_n8n_43491', 'Broken CONTRIBUTING/LICENSE links in package READMEs')" class="w-full sm:w-auto inline-flex items-center justify-center px-5 py-3 rounded-2xl bg-white hover:bg-white/90 text-black font-semibold text-sm transition cursor-pointer">
+          Unlock Full Patch &amp; Config Now &mdash; $39 (31 USDT)
         </button>
-        <button onclick="window.openTriageModal(199, 'github_n8n-io_n8n_43491', 'Broken CONTRIBUTING/LICENSE links in package READMEs')" class="w-full sm:w-auto inline-flex items-center justify-center px-6 py-3.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-sm shadow-lg shadow-indigo-600/25 transition cursor-pointer">
-          ⚡ Custom Triage &amp; Turnkey PR &mdash; $199 (159 USDT)
+        <button onclick="window.openTriageModal(199, 'github_n8n-io_n8n_43491', 'Broken CONTRIBUTING/LICENSE links in package READMEs')" class="w-full sm:w-auto inline-flex items-center justify-center px-5 py-3 rounded-2xl bg-[#191b1e] hover:bg-[#212629] border border-[#293034] text-[#f0f0f0] font-medium text-sm transition cursor-pointer">
+          Custom Triage &amp; Turnkey PR &mdash; $199 (159 USDT)
         </button>
       </div>
     </div>
 
     <!-- Bottom CTA Card -->
-    <div class="mt-10 rounded-2xl bg-gradient-to-br from-indigo-950/80 via-slate-800 to-slate-900 border border-indigo-500/30 p-8 text-center shadow-xl">
-      <h3 class="text-2xl font-bold text-white mb-2">Need an Emergency Fix for Your Production Pipeline?</h3>
-      <p class="text-slate-300 max-w-xl mx-auto mb-6 text-sm">
-        Whether it's an OAuth token deadlock in n8n, a silent Meta webhook timeout, or a broken Make.com scenario — I diagnose and resolve live production outages under a 1-Hour SLA.
+    <div class="mt-8 rounded-3xl bg-[#141517] border border-[#212629] p-8 sm:p-10 text-center">
+      <h3 class="text-2xl font-semibold tracking-tight text-[#f0f0f0] mb-2">Need an Emergency Fix for Your Production Pipeline?</h3>
+      <p class="text-[#a1a4a5] max-w-xl mx-auto mb-6 text-sm leading-relaxed">
+        Whether it's an OAuth token deadlock in n8n, a silent Meta webhook timeout, or a broken Make.com scenario &mdash; I diagnose and resolve live production outages under a 1-Hour SLA.
       </p>
-      <button onclick="window.openTriageModal()" class="inline-flex items-center px-6 py-3 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-extrabold shadow-lg shadow-emerald-500/20 transition transform hover:-translate-y-0.5 cursor-pointer">
-        ⚡ Launch Instant Async Triage &mdash; Guaranteed &lt; 6h (Zero Calls)
+      <button onclick="window.openTriageModal()" class="inline-flex items-center gap-2 px-5 py-3 rounded-2xl bg-white hover:bg-white/90 text-black font-semibold text-sm transition cursor-pointer">
+        <span>Launch Instant Async Triage &mdash; Guaranteed &lt; 6h (Zero Calls)</span>
+        <span>&rarr;</span>
       </button>
     </div>
   </div>
@@ -106,85 +147,88 @@
   </script>
 
 <!-- Autonomous Async Triage Widget (Zero Calls / Zero WhatsApp) -->
-<button id="triageFab" onclick="window.openTriageModal()" class="fixed bottom-5 right-5 z-50 flex items-center gap-2 rounded-full bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-extrabold px-5 py-3.5 shadow-2xl shadow-emerald-500/30 transition transform hover:-translate-y-0.5 cursor-pointer">
-  <span>🚨</span><span>Async Incident Triage</span>
+<button id="triageFab" onclick="window.openTriageModal()" class="fixed bottom-5 right-5 z-50 flex items-center gap-2 rounded-full bg-white hover:bg-white/90 text-black font-medium text-sm px-4 py-2.5 shadow-[0_8px_30px_rgba(0,0,0,0.65)] border border-white/15 transition transform hover:-translate-y-0.5 cursor-pointer">
+  <span class="h-2 w-2 rounded-full bg-[#00d294]"></span><span>Async Incident Triage</span>
 </button>
 
-<div id="triageModal" class="fixed inset-0 z-50 hidden items-center justify-center bg-slate-950/80 backdrop-blur-sm p-4">
-  <div class="w-full max-w-xl rounded-2xl bg-slate-900 border border-slate-700 p-6 text-slate-100 shadow-2xl max-h-[90vh] overflow-y-auto">
-    <div class="flex items-center justify-between border-b border-slate-800 pb-3 mb-4">
+<div id="triageModal" class="fixed inset-0 z-50 hidden items-center justify-center bg-black/80 backdrop-blur-md p-4">
+  <div class="w-full max-w-xl rounded-3xl bg-[#141517] border border-[#212629] p-6 sm:p-7 text-[#f0f0f0] shadow-2xl max-h-[90vh] overflow-y-auto">
+    <div class="flex items-start justify-between border-b border-[#212629] pb-4 mb-5">
       <div>
-        <h3 class="text-lg font-extrabold text-white">⚡ Async Production Triage &amp; Patch/PR</h3>
-        <p class="text-xs text-emerald-400">100% Automated &bull; Guaranteed &lt; 6h &bull; Zero Video Calls</p>
+        <h3 class="text-lg font-semibold tracking-tight text-[#f0f0f0]">Async Production Triage &amp; Patch/PR</h3>
+        <p class="text-xs text-[#a1a4a5] mt-1 flex items-center gap-2">
+          <span class="inline-block h-1.5 w-1.5 rounded-full bg-[#00d294]"></span>
+          <span>100% Automated &bull; Guaranteed &lt; 6h &bull; Zero Video Calls</span>
+        </p>
       </div>
-      <button onclick="window.closeTriageModal()" class="text-slate-400 hover:text-white text-xl font-bold px-2">&times;</button>
+      <button onclick="window.closeTriageModal()" class="text-[#878d8f] hover:text-[#f0f0f0] text-xl leading-none px-2 py-1 rounded-lg hover:bg-[#191b1e] transition cursor-pointer">&times;</button>
     </div>
 
-    <div id="triageStep1" class="space-y-3">
+    <div id="triageStep1" class="space-y-4">
       <div>
-        <label class="block text-xs font-semibold text-slate-300 mb-1">Work Email (for Patch Delivery)</label>
-        <input id="trEmail" type="email" placeholder="cto@company.com" class="w-full rounded-lg bg-slate-800 border border-slate-700 px-3 py-2 text-sm text-white focus:outline-none focus:border-emerald-500" />
+        <label class="block text-xs font-medium text-[#a1a4a5] mb-1.5">Work Email (for Patch Delivery)</label>
+        <input id="trEmail" type="email" placeholder="cto@company.com" class="w-full rounded-xl bg-[#0a0b0c] border border-[#212629] px-3.5 py-2.5 text-sm text-[#f0f0f0] placeholder-[#52595b] focus:outline-none focus:border-[#3b4345] transition" />
       </div>
       <div>
-        <label class="block text-xs font-semibold text-slate-300 mb-1">Production Symptom / Error</label>
-        <input id="trSymptom" type="text" placeholder="e.g. n8n worker OOM, OAuth 403 refresh loop, webhook timeout" class="w-full rounded-lg bg-slate-800 border border-slate-700 px-3 py-2 text-sm text-white focus:outline-none focus:border-emerald-500" />
+        <label class="block text-xs font-medium text-[#a1a4a5] mb-1.5">Production Symptom / Error</label>
+        <input id="trSymptom" type="text" placeholder="e.g. n8n worker OOM, OAuth 403 refresh loop, webhook timeout" class="w-full rounded-xl bg-[#0a0b0c] border border-[#212629] px-3.5 py-2.5 text-sm text-[#f0f0f0] placeholder-[#52595b] focus:outline-none focus:border-[#3b4345] transition" />
       </div>
       <div>
-        <label class="block text-xs font-semibold text-slate-300 mb-1">Logs / docker-compose.yml (secrets auto-masked locally)</label>
-        <textarea id="trLogs" rows="4" placeholder="Paste error logs or compose snippet..." class="w-full rounded-lg bg-slate-800 border border-slate-700 px-3 py-2 text-xs font-mono text-white focus:outline-none focus:border-emerald-500"></textarea>
+        <label class="block text-xs font-medium text-[#a1a4a5] mb-1.5">Logs / docker-compose.yml (secrets auto-masked locally)</label>
+        <textarea id="trLogs" rows="4" placeholder="Paste error logs or compose snippet..." class="w-full rounded-xl bg-[#0a0b0c] border border-[#212629] px-3.5 py-2.5 text-xs font-mono text-[#f0f0f0] placeholder-[#52595b] focus:outline-none focus:border-[#3b4345] transition"></textarea>
       </div>
       <div>
-        <label class="block text-xs font-semibold text-slate-300 mb-1">GitHub Repo URL (optional, for PR patch)</label>
-        <input id="trRepo" type="url" placeholder="https://github.com/org/repo" class="w-full rounded-lg bg-slate-800 border border-slate-700 px-3 py-2 text-sm text-white focus:outline-none focus:border-emerald-500" />
+        <label class="block text-xs font-medium text-[#a1a4a5] mb-1.5">GitHub Repo URL (optional, for PR patch)</label>
+        <input id="trRepo" type="url" placeholder="https://github.com/org/repo" class="w-full rounded-xl bg-[#0a0b0c] border border-[#212629] px-3.5 py-2.5 text-sm text-[#f0f0f0] placeholder-[#52595b] focus:outline-none focus:border-[#3b4345] transition" />
       </div>
       <div id="trErr1" class="text-xs text-rose-400 hidden"></div>
-      <button id="trSubmitBtn" onclick="window.submitTriage()" class="w-full rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-extrabold py-3 text-sm transition cursor-pointer">
+      <button id="trSubmitBtn" onclick="window.submitTriage()" class="w-full rounded-2xl bg-white hover:bg-white/90 text-black font-semibold py-3 px-4 text-sm transition cursor-pointer">
         Run Instant AI Triage &rarr;
       </button>
     </div>
 
     <div id="triageStep2" class="hidden space-y-4">
-      <div class="rounded-xl bg-slate-800/80 border border-slate-700 p-4">
-        <div class="text-xs uppercase tracking-wider text-indigo-400 font-bold mb-1" id="trTierLabel"></div>
-        <p class="text-sm text-slate-200 whitespace-pre-line" id="trPreview"></p>
+      <div class="rounded-2xl bg-[#0a0b0c] border border-[#212629] p-4">
+        <div class="text-[11px] font-mono uppercase tracking-wider text-[#878d8f] mb-1.5" id="trTierLabel"></div>
+        <p class="text-sm text-[#f0f0f0] leading-relaxed whitespace-pre-line" id="trPreview"></p>
       </div>
 
       <!-- 1-Click Card Checkout -->
       <div>
-        <a id="trCardBtn" href="#" target="_blank" rel="noopener noreferrer" class="flex items-center justify-center gap-2 w-full rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-extrabold py-3.5 px-4 text-sm shadow-lg shadow-indigo-600/30 transition transform hover:-translate-y-0.5 cursor-pointer">
-          <span>💳</span><span>Pay with Visa / Mastercard / Apple Pay (<span id="trUsdAmount">$199</span>)</span>
+        <a id="trCardBtn" href="#" target="_blank" rel="noopener noreferrer" class="flex items-center justify-center gap-2 w-full rounded-2xl bg-[#191b1e] hover:bg-[#212629] border border-[#293034] text-[#f0f0f0] font-medium py-3 px-4 text-sm transition cursor-pointer">
+          <span>Pay with Visa / Mastercard / Apple Pay (<span id="trUsdAmount">$199</span>)</span>
         </a>
-        <p class="text-[11px] text-center text-slate-400 mt-1.5">Direct instant card checkout (no crypto wallet required).</p>
+        <p class="text-[11px] text-center text-[#878d8f] mt-1.5">Direct instant card checkout (no crypto wallet required).</p>
       </div>
 
       <!-- 1-Click Web3 USDT Checkout -->
       <div class="space-y-2">
-        <button id="trWeb3Btn" onclick="window.payWithWeb3()" class="flex items-center justify-center gap-2 w-full rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-black py-3.5 px-4 text-sm shadow-lg shadow-emerald-500/25 transition transform hover:-translate-y-0.5 cursor-pointer">
-          <span>⚡</span><span>1-Click Crypto Checkout (MetaMask / Trust / Binance Web3) &mdash; <span id="trUsdtAmount">159.20 USDT</span></span>
+        <button id="trWeb3Btn" onclick="window.payWithWeb3()" class="flex items-center justify-center gap-2 w-full rounded-2xl bg-white hover:bg-white/90 text-black font-semibold py-3 px-4 text-sm transition cursor-pointer">
+          <span>1-Click Crypto Checkout (MetaMask / Trust / Binance Web3) &mdash; <span id="trUsdtAmount">159.20 USDT</span></span>
         </button>
-        <div id="trWeb3Status" class="text-xs text-center text-emerald-400 hidden"></div>
-        <p class="text-[11px] text-center text-slate-400">BNB Smart Chain (BEP20) &bull; Zero copy-paste &bull; 1-Click auto-sign</p>
+        <div id="trWeb3Status" class="text-xs text-center text-[#00d294] hidden"></div>
+        <p class="text-[11px] text-center text-[#878d8f]">BNB Smart Chain (BEP20) &bull; Zero copy-paste &bull; 1-Click auto-sign</p>
       </div>
 
       <!-- Real-Time Auto-Verification Status Banner -->
-      <div class="rounded-xl bg-slate-950/80 border border-emerald-500/30 p-3.5 flex items-center gap-3">
-        <div class="relative flex h-3 w-3 flex-shrink-0">
-          <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-          <span class="relative inline-flex rounded-full h-3 w-3 bg-emerald-500"></span>
+      <div class="rounded-2xl bg-[#0a0b0c] border border-[#212629] p-3.5 flex items-center gap-3">
+        <div class="relative flex h-2.5 w-2.5 flex-shrink-0">
+          <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#00d294] opacity-75"></span>
+          <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-[#00d294]"></span>
         </div>
-        <div class="flex-1 text-xs text-slate-300">
-          <div class="font-bold text-white flex items-center gap-1.5"><span>🔄</span> Auto-Verification Active</div>
-          <p class="text-[11px] text-slate-400 mt-0.5">Waiting for payment confirmation... Your patch unlocks automatically on this screen &amp; by email in &lt; 20s.</p>
+        <div class="flex-1 text-xs text-[#a1a4a5]">
+          <div class="font-medium text-[#f0f0f0]">Auto-Verification Active</div>
+          <p class="text-[11px] text-[#878d8f] mt-0.5">Waiting for payment confirmation... Your patch unlocks automatically on this screen &amp; by email in &lt; 20s.</p>
         </div>
       </div>
     </div>
 
     <div id="triageStep3" class="hidden space-y-3">
-      <div class="rounded-xl bg-emerald-950/50 border border-emerald-500/50 p-4">
-        <h4 class="text-sm font-extrabold text-emerald-300 mb-1">✅ Payment Verified &amp; Patch Delivered</h4>
-        <p class="text-xs text-slate-300">Your full RCA + Production Patch has been emailed to you and is shown below:</p>
+      <div class="rounded-2xl bg-[#0a0b0c] border border-[#212629] p-4">
+        <h4 class="text-sm font-semibold text-[#f0f0f0] mb-1 flex items-center gap-2"><span class="h-2 w-2 rounded-full bg-[#00d294]"></span><span>Payment Verified &amp; Patch Delivered</span></h4>
+        <p class="text-xs text-[#a1a4a5]">Your full RCA + Production Patch has been emailed to you and is shown below:</p>
       </div>
-      <pre id="trPatchOutput" class="rounded-xl bg-slate-950 border border-slate-800 p-4 text-xs text-slate-200 overflow-x-auto max-h-64 whitespace-pre-wrap"></pre>
+      <pre id="trPatchOutput" class="rounded-2xl bg-[#0a0b0c] border border-[#212629] p-4 text-xs font-mono text-[#f0f0f0] overflow-x-auto max-h-64 whitespace-pre-wrap"></pre>
     </div>
   </div>
 </div>
