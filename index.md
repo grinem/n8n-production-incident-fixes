@@ -13,9 +13,9 @@ title: "Production Incident Fixes & Post-Mortem Knowledge Base"
 
 
 ### 📊 Real-Time Operations Telemetry
-- **Total Production Incidents Documented**: `99`
+- **Total Production Incidents Documented**: `100`
 - **Active Incident Resolvers**: Automated Production Radar + Lead SRE Engineer
-- **Breakdown by Platform**: **n8n**: 49 | **Make.com**: 20 | **Automation Engine**: 18 | **Activepieces**: 4 | **Bubble.io**: 4 | **Baserow**: 2 | **Meta / Webhooks**: 2
+- **Breakdown by Platform**: **n8n**: 49 | **Make.com**: 20 | **Automation Engine**: 18 | **Activepieces**: 5 | **Bubble.io**: 4 | **Baserow**: 2 | **Meta / Webhooks**: 2
 - **Average Diagnosis & Root-Cause Pinpoint**: `< 15 Minutes`
 
 ---
@@ -24,6 +24,7 @@ title: "Production Incident Fixes & Post-Mortem Knowledge Base"
 
 | Ecosystem | Incident Summary | Root Cause Snapshot | Severity | Resolution Guide |
 |:----------|:-----------------|:--------------------|:--------:|:----------------:|
+| **Activepieces** | [IMAP piece leaks its socket when login fails; 5 minutes later the socket timeout crashes an unrelated flow run (`SANDBOX_INTERNAL_ERROR`)](cases/imap-piece-leaks-its-socket-when-login-fails-5-minutes-later-the.html) | Spot-on diagnosis. In `SANDBOX_CODE_ONLY`, process reuse causes any unhandled socket error emitted after the promise rejects to bubble up as an `uncaughtException` in the worker... | 🔴 `CRITICAL` | [**View Solution →**](cases/imap-piece-leaks-its-socket-when-login-fails-5-minutes-later-the.html) |
 | **Automation Engine** | [Dify Agent server examples omit the configured bearer token](cases/dify-agent-server-examples-omit-the-configured-bearer-token.html) | Spot on. When #40735 introduced the control-plane auth dependency, the agent runtime routes began enforcing bearer tokens whenever `DIFY_AGENT_API_TOKEN` is set, but none of the... | 🟡 `MEDIUM` | [**View Solution →**](cases/dify-agent-server-examples-omit-the-configured-bearer-token.html) |
 | **n8n** | [Self-hosted n8n on a 2GB VPS falls over when three workflows run at once. Queue mode or just more RAM?](cases/self-hosted-n8n-on-a-2gb-vps-falls-over-when-three-workflows-run.html) | Do not enable queue mode on that 2GB box. Queue mode adds Redis and splits n8n into multiple Node processes (webhook, main, worker), each taking 300MB+ idle. On a 2GB machine al... | 🟡 `MEDIUM` | [**View Solution →**](cases/self-hosted-n8n-on-a-2gb-vps-falls-over-when-three-workflows-run.html) |
 | **n8n** | [Problem in node ‘Read Main Offers ' The service refused the connection - perhaps it is offline](cases/problem-in-node-read-main-offers-the-service-refused-the-connecti.html) | If this is a Google Sheets node, an `ECONNREFUSED` to an external Google API usually points to an outbound network routing issue on self-hosted instances. | 🟡 `MEDIUM` | [**View Solution →**](cases/problem-in-node-read-main-offers-the-service-refused-the-connecti.html) |

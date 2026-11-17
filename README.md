@@ -1,7 +1,7 @@
 # 🛠️ n8n & Low-Code Production Incident Fixes (Live Knowledge Base)
 
 [![GitHub Pages](https://img.shields.io/badge/GitHub%20Pages-Live%20Showcase-brightgreen?style=flat-square&logo=github)](https://grinem.github.io/n8n-production-incident-fixes/)
-[![Incidents Resolved](https://img.shields.io/badge/Incidents%20Resolved-99%20Verified-blue?style=flat-square)](cases/)
+[![Incidents Resolved](https://img.shields.io/badge/Incidents%20Resolved-100%20Verified-blue?style=flat-square)](cases/)
 [![Emergency SLA](https://img.shields.io/badge/Incident%20SLA-%3C%206%20Hours-orange?style=flat-square)](https://n8n-production-incident-fixes.pages.dev/#triage)
 [![Async Triage](https://img.shields.io/badge/Async%20Triage-Zero%20Calls-success?style=flat-square)](https://n8n-production-incident-fixes.pages.dev/#triage)
 
@@ -38,10 +38,11 @@ All incident post-mortems in this repository are autonomously generated and sync
 
 ---
 
-## 📚 Documented Production Incidents (99)
+## 📚 Documented Production Incidents (100)
 
 | Ecosystem | Incident Case Study | Root Cause Snapshot | Severity | Solution Link |
 |:----------|:--------------------|:--------------------|:--------:|:-------------:|
+| **Activepieces** | [IMAP piece leaks its socket when login fails; 5 minutes later the socket timeout crashes an unrelated flow run (`SANDBOX_INTERNAL_ERROR`)](cases/imap-piece-leaks-its-socket-when-login-fails-5-minutes-later-the.md) | Spot-on diagnosis. In `SANDBOX_CODE_ONLY`, process reuse causes any unhandled socket error emitted after the promise rejects to bubble up as an `uncaughtException` in the worker... | 🔴 `CRITICAL` | [**Solution**](cases/imap-piece-leaks-its-socket-when-login-fails-5-minutes-later-the.md) |
 | **Automation Engine** | [Dify Agent server examples omit the configured bearer token](cases/dify-agent-server-examples-omit-the-configured-bearer-token.md) | Spot on. When #40735 introduced the control-plane auth dependency, the agent runtime routes began enforcing bearer tokens whenever `DIFY_AGENT_API_TOKEN` is set, but none of the... | 🟡 `MEDIUM` | [**Solution**](cases/dify-agent-server-examples-omit-the-configured-bearer-token.md) |
 | **n8n** | [Self-hosted n8n on a 2GB VPS falls over when three workflows run at once. Queue mode or just more RAM?](cases/self-hosted-n8n-on-a-2gb-vps-falls-over-when-three-workflows-run.md) | Do not enable queue mode on that 2GB box. Queue mode adds Redis and splits n8n into multiple Node processes (webhook, main, worker), each taking 300MB+ idle. On a 2GB machine al... | 🟡 `MEDIUM` | [**Solution**](cases/self-hosted-n8n-on-a-2gb-vps-falls-over-when-three-workflows-run.md) |
 | **n8n** | [Problem in node ‘Read Main Offers ' The service refused the connection - perhaps it is offline](cases/problem-in-node-read-main-offers-the-service-refused-the-connecti.md) | If this is a Google Sheets node, an `ECONNREFUSED` to an external Google API usually points to an outbound network routing issue on self-hosted instances. | 🟡 `MEDIUM` | [**Solution**](cases/problem-in-node-read-main-offers-the-service-refused-the-connecti.md) |
