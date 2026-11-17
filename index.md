@@ -13,9 +13,9 @@ title: "Production Incident Fixes & Post-Mortem Knowledge Base"
 
 
 ### 📊 Real-Time Operations Telemetry
-- **Total Production Incidents Documented**: `92`
+- **Total Production Incidents Documented**: `93`
 - **Active Incident Resolvers**: Automated Production Radar + Lead SRE Engineer
-- **Breakdown by Platform**: **n8n**: 45 | **Make.com**: 19 | **Automation Engine**: 16 | **Activepieces**: 4 | **Bubble.io**: 4 | **Baserow**: 2 | **Meta / Webhooks**: 2
+- **Breakdown by Platform**: **n8n**: 45 | **Make.com**: 19 | **Automation Engine**: 17 | **Activepieces**: 4 | **Bubble.io**: 4 | **Baserow**: 2 | **Meta / Webhooks**: 2
 - **Average Diagnosis & Root-Cause Pinpoint**: `< 15 Minutes`
 
 ---
@@ -24,6 +24,7 @@ title: "Production Incident Fixes & Post-Mortem Knowledge Base"
 
 | Ecosystem | Incident Summary | Root Cause Snapshot | Severity | Resolution Guide |
 |:----------|:-----------------|:--------------------|:--------:|:----------------:|
+| **Automation Engine** | [Bug: Loop node run fails with "loop_variables.N.value Field required" after changing a loop variable's type/mode](cases/bug-loop-node-run-fails-with-loop-variables-n-value-field-require.html) | Client Case Study (User) Until the patch lands, an immediate workaround is to type a temporary dummy value (e.g. `0` or `""`) into the loop variable input field and re-save | 🔴 `CRITICAL` | [**View Solution →**](cases/bug-loop-node-run-fails-with-loop-variables-n-value-field-require.html) |
 | **Automation Engine** | [HITL IM has recipient migration, channel configuration, and timeout regressions](cases/hitl-im-has-recipient-migration-channel-configuration-and-timeout.html) | Since this was generated from static diff analysis without live reproduction, could you share the exact commit hash on `feat/hitl-im-dev` you're referencing? | 🟡 `MEDIUM` | [**View Solution →**](cases/hitl-im-has-recipient-migration-channel-configuration-and-timeout.html) |
 | **n8n** | [Agents omit HTTP status from MCP warnings and tool errors](cases/agents-omit-http-status-from-mcp-warnings-and-tool-errors.html) | Confirmed on master. The transport error preserves `code`/`status`, but stringifying via `error.message` drops it before reaching `getConnectionFailures()` and `ToolCallRunner`. | 🟠 `HIGH` | [**View Solution →**](cases/agents-omit-http-status-from-mcp-warnings-and-tool-errors.html) |
 | **Automation Engine** | [[Bug]: .xls extractor emits unescaped double quotes in column headers](cases/xls-extractor-emits-unescaped-double-quotes-in-column-headers.html) | Confirmed, nice catch. The `.xls` path reads via `pandas` and dumps column names directly into the string template without escaping quotes like `_find_header_and_columns()` does... | 🟡 `MEDIUM` | [**View Solution →**](cases/xls-extractor-emits-unescaped-double-quotes-in-column-headers.html) |
