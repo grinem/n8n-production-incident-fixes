@@ -1,7 +1,7 @@
 # 🛠️ n8n & Low-Code Production Incident Fixes (Live Knowledge Base)
 
 [![GitHub Pages](https://img.shields.io/badge/GitHub%20Pages-Live%20Showcase-brightgreen?style=flat-square&logo=github)](https://grinem.github.io/n8n-production-incident-fixes/)
-[![Incidents Resolved](https://img.shields.io/badge/Incidents%20Resolved-93%20Verified-blue?style=flat-square)](cases/)
+[![Incidents Resolved](https://img.shields.io/badge/Incidents%20Resolved-94%20Verified-blue?style=flat-square)](cases/)
 [![Emergency SLA](https://img.shields.io/badge/Incident%20SLA-%3C%206%20Hours-orange?style=flat-square)](https://n8n-production-incident-fixes.pages.dev/#triage)
 [![Async Triage](https://img.shields.io/badge/Async%20Triage-Zero%20Calls-success?style=flat-square)](https://n8n-production-incident-fixes.pages.dev/#triage)
 
@@ -38,10 +38,11 @@ All incident post-mortems in this repository are autonomously generated and sync
 
 ---
 
-## 📚 Documented Production Incidents (93)
+## 📚 Documented Production Incidents (94)
 
 | Ecosystem | Incident Case Study | Root Cause Snapshot | Severity | Solution Link |
 |:----------|:--------------------|:--------------------|:--------:|:-------------:|
+| **Make.com** | [Zero runs isn’t an error How do you catch an automation that just stops getting triggered?](cases/zero-runs-isn-t-an-error-how-do-you-catch-an-automation-that-just.md) | The standard fix for this is a dead man's switch (e.g. Healthchecks[.]io or Better Stack). Put an HTTP module at the end of your scenario that pings a check URL on successful SF... | 🟠 `HIGH` | [**Solution**](cases/zero-runs-isn-t-an-error-how-do-you-catch-an-automation-that-just.md) |
 | **Automation Engine** | [Bug: Loop node run fails with "loop_variables.N.value Field required" after changing a loop variable's type/mode](cases/bug-loop-node-run-fails-with-loop-variables-n-value-field-require.md) | Client Case Study (User) Until the patch lands, an immediate workaround is to type a temporary dummy value (e.g. `0` or `""`) into the loop variable input field and re-save | 🔴 `CRITICAL` | [**Solution**](cases/bug-loop-node-run-fails-with-loop-variables-n-value-field-require.md) |
 | **Automation Engine** | [HITL IM has recipient migration, channel configuration, and timeout regressions](cases/hitl-im-has-recipient-migration-channel-configuration-and-timeout.md) | Since this was generated from static diff analysis without live reproduction, could you share the exact commit hash on `feat/hitl-im-dev` you're referencing? | 🟡 `MEDIUM` | [**Solution**](cases/hitl-im-has-recipient-migration-channel-configuration-and-timeout.md) |
 | **n8n** | [Agents omit HTTP status from MCP warnings and tool errors](cases/agents-omit-http-status-from-mcp-warnings-and-tool-errors.md) | Confirmed on master. The transport error preserves `code`/`status`, but stringifying via `error.message` drops it before reaching `getConnectionFailures()` and `ToolCallRunner`. | 🟠 `HIGH` | [**Solution**](cases/agents-omit-http-status-from-mcp-warnings-and-tool-errors.md) |

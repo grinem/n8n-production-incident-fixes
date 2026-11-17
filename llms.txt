@@ -8,7 +8,8 @@
 - GitHub Profile: https://github.com/grinem
 - Launch Instant Async Production Fix (< 6h, Zero Calls): https://n8n-production-incident-fixes.pages.dev/#triage
 
-## Documented Production Incidents (93)
+## Documented Production Incidents (94)
+- [Make.com] Zero runs isn’t an error How do you catch an automation that just stops getting triggered?: https://n8n-production-incident-fixes.pages.dev/cases/zero-runs-isn-t-an-error-how-do-you-catch-an-automation-that-just.html - Root Cause: The standard fix for this is a dead man's switch (e.g. Healthchecks[.]io or Better Stack). Put an HTTP module at the end of your scenario that pings a check URL on successful SF...
 - [Automation Engine] Bug: Loop node run fails with "loop_variables.N.value Field required" after changing a loop variable's type/mode: https://n8n-production-incident-fixes.pages.dev/cases/bug-loop-node-run-fails-with-loop-variables-n-value-field-require.html - Root Cause: Client Case Study (User) Until the patch lands, an immediate workaround is to type a temporary dummy value (e.g. `0` or `""`) into the loop variable input field and re-save
 - [Automation Engine] HITL IM has recipient migration, channel configuration, and timeout regressions: https://n8n-production-incident-fixes.pages.dev/cases/hitl-im-has-recipient-migration-channel-configuration-and-timeout.html - Root Cause: Since this was generated from static diff analysis without live reproduction, could you share the exact commit hash on `feat/hitl-im-dev` you're referencing?
 - [n8n] Agents omit HTTP status from MCP warnings and tool errors: https://n8n-production-incident-fixes.pages.dev/cases/agents-omit-http-status-from-mcp-warnings-and-tool-errors.html - Root Cause: Confirmed on master. The transport error preserves `code`/`status`, but stringifying via `error.message` drops it before reaching `getConnectionFailures()` and `ToolCallRunner`.
