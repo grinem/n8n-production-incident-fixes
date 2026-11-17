@@ -36,7 +36,7 @@
       <!-- Key Metric Counters -->
       <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 max-w-2xl mx-auto">
         <div class="bg-slate-800/80 rounded-xl p-4 border border-slate-700">
-          <div class="text-3xl font-extrabold text-indigo-400">86</div>
+          <div class="text-3xl font-extrabold text-indigo-400">88</div>
           <div class="text-xs text-slate-400 font-medium">Documented Fixes</div>
         </div>
         <div class="bg-slate-800/80 rounded-xl p-4 border border-slate-700">
@@ -57,9 +57,9 @@
     <!-- Filter & Search Controls -->
     <div class="mb-8 flex flex-col md:flex-row items-center justify-between gap-4">
       <div class="flex flex-wrap gap-2 justify-center md:justify-start">
-        <button class="filter-btn px-4 py-2 rounded-xl text-sm font-semibold bg-indigo-600 text-white shadow" data-filter="all">All Incidents (86)</button>
+        <button class="filter-btn px-4 py-2 rounded-xl text-sm font-semibold bg-indigo-600 text-white shadow" data-filter="all">All Incidents (88)</button>
 <button class="filter-btn px-4 py-2 rounded-xl text-sm font-semibold bg-slate-800 text-slate-300 hover:bg-slate-700 border border-slate-700 transition" data-filter="Activepieces">Activepieces (4)</button>
-<button class="filter-btn px-4 py-2 rounded-xl text-sm font-semibold bg-slate-800 text-slate-300 hover:bg-slate-700 border border-slate-700 transition" data-filter="Automation Engine">Automation Engine (12)</button>
+<button class="filter-btn px-4 py-2 rounded-xl text-sm font-semibold bg-slate-800 text-slate-300 hover:bg-slate-700 border border-slate-700 transition" data-filter="Automation Engine">Automation Engine (14)</button>
 <button class="filter-btn px-4 py-2 rounded-xl text-sm font-semibold bg-slate-800 text-slate-300 hover:bg-slate-700 border border-slate-700 transition" data-filter="Baserow">Baserow (2)</button>
 <button class="filter-btn px-4 py-2 rounded-xl text-sm font-semibold bg-slate-800 text-slate-300 hover:bg-slate-700 border border-slate-700 transition" data-filter="Bubble.io">Bubble.io (4)</button>
 <button class="filter-btn px-4 py-2 rounded-xl text-sm font-semibold bg-slate-800 text-slate-300 hover:bg-slate-700 border border-slate-700 transition" data-filter="Make.com">Make.com (19)</button>
@@ -74,6 +74,50 @@
     <!-- Case Studies Cards Grid -->
     <div id="cardsGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
       
+        <div id="issue-github_langgenius_dify_46534" data-lead-id="github_langgenius_dify_46534" class="incident-card bg-slate-800/90 hover:bg-slate-800 rounded-2xl p-6 border border-slate-700/80 shadow-lg hover:shadow-indigo-500/10 transition-all flex flex-col justify-between" data-eco="Automation Engine">
+          <div>
+            <div class="flex items-center justify-between mb-3">
+              <span class="px-2.5 py-1 rounded text-xs font-bold uppercase tracking-wider bg-slate-900 text-indigo-300 border border-slate-700">Automation Engine</span>
+              <span class="px-2.5 py-1 rounded text-xs font-bold uppercase tracking-wider border bg-amber-500/20 text-amber-300 border-amber-500/40">HIGH</span>
+            </div>
+            <h3 class="text-lg font-bold text-white mb-2 leading-snug">
+              <a href="cases/chatflow-human-input-form-submission-returns-404-form-not-found-i.html" class="hover:text-indigo-400 transition">Chatflow Human Input form submission returns 404 &quot;Form not found&quot; in webapp: BACKSTAGE access token issued to the webapp surface on 1.19.0</a>
+            </h3>
+            <p class="text-slate-400 text-sm mb-4 line-clamp-3">
+              <span class="font-semibold text-slate-300">Root Cause:</span> Spot on analysis. PR #44864 refactored the delivery domain and dropped the caller surface context introduced in #37556, so the SSE stream defaults to emitting the `BACKSTAGE` re...
+            </p>
+          </div>
+          <div class="pt-4 border-t border-slate-700/50 flex items-center justify-between text-xs text-slate-400">
+            <span>Logged: 2026-11-17</span>
+            <a href="cases/chatflow-human-input-form-submission-returns-404-form-not-found-i.html" class="text-emerald-400 hover:text-emerald-300 font-bold flex items-center">
+              View Fix &rarr;
+            </a>
+          </div>
+        </div>
+        
+
+        <div id="issue-github_langgenius_dify_46535" data-lead-id="github_langgenius_dify_46535" class="incident-card bg-slate-800/90 hover:bg-slate-800 rounded-2xl p-6 border border-slate-700/80 shadow-lg hover:shadow-indigo-500/10 transition-all flex flex-col justify-between" data-eco="Automation Engine">
+          <div>
+            <div class="flex items-center justify-between mb-3">
+              <span class="px-2.5 py-1 rounded text-xs font-bold uppercase tracking-wider bg-slate-900 text-indigo-300 border border-slate-700">Automation Engine</span>
+              <span class="px-2.5 py-1 rounded text-xs font-bold uppercase tracking-wider border bg-blue-500/20 text-blue-300 border-blue-500/40">MEDIUM</span>
+            </div>
+            <h3 class="text-lg font-bold text-white mb-2 leading-snug">
+              <a href="cases/chatflow-human-input-form-submission-returns-404-form-not-found-i-github.html" class="hover:text-indigo-400 transition">Chatflow Human Input form submission returns 404 &quot;Form not found&quot; in webapp: BACKSTAGE access token issued to the webapp surface on 1.19.0</a>
+            </h3>
+            <p class="text-slate-400 text-sm mb-4 line-clamp-3">
+              <span class="font-semibold text-slate-300">Root Cause:</span> Confirmed, this is definitely a regression from #44864. The event streamer serializes the recipient tokens into the SSE payload without scoping to the caller surface, falling ba...
+            </p>
+          </div>
+          <div class="pt-4 border-t border-slate-700/50 flex items-center justify-between text-xs text-slate-400">
+            <span>Logged: 2026-11-17</span>
+            <a href="cases/chatflow-human-input-form-submission-returns-404-form-not-found-i-github.html" class="text-emerald-400 hover:text-emerald-300 font-bold flex items-center">
+              View Fix &rarr;
+            </a>
+          </div>
+        </div>
+        
+
         <div id="issue-github_langgenius_dify_46530" data-lead-id="github_langgenius_dify_46530" class="incident-card bg-slate-800/90 hover:bg-slate-800 rounded-2xl p-6 border border-slate-700/80 shadow-lg hover:shadow-indigo-500/10 transition-all flex flex-col justify-between" data-eco="Automation Engine">
           <div>
             <div class="flex items-center justify-between mb-3">
