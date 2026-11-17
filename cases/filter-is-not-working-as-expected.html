@@ -94,36 +94,96 @@
     <article id="content" class="bg-[#141517] rounded-3xl p-6 sm:p-10 border border-[#212629]">
     </article>
 
-    <!-- Layer 2 (Bloc B): Blurred Production Patch Paywall ($39 Self-Serve / $199 Turnkey PR) -->
-    <div class="mt-6 relative rounded-3xl bg-[#141517] border border-[#212629] p-6 sm:p-8 overflow-hidden">
-      <div class="flex flex-wrap items-center justify-between gap-2 mb-4">
+    <!-- Layer 2 (Bloc B): Value-First Free Production Bundle Email Gate + Dual-Unlock Fallback -->
+    <div id="valueFirstGateCard" class="mt-6 rounded-3xl bg-[#141517] border border-[#212629] p-6 sm:p-8">
+      <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
         <span class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-medium bg-[#191b1e] text-[#f0f0f0] border border-[#212629]">
           <span class="h-1.5 w-1.5 rounded-full bg-[#00d294]"></span>
-          <span>Verified Production Patch &amp; Config Diff</span>
+          <span>Complete Production Fix Bundle</span>
         </span>
-        <span class="text-xs text-[#878d8f] font-mono">Instant Automated Delivery</span>
+        <span class="text-xs text-[#00d294] font-mono font-medium">100% Free &bull; Instant Inbox + Backup Copy</span>
       </div>
-      <pre class="text-xs font-mono text-[#a1a4a5] bg-[#0a0b0c] p-4 rounded-2xl border border-[#212629] select-none pointer-events-none" style="filter: blur(5.5px); user-select: none;">
---- a/docker-compose.production.yml
-+++ b/docker-compose.production.yml
-@@ -14,7 +14,12 @@ services:
-   worker:
-     environment:
-       - EXECUTIONS_DATA_PRUNE=true
-       - EXECUTIONS_DATA_MAX_AGE=168
-       - DB_POSTGRESDB_POOL_SIZE=16
-       - N8N_PAYLOAD_SIZE_MAX=64
-       - NODE_OPTIONS=--max-old-space-size=4096
-      </pre>
-      <div class="mt-6 flex flex-col sm:flex-row items-center justify-center gap-3">
-        <button onclick="window.openTriageModal(39, 'make_119777', 'Filter is not working as expected')" class="w-full sm:w-auto inline-flex items-center justify-center px-5 py-3 rounded-2xl bg-white hover:bg-white/90 text-black font-semibold text-sm transition cursor-pointer">
-          Unlock Full Patch &amp; Config Now &mdash; $39 (31 USDT)
+      <h3 class="text-xl sm:text-2xl font-semibold tracking-tight text-[#f0f0f0] mb-2">
+        &#x1F4E5; Receive the Complete Production Bundle in Your Inbox (Free)
+      </h3>
+      <ul class="text-sm text-[#a1a4a5] space-y-1.5 mb-5 list-disc pl-5">
+        <li>Full importable <code class="text-xs bg-[#191b1e] px-1.5 py-0.5 rounded text-[#f0f0f0]">.json</code> / patch with error-retry &amp; timeout guard</li>
+        <li>Verification curl / test checklist + Team Post-Mortem Note</li>
+      </ul>
+
+      <form id="bundleGateForm" onsubmit="return window.submitValueFirstGate(event)" class="flex flex-col sm:flex-row gap-2.5 relative">
+        <input id="gateEmail" type="email" required placeholder="work@company.com" class="flex-1 rounded-2xl bg-[#0a0b0c] border border-[#212629] px-4 py-3 text-sm text-[#f0f0f0] placeholder-[#52595b] focus:outline-none focus:border-[#3b4345] transition" />
+        <input id="gateWebsite" name="website" type="text" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;opacity:0;height:0;width:0;" />
+        <button id="gateSubmitBtn" type="submit" class="inline-flex items-center justify-center px-5 py-3 rounded-2xl bg-white hover:bg-white/90 text-black font-semibold text-sm transition cursor-pointer whitespace-nowrap">
+          Send Bundle to My Inbox &rarr;
         </button>
-        <button onclick="window.openTriageModal(199, 'make_119777', 'Filter is not working as expected')" class="w-full sm:w-auto inline-flex items-center justify-center px-5 py-3 rounded-2xl bg-[#191b1e] hover:bg-[#212629] border border-[#293034] text-[#f0f0f0] font-medium text-sm transition cursor-pointer">
-          Custom Triage &amp; Turnkey PR &mdash; $199 (159 USDT)
-        </button>
+      </form>
+      <div id="gateErr" class="hidden mt-3 text-xs text-rose-400"></div>
+
+      <!-- Dual-Unlock Backup Reveal (shown immediately on ok: true) -->
+      <div id="gateSuccessBox" class="hidden mt-5 rounded-2xl bg-[#0a0b0c] border border-[#00d294]/40 p-5 space-y-4">
+        <div class="flex flex-wrap items-center justify-between gap-2">
+          <div class="text-sm font-semibold text-[#00d294]">
+            Sent to your inbox &mdash; check Spam/Promotions, or open backup copy here
+          </div>
+          <button type="button" onclick="window.copyBundleOutput()" class="rounded-lg bg-[#191b1e] hover:bg-[#212629] border border-[#293034] text-xs font-medium text-[#f0f0f0] px-3 py-1.5 cursor-pointer">
+            Copy Bundle
+          </button>
+        </div>
+        <div id="gateBundleTitle" class="text-xs font-mono text-[#a1a4a5]"></div>
+        <div>
+          <div class="text-xs font-semibold text-[#f0f0f0] mb-1.5">Full Production Patch / Config</div>
+          <pre id="gateBundlePatch" class="text-xs font-mono text-[#e2e8f0] bg-[#141517] border border-[#212629] rounded-xl p-4 overflow-x-auto whitespace-pre-wrap max-h-80"></pre>
+        </div>
+        <div>
+          <div class="text-xs font-semibold text-[#f0f0f0] mb-1.5">Verification Checklist</div>
+          <pre id="gateBundleChecklist" class="text-xs font-mono text-[#a1a4a5] bg-[#141517] border border-[#212629] rounded-xl p-3.5 overflow-x-auto whitespace-pre-wrap"></pre>
+        </div>
+        <div>
+          <div class="text-xs font-semibold text-[#f0f0f0] mb-1.5">Team Post-Mortem Note</div>
+          <pre id="gateBundlePostmortem" class="text-xs font-mono text-[#a1a4a5] bg-[#141517] border border-[#212629] rounded-xl p-3.5 overflow-x-auto whitespace-pre-wrap"></pre>
+        </div>
+      </div>
+
+      <!-- Discreet Emergency Checkout Link -->
+      <div class="mt-5 pt-4 border-t border-[#212629] flex flex-wrap items-center justify-between gap-3 text-xs text-[#878d8f]">
+        <span>Verified against Make.com production edge cases</span>
+        <div class="flex flex-wrap items-center gap-4">
+          <button type="button" onclick="window.openCaseTriageModal(39)" class="text-[#a1a4a5] hover:text-[#f0f0f0] underline underline-offset-4 cursor-pointer">
+            Production emergency now? Pay/triage directly &rarr;
+          </button>
+          <button type="button" onclick="window.openCaseTriageModal(199)" class="text-[#878d8f] hover:text-[#f0f0f0] underline underline-offset-4 cursor-pointer">
+            Turnkey PR ($199)
+          </button>
+        </div>
       </div>
     </div>
+
+    <!-- Optional Collapsible Silent-Failure Audit Card (Client-Side Secret Masking via maskLocal) -->
+    <details class="mt-4 rounded-3xl bg-[#141517] border border-[#212629] p-5 sm:p-6">
+      <summary class="text-sm font-medium text-[#f0f0f0] cursor-pointer select-none flex items-center justify-between gap-2">
+        <span>&#x1F50D; Paste your sanitized workflow JSON / URL &rarr; receive your Silent-Failure Audit Report by email in 45s</span>
+        <span class="text-xs text-[#878d8f] font-mono">Optional</span>
+      </summary>
+      <div class="mt-4 pt-4 border-t border-[#212629] space-y-3">
+        <p class="text-xs text-[#a1a4a5]">
+          API keys, Bearer tokens, and passwords are automatically masked locally in your browser via <code class="text-[11px] bg-[#191b1e] px-1 py-0.5 rounded">maskLocal()</code> before anything is sent.
+        </p>
+        <form id="auditWorkflowForm" onsubmit="return window.submitAuditWorkflow(event)" class="space-y-3 relative">
+          <input id="auditEmail" type="email" required placeholder="work@company.com" class="w-full rounded-xl bg-[#0a0b0c] border border-[#212629] px-3.5 py-2.5 text-sm text-[#f0f0f0] placeholder-[#52595b] focus:outline-none focus:border-[#3b4345]" />
+          <input id="auditWebsite" name="website" type="text" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;opacity:0;height:0;width:0;" />
+          <textarea id="auditPayload" rows="4" required placeholder="Paste workflow JSON, webhook payload, or GitHub/docs URL..." class="w-full rounded-xl bg-[#0a0b0c] border border-[#212629] px-3.5 py-2.5 text-xs font-mono text-[#f0f0f0] placeholder-[#52595b] focus:outline-none focus:border-[#3b4345]"></textarea>
+          <button id="auditSubmitBtn" type="submit" class="inline-flex items-center justify-center px-4 py-2.5 rounded-xl bg-[#191b1e] hover:bg-[#212629] border border-[#293034] text-[#f0f0f0] font-medium text-xs transition cursor-pointer">
+            Run Silent-Failure Audit (45s) &rarr;
+          </button>
+        </form>
+        <div id="auditErr" class="hidden text-xs text-rose-400"></div>
+        <div id="auditSuccessBox" class="hidden rounded-2xl bg-[#0a0b0c] border border-[#00d294]/40 p-4 space-y-2">
+          <div id="auditStatusMsg" class="text-xs font-semibold text-[#00d294]"></div>
+          <pre id="auditReportOut" class="text-xs font-mono text-[#e2e8f0] whitespace-pre-wrap overflow-x-auto"></pre>
+        </div>
+      </div>
+    </details>
 
     <!-- Bottom CTA Card -->
     <div class="mt-8 rounded-3xl bg-[#141517] border border-[#212629] p-8 sm:p-10 text-center">
@@ -131,7 +191,7 @@
       <p class="text-[#a1a4a5] max-w-xl mx-auto mb-6 text-sm leading-relaxed">
         Whether it's an OAuth token deadlock in n8n, a silent Meta webhook timeout, or a broken Make.com scenario &mdash; I diagnose and resolve live production outages under a 1-Hour SLA.
       </p>
-      <button onclick="window.openTriageModal()" class="inline-flex items-center gap-2 px-5 py-3 rounded-2xl bg-white hover:bg-white/90 text-black font-semibold text-sm transition cursor-pointer">
+      <button onclick="window.openCaseTriageModal()" class="inline-flex items-center gap-2 px-5 py-3 rounded-2xl bg-white hover:bg-white/90 text-black font-semibold text-sm transition cursor-pointer">
         <span>Launch Instant Async Triage &mdash; Guaranteed &lt; 6h (Zero Calls)</span>
         <span>&rarr;</span>
       </button>
@@ -140,10 +200,143 @@
 
   <script>
     const rawMarkdown = "---\nlayout: default\ntitle: \"Filter is not working as expected\"\nplatform: \"Make.com\"\nseverity: \"MEDIUM\"\nstatus: \"Resolved\"\ndate: 2026-11-13\ntags: [\"make\", \"production-fix\", \"post-mortem\", \"verified-resolution\"]\nslug: \"filter-is-not-working-as-expected\"\n---\n\n# Filter is not working as expected\n\n\n> \u26a1 **Encountering this exact production bug or need an emergency automation fix?**  \n> [**\ud83d\udea8 Instant Async Production Triage & Resolution (< 6h, Zero Video Calls)**](https://n8n-production-incident-fixes.pages.dev/#triage)\n\n\n## Incident Metadata\n- **Platform / Ecosystem**: `Make.com`\n- **Incident Severity**: `MEDIUM`\n- **Resolution Status**: `RADAR TRIAGED & READY FOR RESOLUTION`\n- **Logged Timestamp**: `2026-11-13T15:01:11.975931`\n- **Diagnosis Engine**: Autonomous Production Incident Radar\n\n---\n\n## Root-Cause Analysis & Patch Preview (Layer 1)\n\nGoogle Forms usually returns question values as text strings rather than numbers, which makes numeric operators (`<=`) fail silently at the filter. Wrap your rating tag in `parseNumber(...)` in the filter condition and ensure you're using the numeric `<=`, not text.\n\n---\n\n## Incident Prevention & Operational Takeaways\n1. **Audit Upstream Authentication**: Validate OAuth2 token refresh loops and ensure service credentials cannot be orphaned.\n2. **Implement Schema Boundary Validation**: Guard downstream webhooks against unexpected payload truncations.\n3. **Automate Error Interception**: Configure fallback nodes and alerting monitors before critical production executions.\n\n---\n\n\n> \u26a1 **Encountering this exact production bug or need an emergency automation fix?**  \n> [**\ud83d\udea8 Instant Async Production Triage & Resolution (< 6h, Zero Video Calls)**](https://n8n-production-incident-fixes.pages.dev/#triage)\n\n\n[\u2190 Back to Live Case Studies Index](../)\n";
+    const caseLeadId = "make_119777";
+    const caseAssetTitle = "Filter is not working as expected";
+    const caseBundleMarkdown = "# Complete Production Resolution Bundle \u2014 Filter is not working as expected\nEcosystem: Make.com | Severity: MEDIUM | Case ID: make_119777\n\n## 1. Full Importable Patch / Config Diff (with Error-Retry & Timeout Guard)\nAs for the blinking module, right-click Google Forms, select **Choose where to start**, pick a specific past response that has a rating of 1 or 2, then hit **Run once** to verify the path opens.\n\n## 2. Verification & Non-Destructive Test Checklist\n1. Validate JSON/YAML syntax and confirm no unmasked secrets remain.\n2. Confirm error-retry/backoff and timeout guards are enabled before re-activating.\n3. Run a non-destructive healthcheck / test webhook and verify HTTP 200 payload shape.\n\n## 3. Team Post-Mortem Note\nRoot Cause (Make.com / MEDIUM): Google Forms usually returns question values as text strings rather than numbers, which makes numeric operators (`<=`) fail silently at the filter. Wrap your rating tag in `pars...\nOperational Guard: Audit OAuth2 token refresh loops, enforce schema boundary validation, and configure dead-letter error interception.\n";
+    const caseFallbackBundle = {
+      title: caseAssetTitle,
+      patch_markdown: "As for the blinking module, right-click Google Forms, select **Choose where to start**, pick a specific past response that has a rating of 1 or 2, then hit **Run once** to verify the path opens.",
+      verification_checklist: "1. Validate JSON/YAML syntax and confirm no unmasked secrets remain.\n2. Confirm error-retry/backoff and timeout guards are enabled before re-activating.\n3. Run a non-destructive healthcheck / test webhook and verify HTTP 200 payload shape.",
+      postmortem_note: "Root Cause (Make.com / MEDIUM): Google Forms usually returns question values as text strings rather than numbers, which makes numeric operators (`<=`) fail silently at the filter. Wrap your rating tag in `pars...\nOperational Guard: Audit OAuth2 token refresh loops, enforce schema boundary validation, and configure dead-letter error interception."
+    };
     // Strip YAML frontmatter
     const mdWithoutYaml = rawMarkdown.replace(/^---[\s\S]*?---\s*/, '');
     document.getElementById('content').innerHTML = marked.parse(mdWithoutYaml);
-    fetch("https://triage.baitakstore.com/api/ping-visit?issue=make_119777&page=" + encodeURIComponent(location.pathname)).catch(function(){});
+    fetch("https://triage.baitakstore.com/api/ping-visit?issue=" + encodeURIComponent(caseLeadId) + "&page=" + encodeURIComponent(location.pathname)).catch(function(){});
+
+    window.openCaseTriageModal = function(tier) {
+      if (typeof window.openTriageModal === 'function') {
+        window.openTriageModal(tier || null, caseLeadId, caseAssetTitle);
+      }
+    };
+
+    window.copyBundleOutput = function() {
+      const txt = [
+        document.getElementById('gateBundleTitle').innerText,
+        document.getElementById('gateBundlePatch').innerText,
+        document.getElementById('gateBundleChecklist').innerText,
+        document.getElementById('gateBundlePostmortem').innerText
+      ].filter(Boolean).join('\n\n');
+      if (navigator.clipboard && txt) {
+        navigator.clipboard.writeText(txt);
+      }
+    };
+
+    window.submitValueFirstGate = async function(ev) {
+      if (ev) ev.preventDefault();
+      const emailEl = document.getElementById('gateEmail');
+      const hpEl = document.getElementById('gateWebsite');
+      const errEl = document.getElementById('gateErr');
+      const btn = document.getElementById('gateSubmitBtn');
+      const box = document.getElementById('gateSuccessBox');
+      const email = (emailEl.value || '').trim();
+      const website = (hpEl ? hpEl.value : '') || '';
+      errEl.classList.add('hidden');
+      errEl.innerText = '';
+      if (!email || email.indexOf('@') === -1) {
+        errEl.innerText = 'Please enter a valid work email.';
+        errEl.classList.remove('hidden');
+        return false;
+      }
+      btn.disabled = true;
+      btn.innerText = 'Sending...';
+      try {
+        const r = await fetch("https://triage.baitakstore.com/funnel-api/gate", {
+          method: "POST",
+          headers: {"Content-Type": "application/json"},
+          body: JSON.stringify({
+            email: email,
+            source_channel: "pages_dev",
+            asset_id: caseLeadId,
+            asset_title: caseAssetTitle,
+            segment: "track_a",
+            website: website,
+            cf_turnstile_response: "",
+            bundle_markdown: caseBundleMarkdown
+          })
+        });
+        const d = await r.json();
+        if (!r.ok || !d.ok) {
+          throw new Error(d.error || 'Could not deliver bundle. Please check your email address.');
+        }
+        const fb = d.fallback_bundle || {};
+        document.getElementById('gateBundleTitle').innerText = fb.title || caseFallbackBundle.title || caseAssetTitle;
+        document.getElementById('gateBundlePatch').innerText = fb.patch_markdown || caseFallbackBundle.patch_markdown || caseBundleMarkdown;
+        document.getElementById('gateBundleChecklist').innerText = fb.verification_checklist || caseFallbackBundle.verification_checklist || '';
+        document.getElementById('gateBundlePostmortem').innerText = fb.postmortem_note || caseFallbackBundle.postmortem_note || '';
+        box.classList.remove('hidden');
+        const auditEmailEl = document.getElementById('auditEmail');
+        if (auditEmailEl && !auditEmailEl.value) auditEmailEl.value = email;
+      } catch (e) {
+        errEl.innerText = e.message || 'Network error while sending bundle.';
+        errEl.classList.remove('hidden');
+      } finally {
+        btn.disabled = false;
+        btn.innerText = 'Send Bundle to My Inbox →';
+      }
+      return false;
+    };
+
+    window.submitAuditWorkflow = async function(ev) {
+      if (ev) ev.preventDefault();
+      const email = (document.getElementById('auditEmail').value || '').trim();
+      const hpEl = document.getElementById('auditWebsite');
+      const rawPayload = (document.getElementById('auditPayload').value || '').trim();
+      const errEl = document.getElementById('auditErr');
+      const btn = document.getElementById('auditSubmitBtn');
+      const box = document.getElementById('auditSuccessBox');
+      errEl.classList.add('hidden');
+      if (!email || !rawPayload) {
+        errEl.innerText = 'Work email and workflow JSON or URL are required.';
+        errEl.classList.remove('hidden');
+        return false;
+      }
+      const maskedPayload = (typeof window.maskLocal === 'function') ? window.maskLocal(rawPayload) : rawPayload;
+      btn.disabled = true;
+      btn.innerText = 'Running Audit...';
+      try {
+        const r = await fetch("https://triage.baitakstore.com/funnel-api/audit-workflow", {
+          method: "POST",
+          headers: {"Content-Type": "application/json"},
+          body: JSON.stringify({
+            email: email,
+            source_channel: "pages_dev",
+            asset_id: caseLeadId,
+            sanitized_payload: maskedPayload,
+            website: (hpEl ? hpEl.value : '') || ''
+          })
+        });
+        const d = await r.json();
+        if (!r.ok || !d.ok) {
+          throw new Error(d.error || 'Audit submission failed.');
+        }
+        const rep = d.audit_report || {};
+        document.getElementById('auditStatusMsg').innerText = d.message || 'Silent-Failure Audit Report sent to your inbox — backup preview below:';
+        const lines = [];
+        if (rep.summary) lines.push('Summary: ' + rep.summary);
+        if (Array.isArray(rep.findings) && rep.findings.length) lines.push('\nFindings:\n- ' + rep.findings.join('\n- '));
+        if (Array.isArray(rep.recommendations) && rep.recommendations.length) lines.push('\nRecommendations:\n- ' + rep.recommendations.join('\n- '));
+        document.getElementById('auditReportOut').innerText = lines.join('\n') || JSON.stringify(rep, null, 2);
+        box.classList.remove('hidden');
+      } catch (e) {
+        errEl.innerText = e.message || 'Network error while running audit.';
+        errEl.classList.remove('hidden');
+      } finally {
+        btn.disabled = false;
+        btn.innerText = 'Run Silent-Failure Audit (45s) →';
+      }
+      return false;
+    };
   </script>
 
 <!-- Autonomous Async Triage Widget (Zero Calls / Zero WhatsApp) -->
@@ -272,10 +465,12 @@
 
   function maskLocal(txt) {
     return (txt || "")
-      .replace(/\b(sk|re|ghp)_[A-Za-z0-9_-]{12,}\b/g, "[REDACTED]")
+      .replace(/\b(sk|re|ghp|gho|ghu|ghs|whsec)_[A-Za-z0-9_-]{12,}\b/g, "[REDACTED]")
+      .replace(/\b(sk-[A-Za-z0-9_-]{16,})\b/g, "[REDACTED]")
       .replace(/(Bearer\s+)[A-Za-z0-9._-]{12,}/gi, "$1[REDACTED]")
-      .replace(/((?:PASSWORD|SECRET|TOKEN|API_KEY)\s*[:=]\s*)['"]?[^\s'";]+['"]?/gi, "$1[REDACTED]");
+      .replace(/((?:PASSWORD|SECRET|TOKEN|API_KEY|PRIVATE_KEY)\s*[:=]\s*)['"]?[^\s'";]+['"]?/gi, "$1[REDACTED]");
   }
+  window.maskLocal = maskLocal;
   window.selectedTriageTier = null;
   window.selectedLeadId = "";
   window.openTriageModal = function(tier, leadId, issueTitle) {

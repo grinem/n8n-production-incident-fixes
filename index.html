@@ -2629,10 +2629,12 @@
 
   function maskLocal(txt) {
     return (txt || "")
-      .replace(/\b(sk|re|ghp)_[A-Za-z0-9_-]{12,}\b/g, "[REDACTED]")
+      .replace(/\b(sk|re|ghp|gho|ghu|ghs|whsec)_[A-Za-z0-9_-]{12,}\b/g, "[REDACTED]")
+      .replace(/\b(sk-[A-Za-z0-9_-]{16,})\b/g, "[REDACTED]")
       .replace(/(Bearer\s+)[A-Za-z0-9._-]{12,}/gi, "$1[REDACTED]")
-      .replace(/((?:PASSWORD|SECRET|TOKEN|API_KEY)\s*[:=]\s*)['"]?[^\s'";]+['"]?/gi, "$1[REDACTED]");
+      .replace(/((?:PASSWORD|SECRET|TOKEN|API_KEY|PRIVATE_KEY)\s*[:=]\s*)['"]?[^\s'";]+['"]?/gi, "$1[REDACTED]");
   }
+  window.maskLocal = maskLocal;
   window.selectedTriageTier = null;
   window.selectedLeadId = "";
   window.openTriageModal = function(tier, leadId, issueTitle) {
