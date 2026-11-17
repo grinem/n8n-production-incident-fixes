@@ -1,7 +1,7 @@
 # 🛠️ n8n & Low-Code Production Incident Fixes (Live Knowledge Base)
 
 [![GitHub Pages](https://img.shields.io/badge/GitHub%20Pages-Live%20Showcase-brightgreen?style=flat-square&logo=github)](https://grinem.github.io/n8n-production-incident-fixes/)
-[![Incidents Resolved](https://img.shields.io/badge/Incidents%20Resolved-91%20Verified-blue?style=flat-square)](cases/)
+[![Incidents Resolved](https://img.shields.io/badge/Incidents%20Resolved-92%20Verified-blue?style=flat-square)](cases/)
 [![Emergency SLA](https://img.shields.io/badge/Incident%20SLA-%3C%206%20Hours-orange?style=flat-square)](https://n8n-production-incident-fixes.pages.dev/#triage)
 [![Async Triage](https://img.shields.io/badge/Async%20Triage-Zero%20Calls-success?style=flat-square)](https://n8n-production-incident-fixes.pages.dev/#triage)
 
@@ -38,10 +38,11 @@ All incident post-mortems in this repository are autonomously generated and sync
 
 ---
 
-## 📚 Documented Production Incidents (91)
+## 📚 Documented Production Incidents (92)
 
 | Ecosystem | Incident Case Study | Root Cause Snapshot | Severity | Solution Link |
 |:----------|:--------------------|:--------------------|:--------:|:-------------:|
+| **Automation Engine** | [HITL IM has recipient migration, channel configuration, and timeout regressions](cases/hitl-im-has-recipient-migration-channel-configuration-and-timeout.md) | Since this was generated from static diff analysis without live reproduction, could you share the exact commit hash on `feat/hitl-im-dev` you're referencing? | 🟡 `MEDIUM` | [**Solution**](cases/hitl-im-has-recipient-migration-channel-configuration-and-timeout.md) |
 | **n8n** | [Agents omit HTTP status from MCP warnings and tool errors](cases/agents-omit-http-status-from-mcp-warnings-and-tool-errors.md) | Confirmed on master. The transport error preserves `code`/`status`, but stringifying via `error.message` drops it before reaching `getConnectionFailures()` and `ToolCallRunner`. | 🟠 `HIGH` | [**Solution**](cases/agents-omit-http-status-from-mcp-warnings-and-tool-errors.md) |
 | **Automation Engine** | [[Bug]: .xls extractor emits unescaped double quotes in column headers](cases/xls-extractor-emits-unescaped-double-quotes-in-column-headers.md) | Confirmed, nice catch. The `.xls` path reads via `pandas` and dumps column names directly into the string template without escaping quotes like `_find_header_and_columns()` does... | 🟡 `MEDIUM` | [**Solution**](cases/xls-extractor-emits-unescaped-double-quotes-in-column-headers.md) |
 | **n8n** | [MCP Client nodes omit the HTTP status from transport errors](cases/mcp-client-nodes-omit-the-http-status-from-transport-errors.md) | Solid repro fixture Client Case Study (User). | 🔴 `CRITICAL` | [**Solution**](cases/mcp-client-nodes-omit-the-http-status-from-transport-errors.md) |

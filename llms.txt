@@ -8,7 +8,8 @@
 - GitHub Profile: https://github.com/grinem
 - Launch Instant Async Production Fix (< 6h, Zero Calls): https://n8n-production-incident-fixes.pages.dev/#triage
 
-## Documented Production Incidents (91)
+## Documented Production Incidents (92)
+- [Automation Engine] HITL IM has recipient migration, channel configuration, and timeout regressions: https://n8n-production-incident-fixes.pages.dev/cases/hitl-im-has-recipient-migration-channel-configuration-and-timeout.html - Root Cause: Since this was generated from static diff analysis without live reproduction, could you share the exact commit hash on `feat/hitl-im-dev` you're referencing?
 - [n8n] Agents omit HTTP status from MCP warnings and tool errors: https://n8n-production-incident-fixes.pages.dev/cases/agents-omit-http-status-from-mcp-warnings-and-tool-errors.html - Root Cause: Confirmed on master. The transport error preserves `code`/`status`, but stringifying via `error.message` drops it before reaching `getConnectionFailures()` and `ToolCallRunner`.
 - [Automation Engine] [Bug]: .xls extractor emits unescaped double quotes in column headers: https://n8n-production-incident-fixes.pages.dev/cases/xls-extractor-emits-unescaped-double-quotes-in-column-headers.html - Root Cause: Confirmed, nice catch. The `.xls` path reads via `pandas` and dumps column names directly into the string template without escaping quotes like `_find_header_and_columns()` does...
 - [n8n] MCP Client nodes omit the HTTP status from transport errors: https://n8n-production-incident-fixes.pages.dev/cases/mcp-client-nodes-omit-the-http-status-from-transport-errors.html - Root Cause: Solid repro fixture Client Case Study (User).
