@@ -7,6 +7,12 @@
     <priority>1.0</priority>
   </url>
   <url>
+    <loc>https://n8n-production-incident-fixes.pages.dev/cases/self-hosted-n8n-on-a-2gb-vps-falls-over-when-three-workflows-run.html</loc>
+    <lastmod>2026-11-17</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://n8n-production-incident-fixes.pages.dev/cases/problem-in-node-read-main-offers-the-service-refused-the-connecti.html</loc>
     <lastmod>2026-11-17</lastmod>
     <changefreq>weekly</changefreq>

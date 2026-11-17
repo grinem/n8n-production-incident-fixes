@@ -8,7 +8,8 @@
 - GitHub Profile: https://github.com/grinem
 - Launch Instant Async Production Fix (< 6h, Zero Calls): https://n8n-production-incident-fixes.pages.dev/#triage
 
-## Documented Production Incidents (97)
+## Documented Production Incidents (98)
+- [n8n] Self-hosted n8n on a 2GB VPS falls over when three workflows run at once. Queue mode or just more RAM?: https://n8n-production-incident-fixes.pages.dev/cases/self-hosted-n8n-on-a-2gb-vps-falls-over-when-three-workflows-run.html - Root Cause: Do not enable queue mode on that 2GB box. Queue mode adds Redis and splits n8n into multiple Node processes (webhook, main, worker), each taking 300MB+ idle. On a 2GB machine al...
 - [n8n] Problem in node ‘Read Main Offers ' The service refused the connection - perhaps it is offline: https://n8n-production-incident-fixes.pages.dev/cases/problem-in-node-read-main-offers-the-service-refused-the-connecti.html - Root Cause: If this is a Google Sheets node, an `ECONNREFUSED` to an external Google API usually points to an outbound network routing issue on self-hosted instances.
 - [n8n] n8n whatsapp trigger issue: https://n8n-production-incident-fixes.pages.dev/cases/n8n-whatsapp-trigger-issue.html - Root Cause: Check your Meta Developer Portal first—you almost certainly have the `messages` webhook subscribed in two places: once under **WhatsApp > Configuration** and again under the mai...
 - [n8n] Task request cut short by shutdown is reported as a runner timeout: https://n8n-production-incident-fixes.pages.dev/cases/task-request-cut-short-by-shutdown-is-reported-as-a-runner-timeou.html - Root Cause: PRs with regression tests are definitely welcome for this!
