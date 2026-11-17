@@ -193,14 +193,6 @@
         <p class="text-sm text-[#f0f0f0] leading-relaxed whitespace-pre-line" id="trPreview"></p>
       </div>
 
-      <!-- 1-Click Card Checkout -->
-      <div>
-        <a id="trCardBtn" href="#" target="_blank" rel="noopener noreferrer" class="flex items-center justify-center gap-2 w-full rounded-2xl bg-[#191b1e] hover:bg-[#212629] border border-[#293034] text-[#f0f0f0] font-medium py-3 px-4 text-sm transition cursor-pointer">
-          <span>Pay with Visa / Mastercard / Apple Pay (<span id="trUsdAmount">$199</span>)</span>
-        </a>
-        <p class="text-[11px] text-center text-[#878d8f] mt-1.5">Direct instant card checkout (no crypto wallet required).</p>
-      </div>
-
       <!-- 1-Click Web3 USDT Checkout -->
       <div class="space-y-2">
         <button id="trWeb3Btn" onclick="window.payWithWeb3()" class="flex items-center justify-center gap-2 w-full rounded-2xl bg-white hover:bg-white/90 text-black font-semibold py-3 px-4 text-sm transition cursor-pointer">
@@ -209,6 +201,43 @@
         <div id="trWeb3Status" class="text-xs text-center text-[#00d294] hidden"></div>
         <p class="text-[11px] text-center text-[#878d8f]">BNB Smart Chain (BEP20) &bull; Zero copy-paste &bull; 1-Click auto-sign</p>
       </div>
+
+      <!-- 1-Click NOWPayments Invoice (150+ Cryptos / Auto-Unlock IPN) -->
+      <div id="trNowWrap" class="hidden">
+        <a id="trNowBtn" href="#" target="_blank" rel="noopener noreferrer" class="flex items-center justify-center gap-2 w-full rounded-2xl bg-[#00d294] hover:opacity-90 text-black font-semibold py-3 px-4 text-sm transition cursor-pointer">
+          <span>Pay via NOWPayments / Binance / 150+ Cryptos &mdash; Auto-Unlock (<span id="trNowUsd">$199</span>)</span>
+        </a>
+      </div>
+
+      <!-- 1-Click Card On-Ramp Fallback -->
+      <div>
+        <a id="trCardBtn" href="#" target="_blank" rel="noopener noreferrer" class="flex items-center justify-center gap-2 w-full rounded-2xl bg-[#191b1e] hover:bg-[#212629] border border-[#293034] text-[#f0f0f0] font-medium py-3 px-4 text-sm transition cursor-pointer">
+          <span>Pay with Visa / Mastercard / Apple Pay (<span id="trUsdAmount">$199</span>)</span>
+        </a>
+        <p class="text-[11px] text-center text-[#878d8f] mt-1.5">Direct instant card checkout (no crypto wallet required).</p>
+      </div>
+
+      <!-- Scannable QR Code + 1-Click Copy Badge -->
+      <div class="rounded-2xl bg-[#0a0b0c] border border-[#212629] p-3.5 flex items-center gap-3.5 flex-wrap sm:flex-nowrap">
+        <img src="https://api.qrserver.com/v1/create-qr-code/?size=144x144&amp;margin=4&amp;data=0x57A817bd5D42F14325eE4ec7B67F69D5f884758B" alt="RedotPay BEP20 QR Code" width="108" height="108" class="rounded-xl bg-white p-1.5 flex-shrink-0" />
+        <div class="flex-1 min-w-[180px] space-y-2">
+          <div class="text-xs text-[#a1a4a5]">Scan QR on mobile (Binance, Bybit, TrustWallet) or copy BEP20 address:</div>
+          <div class="flex items-center gap-2">
+            <code id="trUsdtAddr" class="flex-1 text-[11px] font-mono bg-[#141517] border border-[#212629] px-2.5 py-1.5 rounded-lg text-[#f0f0f0] break-all">0x57A817bd5D42F14325eE4ec7B67F69D5f884758B</code>
+            <button type="button" onclick="navigator.clipboard.writeText(document.getElementById('trUsdtAddr').innerText);this.innerText='Copied!';setTimeout(()=>this.innerText='Copy',1800);" class="rounded-lg bg-[#191b1e] hover:bg-[#212629] border border-[#293034] text-xs font-medium text-[#f0f0f0] px-2.5 py-1.5 cursor-pointer flex-shrink-0">Copy</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Discreet Manual TxHash Accordion -->
+      <details class="rounded-2xl bg-[#0a0b0c] border border-[#212629] p-3.5">
+        <summary class="text-xs text-[#a1a4a5] hover:text-[#f0f0f0] cursor-pointer select-none">Already sent from an exchange? Paste TxHash</summary>
+        <div class="mt-3 flex flex-col sm:flex-row gap-2">
+          <input id="trTxHash" type="text" placeholder="Paste BEP20 TxHash (0x...)" class="flex-1 rounded-xl bg-[#141517] border border-[#212629] px-3 py-2 text-xs font-mono text-[#f0f0f0] placeholder-[#52595b] focus:outline-none focus:border-[#3b4345]" />
+          <button type="button" onclick="window.verifyManualWidgetTx()" class="rounded-xl bg-white hover:bg-white/90 text-black font-semibold text-xs px-4 py-2 cursor-pointer whitespace-nowrap">Verify TxHash</button>
+        </div>
+        <div id="trManualStatus" class="text-xs text-rose-400 mt-2 hidden"></div>
+      </details>
 
       <!-- Real-Time Auto-Verification Status Banner -->
       <div class="rounded-2xl bg-[#0a0b0c] border border-[#212629] p-3.5 flex items-center gap-3">
@@ -300,7 +329,19 @@
       const exactAmount = (d.usdt_exact ? Number(d.usdt_exact).toFixed(2) : d.usdt_price) + " USDT";
       document.getElementById("trUsdtAmount").innerText = exactAmount;
       document.getElementById("trUsdAmount").innerText = "$" + d.usd_price;
-      const cardUrl = d.card_checkout_url || d.onramp_url || ("https://changenow.io/exchange?from=usd&to=usdtbsc&amount=" + d.usd_price + "&recipient=" + targetUsdtAddress);
+      const nowUsdEl = document.getElementById("trNowUsd");
+      if (nowUsdEl) nowUsdEl.innerText = "$" + d.usd_price;
+      const addrEl = document.getElementById("trUsdtAddr");
+      if (addrEl && targetUsdtAddress) addrEl.innerText = targetUsdtAddress;
+      const nowWrap = document.getElementById("trNowWrap");
+      const nowBtn = document.getElementById("trNowBtn");
+      if (d.nowpayments_url && nowWrap && nowBtn) {
+        nowBtn.href = d.nowpayments_url;
+        nowWrap.classList.remove("hidden");
+      } else if (nowWrap) {
+        nowWrap.classList.add("hidden");
+      }
+      const cardUrl = d.onramp_url || d.card_checkout_url || ("https://changenow.io/exchange?from=usd&to=usdtbsc&amount=" + d.usd_price + "&recipient=" + targetUsdtAddress);
       document.getElementById("trCardBtn").href = cardUrl;
       document.getElementById("triageStep1").classList.add("hidden");
       document.getElementById("triageStep2").classList.remove("hidden");
@@ -392,11 +433,18 @@
       statusEl.innerText = "Transaction sent: " + txHash.slice(0, 10) + "... Auto-verifying in background...";
 
       try {
-        await fetch(API + "/api/verify-payment", {
+        const vr = await fetch(API + "/api/verify-usdt", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ session_id: currentSessionId, tx_hash: txHash })
         });
+        const vd = await vr.json();
+        if (vd.ok && vd.patch_md) {
+          if (window.triagePollTimer) clearInterval(window.triagePollTimer);
+          document.getElementById("trPatchOutput").innerText = vd.patch_md;
+          document.getElementById("triageStep2").classList.add("hidden");
+          document.getElementById("triageStep3").classList.remove("hidden");
+        }
       } catch (_) {}
 
     } catch (err) {
@@ -404,6 +452,34 @@
       statusEl.innerText = err.message || "Payment cancelled";
     } finally {
       btn.disabled = false;
+    }
+  };
+
+  window.verifyManualWidgetTx = async function() {
+    const txHash = (document.getElementById("trTxHash").value || "").trim();
+    const st = document.getElementById("trManualStatus");
+    st.classList.remove("hidden");
+    st.className = "text-xs text-[#00d294] mt-2";
+    st.innerText = "Verifying BEP20 TxHash on-chain...";
+    try {
+      const r = await fetch(API + "/api/verify-usdt", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ session_id: currentSessionId, tx_hash: txHash })
+      });
+      const d = await r.json();
+      if (d.ok && d.patch_md) {
+        if (window.triagePollTimer) clearInterval(window.triagePollTimer);
+        document.getElementById("trPatchOutput").innerText = d.patch_md;
+        document.getElementById("triageStep2").classList.add("hidden");
+        document.getElementById("triageStep3").classList.remove("hidden");
+      } else {
+        st.className = "text-xs text-rose-400 mt-2";
+        st.innerText = d.error || "Verification failed";
+      }
+    } catch (_) {
+      st.className = "text-xs text-rose-400 mt-2";
+      st.innerText = "Network error verifying transaction";
     }
   };
 })();
