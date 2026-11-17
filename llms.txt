@@ -8,7 +8,8 @@
 - GitHub Profile: https://github.com/grinem
 - Launch Instant Async Production Fix (< 6h, Zero Calls): https://n8n-production-incident-fixes.pages.dev/#triage
 
-## Documented Production Incidents (85)
+## Documented Production Incidents (86)
+- [Automation Engine] Let out-of-tree vector backends declare their retrieval methods: https://n8n-production-incident-fixes.pages.dev/cases/let-out-of-tree-vector-backends-declare-their-retrieval-methods.html - Root Cause: This is clean and keeps out-of-tree providers completely decoupled without introducing any regressions for native stores.
 - [n8n] [Microsoft SharePoint Node] Creating or updating list items with Multi-Choice columns fails with 500 Internal Server Error: https://n8n-production-incident-fixes.pages.dev/cases/creating-or-updating-list-items-with-multi-choice-columns-fails-w.html - Root Cause: Graph API's OData parser throws a generic 500 whenever multi-choice collection fields lack explicit OData annotations or receive plain strings instead of arrays.
 - [Make.com] Google sheets "Search rows" return 0 bundles when matching phone number from Twilio Webhook (causing A0:ZZ0 error in Update a Row): https://n8n-production-incident-fixes.pages.dev/cases/google-sheets-search-rows-return-0-bundles-when-matching-phone-nu.html - Root Cause: Yes, that's exactly what's happening. When you write digits without a `+` into Google Sheets with default formatting, Sheets automatically casts the cell to a Number, while `Tex...
 - [n8n] Microsoft OAuth2 credential never refreshes when the API returns 403 on an expired token (Power BI): https://n8n-production-incident-fixes.pages.dev/cases/microsoft-oauth2-credential-never-refreshes-when-the-api-returns.html - Root Cause: Spot on. For a PR, since Graph and Flow APIs return 401 while Power BI returns 403, hardcoding 403 as a default on `microsoftOAuth2Api` would break the former unless `resolveTok...

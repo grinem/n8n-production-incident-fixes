@@ -13,9 +13,9 @@ title: "Production Incident Fixes & Post-Mortem Knowledge Base"
 
 
 ### 📊 Real-Time Operations Telemetry
-- **Total Production Incidents Documented**: `85`
+- **Total Production Incidents Documented**: `86`
 - **Active Incident Resolvers**: Automated Production Radar + Lead SRE Engineer
-- **Breakdown by Platform**: **n8n**: 43 | **Make.com**: 19 | **Automation Engine**: 11 | **Activepieces**: 4 | **Bubble.io**: 4 | **Baserow**: 2 | **Meta / Webhooks**: 2
+- **Breakdown by Platform**: **n8n**: 43 | **Make.com**: 19 | **Automation Engine**: 12 | **Activepieces**: 4 | **Bubble.io**: 4 | **Baserow**: 2 | **Meta / Webhooks**: 2
 - **Average Diagnosis & Root-Cause Pinpoint**: `< 15 Minutes`
 
 ---
@@ -24,6 +24,7 @@ title: "Production Incident Fixes & Post-Mortem Knowledge Base"
 
 | Ecosystem | Incident Summary | Root Cause Snapshot | Severity | Resolution Guide |
 |:----------|:-----------------|:--------------------|:--------:|:----------------:|
+| **Automation Engine** | [Let out-of-tree vector backends declare their retrieval methods](cases/let-out-of-tree-vector-backends-declare-their-retrieval-methods.html) | This is clean and keeps out-of-tree providers completely decoupled without introducing any regressions for native stores. | 🟠 `HIGH` | [**View Solution →**](cases/let-out-of-tree-vector-backends-declare-their-retrieval-methods.html) |
 | **n8n** | [[Microsoft SharePoint Node] Creating or updating list items with Multi-Choice columns fails with 500 Internal Server Error](cases/creating-or-updating-list-items-with-multi-choice-columns-fails-w.html) | Graph API's OData parser throws a generic 500 whenever multi-choice collection fields lack explicit OData annotations or receive plain strings instead of arrays. | 🔴 `CRITICAL` | [**View Solution →**](cases/creating-or-updating-list-items-with-multi-choice-columns-fails-w.html) |
 | **Make.com** | [Google sheets "Search rows" return 0 bundles when matching phone number from Twilio Webhook (causing A0:ZZ0 error in Update a Row)](cases/google-sheets-search-rows-return-0-bundles-when-matching-phone-nu.html) | Yes, that's exactly what's happening. When you write digits without a `+` into Google Sheets with default formatting, Sheets automatically casts the cell to a Number, while `Tex... | 🟠 `HIGH` | [**View Solution →**](cases/google-sheets-search-rows-return-0-bundles-when-matching-phone-nu.html) |
 | **n8n** | [Microsoft OAuth2 credential never refreshes when the API returns 403 on an expired token (Power BI)](cases/microsoft-oauth2-credential-never-refreshes-when-the-api-returns.html) | Spot on. For a PR, since Graph and Flow APIs return 401 while Power BI returns 403, hardcoding 403 as a default on `microsoftOAuth2Api` would break the former unless `resolveTok... | 🟠 `HIGH` | [**View Solution →**](cases/microsoft-oauth2-credential-never-refreshes-when-the-api-returns.html) |
