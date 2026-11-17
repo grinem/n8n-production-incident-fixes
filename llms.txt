@@ -8,7 +8,8 @@
 - GitHub Profile: https://github.com/grinem
 - Launch Instant Async Production Fix (< 6h, Zero Calls): https://n8n-production-incident-fixes.pages.dev/#triage
 
-## Documented Production Incidents (106)
+## Documented Production Incidents (107)
+- [Make.com] Need help finishing final set up fase: https://n8n-production-incident-fixes.pages.dev/cases/need-help-finishing-final-set-up-fase.html - Root Cause: If you're stuck inside a template setup wizard, click the **X** in the top-right corner of the pop-up (or Skip) to get back to the main scenario canvas and layout editor.
 - [Meta / Webhooks] Plugin backwards invocation for knowledge base operations (documents, metadata, pipeline runs): https://n8n-production-incident-fixes.pages.dev/cases/plugin-backwards-invocation-for-knowledge-base-operations-documen.html - Root Cause: This is indeed a missing piece in the plugin architecture. Right now, backward invocation routes via `dify-plugin-daemon` directly to `core` through `inner_api` endpoints, but d...
 - [Make.com] [Feature]: Make Scopes optional on the HTTP (OAuth2) connection: https://n8n-production-incident-fixes.pages.dev/cases/make-scopes-optional-on-the-http-oauth2-connection.html - Root Cause: Makes total sense—RFC 6749 treats `scope` as optional, and providers like SAP strictly reject empty `scope=` query params or body fields.
 - [Activepieces] [BUG]: ConnectUC integration - persistent "Error loading domains" failure.: https://n8n-production-incident-fixes.pages.dev/cases/connectuc-integration-persistent-error-loading-domains-failure.html - Root Cause: Client Case Study (User) If you open browser DevTools (Network tab) and trigger the dropdown, what HTTP status code and body come back on the POST to `/api/v1/pieces/options`?
