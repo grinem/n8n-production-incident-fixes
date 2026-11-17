@@ -7,6 +7,18 @@
     <priority>1.0</priority>
   </url>
   <url>
+    <loc>https://n8n-production-incident-fixes.pages.dev/cases/agents-omit-http-status-from-mcp-warnings-and-tool-errors.html</loc>
+    <lastmod>2026-11-17</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://n8n-production-incident-fixes.pages.dev/cases/xls-extractor-emits-unescaped-double-quotes-in-column-headers.html</loc>
+    <lastmod>2026-11-17</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://n8n-production-incident-fixes.pages.dev/cases/mcp-client-nodes-omit-the-http-status-from-transport-errors.html</loc>
     <lastmod>2026-11-17</lastmod>
     <changefreq>weekly</changefreq>

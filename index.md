@@ -13,9 +13,9 @@ title: "Production Incident Fixes & Post-Mortem Knowledge Base"
 
 
 ### 📊 Real-Time Operations Telemetry
-- **Total Production Incidents Documented**: `89`
+- **Total Production Incidents Documented**: `91`
 - **Active Incident Resolvers**: Automated Production Radar + Lead SRE Engineer
-- **Breakdown by Platform**: **n8n**: 44 | **Make.com**: 19 | **Automation Engine**: 14 | **Activepieces**: 4 | **Bubble.io**: 4 | **Baserow**: 2 | **Meta / Webhooks**: 2
+- **Breakdown by Platform**: **n8n**: 45 | **Make.com**: 19 | **Automation Engine**: 15 | **Activepieces**: 4 | **Bubble.io**: 4 | **Baserow**: 2 | **Meta / Webhooks**: 2
 - **Average Diagnosis & Root-Cause Pinpoint**: `< 15 Minutes`
 
 ---
@@ -24,6 +24,8 @@ title: "Production Incident Fixes & Post-Mortem Knowledge Base"
 
 | Ecosystem | Incident Summary | Root Cause Snapshot | Severity | Resolution Guide |
 |:----------|:-----------------|:--------------------|:--------:|:----------------:|
+| **n8n** | [Agents omit HTTP status from MCP warnings and tool errors](cases/agents-omit-http-status-from-mcp-warnings-and-tool-errors.html) | Confirmed on master. The transport error preserves `code`/`status`, but stringifying via `error.message` drops it before reaching `getConnectionFailures()` and `ToolCallRunner`. | 🟠 `HIGH` | [**View Solution →**](cases/agents-omit-http-status-from-mcp-warnings-and-tool-errors.html) |
+| **Automation Engine** | [[Bug]: .xls extractor emits unescaped double quotes in column headers](cases/xls-extractor-emits-unescaped-double-quotes-in-column-headers.html) | Confirmed, nice catch. The `.xls` path reads via `pandas` and dumps column names directly into the string template without escaping quotes like `_find_header_and_columns()` does... | 🟡 `MEDIUM` | [**View Solution →**](cases/xls-extractor-emits-unescaped-double-quotes-in-column-headers.html) |
 | **n8n** | [MCP Client nodes omit the HTTP status from transport errors](cases/mcp-client-nodes-omit-the-http-status-from-transport-errors.html) | Solid repro fixture Client Case Study (User). | 🔴 `CRITICAL` | [**View Solution →**](cases/mcp-client-nodes-omit-the-http-status-from-transport-errors.html) |
 | **Automation Engine** | [Chatflow Human Input form submission returns 404 "Form not found" in webapp: BACKSTAGE access token issued to the webapp surface on 1.19.0](cases/chatflow-human-input-form-submission-returns-404-form-not-found-i.html) | Spot on analysis. PR #44864 refactored the delivery domain and dropped the caller surface context introduced in #37556, so the SSE stream defaults to emitting the `BACKSTAGE` re... | 🟠 `HIGH` | [**View Solution →**](cases/chatflow-human-input-form-submission-returns-404-form-not-found-i.html) |
 | **Automation Engine** | [Chatflow Human Input form submission returns 404 "Form not found" in webapp: BACKSTAGE access token issued to the webapp surface on 1.19.0](cases/chatflow-human-input-form-submission-returns-404-form-not-found-i-github.html) | Confirmed, this is definitely a regression from #44864. The event streamer serializes the recipient tokens into the SSE payload without scoping to the caller surface, falling ba... | 🟡 `MEDIUM` | [**View Solution →**](cases/chatflow-human-input-form-submission-returns-404-form-not-found-i-github.html) |
