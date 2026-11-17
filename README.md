@@ -1,7 +1,7 @@
 # 🛠️ n8n & Low-Code Production Incident Fixes (Live Knowledge Base)
 
 [![GitHub Pages](https://img.shields.io/badge/GitHub%20Pages-Live%20Showcase-brightgreen?style=flat-square&logo=github)](https://grinem.github.io/n8n-production-incident-fixes/)
-[![Incidents Resolved](https://img.shields.io/badge/Incidents%20Resolved-88%20Verified-blue?style=flat-square)](cases/)
+[![Incidents Resolved](https://img.shields.io/badge/Incidents%20Resolved-89%20Verified-blue?style=flat-square)](cases/)
 [![Emergency SLA](https://img.shields.io/badge/Incident%20SLA-%3C%206%20Hours-orange?style=flat-square)](https://n8n-production-incident-fixes.pages.dev/#triage)
 [![Async Triage](https://img.shields.io/badge/Async%20Triage-Zero%20Calls-success?style=flat-square)](https://n8n-production-incident-fixes.pages.dev/#triage)
 
@@ -38,10 +38,11 @@ All incident post-mortems in this repository are autonomously generated and sync
 
 ---
 
-## 📚 Documented Production Incidents (88)
+## 📚 Documented Production Incidents (89)
 
 | Ecosystem | Incident Case Study | Root Cause Snapshot | Severity | Solution Link |
 |:----------|:--------------------|:--------------------|:--------:|:-------------:|
+| **n8n** | [MCP Client nodes omit the HTTP status from transport errors](cases/mcp-client-nodes-omit-the-http-status-from-transport-errors.md) | Solid repro fixture Client Case Study (User). | 🔴 `CRITICAL` | [**Solution**](cases/mcp-client-nodes-omit-the-http-status-from-transport-errors.md) |
 | **Automation Engine** | [Chatflow Human Input form submission returns 404 "Form not found" in webapp: BACKSTAGE access token issued to the webapp surface on 1.19.0](cases/chatflow-human-input-form-submission-returns-404-form-not-found-i.md) | Spot on analysis. PR #44864 refactored the delivery domain and dropped the caller surface context introduced in #37556, so the SSE stream defaults to emitting the `BACKSTAGE` re... | 🟠 `HIGH` | [**Solution**](cases/chatflow-human-input-form-submission-returns-404-form-not-found-i.md) |
 | **Automation Engine** | [Chatflow Human Input form submission returns 404 "Form not found" in webapp: BACKSTAGE access token issued to the webapp surface on 1.19.0](cases/chatflow-human-input-form-submission-returns-404-form-not-found-i-github.md) | Confirmed, this is definitely a regression from #44864. The event streamer serializes the recipient tokens into the SSE payload without scoping to the caller surface, falling ba... | 🟡 `MEDIUM` | [**Solution**](cases/chatflow-human-input-form-submission-returns-404-form-not-found-i-github.md) |
 | **Automation Engine** | [Let out-of-tree vector backends declare their retrieval methods](cases/let-out-of-tree-vector-backends-declare-their-retrieval-methods.md) | This is clean and keeps out-of-tree providers completely decoupled without introducing any regressions for native stores. | 🟠 `HIGH` | [**Solution**](cases/let-out-of-tree-vector-backends-declare-their-retrieval-methods.md) |

@@ -7,6 +7,12 @@
     <priority>1.0</priority>
   </url>
   <url>
+    <loc>https://n8n-production-incident-fixes.pages.dev/cases/mcp-client-nodes-omit-the-http-status-from-transport-errors.html</loc>
+    <lastmod>2026-11-17</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://n8n-production-incident-fixes.pages.dev/cases/chatflow-human-input-form-submission-returns-404-form-not-found-i.html</loc>
     <lastmod>2026-11-17</lastmod>
     <changefreq>weekly</changefreq>
