@@ -13,9 +13,9 @@ title: "Production Incident Fixes & Post-Mortem Knowledge Base"
 
 
 ### 📊 Real-Time Operations Telemetry
-- **Total Production Incidents Documented**: `96`
+- **Total Production Incidents Documented**: `97`
 - **Active Incident Resolvers**: Automated Production Radar + Lead SRE Engineer
-- **Breakdown by Platform**: **n8n**: 47 | **Make.com**: 20 | **Automation Engine**: 17 | **Activepieces**: 4 | **Bubble.io**: 4 | **Baserow**: 2 | **Meta / Webhooks**: 2
+- **Breakdown by Platform**: **n8n**: 48 | **Make.com**: 20 | **Automation Engine**: 17 | **Activepieces**: 4 | **Bubble.io**: 4 | **Baserow**: 2 | **Meta / Webhooks**: 2
 - **Average Diagnosis & Root-Cause Pinpoint**: `< 15 Minutes`
 
 ---
@@ -24,6 +24,7 @@ title: "Production Incident Fixes & Post-Mortem Knowledge Base"
 
 | Ecosystem | Incident Summary | Root Cause Snapshot | Severity | Resolution Guide |
 |:----------|:-----------------|:--------------------|:--------:|:----------------:|
+| **n8n** | [Problem in node ‘Read Main Offers ' The service refused the connection - perhaps it is offline](cases/problem-in-node-read-main-offers-the-service-refused-the-connecti.html) | If this is a Google Sheets node, an `ECONNREFUSED` to an external Google API usually points to an outbound network routing issue on self-hosted instances. | 🟡 `MEDIUM` | [**View Solution →**](cases/problem-in-node-read-main-offers-the-service-refused-the-connecti.html) |
 | **n8n** | [n8n whatsapp trigger issue](cases/n8n-whatsapp-trigger-issue.html) | Check your Meta Developer Portal first—you almost certainly have the `messages` webhook subscribed in two places: once under **WhatsApp > Configuration** and again under the mai... | 🟡 `MEDIUM` | [**View Solution →**](cases/n8n-whatsapp-trigger-issue.html) |
 | **n8n** | [Task request cut short by shutdown is reported as a runner timeout](cases/task-request-cut-short-by-shutdown-is-reported-as-a-runner-timeou.html) | PRs with regression tests are definitely welcome for this! | 🟡 `MEDIUM` | [**View Solution →**](cases/task-request-cut-short-by-shutdown-is-reported-as-a-runner-timeou.html) |
 | **Make.com** | [Zero runs isn’t an error How do you catch an automation that just stops getting triggered?](cases/zero-runs-isn-t-an-error-how-do-you-catch-an-automation-that-just.html) | The standard fix for this is a dead man's switch (e.g. Healthchecks[.]io or Better Stack). Put an HTTP module at the end of your scenario that pings a check URL on successful SF... | 🟠 `HIGH` | [**View Solution →**](cases/zero-runs-isn-t-an-error-how-do-you-catch-an-automation-that-just.html) |

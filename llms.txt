@@ -8,7 +8,8 @@
 - GitHub Profile: https://github.com/grinem
 - Launch Instant Async Production Fix (< 6h, Zero Calls): https://n8n-production-incident-fixes.pages.dev/#triage
 
-## Documented Production Incidents (96)
+## Documented Production Incidents (97)
+- [n8n] Problem in node ‘Read Main Offers ' The service refused the connection - perhaps it is offline: https://n8n-production-incident-fixes.pages.dev/cases/problem-in-node-read-main-offers-the-service-refused-the-connecti.html - Root Cause: If this is a Google Sheets node, an `ECONNREFUSED` to an external Google API usually points to an outbound network routing issue on self-hosted instances.
 - [n8n] n8n whatsapp trigger issue: https://n8n-production-incident-fixes.pages.dev/cases/n8n-whatsapp-trigger-issue.html - Root Cause: Check your Meta Developer Portal first—you almost certainly have the `messages` webhook subscribed in two places: once under **WhatsApp > Configuration** and again under the mai...
 - [n8n] Task request cut short by shutdown is reported as a runner timeout: https://n8n-production-incident-fixes.pages.dev/cases/task-request-cut-short-by-shutdown-is-reported-as-a-runner-timeou.html - Root Cause: PRs with regression tests are definitely welcome for this!
 - [Make.com] Zero runs isn’t an error How do you catch an automation that just stops getting triggered?: https://n8n-production-incident-fixes.pages.dev/cases/zero-runs-isn-t-an-error-how-do-you-catch-an-automation-that-just.html - Root Cause: The standard fix for this is a dead man's switch (e.g. Healthchecks[.]io or Better Stack). Put an HTTP module at the end of your scenario that pings a check URL on successful SF...
