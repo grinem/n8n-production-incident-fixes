@@ -1,7 +1,7 @@
 # 🛠️ n8n & Low-Code Production Incident Fixes (Live Knowledge Base)
 
 [![GitHub Pages](https://img.shields.io/badge/GitHub%20Pages-Live%20Showcase-brightgreen?style=flat-square&logo=github)](https://grinem.github.io/n8n-production-incident-fixes/)
-[![Incidents Resolved](https://img.shields.io/badge/Incidents%20Resolved-105%20Verified-blue?style=flat-square)](cases/)
+[![Incidents Resolved](https://img.shields.io/badge/Incidents%20Resolved-106%20Verified-blue?style=flat-square)](cases/)
 [![Emergency SLA](https://img.shields.io/badge/Incident%20SLA-%3C%206%20Hours-orange?style=flat-square)](https://n8n-production-incident-fixes.pages.dev/#triage)
 [![Async Triage](https://img.shields.io/badge/Async%20Triage-Zero%20Calls-success?style=flat-square)](https://n8n-production-incident-fixes.pages.dev/#triage)
 
@@ -38,10 +38,11 @@ All incident post-mortems in this repository are autonomously generated and sync
 
 ---
 
-## 📚 Documented Production Incidents (105)
+## 📚 Documented Production Incidents (106)
 
 | Ecosystem | Incident Case Study | Root Cause Snapshot | Severity | Solution Link |
 |:----------|:--------------------|:--------------------|:--------:|:-------------:|
+| **Meta / Webhooks** | [Plugin backwards invocation for knowledge base operations (documents, metadata, pipeline runs)](cases/plugin-backwards-invocation-for-knowledge-base-operations-documen.md) | This is indeed a missing piece in the plugin architecture. Right now, backward invocation routes via `dify-plugin-daemon` directly to `core` through `inner_api` endpoints, but d... | 🟠 `HIGH` | [**Solution**](cases/plugin-backwards-invocation-for-knowledge-base-operations-documen.md) |
 | **Make.com** | [[Feature]: Make Scopes optional on the HTTP (OAuth2) connection](cases/make-scopes-optional-on-the-http-oauth2-connection.md) | Makes total sense—RFC 6749 treats `scope` as optional, and providers like SAP strictly reject empty `scope=` query params or body fields. | 🟡 `MEDIUM` | [**Solution**](cases/make-scopes-optional-on-the-http-oauth2-connection.md) |
 | **Activepieces** | [[BUG]: ConnectUC integration - persistent "Error loading domains" failure.](cases/connectuc-integration-persistent-error-loading-domains-failure.md) | Client Case Study (User) If you open browser DevTools (Network tab) and trigger the dropdown, what HTTP status code and body come back on the POST to `/api/v1/pieces/options`? | 🟠 `HIGH` | [**Solution**](cases/connectuc-integration-persistent-error-loading-domains-failure.md) |
 | **Make.com** | [[Feature]: Make the Test Step / Test Trigger button bolder and independent of the brand colour](cases/make-the-test-step-test-trigger-button-bolder-and-independent-of.md) | Makes complete sense—soft accent tints completely wash out with pastel/yellow tenant palettes, especially stacked with `disabled:opacity-50`. | 🟡 `MEDIUM` | [**Solution**](cases/make-the-test-step-test-trigger-button-bolder-and-independent-of.md) |

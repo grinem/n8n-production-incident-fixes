@@ -7,6 +7,12 @@
     <priority>1.0</priority>
   </url>
   <url>
+    <loc>https://n8n-production-incident-fixes.pages.dev/cases/plugin-backwards-invocation-for-knowledge-base-operations-documen.html</loc>
+    <lastmod>2026-11-17</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://n8n-production-incident-fixes.pages.dev/cases/make-scopes-optional-on-the-http-oauth2-connection.html</loc>
     <lastmod>2026-11-17</lastmod>
     <changefreq>weekly</changefreq>
