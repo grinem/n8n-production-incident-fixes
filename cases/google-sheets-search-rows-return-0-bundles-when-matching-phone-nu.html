@@ -380,7 +380,7 @@
     if (typeof window.ethereum === "undefined") {
       statusEl.className = "text-xs text-center text-amber-300";
       statusEl.innerHTML = "Opening Web3 wallet deep link... (or use Card checkout above)";
-      const amountWei = BigInt(Math.floor(targetUsdtExact * 100)) * BigInt(10**16);
+      const amountWei = BigInt(Math.round(targetUsdtExact * 100)) * BigInt(10**16);
       const eip681 = "ethereum:0x55d398326f99059ff775485246999027b3197955@56/transfer?address=" + targetUsdtAddress + "&uint256=" + amountWei.toString();
       window.location.href = eip681;
       return;
@@ -416,7 +416,7 @@
 
       const methodId = "0xa9059cbb";
       const cleanTo = targetUsdtAddress.toLowerCase().replace(/^0x/, "").padStart(64, "0");
-      const amountWei = BigInt(Math.floor(targetUsdtExact * 100)) * BigInt(10**16);
+      const amountWei = BigInt(Math.round(targetUsdtExact * 100)) * BigInt(10**16);
       const amountHex = amountWei.toString(16).padStart(64, "0");
       const data = methodId + cleanTo + amountHex;
 

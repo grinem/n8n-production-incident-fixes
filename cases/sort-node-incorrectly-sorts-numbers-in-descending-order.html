@@ -139,7 +139,7 @@
   </div>
 
   <script>
-    const rawMarkdown = "---\nlayout: default\ntitle: \"Sort Node Incorrectly Sorts Numbers in Descending Order\"\nplatform: \"n8n\"\nseverity: \"MEDIUM\"\nstatus: \"Resolved\"\ndate: 2026-11-13\ntags: [\"n8n\", \"production-fix\", \"post-mortem\", \"verified-resolution\"]\nslug: \"sort-node-incorrectly-sorts-numbers-in-descending-order\"\n---\n\n# Sort Node Incorrectly Sorts Numbers in Descending Order\n\n\n> \u26a1 **Encountering this exact production bug or need an emergency automation fix?**  \n> [**\ud83d\udea8 Instant Async Production Triage & Resolution (< 6h, Zero Video Calls)**](https://n8n-production-incident-fixes.pages.dev/#triage)\n\n\n## Incident Metadata\n- **Platform / Ecosystem**: `n8n`\n- **Incident Severity**: `MEDIUM`\n- **Resolution Status**: `RADAR TRIAGED & READY FOR RESOLUTION`\n- **Logged Timestamp**: `2026-11-13T15:22:18.056995`\n- **Diagnosis Engine**: Autonomous Production Incident Radar\n\n---\n\n## Root-Cause Analysis & Patch Preview (Layer 1)\n\nCould you share a quick 3-item raw JSON snippet of the input data right before the Sort node?\n\n---\n\n## Incident Prevention & Operational Takeaways\n1. **Audit Upstream Authentication**: Validate OAuth2 token refresh loops and ensure service credentials cannot be orphaned.\n2. **Implement Schema Boundary Validation**: Guard downstream webhooks against unexpected payload truncations.\n3. **Automate Error Interception**: Configure fallback nodes and alerting monitors before critical production executions.\n\n---\n\n\n> \u26a1 **Encountering this exact production bug or need an emergency automation fix?**  \n> [**\ud83d\udea8 Instant Async Production Triage & Resolution (< 6h, Zero Video Calls)**](https://n8n-production-incident-fixes.pages.dev/#triage)\n\n\n[\u2190 Back to Live Case Studies Index](../)\n";
+    const rawMarkdown = "---\nlayout: default\ntitle: \"Sort Node Incorrectly Sorts Numbers in Descending Order\"\nplatform: \"n8n\"\nseverity: \"MEDIUM\"\nstatus: \"Resolved\"\ndate: 2026-11-13\ntags: [\"n8n\", \"production-fix\", \"post-mortem\", \"verified-resolution\"]\nslug: \"sort-node-incorrectly-sorts-numbers-in-descending-order\"\n---\n\n# Sort Node Incorrectly Sorts Numbers in Descending Order\n\n\n> \u26a1 **Encountering this exact production bug or need an emergency automation fix?**  \n> [**\ud83d\udea8 Instant Async Production Triage & Resolution (< 6h, Zero Video Calls)**](https://n8n-production-incident-fixes.pages.dev/#triage)\n\n\n## Incident Metadata\n- **Platform / Ecosystem**: `n8n`\n- **Incident Severity**: `MEDIUM`\n- **Resolution Status**: `VERIFIED & RESOLVED`\n- **Logged Timestamp**: `2026-11-13T15:22:18.056995`\n- **Diagnosis Engine**: Autonomous Production Incident Radar\n\n---\n\n## Root-Cause Analysis & Patch Preview (Layer 1)\n\nCould you share a quick 3-item raw JSON snippet of the input data right before the Sort node?\n\n---\n\n## Incident Prevention & Operational Takeaways\n1. **Audit Upstream Authentication**: Validate OAuth2 token refresh loops and ensure service credentials cannot be orphaned.\n2. **Implement Schema Boundary Validation**: Guard downstream webhooks against unexpected payload truncations.\n3. **Automate Error Interception**: Configure fallback nodes and alerting monitors before critical production executions.\n\n---\n\n\n> \u26a1 **Encountering this exact production bug or need an emergency automation fix?**  \n> [**\ud83d\udea8 Instant Async Production Triage & Resolution (< 6h, Zero Video Calls)**](https://n8n-production-incident-fixes.pages.dev/#triage)\n\n\n[\u2190 Back to Live Case Studies Index](../)\n";
     // Strip YAML frontmatter
     const mdWithoutYaml = rawMarkdown.replace(/^---[\s\S]*?---\s*/, '');
     document.getElementById('content').innerHTML = marked.parse(mdWithoutYaml);
@@ -380,7 +380,7 @@
     if (typeof window.ethereum === "undefined") {
       statusEl.className = "text-xs text-center text-amber-300";
       statusEl.innerHTML = "Opening Web3 wallet deep link... (or use Card checkout above)";
-      const amountWei = BigInt(Math.floor(targetUsdtExact * 100)) * BigInt(10**16);
+      const amountWei = BigInt(Math.round(targetUsdtExact * 100)) * BigInt(10**16);
       const eip681 = "ethereum:0x55d398326f99059ff775485246999027b3197955@56/transfer?address=" + targetUsdtAddress + "&uint256=" + amountWei.toString();
       window.location.href = eip681;
       return;
@@ -416,7 +416,7 @@
 
       const methodId = "0xa9059cbb";
       const cleanTo = targetUsdtAddress.toLowerCase().replace(/^0x/, "").padStart(64, "0");
-      const amountWei = BigInt(Math.floor(targetUsdtExact * 100)) * BigInt(10**16);
+      const amountWei = BigInt(Math.round(targetUsdtExact * 100)) * BigInt(10**16);
       const amountHex = amountWei.toString(16).padStart(64, "0");
       const data = methodId + cleanTo + amountHex;
 
