@@ -1,7 +1,7 @@
 # 🛠️ n8n & Low-Code Production Incident Fixes (Live Knowledge Base)
 
 [![GitHub Pages](https://img.shields.io/badge/GitHub%20Pages-Live%20Showcase-brightgreen?style=flat-square&logo=github)](https://grinem.github.io/n8n-production-incident-fixes/)
-[![Incidents Resolved](https://img.shields.io/badge/Incidents%20Resolved-95%20Verified-blue?style=flat-square)](cases/)
+[![Incidents Resolved](https://img.shields.io/badge/Incidents%20Resolved-96%20Verified-blue?style=flat-square)](cases/)
 [![Emergency SLA](https://img.shields.io/badge/Incident%20SLA-%3C%206%20Hours-orange?style=flat-square)](https://n8n-production-incident-fixes.pages.dev/#triage)
 [![Async Triage](https://img.shields.io/badge/Async%20Triage-Zero%20Calls-success?style=flat-square)](https://n8n-production-incident-fixes.pages.dev/#triage)
 
@@ -38,10 +38,11 @@ All incident post-mortems in this repository are autonomously generated and sync
 
 ---
 
-## 📚 Documented Production Incidents (95)
+## 📚 Documented Production Incidents (96)
 
 | Ecosystem | Incident Case Study | Root Cause Snapshot | Severity | Solution Link |
 |:----------|:--------------------|:--------------------|:--------:|:-------------:|
+| **n8n** | [n8n whatsapp trigger issue](cases/n8n-whatsapp-trigger-issue.md) | Check your Meta Developer Portal first—you almost certainly have the `messages` webhook subscribed in two places: once under **WhatsApp > Configuration** and again under the mai... | 🟡 `MEDIUM` | [**Solution**](cases/n8n-whatsapp-trigger-issue.md) |
 | **n8n** | [Task request cut short by shutdown is reported as a runner timeout](cases/task-request-cut-short-by-shutdown-is-reported-as-a-runner-timeou.md) | PRs with regression tests are definitely welcome for this! | 🟡 `MEDIUM` | [**Solution**](cases/task-request-cut-short-by-shutdown-is-reported-as-a-runner-timeou.md) |
 | **Make.com** | [Zero runs isn’t an error How do you catch an automation that just stops getting triggered?](cases/zero-runs-isn-t-an-error-how-do-you-catch-an-automation-that-just.md) | The standard fix for this is a dead man's switch (e.g. Healthchecks[.]io or Better Stack). Put an HTTP module at the end of your scenario that pings a check URL on successful SF... | 🟠 `HIGH` | [**Solution**](cases/zero-runs-isn-t-an-error-how-do-you-catch-an-automation-that-just.md) |
 | **Automation Engine** | [Bug: Loop node run fails with "loop_variables.N.value Field required" after changing a loop variable's type/mode](cases/bug-loop-node-run-fails-with-loop-variables-n-value-field-require.md) | Client Case Study (User) Until the patch lands, an immediate workaround is to type a temporary dummy value (e.g. `0` or `""`) into the loop variable input field and re-save | 🔴 `CRITICAL` | [**Solution**](cases/bug-loop-node-run-fails-with-loop-variables-n-value-field-require.md) |

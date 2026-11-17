@@ -13,9 +13,9 @@ title: "Production Incident Fixes & Post-Mortem Knowledge Base"
 
 
 ### 📊 Real-Time Operations Telemetry
-- **Total Production Incidents Documented**: `95`
+- **Total Production Incidents Documented**: `96`
 - **Active Incident Resolvers**: Automated Production Radar + Lead SRE Engineer
-- **Breakdown by Platform**: **n8n**: 46 | **Make.com**: 20 | **Automation Engine**: 17 | **Activepieces**: 4 | **Bubble.io**: 4 | **Baserow**: 2 | **Meta / Webhooks**: 2
+- **Breakdown by Platform**: **n8n**: 47 | **Make.com**: 20 | **Automation Engine**: 17 | **Activepieces**: 4 | **Bubble.io**: 4 | **Baserow**: 2 | **Meta / Webhooks**: 2
 - **Average Diagnosis & Root-Cause Pinpoint**: `< 15 Minutes`
 
 ---
@@ -24,6 +24,7 @@ title: "Production Incident Fixes & Post-Mortem Knowledge Base"
 
 | Ecosystem | Incident Summary | Root Cause Snapshot | Severity | Resolution Guide |
 |:----------|:-----------------|:--------------------|:--------:|:----------------:|
+| **n8n** | [n8n whatsapp trigger issue](cases/n8n-whatsapp-trigger-issue.html) | Check your Meta Developer Portal first—you almost certainly have the `messages` webhook subscribed in two places: once under **WhatsApp > Configuration** and again under the mai... | 🟡 `MEDIUM` | [**View Solution →**](cases/n8n-whatsapp-trigger-issue.html) |
 | **n8n** | [Task request cut short by shutdown is reported as a runner timeout](cases/task-request-cut-short-by-shutdown-is-reported-as-a-runner-timeou.html) | PRs with regression tests are definitely welcome for this! | 🟡 `MEDIUM` | [**View Solution →**](cases/task-request-cut-short-by-shutdown-is-reported-as-a-runner-timeou.html) |
 | **Make.com** | [Zero runs isn’t an error How do you catch an automation that just stops getting triggered?](cases/zero-runs-isn-t-an-error-how-do-you-catch-an-automation-that-just.html) | The standard fix for this is a dead man's switch (e.g. Healthchecks[.]io or Better Stack). Put an HTTP module at the end of your scenario that pings a check URL on successful SF... | 🟠 `HIGH` | [**View Solution →**](cases/zero-runs-isn-t-an-error-how-do-you-catch-an-automation-that-just.html) |
 | **Automation Engine** | [Bug: Loop node run fails with "loop_variables.N.value Field required" after changing a loop variable's type/mode](cases/bug-loop-node-run-fails-with-loop-variables-n-value-field-require.html) | Client Case Study (User) Until the patch lands, an immediate workaround is to type a temporary dummy value (e.g. `0` or `""`) into the loop variable input field and re-save | 🔴 `CRITICAL` | [**View Solution →**](cases/bug-loop-node-run-fails-with-loop-variables-n-value-field-require.html) |
