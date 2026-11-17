@@ -322,11 +322,21 @@
         }
         const rep = d.audit_report || {};
         document.getElementById('auditStatusMsg').innerText = d.message || 'Silent-Failure Audit Report sent to your inbox — backup preview below:';
-        const lines = [];
-        if (rep.summary) lines.push('Summary: ' + rep.summary);
-        if (Array.isArray(rep.findings) && rep.findings.length) lines.push('\nFindings:\n- ' + rep.findings.join('\n- '));
-        if (Array.isArray(rep.recommendations) && rep.recommendations.length) lines.push('\nRecommendations:\n- ' + rep.recommendations.join('\n- '));
-        document.getElementById('auditReportOut').innerText = lines.join('\n') || JSON.stringify(rep, null, 2);
+        if (rep.report_markdown) {
+          document.getElementById('auditReportOut').innerText = rep.report_markdown;
+        } else {
+          const lines = [];
+          if (rep.summary) lines.push('Summary: ' + rep.summary);
+          if (Array.isArray(rep.findings) && rep.findings.length) {
+            lines.push('\nFindings:');
+            rep.findings.forEach(function(f) {
+              if (typeof f === 'string') lines.push('- ' + f);
+              else if (f && typeof f === 'object') lines.push('- [' + (f.severity || 'INFO') + '] ' + (f.node || '') + ': ' + (f.detail || '') + (f.fix ? ' -> Fix: ' + f.fix : ''));
+            });
+          }
+          if (Array.isArray(rep.recommendations) && rep.recommendations.length) lines.push('\nRecommendations:\n- ' + rep.recommendations.join('\n- '));
+          document.getElementById('auditReportOut').innerText = lines.join('\n') || JSON.stringify(rep, null, 2);
+        }
         box.classList.remove('hidden');
       } catch (e) {
         errEl.innerText = e.message || 'Network error while running audit.';
