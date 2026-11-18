@@ -1,7 +1,7 @@
 # 🛠️ n8n & Low-Code Production Incident Fixes (Live Knowledge Base)
 
 [![GitHub Pages](https://img.shields.io/badge/GitHub%20Pages-Live%20Showcase-brightgreen?style=flat-square&logo=github)](https://grinem.github.io/n8n-production-incident-fixes/)
-[![Incidents Resolved](https://img.shields.io/badge/Incidents%20Resolved-117%20Verified-blue?style=flat-square)](cases/)
+[![Incidents Resolved](https://img.shields.io/badge/Incidents%20Resolved-120%20Verified-blue?style=flat-square)](cases/)
 [![Emergency SLA](https://img.shields.io/badge/Incident%20SLA-%3C%206%20Hours-orange?style=flat-square)](https://n8n-production-incident-fixes.pages.dev/#triage)
 [![Async Triage](https://img.shields.io/badge/Async%20Triage-Zero%20Calls-success?style=flat-square)](https://n8n-production-incident-fixes.pages.dev/#triage)
 
@@ -38,10 +38,13 @@ All incident post-mortems in this repository are autonomously generated and sync
 
 ---
 
-## 📚 Documented Production Incidents (117)
+## 📚 Documented Production Incidents (120)
 
 | Ecosystem | Incident Case Study | Root Cause Snapshot | Severity | Solution Link |
 |:----------|:--------------------|:--------------------|:--------:|:-------------:|
+| **n8n** | [N8n AI Agent + Gemini OpenAI-compatible API: 400 Bad Request when executing Gmail tools](cases/n8n-ai-agent-gemini-openai-compatible-api-400-bad-request-when-ex.md) | two things are tripping this up: | 🟡 `MEDIUM` | [**Solution**](cases/n8n-ai-agent-gemini-openai-compatible-api-400-bad-request-when-ex.md) |
+| **n8n** | [N8n Cloud Form Trigger – Submission Fails Despite Authentication Set to None](cases/n8n-cloud-form-trigger-submission-fails-despite-authentication-se.md) | One common culprit when the editor stays stuck in "Listening" is an ad blocker (uBlock, AdGuard) or Brave Shields blocking the client-side background POST call to `/form-test/` ... | 🔴 `CRITICAL` | [**Solution**](cases/n8n-cloud-form-trigger-submission-fails-despite-authentication-se.md) |
+| **n8n** | [Self-conflicting webhook path after Unpublish: cannot republish same workflow (self-hosted CE)](cases/self-conflicting-webhook-path-after-unpublish-cannot-republish-sa.md) | Client Case Study (User) First, verify there isn't a second Webhook node on the canvas sharing `POST` and `m-workflows/book-slot` (even if inactive or disabled), as the publish ... | 🟡 `MEDIUM` | [**Solution**](cases/self-conflicting-webhook-path-after-unpublish-cannot-republish-sa.md) |
 | **Automation Engine** | [Human Input v2 creates nodes with empty notification subject and body](cases/human-input-v2-creates-nodes-with-empty-notification-subject-and.md) | Nice catch. The catalog factory (`useWorkflowNodeCatalog` / node creation handler) is constructing the initial node data from the static blueprint rather than merging `nodesDefa... | 🟡 `MEDIUM` | [**Solution**](cases/human-input-v2-creates-nodes-with-empty-notification-subject-and.md) |
 | **Activepieces** | [[BUG] ConnectUC dropdowns hide upstream API errors, and auth validation checks the wrong host](cases/connectuc-dropdowns-hide-upstream-api-errors-and-auth-validation.md) | Spot on breakdown. | 🟠 `HIGH` | [**Solution**](cases/connectuc-dropdowns-hide-upstream-api-errors-and-auth-validation.md) |
 | **n8n** | [How Do You Prevent Duplicate API Operations When Workflows Retry Failed Requests?](cases/how-do-you-prevent-duplicate-api-operations-when-workflows-retry.md) | For non-idempotent endpoints, treat a socket timeout as an unknown state rather than a failure. Never turn on built-in "Retry on Fail" for blind POST requests unless you have an... | 🟠 `HIGH` | [**Solution**](cases/how-do-you-prevent-duplicate-api-operations-when-workflows-retry.md) |

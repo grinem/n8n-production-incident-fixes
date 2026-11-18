@@ -51,7 +51,7 @@
       <div class="flex items-center gap-2.5">
         <span class="h-2 w-2 rounded-full bg-[#00d294]"></span>
         <span class="text-sm font-semibold tracking-tight text-[#f0f0f0]">Production Incident Fixes</span>
-        <span class="hidden sm:inline-block text-[11px] font-mono text-[#878d8f] border border-[#212629] bg-[#141517] px-2 py-0.5 rounded-full">117 cases</span>
+        <span class="hidden sm:inline-block text-[11px] font-mono text-[#878d8f] border border-[#212629] bg-[#141517] px-2 py-0.5 rounded-full">120 cases</span>
       </div>
       <div class="flex items-center gap-4">
         <a href="https://github.com/grinem/n8n-production-incident-fixes" target="_blank" rel="noopener noreferrer" class="hidden sm:inline-flex text-xs font-medium text-[#a1a4a5] hover:text-[#f0f0f0] transition">GitHub</a>
@@ -80,7 +80,7 @@
       <!-- Key Metric Counters -->
       <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4 max-w-2xl mx-auto">
         <div class="bg-[#141517] rounded-2xl p-4 sm:p-5 border border-[#212629]">
-          <div class="text-2xl sm:text-3xl font-semibold tracking-tight text-[#f0f0f0]">117</div>
+          <div class="text-2xl sm:text-3xl font-semibold tracking-tight text-[#f0f0f0]">120</div>
           <div class="text-xs text-[#878d8f] mt-1 font-medium">Documented Fixes</div>
         </div>
         <div class="bg-[#141517] rounded-2xl p-4 sm:p-5 border border-[#212629]">
@@ -101,14 +101,14 @@
     <!-- Filter & Search Controls -->
     <div class="mb-8 flex flex-col md:flex-row items-center justify-between gap-4">
       <div class="flex flex-wrap gap-2 justify-center md:justify-start">
-        <button class="filter-btn px-3.5 py-1.5 rounded-xl text-xs font-medium bg-white text-black border border-white transition cursor-pointer" data-filter="all">All Incidents (117)</button>
+        <button class="filter-btn px-3.5 py-1.5 rounded-xl text-xs font-medium bg-white text-black border border-white transition cursor-pointer" data-filter="all">All Incidents (120)</button>
 <button class="filter-btn px-3.5 py-1.5 rounded-xl text-xs font-medium bg-[#141517] text-[#a1a4a5] hover:bg-[#191b1e] hover:text-[#f0f0f0] border border-[#212629] transition cursor-pointer" data-filter="Activepieces">Activepieces (7)</button>
 <button class="filter-btn px-3.5 py-1.5 rounded-xl text-xs font-medium bg-[#141517] text-[#a1a4a5] hover:bg-[#191b1e] hover:text-[#f0f0f0] border border-[#212629] transition cursor-pointer" data-filter="Automation Engine">Automation Engine (22)</button>
 <button class="filter-btn px-3.5 py-1.5 rounded-xl text-xs font-medium bg-[#141517] text-[#a1a4a5] hover:bg-[#191b1e] hover:text-[#f0f0f0] border border-[#212629] transition cursor-pointer" data-filter="Baserow">Baserow (2)</button>
 <button class="filter-btn px-3.5 py-1.5 rounded-xl text-xs font-medium bg-[#141517] text-[#a1a4a5] hover:bg-[#191b1e] hover:text-[#f0f0f0] border border-[#212629] transition cursor-pointer" data-filter="Bubble.io">Bubble.io (4)</button>
 <button class="filter-btn px-3.5 py-1.5 rounded-xl text-xs font-medium bg-[#141517] text-[#a1a4a5] hover:bg-[#191b1e] hover:text-[#f0f0f0] border border-[#212629] transition cursor-pointer" data-filter="Make.com">Make.com (23)</button>
 <button class="filter-btn px-3.5 py-1.5 rounded-xl text-xs font-medium bg-[#141517] text-[#a1a4a5] hover:bg-[#191b1e] hover:text-[#f0f0f0] border border-[#212629] transition cursor-pointer" data-filter="Meta / Webhooks">Meta / Webhooks (3)</button>
-<button class="filter-btn px-3.5 py-1.5 rounded-xl text-xs font-medium bg-[#141517] text-[#a1a4a5] hover:bg-[#191b1e] hover:text-[#f0f0f0] border border-[#212629] transition cursor-pointer" data-filter="n8n">n8n (56)</button>
+<button class="filter-btn px-3.5 py-1.5 rounded-xl text-xs font-medium bg-[#141517] text-[#a1a4a5] hover:bg-[#191b1e] hover:text-[#f0f0f0] border border-[#212629] transition cursor-pointer" data-filter="n8n">n8n (59)</button>
       </div>
       <div class="w-full md:w-64">
         <input id="searchInput" type="text" placeholder="Search error codes or tools..." class="w-full px-3.5 py-2 rounded-xl bg-[#141517] border border-[#212629] text-sm text-[#f0f0f0] placeholder-[#878d8f] focus:outline-none focus:border-[#3b4345] transition">
@@ -118,6 +118,72 @@
     <!-- Case Studies Cards Grid -->
     <div id="cardsGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5">
       
+        <div id="issue-n8n_329414" data-lead-id="n8n_329414" class="incident-card bg-[#141517] hover:bg-[#191b1e] rounded-2xl p-6 border border-[#212629] hover:border-[#293034] transition-colors flex flex-col justify-between" data-eco="n8n">
+          <div>
+            <div class="flex items-center justify-between gap-2 mb-3.5">
+              <span class="px-2.5 py-0.5 rounded-full text-[11px] font-mono font-medium bg-[#0a0b0c] text-[#a1a4a5] border border-[#212629]">n8n</span>
+              <span class="px-2.5 py-0.5 rounded-full text-[11px] font-mono font-medium border bg-[#191b1e] text-[#a1a4a5] border-[#212629]">MEDIUM</span>
+            </div>
+            <h3 class="text-base font-semibold tracking-tight text-[#f0f0f0] mb-2 leading-snug">
+              <a href="cases/n8n-ai-agent-gemini-openai-compatible-api-400-bad-request-when-ex.html" class="hover:text-white transition">N8n AI Agent + Gemini OpenAI-compatible API: 400 Bad Request when executing Gmail tools</a>
+            </h3>
+            <p class="text-[#878d8f] text-sm leading-relaxed mb-5 line-clamp-3">
+              <span class="font-medium text-[#a1a4a5]">Root Cause:</span> two things are tripping this up:
+            </p>
+          </div>
+          <div class="pt-4 border-t border-[#212629] flex items-center justify-between text-xs text-[#878d8f]">
+            <span class="font-mono text-[11px]">Logged: 2026-11-18</span>
+            <a href="cases/n8n-ai-agent-gemini-openai-compatible-api-400-bad-request-when-ex.html" class="text-[#f0f0f0] hover:text-white font-medium flex items-center gap-1 transition">
+              <span>View Fix</span><span>&rarr;</span>
+            </a>
+          </div>
+        </div>
+        
+
+        <div id="issue-n8n_329416" data-lead-id="n8n_329416" class="incident-card bg-[#141517] hover:bg-[#191b1e] rounded-2xl p-6 border border-[#212629] hover:border-[#293034] transition-colors flex flex-col justify-between" data-eco="n8n">
+          <div>
+            <div class="flex items-center justify-between gap-2 mb-3.5">
+              <span class="px-2.5 py-0.5 rounded-full text-[11px] font-mono font-medium bg-[#0a0b0c] text-[#a1a4a5] border border-[#212629]">n8n</span>
+              <span class="px-2.5 py-0.5 rounded-full text-[11px] font-mono font-medium border bg-[#fb2c36]/10 text-[#ff6b72] border-[#fb2c36]/25">CRITICAL</span>
+            </div>
+            <h3 class="text-base font-semibold tracking-tight text-[#f0f0f0] mb-2 leading-snug">
+              <a href="cases/n8n-cloud-form-trigger-submission-fails-despite-authentication-se.html" class="hover:text-white transition">N8n Cloud Form Trigger – Submission Fails Despite Authentication Set to None</a>
+            </h3>
+            <p class="text-[#878d8f] text-sm leading-relaxed mb-5 line-clamp-3">
+              <span class="font-medium text-[#a1a4a5]">Root Cause:</span> One common culprit when the editor stays stuck in &quot;Listening&quot; is an ad blocker (uBlock, AdGuard) or Brave Shields blocking the client-side background POST call to `/form-test/` ...
+            </p>
+          </div>
+          <div class="pt-4 border-t border-[#212629] flex items-center justify-between text-xs text-[#878d8f]">
+            <span class="font-mono text-[11px]">Logged: 2026-11-18</span>
+            <a href="cases/n8n-cloud-form-trigger-submission-fails-despite-authentication-se.html" class="text-[#f0f0f0] hover:text-white font-medium flex items-center gap-1 transition">
+              <span>View Fix</span><span>&rarr;</span>
+            </a>
+          </div>
+        </div>
+        
+
+        <div id="issue-n8n_329412" data-lead-id="n8n_329412" class="incident-card bg-[#141517] hover:bg-[#191b1e] rounded-2xl p-6 border border-[#212629] hover:border-[#293034] transition-colors flex flex-col justify-between" data-eco="n8n">
+          <div>
+            <div class="flex items-center justify-between gap-2 mb-3.5">
+              <span class="px-2.5 py-0.5 rounded-full text-[11px] font-mono font-medium bg-[#0a0b0c] text-[#a1a4a5] border border-[#212629]">n8n</span>
+              <span class="px-2.5 py-0.5 rounded-full text-[11px] font-mono font-medium border bg-[#191b1e] text-[#a1a4a5] border-[#212629]">MEDIUM</span>
+            </div>
+            <h3 class="text-base font-semibold tracking-tight text-[#f0f0f0] mb-2 leading-snug">
+              <a href="cases/self-conflicting-webhook-path-after-unpublish-cannot-republish-sa.html" class="hover:text-white transition">Self-conflicting webhook path after Unpublish: cannot republish same workflow (self-hosted CE)</a>
+            </h3>
+            <p class="text-[#878d8f] text-sm leading-relaxed mb-5 line-clamp-3">
+              <span class="font-medium text-[#a1a4a5]">Root Cause:</span> Client Case Study (User) First, verify there isn&#x27;t a second Webhook node on the canvas sharing `POST` and `m-workflows/book-slot` (even if inactive or disabled), as the publish ...
+            </p>
+          </div>
+          <div class="pt-4 border-t border-[#212629] flex items-center justify-between text-xs text-[#878d8f]">
+            <span class="font-mono text-[11px]">Logged: 2026-11-18</span>
+            <a href="cases/self-conflicting-webhook-path-after-unpublish-cannot-republish-sa.html" class="text-[#f0f0f0] hover:text-white font-medium flex items-center gap-1 transition">
+              <span>View Fix</span><span>&rarr;</span>
+            </a>
+          </div>
+        </div>
+        
+
         <div id="issue-github_langgenius_dify_46677" data-lead-id="github_langgenius_dify_46677" class="incident-card bg-[#141517] hover:bg-[#191b1e] rounded-2xl p-6 border border-[#212629] hover:border-[#293034] transition-colors flex flex-col justify-between" data-eco="Automation Engine">
           <div>
             <div class="flex items-center justify-between gap-2 mb-3.5">

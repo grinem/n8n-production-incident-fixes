@@ -7,6 +7,24 @@
     <priority>1.0</priority>
   </url>
   <url>
+    <loc>https://n8n-production-incident-fixes.pages.dev/cases/n8n-ai-agent-gemini-openai-compatible-api-400-bad-request-when-ex.html</loc>
+    <lastmod>2026-11-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://n8n-production-incident-fixes.pages.dev/cases/n8n-cloud-form-trigger-submission-fails-despite-authentication-se.html</loc>
+    <lastmod>2026-11-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://n8n-production-incident-fixes.pages.dev/cases/self-conflicting-webhook-path-after-unpublish-cannot-republish-sa.html</loc>
+    <lastmod>2026-11-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://n8n-production-incident-fixes.pages.dev/cases/human-input-v2-creates-nodes-with-empty-notification-subject-and.html</loc>
     <lastmod>2026-11-18</lastmod>
     <changefreq>weekly</changefreq>
