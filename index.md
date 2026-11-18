@@ -13,9 +13,9 @@ title: "Production Incident Fixes & Post-Mortem Knowledge Base"
 
 
 ### 📊 Real-Time Operations Telemetry
-- **Total Production Incidents Documented**: `111`
+- **Total Production Incidents Documented**: `114`
 - **Active Incident Resolvers**: Automated Production Radar + Lead SRE Engineer
-- **Breakdown by Platform**: **n8n**: 53 | **Make.com**: 23 | **Automation Engine**: 20 | **Activepieces**: 6 | **Bubble.io**: 4 | **Meta / Webhooks**: 3 | **Baserow**: 2
+- **Breakdown by Platform**: **n8n**: 55 | **Make.com**: 23 | **Automation Engine**: 21 | **Activepieces**: 6 | **Bubble.io**: 4 | **Meta / Webhooks**: 3 | **Baserow**: 2
 - **Average Diagnosis & Root-Cause Pinpoint**: `< 15 Minutes`
 
 ---
@@ -24,6 +24,9 @@ title: "Production Incident Fixes & Post-Mortem Knowledge Base"
 
 | Ecosystem | Incident Summary | Root Cause Snapshot | Severity | Resolution Guide |
 |:----------|:-----------------|:--------------------|:--------:|:----------------:|
+| **Automation Engine** | [Uploaded avatars return 404 for other users in workflow collaboration](cases/uploaded-avatars-return-404-for-other-users-in-workflow-collabora.html) | Good catch on #35771. The regression is in `AccountAvatarApi` / `AccountService`: querying `UploadFile` explicitly enforces `UploadFile.created_by == current_user.id`, which dro... | 🟡 `MEDIUM` | [**View Solution →**](cases/uploaded-avatars-return-404-for-other-users-in-workflow-collabora.html) |
+| **n8n** | [Regression in 2.46.0: $('Node').first() returns null for a node's error output in webhook executions (fixed by N8N_EXPRESSION_ENGINE=legacy)](cases/regression-in-2-46-0-node-first-returns-null-for-a-node-s-error-o.html) | The `#<Object> could not be cloned` error confirms the root cause: the v2 expression engine evaluates webhook expressions inside an isolated V8 context, and the raw `Error` inst... | 🔴 `CRITICAL` | [**View Solution →**](cases/regression-in-2-46-0-node-first-returns-null-for-a-node-s-error-o.html) |
+| **n8n** | [Regression in 2.46.0: $('Node').first() returns null for a node's error output in webhook executions (vm engine)](cases/regression-in-2-46-0-node-first-returns-null-for-a-node-s-error-o-github.html) | The `# could not be cloned` error points directly to V8 structured cloning failing when the `vm` engine serializes raw `runData` across the isolate boundary for error output bra... | 🔴 `CRITICAL` | [**View Solution →**](cases/regression-in-2-46-0-node-first-returns-null-for-a-node-s-error-o-github.html) |
 | **n8n** | [How are you guys catching "silent" n8n failures when your VPS freezes or a workflow returns 0 items?](cases/how-are-you-guys-catching-silent-n8n-failures-when-your-vps-freez.html) | Two standard patterns solve both cleanly: | 🔴 `CRITICAL` | [**View Solution →**](cases/how-are-you-guys-catching-silent-n8n-failures-when-your-vps-freez.html) |
 | **n8n** | [isEmail() returns true for strings containing an email plus extra characters](cases/isemail-returns-true-for-strings-containing-an-email-plus-extra-c.html) | Nice catch Client Case Study (User), clearly a case where sharing `EMAIL_REGEXP` with `extractEmail()` caused anchors to be omitted, and `value.includes(' ')` was just an incomp... | 🟡 `MEDIUM` | [**View Solution →**](cases/isemail-returns-true-for-strings-containing-an-email-plus-extra-c.html) |
 | **Automation Engine** | [[Bug]: unpadded base64url file references are parsed as raw record ids](cases/unpadded-base64url-file-references-are-parsed-as-raw-record-ids.html) | Good catch on `binascii.Error` getting swallowed by the `ValueError` catch block. | 🟠 `HIGH` | [**View Solution →**](cases/unpadded-base64url-file-references-are-parsed-as-raw-record-ids.html) |

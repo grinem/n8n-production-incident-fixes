@@ -1,7 +1,7 @@
 # 🛠️ n8n & Low-Code Production Incident Fixes (Live Knowledge Base)
 
 [![GitHub Pages](https://img.shields.io/badge/GitHub%20Pages-Live%20Showcase-brightgreen?style=flat-square&logo=github)](https://grinem.github.io/n8n-production-incident-fixes/)
-[![Incidents Resolved](https://img.shields.io/badge/Incidents%20Resolved-111%20Verified-blue?style=flat-square)](cases/)
+[![Incidents Resolved](https://img.shields.io/badge/Incidents%20Resolved-114%20Verified-blue?style=flat-square)](cases/)
 [![Emergency SLA](https://img.shields.io/badge/Incident%20SLA-%3C%206%20Hours-orange?style=flat-square)](https://n8n-production-incident-fixes.pages.dev/#triage)
 [![Async Triage](https://img.shields.io/badge/Async%20Triage-Zero%20Calls-success?style=flat-square)](https://n8n-production-incident-fixes.pages.dev/#triage)
 
@@ -38,10 +38,13 @@ All incident post-mortems in this repository are autonomously generated and sync
 
 ---
 
-## 📚 Documented Production Incidents (111)
+## 📚 Documented Production Incidents (114)
 
 | Ecosystem | Incident Case Study | Root Cause Snapshot | Severity | Solution Link |
 |:----------|:--------------------|:--------------------|:--------:|:-------------:|
+| **Automation Engine** | [Uploaded avatars return 404 for other users in workflow collaboration](cases/uploaded-avatars-return-404-for-other-users-in-workflow-collabora.md) | Good catch on #35771. The regression is in `AccountAvatarApi` / `AccountService`: querying `UploadFile` explicitly enforces `UploadFile.created_by == current_user.id`, which dro... | 🟡 `MEDIUM` | [**Solution**](cases/uploaded-avatars-return-404-for-other-users-in-workflow-collabora.md) |
+| **n8n** | [Regression in 2.46.0: $('Node').first() returns null for a node's error output in webhook executions (fixed by N8N_EXPRESSION_ENGINE=legacy)](cases/regression-in-2-46-0-node-first-returns-null-for-a-node-s-error-o.md) | The `#<Object> could not be cloned` error confirms the root cause: the v2 expression engine evaluates webhook expressions inside an isolated V8 context, and the raw `Error` inst... | 🔴 `CRITICAL` | [**Solution**](cases/regression-in-2-46-0-node-first-returns-null-for-a-node-s-error-o.md) |
+| **n8n** | [Regression in 2.46.0: $('Node').first() returns null for a node's error output in webhook executions (vm engine)](cases/regression-in-2-46-0-node-first-returns-null-for-a-node-s-error-o-github.md) | The `# could not be cloned` error points directly to V8 structured cloning failing when the `vm` engine serializes raw `runData` across the isolate boundary for error output bra... | 🔴 `CRITICAL` | [**Solution**](cases/regression-in-2-46-0-node-first-returns-null-for-a-node-s-error-o-github.md) |
 | **n8n** | [How are you guys catching "silent" n8n failures when your VPS freezes or a workflow returns 0 items?](cases/how-are-you-guys-catching-silent-n8n-failures-when-your-vps-freez.md) | Two standard patterns solve both cleanly: | 🔴 `CRITICAL` | [**Solution**](cases/how-are-you-guys-catching-silent-n8n-failures-when-your-vps-freez.md) |
 | **n8n** | [isEmail() returns true for strings containing an email plus extra characters](cases/isemail-returns-true-for-strings-containing-an-email-plus-extra-c.md) | Nice catch Client Case Study (User), clearly a case where sharing `EMAIL_REGEXP` with `extractEmail()` caused anchors to be omitted, and `value.includes(' ')` was just an incomp... | 🟡 `MEDIUM` | [**Solution**](cases/isemail-returns-true-for-strings-containing-an-email-plus-extra-c.md) |
 | **Automation Engine** | [[Bug]: unpadded base64url file references are parsed as raw record ids](cases/unpadded-base64url-file-references-are-parsed-as-raw-record-ids.md) | Good catch on `binascii.Error` getting swallowed by the `ValueError` catch block. | 🟠 `HIGH` | [**Solution**](cases/unpadded-base64url-file-references-are-parsed-as-raw-record-ids.md) |

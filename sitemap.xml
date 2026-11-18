@@ -7,6 +7,24 @@
     <priority>1.0</priority>
   </url>
   <url>
+    <loc>https://n8n-production-incident-fixes.pages.dev/cases/uploaded-avatars-return-404-for-other-users-in-workflow-collabora.html</loc>
+    <lastmod>2026-11-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://n8n-production-incident-fixes.pages.dev/cases/regression-in-2-46-0-node-first-returns-null-for-a-node-s-error-o.html</loc>
+    <lastmod>2026-11-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://n8n-production-incident-fixes.pages.dev/cases/regression-in-2-46-0-node-first-returns-null-for-a-node-s-error-o-github.html</loc>
+    <lastmod>2026-11-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://n8n-production-incident-fixes.pages.dev/cases/how-are-you-guys-catching-silent-n8n-failures-when-your-vps-freez.html</loc>
     <lastmod>2026-11-18</lastmod>
     <changefreq>weekly</changefreq>
