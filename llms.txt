@@ -8,7 +8,8 @@
 - GitHub Profile: https://github.com/grinem
 - Launch Instant Async Production Fix (< 6h, Zero Calls): https://n8n-production-incident-fixes.pages.dev/#triage
 
-## Documented Production Incidents (121)
+## Documented Production Incidents (122)
+- [n8n] Loop node issue: It outputs more than one item when it is done: https://n8n-production-incident-fixes.pages.dev/cases/loop-node-issue-it-outputs-more-than-one-item-when-it-is-done.html - Root Cause: The 4,272 items (16 × 267) happen because of how n8n handles incoming items and loop branches:
 - [n8n] Microsoft SQL node: \ inside [bracketed] identifier treated as unbound query parameter: https://n8n-production-incident-fixes.pages.dev/cases/microsoft-sql-node-inside-identifier-treated-as-unbound-query-par.html - Root Cause: Good catch on `bindQueryParameters` missing T-SQL bracketed identifiers.
 - [n8n] N8n AI Agent + Gemini OpenAI-compatible API: 400 Bad Request when executing Gmail tools: https://n8n-production-incident-fixes.pages.dev/cases/n8n-ai-agent-gemini-openai-compatible-api-400-bad-request-when-ex.html - Root Cause: two things are tripping this up:
 - [n8n] N8n Cloud Form Trigger – Submission Fails Despite Authentication Set to None: https://n8n-production-incident-fixes.pages.dev/cases/n8n-cloud-form-trigger-submission-fails-despite-authentication-se.html - Root Cause: One common culprit when the editor stays stuck in "Listening" is an ad blocker (uBlock, AdGuard) or Brave Shields blocking the client-side background POST call to `/form-test/` ...

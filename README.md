@@ -1,7 +1,7 @@
 # 🛠️ n8n & Low-Code Production Incident Fixes (Live Knowledge Base)
 
 [![GitHub Pages](https://img.shields.io/badge/GitHub%20Pages-Live%20Showcase-brightgreen?style=flat-square&logo=github)](https://grinem.github.io/n8n-production-incident-fixes/)
-[![Incidents Resolved](https://img.shields.io/badge/Incidents%20Resolved-121%20Verified-blue?style=flat-square)](cases/)
+[![Incidents Resolved](https://img.shields.io/badge/Incidents%20Resolved-122%20Verified-blue?style=flat-square)](cases/)
 [![Emergency SLA](https://img.shields.io/badge/Incident%20SLA-%3C%206%20Hours-orange?style=flat-square)](https://n8n-production-incident-fixes.pages.dev/#triage)
 [![Async Triage](https://img.shields.io/badge/Async%20Triage-Zero%20Calls-success?style=flat-square)](https://n8n-production-incident-fixes.pages.dev/#triage)
 
@@ -38,10 +38,11 @@ All incident post-mortems in this repository are autonomously generated and sync
 
 ---
 
-## 📚 Documented Production Incidents (121)
+## 📚 Documented Production Incidents (122)
 
 | Ecosystem | Incident Case Study | Root Cause Snapshot | Severity | Solution Link |
 |:----------|:--------------------|:--------------------|:--------:|:-------------:|
+| **n8n** | [Loop node issue: It outputs more than one item when it is done](cases/loop-node-issue-it-outputs-more-than-one-item-when-it-is-done.md) | The 4,272 items (16 × 267) happen because of how n8n handles incoming items and loop branches: | 🟡 `MEDIUM` | [**Solution**](cases/loop-node-issue-it-outputs-more-than-one-item-when-it-is-done.md) |
 | **n8n** | [Microsoft SQL node: \ inside [bracketed] identifier treated as unbound query parameter](cases/microsoft-sql-node-inside-identifier-treated-as-unbound-query-par.md) | Good catch on `bindQueryParameters` missing T-SQL bracketed identifiers. | 🟡 `MEDIUM` | [**Solution**](cases/microsoft-sql-node-inside-identifier-treated-as-unbound-query-par.md) |
 | **n8n** | [N8n AI Agent + Gemini OpenAI-compatible API: 400 Bad Request when executing Gmail tools](cases/n8n-ai-agent-gemini-openai-compatible-api-400-bad-request-when-ex.md) | two things are tripping this up: | 🟡 `MEDIUM` | [**Solution**](cases/n8n-ai-agent-gemini-openai-compatible-api-400-bad-request-when-ex.md) |
 | **n8n** | [N8n Cloud Form Trigger – Submission Fails Despite Authentication Set to None](cases/n8n-cloud-form-trigger-submission-fails-despite-authentication-se.md) | One common culprit when the editor stays stuck in "Listening" is an ad blocker (uBlock, AdGuard) or Brave Shields blocking the client-side background POST call to `/form-test/` ... | 🔴 `CRITICAL` | [**Solution**](cases/n8n-cloud-form-trigger-submission-fails-despite-authentication-se.md) |
