@@ -1,7 +1,7 @@
 # 🛠️ n8n & Low-Code Production Incident Fixes (Live Knowledge Base)
 
 [![GitHub Pages](https://img.shields.io/badge/GitHub%20Pages-Live%20Showcase-brightgreen?style=flat-square&logo=github)](https://grinem.github.io/n8n-production-incident-fixes/)
-[![Incidents Resolved](https://img.shields.io/badge/Incidents%20Resolved-109%20Verified-blue?style=flat-square)](cases/)
+[![Incidents Resolved](https://img.shields.io/badge/Incidents%20Resolved-110%20Verified-blue?style=flat-square)](cases/)
 [![Emergency SLA](https://img.shields.io/badge/Incident%20SLA-%3C%206%20Hours-orange?style=flat-square)](https://n8n-production-incident-fixes.pages.dev/#triage)
 [![Async Triage](https://img.shields.io/badge/Async%20Triage-Zero%20Calls-success?style=flat-square)](https://n8n-production-incident-fixes.pages.dev/#triage)
 
@@ -38,10 +38,11 @@ All incident post-mortems in this repository are autonomously generated and sync
 
 ---
 
-## 📚 Documented Production Incidents (109)
+## 📚 Documented Production Incidents (110)
 
 | Ecosystem | Incident Case Study | Root Cause Snapshot | Severity | Solution Link |
 |:----------|:--------------------|:--------------------|:--------:|:-------------:|
+| **n8n** | [isEmail() returns true for strings containing an email plus extra characters](cases/isemail-returns-true-for-strings-containing-an-email-plus-extra-c.md) | Nice catch Client Case Study (User), clearly a case where sharing `EMAIL_REGEXP` with `extractEmail()` caused anchors to be omitted, and `value.includes(' ')` was just an incomp... | 🟡 `MEDIUM` | [**Solution**](cases/isemail-returns-true-for-strings-containing-an-email-plus-extra-c.md) |
 | **Automation Engine** | [[Bug]: unpadded base64url file references are parsed as raw record ids](cases/unpadded-base64url-file-references-are-parsed-as-raw-record-ids.md) | Good catch on `binascii.Error` getting swallowed by the `ValueError` catch block. | 🟠 `HIGH` | [**Solution**](cases/unpadded-base64url-file-references-are-parsed-as-raw-record-ids.md) |
 | **n8n** | [Workflow aborts before the first node when safeRegex times out in internal displayOptions validation](cases/workflow-aborts-before-the-first-node-when-saferegex-times-out-in.md) | This is definitely a false-positive timeout caused by Node's `vm.runInContext` measuring wall-clock time rather than CPU time. On worker containers under burst load, CFS quota t... | 🟡 `MEDIUM` | [**Solution**](cases/workflow-aborts-before-the-first-node-when-saferegex-times-out-in.md) |
 | **Make.com** | [Need help finishing final set up fase](cases/need-help-finishing-final-set-up-fase.md) | If you're stuck inside a template setup wizard, click the **X** in the top-right corner of the pop-up (or Skip) to get back to the main scenario canvas and layout editor. | 🟠 `HIGH` | [**Solution**](cases/need-help-finishing-final-set-up-fase.md) |

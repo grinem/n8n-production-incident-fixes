@@ -13,9 +13,9 @@ title: "Production Incident Fixes & Post-Mortem Knowledge Base"
 
 
 ### 📊 Real-Time Operations Telemetry
-- **Total Production Incidents Documented**: `109`
+- **Total Production Incidents Documented**: `110`
 - **Active Incident Resolvers**: Automated Production Radar + Lead SRE Engineer
-- **Breakdown by Platform**: **n8n**: 51 | **Make.com**: 23 | **Automation Engine**: 20 | **Activepieces**: 6 | **Bubble.io**: 4 | **Meta / Webhooks**: 3 | **Baserow**: 2
+- **Breakdown by Platform**: **n8n**: 52 | **Make.com**: 23 | **Automation Engine**: 20 | **Activepieces**: 6 | **Bubble.io**: 4 | **Meta / Webhooks**: 3 | **Baserow**: 2
 - **Average Diagnosis & Root-Cause Pinpoint**: `< 15 Minutes`
 
 ---
@@ -24,6 +24,7 @@ title: "Production Incident Fixes & Post-Mortem Knowledge Base"
 
 | Ecosystem | Incident Summary | Root Cause Snapshot | Severity | Resolution Guide |
 |:----------|:-----------------|:--------------------|:--------:|:----------------:|
+| **n8n** | [isEmail() returns true for strings containing an email plus extra characters](cases/isemail-returns-true-for-strings-containing-an-email-plus-extra-c.html) | Nice catch Client Case Study (User), clearly a case where sharing `EMAIL_REGEXP` with `extractEmail()` caused anchors to be omitted, and `value.includes(' ')` was just an incomp... | 🟡 `MEDIUM` | [**View Solution →**](cases/isemail-returns-true-for-strings-containing-an-email-plus-extra-c.html) |
 | **Automation Engine** | [[Bug]: unpadded base64url file references are parsed as raw record ids](cases/unpadded-base64url-file-references-are-parsed-as-raw-record-ids.html) | Good catch on `binascii.Error` getting swallowed by the `ValueError` catch block. | 🟠 `HIGH` | [**View Solution →**](cases/unpadded-base64url-file-references-are-parsed-as-raw-record-ids.html) |
 | **n8n** | [Workflow aborts before the first node when safeRegex times out in internal displayOptions validation](cases/workflow-aborts-before-the-first-node-when-saferegex-times-out-in.html) | This is definitely a false-positive timeout caused by Node's `vm.runInContext` measuring wall-clock time rather than CPU time. On worker containers under burst load, CFS quota t... | 🟡 `MEDIUM` | [**View Solution →**](cases/workflow-aborts-before-the-first-node-when-saferegex-times-out-in.html) |
 | **Make.com** | [Need help finishing final set up fase](cases/need-help-finishing-final-set-up-fase.html) | If you're stuck inside a template setup wizard, click the **X** in the top-right corner of the pop-up (or Skip) to get back to the main scenario canvas and layout editor. | 🟠 `HIGH` | [**View Solution →**](cases/need-help-finishing-final-set-up-fase.html) |
