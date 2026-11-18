@@ -8,7 +8,8 @@
 - GitHub Profile: https://github.com/grinem
 - Launch Instant Async Production Fix (< 6h, Zero Calls): https://n8n-production-incident-fixes.pages.dev/#triage
 
-## Documented Production Incidents (124)
+## Documented Production Incidents (125)
+- [n8n] Can n8n automatically track ALL my personal LinkedIn and Reddit interactions and log them into Google Sheets?: https://n8n-production-incident-fixes.pages.dev/cases/can-n8n-automatically-track-all-my-personal-linkedin-and-reddit-i.html - Root Cause: Reddit is straightforward, but LinkedIn is where this gets messy.
 - [Automation Engine] Device authorization loses keyboard focus while Approve is pending: https://n8n-production-incident-fixes.pages.dev/cases/device-authorization-loses-keyboard-focus-while-approve-is-pendin.html - Root Cause: Makes sense—swapping native `disabled` for `aria-disabled` (or passing `focusableWhenDisabled` if you're using the base button wrapper) is definitely the right move here so the ...
 - [Make.com] IF function doesn't work in a module mapping formula: https://n8n-production-incident-fixes.pages.dev/cases/if-function-doesn-t-work-in-a-module-mapping-formula.html - Root Cause: Your webhook is passing `"CreditInvoice"` as a string rather than a native boolean. Make's `=` operator checks type strictly, so the blue boolean `true` pill will never evaluate...
 - [n8n] Loop node issue: It outputs more than one item when it is done: https://n8n-production-incident-fixes.pages.dev/cases/loop-node-issue-it-outputs-more-than-one-item-when-it-is-done.html - Root Cause: The 4,272 items (16 × 267) happen because of how n8n handles incoming items and loop branches:
