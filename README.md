@@ -1,7 +1,7 @@
 # 🛠️ n8n & Low-Code Production Incident Fixes (Live Knowledge Base)
 
 [![GitHub Pages](https://img.shields.io/badge/GitHub%20Pages-Live%20Showcase-brightgreen?style=flat-square&logo=github)](https://grinem.github.io/n8n-production-incident-fixes/)
-[![Incidents Resolved](https://img.shields.io/badge/Incidents%20Resolved-127%20Verified-blue?style=flat-square)](cases/)
+[![Incidents Resolved](https://img.shields.io/badge/Incidents%20Resolved-128%20Verified-blue?style=flat-square)](cases/)
 [![Emergency SLA](https://img.shields.io/badge/Incident%20SLA-%3C%206%20Hours-orange?style=flat-square)](https://n8n-production-incident-fixes.pages.dev/#triage)
 [![Async Triage](https://img.shields.io/badge/Async%20Triage-Zero%20Calls-success?style=flat-square)](https://n8n-production-incident-fixes.pages.dev/#triage)
 
@@ -38,10 +38,11 @@ All incident post-mortems in this repository are autonomously generated and sync
 
 ---
 
-## 📚 Documented Production Incidents (127)
+## 📚 Documented Production Incidents (128)
 
 | Ecosystem | Incident Case Study | Root Cause Snapshot | Severity | Solution Link |
 |:----------|:--------------------|:--------------------|:--------:|:-------------:|
+| **Bubble.io** | [Atomic operator to prevent DB lock issues / race conditions?](cases/atomic-operator-to-prevent-db-lock-issues-race-conditions.md) | Do not tear down your Redis setup—the Bubble AI agent completely hallucinated that. | 🟡 `MEDIUM` | [**Solution**](cases/atomic-operator-to-prevent-db-lock-issues-race-conditions.md) |
 | **n8n** | [Pushbullet file uploads resolve the binary field name from item 0 for every item](cases/pushbullet-file-uploads-resolve-the-binary-field-name-from-item-0.md) | Inside `packages/nodes-base/nodes/Pushbullet/Pushbullet.node.ts`, the parameter lookup passes hardcoded index `0`: | 🟡 `MEDIUM` | [**Solution**](cases/pushbullet-file-uploads-resolve-the-binary-field-name-from-item-0.md) |
 | **n8n** | [Reasoning_effort error with n8n Assistant and OpenAI-compatible endpoint](cases/reasoning-effort-error-with-n8n-assistant-and-openai-compatible-e.md) | Seconding Client Case Study (User)'s suggestion. n8n Assistant hardcodes requests to `/v1/chat/completions` with tool definitions attached, which Langdock rejects whenever reaso... | 🟠 `HIGH` | [**Solution**](cases/reasoning-effort-error-with-n8n-assistant-and-openai-compatible-e.md) |
 | **n8n** | [Can n8n automatically track ALL my personal LinkedIn and Reddit interactions and log them into Google Sheets?](cases/can-n8n-automatically-track-all-my-personal-linkedin-and-reddit-i.md) | Reddit is straightforward, but LinkedIn is where this gets messy. | 🟡 `MEDIUM` | [**Solution**](cases/can-n8n-automatically-track-all-my-personal-linkedin-and-reddit-i.md) |

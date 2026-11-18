@@ -9,7 +9,8 @@
 - Sitemap: https://n8n-production-incident-fixes.pages.dev/sitemap.xml
 - Maintainer GitHub Profile: https://github.com/grinem
 
-## Documented Production Incidents (127)
+## Documented Production Incidents (128)
+- [Bubble.io] Atomic operator to prevent DB lock issues / race conditions?: https://n8n-production-incident-fixes.pages.dev/cases/atomic-operator-to-prevent-db-lock-issues-race-conditions.html - Root Cause: Do not tear down your Redis setup—the Bubble AI agent completely hallucinated that.
 - [n8n] Pushbullet file uploads resolve the binary field name from item 0 for every item: https://n8n-production-incident-fixes.pages.dev/cases/pushbullet-file-uploads-resolve-the-binary-field-name-from-item-0.html - Root Cause: Inside `packages/nodes-base/nodes/Pushbullet/Pushbullet.node.ts`, the parameter lookup passes hardcoded index `0`:
 - [n8n] Reasoning_effort error with n8n Assistant and OpenAI-compatible endpoint: https://n8n-production-incident-fixes.pages.dev/cases/reasoning-effort-error-with-n8n-assistant-and-openai-compatible-e.html - Root Cause: Seconding Client Case Study (User)'s suggestion. n8n Assistant hardcodes requests to `/v1/chat/completions` with tool definitions attached, which Langdock rejects whenever reaso...
 - [n8n] Can n8n automatically track ALL my personal LinkedIn and Reddit interactions and log them into Google Sheets?: https://n8n-production-incident-fixes.pages.dev/cases/can-n8n-automatically-track-all-my-personal-linkedin-and-reddit-i.html - Root Cause: Reddit is straightforward, but LinkedIn is where this gets messy.

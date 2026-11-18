@@ -13,9 +13,9 @@ title: "Production Incident Fixes & Post-Mortem Knowledge Base"
 
 
 ### 📊 Real-Time Operations Telemetry
-- **Total Production Incidents Documented**: `127`
+- **Total Production Incidents Documented**: `128`
 - **Active Incident Resolvers**: Automated Production Radar + Lead SRE Engineer
-- **Breakdown by Platform**: **n8n**: 64 | **Make.com**: 24 | **Automation Engine**: 23 | **Activepieces**: 7 | **Bubble.io**: 4 | **Meta / Webhooks**: 3 | **Baserow**: 2
+- **Breakdown by Platform**: **n8n**: 64 | **Make.com**: 24 | **Automation Engine**: 23 | **Activepieces**: 7 | **Bubble.io**: 5 | **Meta / Webhooks**: 3 | **Baserow**: 2
 - **Average Diagnosis & Root-Cause Pinpoint**: `< 15 Minutes`
 
 ---
@@ -24,6 +24,7 @@ title: "Production Incident Fixes & Post-Mortem Knowledge Base"
 
 | Ecosystem | Incident Summary | Root Cause Snapshot | Severity | Resolution Guide |
 |:----------|:-----------------|:--------------------|:--------:|:----------------:|
+| **Bubble.io** | [Atomic operator to prevent DB lock issues / race conditions?](cases/atomic-operator-to-prevent-db-lock-issues-race-conditions.html) | Do not tear down your Redis setup—the Bubble AI agent completely hallucinated that. | 🟡 `MEDIUM` | [**View Solution →**](cases/atomic-operator-to-prevent-db-lock-issues-race-conditions.html) |
 | **n8n** | [Pushbullet file uploads resolve the binary field name from item 0 for every item](cases/pushbullet-file-uploads-resolve-the-binary-field-name-from-item-0.html) | Inside `packages/nodes-base/nodes/Pushbullet/Pushbullet.node.ts`, the parameter lookup passes hardcoded index `0`: | 🟡 `MEDIUM` | [**View Solution →**](cases/pushbullet-file-uploads-resolve-the-binary-field-name-from-item-0.html) |
 | **n8n** | [Reasoning_effort error with n8n Assistant and OpenAI-compatible endpoint](cases/reasoning-effort-error-with-n8n-assistant-and-openai-compatible-e.html) | Seconding Client Case Study (User)'s suggestion. n8n Assistant hardcodes requests to `/v1/chat/completions` with tool definitions attached, which Langdock rejects whenever reaso... | 🟠 `HIGH` | [**View Solution →**](cases/reasoning-effort-error-with-n8n-assistant-and-openai-compatible-e.html) |
 | **n8n** | [Can n8n automatically track ALL my personal LinkedIn and Reddit interactions and log them into Google Sheets?](cases/can-n8n-automatically-track-all-my-personal-linkedin-and-reddit-i.html) | Reddit is straightforward, but LinkedIn is where this gets messy. | 🟡 `MEDIUM` | [**View Solution →**](cases/can-n8n-automatically-track-all-my-personal-linkedin-and-reddit-i.html) |
