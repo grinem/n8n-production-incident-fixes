@@ -7,6 +7,12 @@
     <priority>1.0</priority>
   </url>
   <url>
+    <loc>https://n8n-production-incident-fixes.pages.dev/cases/how-are-you-guys-catching-silent-n8n-failures-when-your-vps-freez.html</loc>
+    <lastmod>2026-11-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://n8n-production-incident-fixes.pages.dev/cases/isemail-returns-true-for-strings-containing-an-email-plus-extra-c.html</loc>
     <lastmod>2026-11-18</lastmod>
     <changefreq>weekly</changefreq>

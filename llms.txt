@@ -8,7 +8,8 @@
 - GitHub Profile: https://github.com/grinem
 - Launch Instant Async Production Fix (< 6h, Zero Calls): https://n8n-production-incident-fixes.pages.dev/#triage
 
-## Documented Production Incidents (110)
+## Documented Production Incidents (111)
+- [n8n] How are you guys catching "silent" n8n failures when your VPS freezes or a workflow returns 0 items?: https://n8n-production-incident-fixes.pages.dev/cases/how-are-you-guys-catching-silent-n8n-failures-when-your-vps-freez.html - Root Cause: Two standard patterns solve both cleanly:
 - [n8n] isEmail() returns true for strings containing an email plus extra characters: https://n8n-production-incident-fixes.pages.dev/cases/isemail-returns-true-for-strings-containing-an-email-plus-extra-c.html - Root Cause: Nice catch Client Case Study (User), clearly a case where sharing `EMAIL_REGEXP` with `extractEmail()` caused anchors to be omitted, and `value.includes(' ')` was just an incomp...
 - [Automation Engine] [Bug]: unpadded base64url file references are parsed as raw record ids: https://n8n-production-incident-fixes.pages.dev/cases/unpadded-base64url-file-references-are-parsed-as-raw-record-ids.html - Root Cause: Good catch on `binascii.Error` getting swallowed by the `ValueError` catch block.
 - [n8n] Workflow aborts before the first node when safeRegex times out in internal displayOptions validation: https://n8n-production-incident-fixes.pages.dev/cases/workflow-aborts-before-the-first-node-when-saferegex-times-out-in.html - Root Cause: This is definitely a false-positive timeout caused by Node's `vm.runInContext` measuring wall-clock time rather than CPU time. On worker containers under burst load, CFS quota t...
