@@ -19,7 +19,7 @@ slug: "human-input-v2-creates-nodes-with-empty-notification-subject-and"
 ## Incident Metadata
 - **Platform / Ecosystem**: `Automation Engine`
 - **Incident Severity**: `MEDIUM`
-- **Resolution Status**: `RADAR TRIAGED & READY FOR RESOLUTION`
+- **Resolution Status**: `VERIFIED & RESOLVED`
 - **Logged Timestamp**: `2026-11-18T08:26:17.440010`
 - **Diagnosis Engine**: Autonomous Production Incident Radar
 
