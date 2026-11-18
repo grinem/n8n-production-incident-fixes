@@ -1,7 +1,7 @@
 # 🛠️ n8n & Low-Code Production Incident Fixes (Live Knowledge Base)
 
 [![GitHub Pages](https://img.shields.io/badge/GitHub%20Pages-Live%20Showcase-brightgreen?style=flat-square&logo=github)](https://grinem.github.io/n8n-production-incident-fixes/)
-[![Incidents Resolved](https://img.shields.io/badge/Incidents%20Resolved-114%20Verified-blue?style=flat-square)](cases/)
+[![Incidents Resolved](https://img.shields.io/badge/Incidents%20Resolved-117%20Verified-blue?style=flat-square)](cases/)
 [![Emergency SLA](https://img.shields.io/badge/Incident%20SLA-%3C%206%20Hours-orange?style=flat-square)](https://n8n-production-incident-fixes.pages.dev/#triage)
 [![Async Triage](https://img.shields.io/badge/Async%20Triage-Zero%20Calls-success?style=flat-square)](https://n8n-production-incident-fixes.pages.dev/#triage)
 
@@ -38,10 +38,13 @@ All incident post-mortems in this repository are autonomously generated and sync
 
 ---
 
-## 📚 Documented Production Incidents (114)
+## 📚 Documented Production Incidents (117)
 
 | Ecosystem | Incident Case Study | Root Cause Snapshot | Severity | Solution Link |
 |:----------|:--------------------|:--------------------|:--------:|:-------------:|
+| **Automation Engine** | [Human Input v2 creates nodes with empty notification subject and body](cases/human-input-v2-creates-nodes-with-empty-notification-subject-and.md) | Nice catch. The catalog factory (`useWorkflowNodeCatalog` / node creation handler) is constructing the initial node data from the static blueprint rather than merging `nodesDefa... | 🟡 `MEDIUM` | [**Solution**](cases/human-input-v2-creates-nodes-with-empty-notification-subject-and.md) |
+| **Activepieces** | [[BUG] ConnectUC dropdowns hide upstream API errors, and auth validation checks the wrong host](cases/connectuc-dropdowns-hide-upstream-api-errors-and-auth-validation.md) | Spot on breakdown. | 🟠 `HIGH` | [**Solution**](cases/connectuc-dropdowns-hide-upstream-api-errors-and-auth-validation.md) |
+| **n8n** | [How Do You Prevent Duplicate API Operations When Workflows Retry Failed Requests?](cases/how-do-you-prevent-duplicate-api-operations-when-workflows-retry.md) | For non-idempotent endpoints, treat a socket timeout as an unknown state rather than a failure. Never turn on built-in "Retry on Fail" for blind POST requests unless you have an... | 🟠 `HIGH` | [**Solution**](cases/how-do-you-prevent-duplicate-api-operations-when-workflows-retry.md) |
 | **Automation Engine** | [Uploaded avatars return 404 for other users in workflow collaboration](cases/uploaded-avatars-return-404-for-other-users-in-workflow-collabora.md) | Good catch on #35771. The regression is in `AccountAvatarApi` / `AccountService`: querying `UploadFile` explicitly enforces `UploadFile.created_by == current_user.id`, which dro... | 🟡 `MEDIUM` | [**Solution**](cases/uploaded-avatars-return-404-for-other-users-in-workflow-collabora.md) |
 | **n8n** | [Regression in 2.46.0: $('Node').first() returns null for a node's error output in webhook executions (fixed by N8N_EXPRESSION_ENGINE=legacy)](cases/regression-in-2-46-0-node-first-returns-null-for-a-node-s-error-o.md) | The `#<Object> could not be cloned` error confirms the root cause: the v2 expression engine evaluates webhook expressions inside an isolated V8 context, and the raw `Error` inst... | 🔴 `CRITICAL` | [**Solution**](cases/regression-in-2-46-0-node-first-returns-null-for-a-node-s-error-o.md) |
 | **n8n** | [Regression in 2.46.0: $('Node').first() returns null for a node's error output in webhook executions (vm engine)](cases/regression-in-2-46-0-node-first-returns-null-for-a-node-s-error-o-github.md) | The `# could not be cloned` error points directly to V8 structured cloning failing when the `vm` engine serializes raw `runData` across the isolate boundary for error output bra... | 🔴 `CRITICAL` | [**Solution**](cases/regression-in-2-46-0-node-first-returns-null-for-a-node-s-error-o-github.md) |

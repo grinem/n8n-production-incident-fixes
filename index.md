@@ -13,9 +13,9 @@ title: "Production Incident Fixes & Post-Mortem Knowledge Base"
 
 
 ### 📊 Real-Time Operations Telemetry
-- **Total Production Incidents Documented**: `114`
+- **Total Production Incidents Documented**: `117`
 - **Active Incident Resolvers**: Automated Production Radar + Lead SRE Engineer
-- **Breakdown by Platform**: **n8n**: 55 | **Make.com**: 23 | **Automation Engine**: 21 | **Activepieces**: 6 | **Bubble.io**: 4 | **Meta / Webhooks**: 3 | **Baserow**: 2
+- **Breakdown by Platform**: **n8n**: 56 | **Make.com**: 23 | **Automation Engine**: 22 | **Activepieces**: 7 | **Bubble.io**: 4 | **Meta / Webhooks**: 3 | **Baserow**: 2
 - **Average Diagnosis & Root-Cause Pinpoint**: `< 15 Minutes`
 
 ---
@@ -24,6 +24,9 @@ title: "Production Incident Fixes & Post-Mortem Knowledge Base"
 
 | Ecosystem | Incident Summary | Root Cause Snapshot | Severity | Resolution Guide |
 |:----------|:-----------------|:--------------------|:--------:|:----------------:|
+| **Automation Engine** | [Human Input v2 creates nodes with empty notification subject and body](cases/human-input-v2-creates-nodes-with-empty-notification-subject-and.html) | Nice catch. The catalog factory (`useWorkflowNodeCatalog` / node creation handler) is constructing the initial node data from the static blueprint rather than merging `nodesDefa... | 🟡 `MEDIUM` | [**View Solution →**](cases/human-input-v2-creates-nodes-with-empty-notification-subject-and.html) |
+| **Activepieces** | [[BUG] ConnectUC dropdowns hide upstream API errors, and auth validation checks the wrong host](cases/connectuc-dropdowns-hide-upstream-api-errors-and-auth-validation.html) | Spot on breakdown. | 🟠 `HIGH` | [**View Solution →**](cases/connectuc-dropdowns-hide-upstream-api-errors-and-auth-validation.html) |
+| **n8n** | [How Do You Prevent Duplicate API Operations When Workflows Retry Failed Requests?](cases/how-do-you-prevent-duplicate-api-operations-when-workflows-retry.html) | For non-idempotent endpoints, treat a socket timeout as an unknown state rather than a failure. Never turn on built-in "Retry on Fail" for blind POST requests unless you have an... | 🟠 `HIGH` | [**View Solution →**](cases/how-do-you-prevent-duplicate-api-operations-when-workflows-retry.html) |
 | **Automation Engine** | [Uploaded avatars return 404 for other users in workflow collaboration](cases/uploaded-avatars-return-404-for-other-users-in-workflow-collabora.html) | Good catch on #35771. The regression is in `AccountAvatarApi` / `AccountService`: querying `UploadFile` explicitly enforces `UploadFile.created_by == current_user.id`, which dro... | 🟡 `MEDIUM` | [**View Solution →**](cases/uploaded-avatars-return-404-for-other-users-in-workflow-collabora.html) |
 | **n8n** | [Regression in 2.46.0: $('Node').first() returns null for a node's error output in webhook executions (fixed by N8N_EXPRESSION_ENGINE=legacy)](cases/regression-in-2-46-0-node-first-returns-null-for-a-node-s-error-o.html) | The `#<Object> could not be cloned` error confirms the root cause: the v2 expression engine evaluates webhook expressions inside an isolated V8 context, and the raw `Error` inst... | 🔴 `CRITICAL` | [**View Solution →**](cases/regression-in-2-46-0-node-first-returns-null-for-a-node-s-error-o.html) |
 | **n8n** | [Regression in 2.46.0: $('Node').first() returns null for a node's error output in webhook executions (vm engine)](cases/regression-in-2-46-0-node-first-returns-null-for-a-node-s-error-o-github.html) | The `# could not be cloned` error points directly to V8 structured cloning failing when the `vm` engine serializes raw `runData` across the isolate boundary for error output bra... | 🔴 `CRITICAL` | [**View Solution →**](cases/regression-in-2-46-0-node-first-returns-null-for-a-node-s-error-o-github.html) |
