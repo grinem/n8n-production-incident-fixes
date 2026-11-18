@@ -8,7 +8,8 @@
 - GitHub Profile: https://github.com/grinem
 - Launch Instant Async Production Fix (< 6h, Zero Calls): https://n8n-production-incident-fixes.pages.dev/#triage
 
-## Documented Production Incidents (125)
+## Documented Production Incidents (126)
+- [n8n] Reasoning_effort error with n8n Assistant and OpenAI-compatible endpoint: https://n8n-production-incident-fixes.pages.dev/cases/reasoning-effort-error-with-n8n-assistant-and-openai-compatible-e.html - Root Cause: Seconding Client Case Study (User)'s suggestion. n8n Assistant hardcodes requests to `/v1/chat/completions` with tool definitions attached, which Langdock rejects whenever reaso...
 - [n8n] Can n8n automatically track ALL my personal LinkedIn and Reddit interactions and log them into Google Sheets?: https://n8n-production-incident-fixes.pages.dev/cases/can-n8n-automatically-track-all-my-personal-linkedin-and-reddit-i.html - Root Cause: Reddit is straightforward, but LinkedIn is where this gets messy.
 - [Automation Engine] Device authorization loses keyboard focus while Approve is pending: https://n8n-production-incident-fixes.pages.dev/cases/device-authorization-loses-keyboard-focus-while-approve-is-pendin.html - Root Cause: Makes sense—swapping native `disabled` for `aria-disabled` (or passing `focusableWhenDisabled` if you're using the base button wrapper) is definitely the right move here so the ...
 - [Make.com] IF function doesn't work in a module mapping formula: https://n8n-production-incident-fixes.pages.dev/cases/if-function-doesn-t-work-in-a-module-mapping-formula.html - Root Cause: Your webhook is passing `"CreditInvoice"` as a string rather than a native boolean. Make's `=` operator checks type strictly, so the blue boolean `true` pill will never evaluate...

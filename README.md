@@ -1,7 +1,7 @@
 # 🛠️ n8n & Low-Code Production Incident Fixes (Live Knowledge Base)
 
 [![GitHub Pages](https://img.shields.io/badge/GitHub%20Pages-Live%20Showcase-brightgreen?style=flat-square&logo=github)](https://grinem.github.io/n8n-production-incident-fixes/)
-[![Incidents Resolved](https://img.shields.io/badge/Incidents%20Resolved-125%20Verified-blue?style=flat-square)](cases/)
+[![Incidents Resolved](https://img.shields.io/badge/Incidents%20Resolved-126%20Verified-blue?style=flat-square)](cases/)
 [![Emergency SLA](https://img.shields.io/badge/Incident%20SLA-%3C%206%20Hours-orange?style=flat-square)](https://n8n-production-incident-fixes.pages.dev/#triage)
 [![Async Triage](https://img.shields.io/badge/Async%20Triage-Zero%20Calls-success?style=flat-square)](https://n8n-production-incident-fixes.pages.dev/#triage)
 
@@ -38,10 +38,11 @@ All incident post-mortems in this repository are autonomously generated and sync
 
 ---
 
-## 📚 Documented Production Incidents (125)
+## 📚 Documented Production Incidents (126)
 
 | Ecosystem | Incident Case Study | Root Cause Snapshot | Severity | Solution Link |
 |:----------|:--------------------|:--------------------|:--------:|:-------------:|
+| **n8n** | [Reasoning_effort error with n8n Assistant and OpenAI-compatible endpoint](cases/reasoning-effort-error-with-n8n-assistant-and-openai-compatible-e.md) | Seconding Client Case Study (User)'s suggestion. n8n Assistant hardcodes requests to `/v1/chat/completions` with tool definitions attached, which Langdock rejects whenever reaso... | 🟠 `HIGH` | [**Solution**](cases/reasoning-effort-error-with-n8n-assistant-and-openai-compatible-e.md) |
 | **n8n** | [Can n8n automatically track ALL my personal LinkedIn and Reddit interactions and log them into Google Sheets?](cases/can-n8n-automatically-track-all-my-personal-linkedin-and-reddit-i.md) | Reddit is straightforward, but LinkedIn is where this gets messy. | 🟡 `MEDIUM` | [**Solution**](cases/can-n8n-automatically-track-all-my-personal-linkedin-and-reddit-i.md) |
 | **Automation Engine** | [Device authorization loses keyboard focus while Approve is pending](cases/device-authorization-loses-keyboard-focus-while-approve-is-pendin.md) | Makes sense—swapping native `disabled` for `aria-disabled` (or passing `focusableWhenDisabled` if you're using the base button wrapper) is definitely the right move here so the ... | 🟠 `HIGH` | [**Solution**](cases/device-authorization-loses-keyboard-focus-while-approve-is-pendin.md) |
 | **Make.com** | [IF function doesn't work in a module mapping formula](cases/if-function-doesn-t-work-in-a-module-mapping-formula.md) | Your webhook is passing `"CreditInvoice"` as a string rather than a native boolean. Make's `=` operator checks type strictly, so the blue boolean `true` pill will never evaluate... | 🟡 `MEDIUM` | [**Solution**](cases/if-function-doesn-t-work-in-a-module-mapping-formula.md) |
