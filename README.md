@@ -1,7 +1,7 @@
 # 🛠️ n8n & Low-Code Production Incident Fixes (Live Knowledge Base)
 
 [![GitHub Pages](https://img.shields.io/badge/GitHub%20Pages-Live%20Showcase-brightgreen?style=flat-square&logo=github)](https://grinem.github.io/n8n-production-incident-fixes/)
-[![Incidents Resolved](https://img.shields.io/badge/Incidents%20Resolved-123%20Verified-blue?style=flat-square)](cases/)
+[![Incidents Resolved](https://img.shields.io/badge/Incidents%20Resolved-124%20Verified-blue?style=flat-square)](cases/)
 [![Emergency SLA](https://img.shields.io/badge/Incident%20SLA-%3C%206%20Hours-orange?style=flat-square)](https://n8n-production-incident-fixes.pages.dev/#triage)
 [![Async Triage](https://img.shields.io/badge/Async%20Triage-Zero%20Calls-success?style=flat-square)](https://n8n-production-incident-fixes.pages.dev/#triage)
 
@@ -38,10 +38,11 @@ All incident post-mortems in this repository are autonomously generated and sync
 
 ---
 
-## 📚 Documented Production Incidents (123)
+## 📚 Documented Production Incidents (124)
 
 | Ecosystem | Incident Case Study | Root Cause Snapshot | Severity | Solution Link |
 |:----------|:--------------------|:--------------------|:--------:|:-------------:|
+| **Automation Engine** | [Device authorization loses keyboard focus while Approve is pending](cases/device-authorization-loses-keyboard-focus-while-approve-is-pendin.md) | Makes sense—swapping native `disabled` for `aria-disabled` (or passing `focusableWhenDisabled` if you're using the base button wrapper) is definitely the right move here so the ... | 🟠 `HIGH` | [**Solution**](cases/device-authorization-loses-keyboard-focus-while-approve-is-pendin.md) |
 | **Make.com** | [IF function doesn't work in a module mapping formula](cases/if-function-doesn-t-work-in-a-module-mapping-formula.md) | Your webhook is passing `"CreditInvoice"` as a string rather than a native boolean. Make's `=` operator checks type strictly, so the blue boolean `true` pill will never evaluate... | 🟡 `MEDIUM` | [**Solution**](cases/if-function-doesn-t-work-in-a-module-mapping-formula.md) |
 | **n8n** | [Loop node issue: It outputs more than one item when it is done](cases/loop-node-issue-it-outputs-more-than-one-item-when-it-is-done.md) | The 4,272 items (16 × 267) happen because of how n8n handles incoming items and loop branches: | 🟡 `MEDIUM` | [**Solution**](cases/loop-node-issue-it-outputs-more-than-one-item-when-it-is-done.md) |
 | **n8n** | [Microsoft SQL node: \ inside [bracketed] identifier treated as unbound query parameter](cases/microsoft-sql-node-inside-identifier-treated-as-unbound-query-par.md) | Good catch on `bindQueryParameters` missing T-SQL bracketed identifiers. | 🟡 `MEDIUM` | [**Solution**](cases/microsoft-sql-node-inside-identifier-treated-as-unbound-query-par.md) |
