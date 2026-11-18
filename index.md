@@ -13,9 +13,9 @@ title: "Production Incident Fixes & Post-Mortem Knowledge Base"
 
 
 ### 📊 Real-Time Operations Telemetry
-- **Total Production Incidents Documented**: `122`
+- **Total Production Incidents Documented**: `123`
 - **Active Incident Resolvers**: Automated Production Radar + Lead SRE Engineer
-- **Breakdown by Platform**: **n8n**: 61 | **Make.com**: 23 | **Automation Engine**: 22 | **Activepieces**: 7 | **Bubble.io**: 4 | **Meta / Webhooks**: 3 | **Baserow**: 2
+- **Breakdown by Platform**: **n8n**: 61 | **Make.com**: 24 | **Automation Engine**: 22 | **Activepieces**: 7 | **Bubble.io**: 4 | **Meta / Webhooks**: 3 | **Baserow**: 2
 - **Average Diagnosis & Root-Cause Pinpoint**: `< 15 Minutes`
 
 ---
@@ -24,6 +24,7 @@ title: "Production Incident Fixes & Post-Mortem Knowledge Base"
 
 | Ecosystem | Incident Summary | Root Cause Snapshot | Severity | Resolution Guide |
 |:----------|:-----------------|:--------------------|:--------:|:----------------:|
+| **Make.com** | [IF function doesn't work in a module mapping formula](cases/if-function-doesn-t-work-in-a-module-mapping-formula.html) | Your webhook is passing `"CreditInvoice"` as a string rather than a native boolean. Make's `=` operator checks type strictly, so the blue boolean `true` pill will never evaluate... | 🟡 `MEDIUM` | [**View Solution →**](cases/if-function-doesn-t-work-in-a-module-mapping-formula.html) |
 | **n8n** | [Loop node issue: It outputs more than one item when it is done](cases/loop-node-issue-it-outputs-more-than-one-item-when-it-is-done.html) | The 4,272 items (16 × 267) happen because of how n8n handles incoming items and loop branches: | 🟡 `MEDIUM` | [**View Solution →**](cases/loop-node-issue-it-outputs-more-than-one-item-when-it-is-done.html) |
 | **n8n** | [Microsoft SQL node: \ inside [bracketed] identifier treated as unbound query parameter](cases/microsoft-sql-node-inside-identifier-treated-as-unbound-query-par.html) | Good catch on `bindQueryParameters` missing T-SQL bracketed identifiers. | 🟡 `MEDIUM` | [**View Solution →**](cases/microsoft-sql-node-inside-identifier-treated-as-unbound-query-par.html) |
 | **n8n** | [N8n AI Agent + Gemini OpenAI-compatible API: 400 Bad Request when executing Gmail tools](cases/n8n-ai-agent-gemini-openai-compatible-api-400-bad-request-when-ex.html) | two things are tripping this up: | 🟡 `MEDIUM` | [**View Solution →**](cases/n8n-ai-agent-gemini-openai-compatible-api-400-bad-request-when-ex.html) |
