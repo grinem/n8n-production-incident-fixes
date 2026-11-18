@@ -1,18 +1,19 @@
-# Production Incident Fixes — Automation & AI Workflow SRE (grinem)
+# Production Incident Fixes & n8n Watchdog — Automation SRE (grinem)
 
-> Live production post-mortems, root-cause diagnostics, and verified fixes for n8n, Dify, Flowise, Activepieces, Windmill, Trigger.dev, Make, and Webhook/Docker infrastructures.
+> Open-source Zero-Trust n8n Silent-Failure Watchdog (MIT), client-side workflow static analyzer, and verified production post-mortems for n8n, Dify, Flowise, Activepieces, Windmill, Make, and Webhook/Docker infrastructures.
 
-## Services & Emergency Support
-- Portfolio Hub: https://n8n-production-incident-fixes.pages.dev/
+## Open-Source Tools & Audit
+- n8n AI & Webhook Silent-Failure Watchdog (MIT Repo): https://github.com/grinem/n8n-ai-watchdog
+- Standalone Raw Watchdog JSON (No Email Gate): https://raw.githubusercontent.com/grinem/n8n-ai-watchdog/main/n8n-silent-failure-watchdog.json
+- Client-Side Workflow Audit & Incident Hub: https://n8n-production-incident-fixes.pages.dev/
 - Sitemap: https://n8n-production-incident-fixes.pages.dev/sitemap.xml
-- GitHub Profile: https://github.com/grinem
-- Launch Instant Async Production Fix (< 6h, Zero Calls): https://n8n-production-incident-fixes.pages.dev/#triage
+- Maintainer GitHub Profile: https://github.com/grinem
 
 ## Documented Production Incidents (127)
 - [n8n] Pushbullet file uploads resolve the binary field name from item 0 for every item: https://n8n-production-incident-fixes.pages.dev/cases/pushbullet-file-uploads-resolve-the-binary-field-name-from-item-0.html - Root Cause: Inside `packages/nodes-base/nodes/Pushbullet/Pushbullet.node.ts`, the parameter lookup passes hardcoded index `0`:
 - [n8n] Reasoning_effort error with n8n Assistant and OpenAI-compatible endpoint: https://n8n-production-incident-fixes.pages.dev/cases/reasoning-effort-error-with-n8n-assistant-and-openai-compatible-e.html - Root Cause: Seconding Client Case Study (User)'s suggestion. n8n Assistant hardcodes requests to `/v1/chat/completions` with tool definitions attached, which Langdock rejects whenever reaso...
 - [n8n] Can n8n automatically track ALL my personal LinkedIn and Reddit interactions and log them into Google Sheets?: https://n8n-production-incident-fixes.pages.dev/cases/can-n8n-automatically-track-all-my-personal-linkedin-and-reddit-i.html - Root Cause: Reddit is straightforward, but LinkedIn is where this gets messy.
-- [Automation Engine] Device authorization loses keyboard focus while Approve is pending: https://n8n-production-incident-fixes.pages.dev/cases/device-authorization-loses-keyboard-focus-while-approve-is-pendin.html - Root Cause: Makes sense—swapping native `disabled` for `aria-disabled` (or passing `focusableWhenDisabled` if you're using the base button wrapper) is definitely the right move here so the ...
+- [Automation Engine] Device authorization loses keyboard focus while Approve is pending: https://n8n-production-incident-fixes.pages.dev/cases/device-authorization-loses-keyboard-focus-while-approve-is-pendin.html - Root Cause: swapping native `disabled` for `aria-disabled` (or passing `focusableWhenDisabled` if you're using the base button wrapper) is definitely the right move here so the ...
 - [Make.com] IF function doesn't work in a module mapping formula: https://n8n-production-incident-fixes.pages.dev/cases/if-function-doesn-t-work-in-a-module-mapping-formula.html - Root Cause: Your webhook is passing `"CreditInvoice"` as a string rather than a native boolean. Make's `=` operator checks type strictly, so the blue boolean `true` pill will never evaluate...
 - [n8n] Loop node issue: It outputs more than one item when it is done: https://n8n-production-incident-fixes.pages.dev/cases/loop-node-issue-it-outputs-more-than-one-item-when-it-is-done.html - Root Cause: The 4,272 items (16 × 267) happen because of how n8n handles incoming items and loop branches:
 - [n8n] Microsoft SQL node: \ inside [bracketed] identifier treated as unbound query parameter: https://n8n-production-incident-fixes.pages.dev/cases/microsoft-sql-node-inside-identifier-treated-as-unbound-query-par.html - Root Cause: Good catch on `bindQueryParameters` missing T-SQL bracketed identifiers.

@@ -173,10 +173,19 @@
           <input id="auditEmail" type="email" required placeholder="work@company.com" class="w-full rounded-xl bg-[#0a0b0c] border border-[#212629] px-3.5 py-2.5 text-sm text-[#f0f0f0] placeholder-[#52595b] focus:outline-none focus:border-[#3b4345]" />
           <input id="auditWebsite" name="website" type="text" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;opacity:0;height:0;width:0;" />
           <textarea id="auditPayload" rows="4" required placeholder="Paste workflow JSON, webhook payload, or GitHub/docs URL..." class="w-full rounded-xl bg-[#0a0b0c] border border-[#212629] px-3.5 py-2.5 text-xs font-mono text-[#f0f0f0] placeholder-[#52595b] focus:outline-none focus:border-[#3b4345]"></textarea>
-          <button id="auditSubmitBtn" type="submit" class="inline-flex items-center justify-center px-4 py-2.5 rounded-xl bg-[#191b1e] hover:bg-[#212629] border border-[#293034] text-[#f0f0f0] font-medium text-xs transition cursor-pointer">
-            Run Silent-Failure Audit (45s) &rarr;
-          </button>
+          <div class="flex flex-wrap items-center gap-2">
+            <button type="button" onclick="window.runLocalJsonPrecheck()" class="inline-flex items-center justify-center px-4 py-2.5 rounded-xl bg-[#00d294]/15 hover:bg-[#00d294]/25 border border-[#00d294]/40 text-[#00d294] font-semibold text-xs transition cursor-pointer">
+              1. Scan Locally in Browser (0 bytes sent)
+            </button>
+            <button id="auditSubmitBtn" type="submit" class="inline-flex items-center justify-center px-4 py-2.5 rounded-xl bg-[#191b1e] hover:bg-[#212629] border border-[#293034] text-[#f0f0f0] font-medium text-xs transition cursor-pointer">
+              2. Send Full Remediation Report by Email (45s) &rarr;
+            </button>
+          </div>
         </form>
+        <div id="localPrecheckBox" class="hidden mt-3 rounded-2xl bg-[#0a0b0c] border border-[#212629] p-4 space-y-1.5 text-xs">
+          <div id="localPrecheckTitle" class="font-semibold text-[#00d294]"></div>
+          <ul id="localPrecheckList" class="list-disc pl-4 text-[#a1a4a5] space-y-1"></ul>
+        </div>
         <div id="auditErr" class="hidden text-xs text-rose-400"></div>
         <div id="auditSuccessBox" class="hidden rounded-2xl bg-[#0a0b0c] border border-[#00d294]/40 p-4 space-y-2">
           <div id="auditStatusMsg" class="text-xs font-semibold text-[#00d294]"></div>
@@ -193,8 +202,8 @@
         <p class="text-xs text-[#a1a4a5] mt-1">3-node JSON with built-in local secret scrubber (API keys/emails never leave your server). Prints root cause + private fix URL on crash.</p>
       </div>
       <div class="flex flex-wrap items-center gap-2 shrink-0">
-        <a href="https://triage.baitakstore.com/audit-api/watchdog-template.json" target="_blank" rel="noopener noreferrer" class="px-3.5 py-2 rounded-xl bg-[#191b1e] hover:bg-[#212629] border border-[#293034] text-xs font-medium text-[#f0f0f0] whitespace-nowrap">Inspect Scrubber</a>
-        <a href="https://triage.baitakstore.com/audit-api/watchdog-template.json?download=1" class="px-4 py-2 rounded-xl bg-[#00d294] hover:opacity-90 text-xs font-semibold text-black whitespace-nowrap">Download Watchdog JSON &rarr;</a>
+        <a href="https://github.com/grinem/n8n-ai-watchdog" target="_blank" rel="noopener noreferrer" class="px-3.5 py-2 rounded-xl bg-[#191b1e] hover:bg-[#212629] border border-[#293034] text-xs font-medium text-[#f0f0f0] whitespace-nowrap">Inspect MIT Repo</a>
+        <a href="https://raw.githubusercontent.com/grinem/n8n-ai-watchdog/main/n8n-silent-failure-watchdog.json" target="_blank" rel="noopener noreferrer" class="px-4 py-2 rounded-xl bg-[#00d294] hover:opacity-90 text-xs font-semibold text-black whitespace-nowrap">Get Watchdog JSON (MIT) &rarr;</a>
       </div>
     </div>
 
