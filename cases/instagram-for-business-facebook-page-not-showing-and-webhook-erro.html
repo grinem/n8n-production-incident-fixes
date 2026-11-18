@@ -6,10 +6,10 @@
   <title>Instagram for Business: Facebook Page Not Showing and Webhook Error | Production Incident Fix</title>
   <meta name="description" content="This is a well-known issue when setting up the **Instagram for Business** &quot;Watch Events&quot; webhook in Make, and it stems from two separate factors: an incomplete Graph API asset l...">
   <meta name="robots" content="index, follow">
-  <link rel="canonical" href="https://n8n-production-incident-fixes.pages.dev/cases/instagram-for-business-facebook-page-not-showing-and-webhook-erro.html">
+  <link rel="canonical" href="https://hooktriage.com/cases/instagram-for-business-facebook-page-not-showing-and-webhook-erro.html">
   <meta property="og:title" content="Instagram for Business: Facebook Page Not Showing and Webhook Error | Production Incident Fix">
   <meta property="og:description" content="This is a well-known issue when setting up the **Instagram for Business** &quot;Watch Events&quot; webhook in Make, and it stems from two separate factors: an incomplete Graph API asset l...">
-  <meta property="og:url" content="https://n8n-production-incident-fixes.pages.dev/cases/instagram-for-business-facebook-page-not-showing-and-webhook-erro.html">
+  <meta property="og:url" content="https://hooktriage.com/cases/instagram-for-business-facebook-page-not-showing-and-webhook-erro.html">
   <meta property="og:type" content="article">
   <link rel="sitemap" type="application/xml" title="Sitemap" href="/sitemap.xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -62,7 +62,7 @@
     "publisher": {
       "@type": "Organization",
       "name": "Production Incident Radar",
-      "url": "https://n8n-production-incident-fixes.pages.dev"
+      "url": "https://hooktriage.com"
     }
   }
   </script>
@@ -221,7 +221,7 @@
   </div>
 
   <script>
-    const rawMarkdown = "---\nlayout: default\ntitle: \"Instagram for Business: Facebook Page Not Showing and Webhook Error\"\nplatform: \"Make.com\"\nseverity: \"CRITICAL\"\nstatus: \"Resolved\"\ndate: 2026-11-10\ntags: [\"make\", \"critical-incident\", \"production-fix\", \"post-mortem\", \"verified-resolution\"]\nslug: \"instagram-for-business-facebook-page-not-showing-and-webhook-erro\"\n---\n\n# Instagram for Business: Facebook Page Not Showing and Webhook Error\n\n\n> \u26a1 **Encountering this exact production bug or need an emergency automation fix?**  \n> [**\ud83d\udea8 Instant Async Production Triage & Resolution (< 6h, Zero Video Calls)**](https://n8n-production-incident-fixes.pages.dev/#triage)\n\n\n## Incident Metadata\n- **Platform / Ecosystem**: `Make.com`\n- **Incident Severity**: `CRITICAL`\n- **Resolution Status**: `VERIFIED & RESOLVED`\n- **Logged Timestamp**: `2026-11-10T12:14:58.850682`\n- **Diagnosis Engine**: Autonomous Production Incident Radar\n\n---\n\n## Root-Cause Analysis & Patch Preview (Layer 1)\n\nThis is a well-known issue when setting up the **Instagram for Business** \"Watch Events\" webhook in Make, and it stems from two separate factors: an incomplete Graph API asset linkage on Meta's end, and a frontend parser requirement in Make's webhook modal.\n\n---\n\n## Incident Prevention & Operational Takeaways\n1. **Audit Upstream Authentication**: Validate OAuth2 token refresh loops and ensure service credentials cannot be orphaned.\n2. **Implement Schema Boundary Validation**: Guard downstream webhooks against unexpected payload truncations.\n3. **Automate Error Interception**: Configure fallback nodes and alerting monitors before critical production executions.\n\n---\n\n\n> \u26a1 **Encountering this exact production bug or need an emergency automation fix?**  \n> [**\ud83d\udea8 Instant Async Production Triage & Resolution (< 6h, Zero Video Calls)**](https://n8n-production-incident-fixes.pages.dev/#triage)\n\n\n[\u2190 Back to Live Case Studies Index](../)\n";
+    const rawMarkdown = "---\nlayout: default\ntitle: \"Instagram for Business: Facebook Page Not Showing and Webhook Error\"\nplatform: \"Make.com\"\nseverity: \"CRITICAL\"\nstatus: \"Resolved\"\ndate: 2026-11-10\ntags: [\"make\", \"critical-incident\", \"production-fix\", \"post-mortem\", \"verified-resolution\"]\nslug: \"instagram-for-business-facebook-page-not-showing-and-webhook-erro\"\n---\n\n# Instagram for Business: Facebook Page Not Showing and Webhook Error\n\n\n> \u26a1 **Encountering this exact production bug or need an emergency automation fix?**  \n> [**\ud83d\udea8 Instant Async Production Triage & Resolution (< 6h, Zero Video Calls)**](https://hooktriage.com/#triage)\n\n\n## Incident Metadata\n- **Platform / Ecosystem**: `Make.com`\n- **Incident Severity**: `CRITICAL`\n- **Resolution Status**: `VERIFIED & RESOLVED`\n- **Logged Timestamp**: `2026-11-10T12:14:58.850682`\n- **Diagnosis Engine**: Autonomous Production Incident Radar\n\n---\n\n## Root-Cause Analysis & Patch Preview (Layer 1)\n\nThis is a well-known issue when setting up the **Instagram for Business** \"Watch Events\" webhook in Make, and it stems from two separate factors: an incomplete Graph API asset linkage on Meta's end, and a frontend parser requirement in Make's webhook modal.\n\n---\n\n## Incident Prevention & Operational Takeaways\n1. **Audit Upstream Authentication**: Validate OAuth2 token refresh loops and ensure service credentials cannot be orphaned.\n2. **Implement Schema Boundary Validation**: Guard downstream webhooks against unexpected payload truncations.\n3. **Automate Error Interception**: Configure fallback nodes and alerting monitors before critical production executions.\n\n---\n\n\n> \u26a1 **Encountering this exact production bug or need an emergency automation fix?**  \n> [**\ud83d\udea8 Instant Async Production Triage & Resolution (< 6h, Zero Video Calls)**](https://hooktriage.com/#triage)\n\n\n[\u2190 Back to Live Case Studies Index](../)\n";
     const caseLeadId = "make_119597";
     const caseAssetTitle = "Instagram for Business: Facebook Page Not Showing and Webhook Error";
     const caseBundleMarkdown = "# Complete Production Resolution Bundle \u2014 Instagram for Business: Facebook Page Not Showing and Webhook Error\nEcosystem: Make.com | Severity: CRITICAL | Case ID: make_119597\n\n## 1. Full Importable Patch / Config Diff (with Error-Retry & Timeout Guard)\nHere is why this occurs and how to resolve it step-by-step:\n\n---\n\n### Why is this happening?\n\n1. **\"No data available\"**: To populate that dropdown, Make queries Meta\u2019s Graph API endpoint (`/me/accounts?fields=id,name,instagram_business_account`). Even if Meta Business Suite indicates your accounts are connected, the underlying Graph API frequently fails to return the `instagram_business_account` edge unless the connection was finalized at the direct Facebook Page level, or if granular permissions during the initial OAuth consent skipped that specific asset. Make automatically filters out any Facebook Page that does not return an associated Instagram Business ID, leaving your dropdown empty.\n2. **`Cannot read properties of undefined (reading 'toString')`**: When creating a webhook inside Make, the module expects an object containing both the Page ID and its associated access token to execute the Meta webhook subscription call. Enabling **Map** and passing raw text or a numeric ID bypasses Make's internal object builder, causing Make's frontend code to fail when trying to parse the expected object properties. **Do not use the Map toggle here; the Page must be selected directly from the loaded dropdown list.**\n\n---\n\n### Step-by-Step Resolution Protocol\n\n#### 1. Re-link the Instagram Account at the Page Level\nMeta Business Suite and direct Facebook Page settings often fall out of sync:\n1. Open Facebook and switch your active profile directly to your **Facebook Page**.\n2. Navigate to **Settings > Linked Accounts > Instagram**.\n3. If your account is listed, click **Disconnect Account**.\n4. Click **Connect Account** to re-link it. During the prompt, ensure the toggle **\"Allow access to Instagram messages in Inbox\"** is turned **ON** (this forces Meta to run the complete API permissions handshake).\n\n#### 2. Revoke Make\u2019s Existing Token on Facebook\nClear the cached OAuth token so Meta prompts you for full access again:\n1. Switch back to your personal Facebook profile.\n2. Go to **Settings & Privacy > Settings > Business Integrations** (direct URL: `https://www.facebook.com/settings?tab=business_tools`).\n3. Find **Make** (or Make.com), select the checkbox, and click **Remove**.\n\n#### 3. Re-authorize Make with Explicit Asset Selection\n1. Go back to your scenario in Make.\n2. In the **Watch events** module, click **Add** next to the Connection dropdown (create a brand new connection rather than re-verifying the existing one).\n3. When the Meta OAuth popup appears:\n   - Do **not** simply click \"Continue\".\n   - Click **Edit access** (or \"Edit Settings\").\n   - Ensure that your Facebook Page and your Instagram Business account are explicitly selected across all permission screens (`pages_show_list`, `instagram_basic`, `instagram_manage_comments`, `pages_read_engagement`).\n4. Complete the authorization flow.\n\n#### 4. Configure the Webhook\n1. In the module configuration, under **Webhook**, click **Add**.\n2. Verify that the **Map** toggle is turned **OFF**.\n3. Open the Page dropdown; your Facebook Page will now populate correctly alongside its connected Instagram account.\n4. Select the Page, choose the **Comments** event, and click **Save**.\n\nOnce configured, any new comment matching your criteria will trigger the webhook instantly, allowing you to pass the data to your Google Sheets module.\n\n## 2. Verification & Non-Destructive Test Checklist\n1. Validate JSON/YAML syntax and confirm no unmasked secrets remain.\n2. Confirm error-retry/backoff and timeout guards are enabled before re-activating.\n3. Run a non-destructive healthcheck / test webhook and verify HTTP 200 payload shape.\n\n## 3. Team Post-Mortem Note\nRoot Cause (Make.com / CRITICAL): This is a well-known issue when setting up the **Instagram for Business** \"Watch Events\" webhook in Make, and it stems from two separate factors: an incomplete Graph API asset l...\nOperational Guard: Audit OAuth2 token refresh loops, enforce schema boundary validation, and configure dead-letter error interception.\n";
@@ -234,7 +234,7 @@
     // Strip YAML frontmatter
     const mdWithoutYaml = rawMarkdown.replace(/^---[\s\S]*?---\s*/, '');
     document.getElementById('content').innerHTML = marked.parse(mdWithoutYaml);
-    fetch("https://triage.baitakstore.com/api/ping-visit?issue=" + encodeURIComponent(caseLeadId) + "&page=" + encodeURIComponent(location.pathname)).catch(function(){});
+    fetch("https://hooktriage.com/api/ping-visit?issue=" + encodeURIComponent(caseLeadId) + "&page=" + encodeURIComponent(location.pathname)).catch(function(){});
 
     window.openCaseTriageModal = function(tier) {
       if (typeof window.openTriageModal === 'function') {
@@ -273,12 +273,12 @@
       btn.disabled = true;
       btn.innerText = 'Sending...';
       try {
-        const r = await fetch("https://triage.baitakstore.com/funnel-api/gate", {
+        const r = await fetch("https://hooktriage.com/funnel-api/gate", {
           method: "POST",
           headers: {"Content-Type": "application/json"},
           body: JSON.stringify({
             email: email,
-            source_channel: "pages_dev",
+            source_channel: "hooktriage_web",
             asset_id: caseLeadId,
             asset_title: caseAssetTitle,
             segment: "track_a",
@@ -327,12 +327,12 @@
       btn.disabled = true;
       btn.innerText = 'Running Audit...';
       try {
-        const r = await fetch("https://triage.baitakstore.com/funnel-api/audit-workflow", {
+        const r = await fetch("https://hooktriage.com/funnel-api/audit-workflow", {
           method: "POST",
           headers: {"Content-Type": "application/json"},
           body: JSON.stringify({
             email: email,
-            source_channel: "pages_dev",
+            source_channel: "hooktriage_web",
             asset_id: caseLeadId,
             sanitized_payload: maskedPayload,
             website: (hpEl ? hpEl.value : '') || ''
@@ -489,7 +489,7 @@
 
 <script>
 (function() {
-  const API = "https://triage.baitakstore.com";
+  const API = "https://hooktriage.com";
   let currentSessionId = "";
   let targetUsdtAddress = "0x57A817bd5D42F14325eE4ec7B67F69D5f884758B";
   let targetUsdtExact = 159.20;

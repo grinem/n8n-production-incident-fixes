@@ -13,7 +13,7 @@ slug: "output-panel-copy-button-copies-for-ai-sub-nodes-memory-chat-mode"
 
 
 > ⚡ **Encountering this exact production bug or need an emergency automation fix?**  
-> [**🚨 Instant Async Production Triage & Resolution (< 6h, Zero Video Calls)**](https://n8n-production-incident-fixes.pages.dev/#triage)
+> [**🚨 Instant Async Production Triage & Resolution (< 6h, Zero Video Calls)**](https://hooktriage.com/#triage)
 
 
 ## Incident Metadata
@@ -48,7 +48,7 @@ copy(window.__pinia?.state.value?.execution?.executionData?.resultData?.runData?
 
 
 > ⚡ **Encountering this exact production bug or need an emergency automation fix?**  
-> [**🚨 Instant Async Production Triage & Resolution (< 6h, Zero Video Calls)**](https://n8n-production-incident-fixes.pages.dev/#triage)
+> [**🚨 Instant Async Production Triage & Resolution (< 6h, Zero Video Calls)**](https://hooktriage.com/#triage)
 
 
 [← Back to Live Case Studies Index](../)

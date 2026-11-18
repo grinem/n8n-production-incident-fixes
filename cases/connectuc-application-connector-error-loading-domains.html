@@ -6,10 +6,10 @@
   <title>ConnectUC application connector - Error loading domains | Production Incident Fix</title>
   <meta name="description" content="This issue occurs because Activepieces dispatches an asynchronous worker query to `/api/v1/pieces/options` whenever a piece property relies on dynamic dropdown values.">
   <meta name="robots" content="index, follow">
-  <link rel="canonical" href="https://n8n-production-incident-fixes.pages.dev/cases/connectuc-application-connector-error-loading-domains.html">
+  <link rel="canonical" href="https://hooktriage.com/cases/connectuc-application-connector-error-loading-domains.html">
   <meta property="og:title" content="ConnectUC application connector - Error loading domains | Production Incident Fix">
   <meta property="og:description" content="This issue occurs because Activepieces dispatches an asynchronous worker query to `/api/v1/pieces/options` whenever a piece property relies on dynamic dropdown values.">
-  <meta property="og:url" content="https://n8n-production-incident-fixes.pages.dev/cases/connectuc-application-connector-error-loading-domains.html">
+  <meta property="og:url" content="https://hooktriage.com/cases/connectuc-application-connector-error-loading-domains.html">
   <meta property="og:type" content="article">
   <link rel="sitemap" type="application/xml" title="Sitemap" href="/sitemap.xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -62,7 +62,7 @@
     "publisher": {
       "@type": "Organization",
       "name": "Production Incident Radar",
-      "url": "https://n8n-production-incident-fixes.pages.dev"
+      "url": "https://hooktriage.com"
     }
   }
   </script>
@@ -221,7 +221,7 @@
   </div>
 
   <script>
-    const rawMarkdown = "---\nlayout: default\ntitle: \"ConnectUC application connector - Error loading domains\"\nplatform: \"Activepieces\"\nseverity: \"CRITICAL\"\nstatus: \"Resolved\"\ndate: 2026-11-12\ntags: [\"activepieces\", \"critical-incident\", \"production-fix\", \"post-mortem\", \"verified-resolution\"]\nslug: \"connectuc-application-connector-error-loading-domains\"\n---\n\n# ConnectUC application connector - Error loading domains\n\n\n> \u26a1 **Encountering this exact production bug or need an emergency automation fix?**  \n> [**\ud83d\udea8 Instant Async Production Triage & Resolution (< 6h, Zero Video Calls)**](https://n8n-production-incident-fixes.pages.dev/#triage)\n\n\n## Incident Metadata\n- **Platform / Ecosystem**: `Activepieces`\n- **Incident Severity**: `CRITICAL`\n- **Resolution Status**: `VERIFIED & RESOLVED`\n- **Logged Timestamp**: `2026-11-12T23:40:27.396597`\n- **Diagnosis Engine**: Autonomous Production Incident Radar\n\n---\n\n## Root-Cause Analysis & Patch Preview (Layer 1)\n\nThis issue occurs because Activepieces dispatches an asynchronous worker query to `/api/v1/pieces/options` whenever a piece property relies on dynamic dropdown values.\n\nEven if your connection displays an \"Active\" badge (which simply validates that the initial API key or OAuth handshake succeeded), the dynamic options loader fails when executing the domain discovery request against the ConnectUC / SkySwitch PBX cluster.\n\nThis typically stems from one of two causes:\n1. **API Scope / Account Privilege Restriction:** The ConnectUC endpoint responsible for listing tenant domains normally requires Reseller or PBX Domain Manager permissions. If your API token was created under an individual extension or standard user seat, ConnectUC returns an HTTP 403 Forbidden payload, which the Activepieces builder translates into the generic `Error Loading Domains` message.\n2. **Dynamic Prop Schema Mismatch:** If your SkySwitch/ConnectUC instance operates on a dedicated white-label cluster or if an API response structure was recently revised, the piece parser fails to extract the dropdown array.\n\nHere is how you can resolve or work around this immediately:\n\n### Fix 1: Switch from Dropdown to Custom / Manual Input\nYou can bypass the broken options fetcher completely within the flow builder:\n1. Open your ConnectUC trigger or action card.\n2. Locate the **Domain** field.\n3. Click the dynamic input toggle icon (the `{ }` / dynamic tag button) on the right edge of the input box.\n4. This switches the input mode from an automated dynamic dropdown to manual text entry.\n5. Manually type your PBX domain name (e.g., `yourtenant[.]connectuc[.]com` or your PBX SIP domain).\n6. Test the step\u2014it will bypass the options loader and evaluate the field directly.\n\n### Fix 2: Universal Fallback via the HTTP Piece\nIf internal validation on the ConnectUC piece continues to block the step from running, you can interact with ConnectUC directly using the native **HTTP Piece** or set up real-time webhooks via a **Catch Webhook** trigger:\n\n**Patch Preview (First 3 lines of verified fix):**\n```json\n{\n  \"pieceName\": \"Client Case Study (User)/piece-http\",\n  \"actionName\": \"send_request\",\n# ... [TRUNCATED \u2014 Full production patch & verification steps locked below]\n```\n\n---\n\n## Incident Prevention & Operational Takeaways\n1. **Audit Upstream Authentication**: Validate OAuth2 token refresh loops and ensure service credentials cannot be orphaned.\n2. **Implement Schema Boundary Validation**: Guard downstream webhooks against unexpected payload truncations.\n3. **Automate Error Interception**: Configure fallback nodes and alerting monitors before critical production executions.\n\n---\n\n\n> \u26a1 **Encountering this exact production bug or need an emergency automation fix?**  \n> [**\ud83d\udea8 Instant Async Production Triage & Resolution (< 6h, Zero Video Calls)**](https://n8n-production-incident-fixes.pages.dev/#triage)\n\n\n[\u2190 Back to Live Case Studies Index](../)\n";
+    const rawMarkdown = "---\nlayout: default\ntitle: \"ConnectUC application connector - Error loading domains\"\nplatform: \"Activepieces\"\nseverity: \"CRITICAL\"\nstatus: \"Resolved\"\ndate: 2026-11-12\ntags: [\"activepieces\", \"critical-incident\", \"production-fix\", \"post-mortem\", \"verified-resolution\"]\nslug: \"connectuc-application-connector-error-loading-domains\"\n---\n\n# ConnectUC application connector - Error loading domains\n\n\n> \u26a1 **Encountering this exact production bug or need an emergency automation fix?**  \n> [**\ud83d\udea8 Instant Async Production Triage & Resolution (< 6h, Zero Video Calls)**](https://hooktriage.com/#triage)\n\n\n## Incident Metadata\n- **Platform / Ecosystem**: `Activepieces`\n- **Incident Severity**: `CRITICAL`\n- **Resolution Status**: `VERIFIED & RESOLVED`\n- **Logged Timestamp**: `2026-11-12T23:40:27.396597`\n- **Diagnosis Engine**: Autonomous Production Incident Radar\n\n---\n\n## Root-Cause Analysis & Patch Preview (Layer 1)\n\nThis issue occurs because Activepieces dispatches an asynchronous worker query to `/api/v1/pieces/options` whenever a piece property relies on dynamic dropdown values.\n\nEven if your connection displays an \"Active\" badge (which simply validates that the initial API key or OAuth handshake succeeded), the dynamic options loader fails when executing the domain discovery request against the ConnectUC / SkySwitch PBX cluster.\n\nThis typically stems from one of two causes:\n1. **API Scope / Account Privilege Restriction:** The ConnectUC endpoint responsible for listing tenant domains normally requires Reseller or PBX Domain Manager permissions. If your API token was created under an individual extension or standard user seat, ConnectUC returns an HTTP 403 Forbidden payload, which the Activepieces builder translates into the generic `Error Loading Domains` message.\n2. **Dynamic Prop Schema Mismatch:** If your SkySwitch/ConnectUC instance operates on a dedicated white-label cluster or if an API response structure was recently revised, the piece parser fails to extract the dropdown array.\n\nHere is how you can resolve or work around this immediately:\n\n### Fix 1: Switch from Dropdown to Custom / Manual Input\nYou can bypass the broken options fetcher completely within the flow builder:\n1. Open your ConnectUC trigger or action card.\n2. Locate the **Domain** field.\n3. Click the dynamic input toggle icon (the `{ }` / dynamic tag button) on the right edge of the input box.\n4. This switches the input mode from an automated dynamic dropdown to manual text entry.\n5. Manually type your PBX domain name (e.g., `yourtenant[.]connectuc[.]com` or your PBX SIP domain).\n6. Test the step\u2014it will bypass the options loader and evaluate the field directly.\n\n### Fix 2: Universal Fallback via the HTTP Piece\nIf internal validation on the ConnectUC piece continues to block the step from running, you can interact with ConnectUC directly using the native **HTTP Piece** or set up real-time webhooks via a **Catch Webhook** trigger:\n\n**Patch Preview (First 3 lines of verified fix):**\n```json\n{\n  \"pieceName\": \"Client Case Study (User)/piece-http\",\n  \"actionName\": \"send_request\",\n# ... [TRUNCATED \u2014 Full production patch & verification steps locked below]\n```\n\n---\n\n## Incident Prevention & Operational Takeaways\n1. **Audit Upstream Authentication**: Validate OAuth2 token refresh loops and ensure service credentials cannot be orphaned.\n2. **Implement Schema Boundary Validation**: Guard downstream webhooks against unexpected payload truncations.\n3. **Automate Error Interception**: Configure fallback nodes and alerting monitors before critical production executions.\n\n---\n\n\n> \u26a1 **Encountering this exact production bug or need an emergency automation fix?**  \n> [**\ud83d\udea8 Instant Async Production Triage & Resolution (< 6h, Zero Video Calls)**](https://hooktriage.com/#triage)\n\n\n[\u2190 Back to Live Case Studies Index](../)\n";
     const caseLeadId = "activepieces_12624";
     const caseAssetTitle = "ConnectUC application connector - Error loading domains";
     const caseBundleMarkdown = "# Complete Production Resolution Bundle \u2014 ConnectUC application connector - Error loading domains\nEcosystem: Activepieces | Severity: CRITICAL | Case ID: activepieces_12624\n\n## 1. Full Importable Patch / Config Diff (with Error-Retry & Timeout Guard)\n```json\n{\n  \"pieceName\": \"Client Case Study (User)/piece-http\",\n  \"actionName\": \"send_request\",\n  \"input\": {\n    \"method\": \"GET\",\n    \"url\": \"[https]://api[.]connectuc[.]com/v1/domains\",\n    \"headers\": {\n      \"Authorization\": \"Bearer {{connections['connectuc_connection'].token}}\",\n      \"Content-Type\": \"application/json\",\n      \"Accept\": \"application/json\"\n    },\n    \"queryParams\": {},\n    \"failsafe\": false\n  }\n}\n```\n\n*(Note: Replace `[https]://api[.]connectuc[.]com` with your cluster's exact API base URL and insert your bearer credentials).*\n\n### Fix 3: Validate Reseller / Domain Management Scopes\nCheck your ConnectUC / SkySwitch administrative console to confirm that the API credentials belong to an account with global domain query permissions. If you are restricted to a single sub-tenant or office group, your administrator will need to elevate the API user role to allow domain enumeration.\n\nIf you'd like, I can also share the complete JSON blueprint / flow template with you for free\u2014just let me know and I'll send it over.\n\nFeel free to paste the exact response object from your browser network tab if you inspect the `/api/v1/pieces/options` request and see a specific error code!\n\n## 2. Verification & Non-Destructive Test Checklist\n1. Validate JSON/YAML syntax and confirm no unmasked secrets remain.\n2. Confirm error-retry/backoff and timeout guards are enabled before re-activating.\n3. Run a non-destructive healthcheck / test webhook and verify HTTP 200 payload shape.\n\n## 3. Team Post-Mortem Note\nRoot Cause (Activepieces / CRITICAL): This issue occurs because Activepieces dispatches an asynchronous worker query to `/api/v1/pieces/options` whenever a piece property relies on dynamic dropdown values.\nOperational Guard: Audit OAuth2 token refresh loops, enforce schema boundary validation, and configure dead-letter error interception.\n";
@@ -234,7 +234,7 @@
     // Strip YAML frontmatter
     const mdWithoutYaml = rawMarkdown.replace(/^---[\s\S]*?---\s*/, '');
     document.getElementById('content').innerHTML = marked.parse(mdWithoutYaml);
-    fetch("https://triage.baitakstore.com/api/ping-visit?issue=" + encodeURIComponent(caseLeadId) + "&page=" + encodeURIComponent(location.pathname)).catch(function(){});
+    fetch("https://hooktriage.com/api/ping-visit?issue=" + encodeURIComponent(caseLeadId) + "&page=" + encodeURIComponent(location.pathname)).catch(function(){});
 
     window.openCaseTriageModal = function(tier) {
       if (typeof window.openTriageModal === 'function') {
@@ -273,12 +273,12 @@
       btn.disabled = true;
       btn.innerText = 'Sending...';
       try {
-        const r = await fetch("https://triage.baitakstore.com/funnel-api/gate", {
+        const r = await fetch("https://hooktriage.com/funnel-api/gate", {
           method: "POST",
           headers: {"Content-Type": "application/json"},
           body: JSON.stringify({
             email: email,
-            source_channel: "pages_dev",
+            source_channel: "hooktriage_web",
             asset_id: caseLeadId,
             asset_title: caseAssetTitle,
             segment: "track_a",
@@ -327,12 +327,12 @@
       btn.disabled = true;
       btn.innerText = 'Running Audit...';
       try {
-        const r = await fetch("https://triage.baitakstore.com/funnel-api/audit-workflow", {
+        const r = await fetch("https://hooktriage.com/funnel-api/audit-workflow", {
           method: "POST",
           headers: {"Content-Type": "application/json"},
           body: JSON.stringify({
             email: email,
-            source_channel: "pages_dev",
+            source_channel: "hooktriage_web",
             asset_id: caseLeadId,
             sanitized_payload: maskedPayload,
             website: (hpEl ? hpEl.value : '') || ''
@@ -489,7 +489,7 @@
 
 <script>
 (function() {
-  const API = "https://triage.baitakstore.com";
+  const API = "https://hooktriage.com";
   let currentSessionId = "";
   let targetUsdtAddress = "0x57A817bd5D42F14325eE4ec7B67F69D5f884758B";
   let targetUsdtExact = 159.20;

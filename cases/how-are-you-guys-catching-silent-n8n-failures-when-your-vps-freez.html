@@ -6,10 +6,10 @@
   <title>How are you guys catching &quot;silent&quot; n8n failures when your VPS freezes or a workflow returns 0 items? | Production Incident Fix</title>
   <meta name="description" content="Two standard patterns solve both cleanly:">
   <meta name="robots" content="index, follow">
-  <link rel="canonical" href="https://n8n-production-incident-fixes.pages.dev/cases/how-are-you-guys-catching-silent-n8n-failures-when-your-vps-freez.html">
+  <link rel="canonical" href="https://hooktriage.com/cases/how-are-you-guys-catching-silent-n8n-failures-when-your-vps-freez.html">
   <meta property="og:title" content="How are you guys catching &quot;silent&quot; n8n failures when your VPS freezes or a workflow returns 0 items? | Production Incident Fix">
   <meta property="og:description" content="Two standard patterns solve both cleanly:">
-  <meta property="og:url" content="https://n8n-production-incident-fixes.pages.dev/cases/how-are-you-guys-catching-silent-n8n-failures-when-your-vps-freez.html">
+  <meta property="og:url" content="https://hooktriage.com/cases/how-are-you-guys-catching-silent-n8n-failures-when-your-vps-freez.html">
   <meta property="og:type" content="article">
   <link rel="sitemap" type="application/xml" title="Sitemap" href="/sitemap.xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -62,7 +62,7 @@
     "publisher": {
       "@type": "Organization",
       "name": "Production Incident Radar",
-      "url": "https://n8n-production-incident-fixes.pages.dev"
+      "url": "https://hooktriage.com"
     }
   }
   </script>
@@ -221,7 +221,7 @@
   </div>
 
   <script>
-    const rawMarkdown = "---\nlayout: default\ntitle: \"How are you guys catching \\\"silent\\\" n8n failures when your VPS freezes or a workflow returns 0 items?\"\nplatform: \"n8n\"\nseverity: \"CRITICAL\"\nstatus: \"Resolved\"\ndate: 2026-11-18\ntags: [\"n8n\", \"critical-incident\", \"production-fix\", \"post-mortem\", \"verified-resolution\"]\nslug: \"how-are-you-guys-catching-silent-n8n-failures-when-your-vps-freez\"\n---\n\n# How are you guys catching \"silent\" n8n failures when your VPS freezes or a workflow returns 0 items?\n\n\n> \u26a1 **Encountering this exact production bug or need an emergency automation fix?**  \n> [**\ud83d\udea8 Instant Async Production Triage & Resolution (< 6h, Zero Video Calls)**](https://n8n-production-incident-fixes.pages.dev/#triage)\n\n\n## Incident Metadata\n- **Platform / Ecosystem**: `n8n`\n- **Incident Severity**: `CRITICAL`\n- **Resolution Status**: `RADAR TRIAGED & READY FOR RESOLUTION`\n- **Logged Timestamp**: `2026-11-18T07:00:45.527827`\n- **Diagnosis Engine**: Autonomous Production Incident Radar\n\n---\n\n## Root-Cause Analysis & Patch Preview (Layer 1)\n\nTwo standard patterns solve both cleanly:\n\n---\n\n## Incident Prevention & Operational Takeaways\n1. **Audit Upstream Authentication**: Validate OAuth2 token refresh loops and ensure service credentials cannot be orphaned.\n2. **Implement Schema Boundary Validation**: Guard downstream webhooks against unexpected payload truncations.\n3. **Automate Error Interception**: Configure fallback nodes and alerting monitors before critical production executions.\n\n---\n\n\n> \u26a1 **Encountering this exact production bug or need an emergency automation fix?**  \n> [**\ud83d\udea8 Instant Async Production Triage & Resolution (< 6h, Zero Video Calls)**](https://n8n-production-incident-fixes.pages.dev/#triage)\n\n\n[\u2190 Back to Live Case Studies Index](../)\n";
+    const rawMarkdown = "---\nlayout: default\ntitle: \"How are you guys catching \\\"silent\\\" n8n failures when your VPS freezes or a workflow returns 0 items?\"\nplatform: \"n8n\"\nseverity: \"CRITICAL\"\nstatus: \"Resolved\"\ndate: 2026-11-18\ntags: [\"n8n\", \"critical-incident\", \"production-fix\", \"post-mortem\", \"verified-resolution\"]\nslug: \"how-are-you-guys-catching-silent-n8n-failures-when-your-vps-freez\"\n---\n\n# How are you guys catching \"silent\" n8n failures when your VPS freezes or a workflow returns 0 items?\n\n\n> \u26a1 **Encountering this exact production bug or need an emergency automation fix?**  \n> [**\ud83d\udea8 Instant Async Production Triage & Resolution (< 6h, Zero Video Calls)**](https://hooktriage.com/#triage)\n\n\n## Incident Metadata\n- **Platform / Ecosystem**: `n8n`\n- **Incident Severity**: `CRITICAL`\n- **Resolution Status**: `RADAR TRIAGED & READY FOR RESOLUTION`\n- **Logged Timestamp**: `2026-11-18T07:00:45.527827`\n- **Diagnosis Engine**: Autonomous Production Incident Radar\n\n---\n\n## Root-Cause Analysis & Patch Preview (Layer 1)\n\nTwo standard patterns solve both cleanly:\n\n---\n\n## Incident Prevention & Operational Takeaways\n1. **Audit Upstream Authentication**: Validate OAuth2 token refresh loops and ensure service credentials cannot be orphaned.\n2. **Implement Schema Boundary Validation**: Guard downstream webhooks against unexpected payload truncations.\n3. **Automate Error Interception**: Configure fallback nodes and alerting monitors before critical production executions.\n\n---\n\n\n> \u26a1 **Encountering this exact production bug or need an emergency automation fix?**  \n> [**\ud83d\udea8 Instant Async Production Triage & Resolution (< 6h, Zero Video Calls)**](https://hooktriage.com/#triage)\n\n\n[\u2190 Back to Live Case Studies Index](../)\n";
     const caseLeadId = "reddit_1xz85a9";
     const caseAssetTitle = "How are you guys catching \"silent\" n8n failures when your VPS freezes or a workflow returns 0 items?";
     const caseBundleMarkdown = "# Complete Production Resolution Bundle \u2014 How are you guys catching \"silent\" n8n failures when your VPS freezes or a workflow returns 0 items?\nEcosystem: n8n | Severity: CRITICAL | Case ID: reddit_1xz85a9\n\n## 1. Full Importable Patch / Config Diff (with Error-Retry & Timeout Guard)\n1. **For OOM / VPS freezes:** You can't rely on n8n to report its own crash. Set up an external heartbeat monitor (like Healthchecks[.]io or Uptime Kuma) on a separate box. Ping `/healthz` for general uptime, and stick an HTTP Request node at the very end of your critical workflows hitting a dead man's switch URL with a grace period. If it hangs or OOMs mid-run, you get pinged. Also make sure you have swap enabled and set `EXECUTIONS_DATA_SAVE_ON_SUCCESS=none` to stop SQLite/Postgres bloat from choking memory.\n\n2. **For 0-item green runs:** Drop an **If** node directly after the fetch node evaluating `{{ $input.all().length > 0 }}` (or checking your specific payload array). Wire the false branch straight into a **Stop and Error** node. That forces an explicit failure state and fires your global Error Trigger workflow instead of finishing silently.\n\n## 2. Verification & Non-Destructive Test Checklist\n1. Validate JSON/YAML syntax and confirm no unmasked secrets remain.\n2. Confirm error-retry/backoff and timeout guards are enabled before re-activating.\n3. Run a non-destructive healthcheck / test webhook and verify HTTP 200 payload shape.\n\n## 3. Team Post-Mortem Note\nRoot Cause (n8n / CRITICAL): Two standard patterns solve both cleanly:\nOperational Guard: Audit OAuth2 token refresh loops, enforce schema boundary validation, and configure dead-letter error interception.\n";
@@ -234,7 +234,7 @@
     // Strip YAML frontmatter
     const mdWithoutYaml = rawMarkdown.replace(/^---[\s\S]*?---\s*/, '');
     document.getElementById('content').innerHTML = marked.parse(mdWithoutYaml);
-    fetch("https://triage.baitakstore.com/api/ping-visit?issue=" + encodeURIComponent(caseLeadId) + "&page=" + encodeURIComponent(location.pathname)).catch(function(){});
+    fetch("https://hooktriage.com/api/ping-visit?issue=" + encodeURIComponent(caseLeadId) + "&page=" + encodeURIComponent(location.pathname)).catch(function(){});
 
     window.openCaseTriageModal = function(tier) {
       if (typeof window.openTriageModal === 'function') {
@@ -273,12 +273,12 @@
       btn.disabled = true;
       btn.innerText = 'Sending...';
       try {
-        const r = await fetch("https://triage.baitakstore.com/funnel-api/gate", {
+        const r = await fetch("https://hooktriage.com/funnel-api/gate", {
           method: "POST",
           headers: {"Content-Type": "application/json"},
           body: JSON.stringify({
             email: email,
-            source_channel: "pages_dev",
+            source_channel: "hooktriage_web",
             asset_id: caseLeadId,
             asset_title: caseAssetTitle,
             segment: "track_a",
@@ -327,12 +327,12 @@
       btn.disabled = true;
       btn.innerText = 'Running Audit...';
       try {
-        const r = await fetch("https://triage.baitakstore.com/funnel-api/audit-workflow", {
+        const r = await fetch("https://hooktriage.com/funnel-api/audit-workflow", {
           method: "POST",
           headers: {"Content-Type": "application/json"},
           body: JSON.stringify({
             email: email,
-            source_channel: "pages_dev",
+            source_channel: "hooktriage_web",
             asset_id: caseLeadId,
             sanitized_payload: maskedPayload,
             website: (hpEl ? hpEl.value : '') || ''
@@ -489,7 +489,7 @@
 
 <script>
 (function() {
-  const API = "https://triage.baitakstore.com";
+  const API = "https://hooktriage.com";
   let currentSessionId = "";
   let targetUsdtAddress = "0x57A817bd5D42F14325eE4ec7B67F69D5f884758B";
   let targetUsdtExact = 159.20;

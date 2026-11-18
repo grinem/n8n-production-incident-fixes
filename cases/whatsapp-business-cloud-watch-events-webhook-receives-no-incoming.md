@@ -13,7 +13,7 @@ slug: "whatsapp-business-cloud-watch-events-webhook-receives-no-incoming"
 
 
 > ⚡ **Encountering this exact production bug or need an emergency automation fix?**  
-> [**🚨 Instant Async Production Triage & Resolution (< 6h, Zero Video Calls)**](https://n8n-production-incident-fixes.pages.dev/#triage)
+> [**🚨 Instant Async Production Triage & Resolution (< 6h, Zero Video Calls)**](https://hooktriage.com/#triage)
 
 
 ## Incident Metadata
@@ -40,7 +40,7 @@ The fact that you received a `WEBHOOK_CONFIG_UPDATED` / `account_update` event p
 
 
 > ⚡ **Encountering this exact production bug or need an emergency automation fix?**  
-> [**🚨 Instant Async Production Triage & Resolution (< 6h, Zero Video Calls)**](https://n8n-production-incident-fixes.pages.dev/#triage)
+> [**🚨 Instant Async Production Triage & Resolution (< 6h, Zero Video Calls)**](https://hooktriage.com/#triage)
 
 
 [← Back to Live Case Studies Index](../)

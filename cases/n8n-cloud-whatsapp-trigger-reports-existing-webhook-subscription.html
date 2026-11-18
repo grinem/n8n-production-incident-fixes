@@ -6,10 +6,10 @@
   <title>N8n Cloud WhatsApp Trigger reports existing webhook subscription despite empty Meta App subscriptions | Production Incident Fix</title>
   <meta name="description" content="This usually happens because the Graph API Explorer queries with a User Token rather than your **App Access Token** (`APP_ID|APP_SECRET`), which returns `{ &quot;data&quot;: [] }` even if...">
   <meta name="robots" content="index, follow">
-  <link rel="canonical" href="https://n8n-production-incident-fixes.pages.dev/cases/n8n-cloud-whatsapp-trigger-reports-existing-webhook-subscription.html">
+  <link rel="canonical" href="https://hooktriage.com/cases/n8n-cloud-whatsapp-trigger-reports-existing-webhook-subscription.html">
   <meta property="og:title" content="N8n Cloud WhatsApp Trigger reports existing webhook subscription despite empty Meta App subscriptions | Production Incident Fix">
   <meta property="og:description" content="This usually happens because the Graph API Explorer queries with a User Token rather than your **App Access Token** (`APP_ID|APP_SECRET`), which returns `{ &quot;data&quot;: [] }` even if...">
-  <meta property="og:url" content="https://n8n-production-incident-fixes.pages.dev/cases/n8n-cloud-whatsapp-trigger-reports-existing-webhook-subscription.html">
+  <meta property="og:url" content="https://hooktriage.com/cases/n8n-cloud-whatsapp-trigger-reports-existing-webhook-subscription.html">
   <meta property="og:type" content="article">
   <link rel="sitemap" type="application/xml" title="Sitemap" href="/sitemap.xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -62,7 +62,7 @@
     "publisher": {
       "@type": "Organization",
       "name": "Production Incident Radar",
-      "url": "https://n8n-production-incident-fixes.pages.dev"
+      "url": "https://hooktriage.com"
     }
   }
   </script>
@@ -221,7 +221,7 @@
   </div>
 
   <script>
-    const rawMarkdown = "---\nlayout: default\ntitle: \"N8n Cloud WhatsApp Trigger reports existing webhook subscription despite empty Meta App subscriptions\"\nplatform: \"n8n\"\nseverity: \"HIGH\"\nstatus: \"Resolved\"\ndate: 2026-11-13\ntags: [\"n8n\", \"production-fix\", \"post-mortem\", \"verified-resolution\"]\nslug: \"n8n-cloud-whatsapp-trigger-reports-existing-webhook-subscription\"\n---\n\n# N8n Cloud WhatsApp Trigger reports existing webhook subscription despite empty Meta App subscriptions\n\n\n> \u26a1 **Encountering this exact production bug or need an emergency automation fix?**  \n> [**\ud83d\udea8 Instant Async Production Triage & Resolution (< 6h, Zero Video Calls)**](https://n8n-production-incident-fixes.pages.dev/#triage)\n\n\n## Incident Metadata\n- **Platform / Ecosystem**: `n8n`\n- **Incident Severity**: `HIGH`\n- **Resolution Status**: `RADAR TRIAGED & READY FOR RESOLUTION`\n- **Logged Timestamp**: `2026-11-13T15:20:30.389620`\n- **Diagnosis Engine**: Autonomous Production Incident Radar\n\n---\n\n## Root-Cause Analysis & Patch Preview (Layer 1)\n\nThis usually happens because the Graph API Explorer queries with a User Token rather than your **App Access Token** (`APP_ID|APP_SECRET`), which returns `{ \"data\": [] }` even if a webhook is still registered. n8n queries this endpoint using your app credentials and aborts if any existing callback is found.\n\nRun a `DELETE` request directly using your App Token in your terminal:\n\n**Patch Preview (First 3 lines of verified fix):**\n```bash\ncurl -X DELETE \"[https]://graph[.]facebook[.]com/v20.0/1832781427855912/subscriptions?object=whatsapp_business_account&access_token=1832781427855912|YOUR_APP_SECRET\"\n# ... [TRUNCATED \u2014 Full production patch & verification steps locked below]\n```\n\n---\n\n## Incident Prevention & Operational Takeaways\n1. **Audit Upstream Authentication**: Validate OAuth2 token refresh loops and ensure service credentials cannot be orphaned.\n2. **Implement Schema Boundary Validation**: Guard downstream webhooks against unexpected payload truncations.\n3. **Automate Error Interception**: Configure fallback nodes and alerting monitors before critical production executions.\n\n---\n\n\n> \u26a1 **Encountering this exact production bug or need an emergency automation fix?**  \n> [**\ud83d\udea8 Instant Async Production Triage & Resolution (< 6h, Zero Video Calls)**](https://n8n-production-incident-fixes.pages.dev/#triage)\n\n\n[\u2190 Back to Live Case Studies Index](../)\n";
+    const rawMarkdown = "---\nlayout: default\ntitle: \"N8n Cloud WhatsApp Trigger reports existing webhook subscription despite empty Meta App subscriptions\"\nplatform: \"n8n\"\nseverity: \"HIGH\"\nstatus: \"Resolved\"\ndate: 2026-11-13\ntags: [\"n8n\", \"production-fix\", \"post-mortem\", \"verified-resolution\"]\nslug: \"n8n-cloud-whatsapp-trigger-reports-existing-webhook-subscription\"\n---\n\n# N8n Cloud WhatsApp Trigger reports existing webhook subscription despite empty Meta App subscriptions\n\n\n> \u26a1 **Encountering this exact production bug or need an emergency automation fix?**  \n> [**\ud83d\udea8 Instant Async Production Triage & Resolution (< 6h, Zero Video Calls)**](https://hooktriage.com/#triage)\n\n\n## Incident Metadata\n- **Platform / Ecosystem**: `n8n`\n- **Incident Severity**: `HIGH`\n- **Resolution Status**: `RADAR TRIAGED & READY FOR RESOLUTION`\n- **Logged Timestamp**: `2026-11-13T15:20:30.389620`\n- **Diagnosis Engine**: Autonomous Production Incident Radar\n\n---\n\n## Root-Cause Analysis & Patch Preview (Layer 1)\n\nThis usually happens because the Graph API Explorer queries with a User Token rather than your **App Access Token** (`APP_ID|APP_SECRET`), which returns `{ \"data\": [] }` even if a webhook is still registered. n8n queries this endpoint using your app credentials and aborts if any existing callback is found.\n\nRun a `DELETE` request directly using your App Token in your terminal:\n\n**Patch Preview (First 3 lines of verified fix):**\n```bash\ncurl -X DELETE \"[https]://graph[.]facebook[.]com/v20.0/1832781427855912/subscriptions?object=whatsapp_business_account&access_token=1832781427855912|YOUR_APP_SECRET\"\n# ... [TRUNCATED \u2014 Full production patch & verification steps locked below]\n```\n\n---\n\n## Incident Prevention & Operational Takeaways\n1. **Audit Upstream Authentication**: Validate OAuth2 token refresh loops and ensure service credentials cannot be orphaned.\n2. **Implement Schema Boundary Validation**: Guard downstream webhooks against unexpected payload truncations.\n3. **Automate Error Interception**: Configure fallback nodes and alerting monitors before critical production executions.\n\n---\n\n\n> \u26a1 **Encountering this exact production bug or need an emergency automation fix?**  \n> [**\ud83d\udea8 Instant Async Production Triage & Resolution (< 6h, Zero Video Calls)**](https://hooktriage.com/#triage)\n\n\n[\u2190 Back to Live Case Studies Index](../)\n";
     const caseLeadId = "n8n_328605";
     const caseAssetTitle = "N8n Cloud WhatsApp Trigger reports existing webhook subscription despite empty Meta App subscriptions";
     const caseBundleMarkdown = "# Complete Production Resolution Bundle \u2014 N8n Cloud WhatsApp Trigger reports existing webhook subscription despite empty Meta App subscriptions\nEcosystem: n8n | Severity: HIGH | Case ID: n8n_328605\n\n## 1. Full Importable Patch / Config Diff (with Error-Retry & Timeout Guard)\n```bash\ncurl -X DELETE \"[https]://graph[.]facebook[.]com/v20.0/1832781427855912/subscriptions?object=whatsapp_business_account&access_token=1832781427855912|YOUR_APP_SECRET\"\n```\n\nOnce that returns `{\"success\": true}`, re-test or activate the trigger in n8n Cloud and it should register without errors. (You can ignore `WA DevX Webhook Events 1P App`\u2014that is just Meta's internal diagnostic app).\n\n## 2. Verification & Non-Destructive Test Checklist\n1. Validate JSON/YAML syntax and confirm no unmasked secrets remain.\n2. Confirm error-retry/backoff and timeout guards are enabled before re-activating.\n3. Run a non-destructive healthcheck / test webhook and verify HTTP 200 payload shape.\n\n## 3. Team Post-Mortem Note\nRoot Cause (n8n / HIGH): This usually happens because the Graph API Explorer queries with a User Token rather than your **App Access Token** (`APP_ID|APP_SECRET`), which returns `{ \"data\": [] }` even if...\nOperational Guard: Audit OAuth2 token refresh loops, enforce schema boundary validation, and configure dead-letter error interception.\n";
@@ -234,7 +234,7 @@
     // Strip YAML frontmatter
     const mdWithoutYaml = rawMarkdown.replace(/^---[\s\S]*?---\s*/, '');
     document.getElementById('content').innerHTML = marked.parse(mdWithoutYaml);
-    fetch("https://triage.baitakstore.com/api/ping-visit?issue=" + encodeURIComponent(caseLeadId) + "&page=" + encodeURIComponent(location.pathname)).catch(function(){});
+    fetch("https://hooktriage.com/api/ping-visit?issue=" + encodeURIComponent(caseLeadId) + "&page=" + encodeURIComponent(location.pathname)).catch(function(){});
 
     window.openCaseTriageModal = function(tier) {
       if (typeof window.openTriageModal === 'function') {
@@ -273,12 +273,12 @@
       btn.disabled = true;
       btn.innerText = 'Sending...';
       try {
-        const r = await fetch("https://triage.baitakstore.com/funnel-api/gate", {
+        const r = await fetch("https://hooktriage.com/funnel-api/gate", {
           method: "POST",
           headers: {"Content-Type": "application/json"},
           body: JSON.stringify({
             email: email,
-            source_channel: "pages_dev",
+            source_channel: "hooktriage_web",
             asset_id: caseLeadId,
             asset_title: caseAssetTitle,
             segment: "track_a",
@@ -327,12 +327,12 @@
       btn.disabled = true;
       btn.innerText = 'Running Audit...';
       try {
-        const r = await fetch("https://triage.baitakstore.com/funnel-api/audit-workflow", {
+        const r = await fetch("https://hooktriage.com/funnel-api/audit-workflow", {
           method: "POST",
           headers: {"Content-Type": "application/json"},
           body: JSON.stringify({
             email: email,
-            source_channel: "pages_dev",
+            source_channel: "hooktriage_web",
             asset_id: caseLeadId,
             sanitized_payload: maskedPayload,
             website: (hpEl ? hpEl.value : '') || ''
@@ -489,7 +489,7 @@
 
 <script>
 (function() {
-  const API = "https://triage.baitakstore.com";
+  const API = "https://hooktriage.com";
   let currentSessionId = "";
   let targetUsdtAddress = "0x57A817bd5D42F14325eE4ec7B67F69D5f884758B";
   let targetUsdtExact = 159.20;

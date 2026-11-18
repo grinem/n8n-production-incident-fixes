@@ -13,7 +13,7 @@ slug: "bitbucket-oauth-connection-fails-with-sc424-after-successful-auth"
 
 
 > ⚡ **Encountering this exact production bug or need an emergency automation fix?**  
-> [**🚨 Instant Async Production Triage & Resolution (< 6h, Zero Video Calls)**](https://n8n-production-incident-fixes.pages.dev/#triage)
+> [**🚨 Instant Async Production Triage & Resolution (< 6h, Zero Video Calls)**](https://hooktriage.com/#triage)
 
 
 ## Incident Metadata
@@ -40,7 +40,7 @@ The `SC424` error ("The request failed due to failure of a previous request") pa
 
 
 > ⚡ **Encountering this exact production bug or need an emergency automation fix?**  
-> [**🚨 Instant Async Production Triage & Resolution (< 6h, Zero Video Calls)**](https://n8n-production-incident-fixes.pages.dev/#triage)
+> [**🚨 Instant Async Production Triage & Resolution (< 6h, Zero Video Calls)**](https://hooktriage.com/#triage)
 
 
 [← Back to Live Case Studies Index](../)

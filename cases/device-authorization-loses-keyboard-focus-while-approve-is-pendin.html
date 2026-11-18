@@ -6,10 +6,10 @@
   <title>Device authorization loses keyboard focus while Approve is pending | Production Incident Fix</title>
   <meta name="description" content="Makes sense—swapping native `disabled` for `aria-disabled` (or passing `focusableWhenDisabled` if you&#x27;re using the base button wrapper) is definitely the right move here so the ...">
   <meta name="robots" content="index, follow">
-  <link rel="canonical" href="https://n8n-production-incident-fixes.pages.dev/cases/device-authorization-loses-keyboard-focus-while-approve-is-pendin.html">
+  <link rel="canonical" href="https://hooktriage.com/cases/device-authorization-loses-keyboard-focus-while-approve-is-pendin.html">
   <meta property="og:title" content="Device authorization loses keyboard focus while Approve is pending | Production Incident Fix">
   <meta property="og:description" content="Makes sense—swapping native `disabled` for `aria-disabled` (or passing `focusableWhenDisabled` if you&#x27;re using the base button wrapper) is definitely the right move here so the ...">
-  <meta property="og:url" content="https://n8n-production-incident-fixes.pages.dev/cases/device-authorization-loses-keyboard-focus-while-approve-is-pendin.html">
+  <meta property="og:url" content="https://hooktriage.com/cases/device-authorization-loses-keyboard-focus-while-approve-is-pendin.html">
   <meta property="og:type" content="article">
   <link rel="sitemap" type="application/xml" title="Sitemap" href="/sitemap.xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -62,7 +62,7 @@
     "publisher": {
       "@type": "Organization",
       "name": "Production Incident Radar",
-      "url": "https://n8n-production-incident-fixes.pages.dev"
+      "url": "https://hooktriage.com"
     }
   }
   </script>
@@ -221,7 +221,7 @@
   </div>
 
   <script>
-    const rawMarkdown = "---\nlayout: default\ntitle: \"Device authorization loses keyboard focus while Approve is pending\"\nplatform: \"Automation Engine\"\nseverity: \"HIGH\"\nstatus: \"Resolved\"\ndate: 2026-11-18\ntags: [\"automation engine\", \"production-fix\", \"post-mortem\", \"verified-resolution\"]\nslug: \"device-authorization-loses-keyboard-focus-while-approve-is-pendin\"\n---\n\n# Device authorization loses keyboard focus while Approve is pending\n\n\n> \u26a1 **Encountering this exact production bug or need an emergency automation fix?**  \n> [**\ud83d\udea8 Instant Async Production Triage & Resolution (< 6h, Zero Video Calls)**](https://n8n-production-incident-fixes.pages.dev/#triage)\n\n\n## Incident Metadata\n- **Platform / Ecosystem**: `Automation Engine`\n- **Incident Severity**: `HIGH`\n- **Resolution Status**: `VERIFIED & RESOLVED`\n- **Logged Timestamp**: `2026-11-18T13:00:44.207139`\n- **Diagnosis Engine**: Autonomous Production Incident Radar\n\n---\n\n## Root-Cause Analysis & Patch Preview (Layer 1)\n\nMakes sense\u2014swapping native `disabled` for `aria-disabled` (or passing `focusableWhenDisabled` if you're using the base button wrapper) is definitely the right move here so the active element isn't evicted to `<body>`.\n\nSomething along these lines in `authorize-account.tsx` should keep the browser spec green:\n\n**Patch Preview (First 3 lines of verified fix):**\n```tsx\n<Button\n  aria-disabled={busy}\n  disabled={false}\n# ... [TRUNCATED \u2014 Full production patch & verification steps locked below]\n```\n\n---\n\n## Incident Prevention & Operational Takeaways\n1. **Audit Upstream Authentication**: Validate OAuth2 token refresh loops and ensure service credentials cannot be orphaned.\n2. **Implement Schema Boundary Validation**: Guard downstream webhooks against unexpected payload truncations.\n3. **Automate Error Interception**: Configure fallback nodes and alerting monitors before critical production executions.\n\n---\n\n\n> \u26a1 **Encountering this exact production bug or need an emergency automation fix?**  \n> [**\ud83d\udea8 Instant Async Production Triage & Resolution (< 6h, Zero Video Calls)**](https://n8n-production-incident-fixes.pages.dev/#triage)\n\n\n[\u2190 Back to Live Case Studies Index](../)\n";
+    const rawMarkdown = "---\nlayout: default\ntitle: \"Device authorization loses keyboard focus while Approve is pending\"\nplatform: \"Automation Engine\"\nseverity: \"HIGH\"\nstatus: \"Resolved\"\ndate: 2026-11-18\ntags: [\"automation engine\", \"production-fix\", \"post-mortem\", \"verified-resolution\"]\nslug: \"device-authorization-loses-keyboard-focus-while-approve-is-pendin\"\n---\n\n# Device authorization loses keyboard focus while Approve is pending\n\n\n> \u26a1 **Encountering this exact production bug or need an emergency automation fix?**  \n> [**\ud83d\udea8 Instant Async Production Triage & Resolution (< 6h, Zero Video Calls)**](https://hooktriage.com/#triage)\n\n\n## Incident Metadata\n- **Platform / Ecosystem**: `Automation Engine`\n- **Incident Severity**: `HIGH`\n- **Resolution Status**: `VERIFIED & RESOLVED`\n- **Logged Timestamp**: `2026-11-18T13:00:44.207139`\n- **Diagnosis Engine**: Autonomous Production Incident Radar\n\n---\n\n## Root-Cause Analysis & Patch Preview (Layer 1)\n\nMakes sense\u2014swapping native `disabled` for `aria-disabled` (or passing `focusableWhenDisabled` if you're using the base button wrapper) is definitely the right move here so the active element isn't evicted to `<body>`.\n\nSomething along these lines in `authorize-account.tsx` should keep the browser spec green:\n\n**Patch Preview (First 3 lines of verified fix):**\n```tsx\n<Button\n  aria-disabled={busy}\n  disabled={false}\n# ... [TRUNCATED \u2014 Full production patch & verification steps locked below]\n```\n\n---\n\n## Incident Prevention & Operational Takeaways\n1. **Audit Upstream Authentication**: Validate OAuth2 token refresh loops and ensure service credentials cannot be orphaned.\n2. **Implement Schema Boundary Validation**: Guard downstream webhooks against unexpected payload truncations.\n3. **Automate Error Interception**: Configure fallback nodes and alerting monitors before critical production executions.\n\n---\n\n\n> \u26a1 **Encountering this exact production bug or need an emergency automation fix?**  \n> [**\ud83d\udea8 Instant Async Production Triage & Resolution (< 6h, Zero Video Calls)**](https://hooktriage.com/#triage)\n\n\n[\u2190 Back to Live Case Studies Index](../)\n";
     const caseLeadId = "github_langgenius_dify_46700";
     const caseAssetTitle = "Device authorization loses keyboard focus while Approve is pending";
     const caseBundleMarkdown = "# Complete Production Resolution Bundle \u2014 Device authorization loses keyboard focus while Approve is pending\nEcosystem: Automation Engine | Severity: HIGH | Case ID: github_langgenius_dify_46700\n\n## 1. Full Importable Patch / Config Diff (with Error-Retry & Timeout Guard)\n```tsx\n<Button\n  aria-disabled={busy}\n  disabled={false}\n  loading={busy}\n  onClick={(e) => {\n    if (busy) {\n      e.preventDefault()\n      return\n    }\n    handleApprove()\n  }}\n>\n  {/* action label */}\n</Button>\n```\n\nIf your UI primitives already accept `focusableWhenDisabled`, simply adding that prop is even cleaner. Happy to review if you're putting together a quick PR for this.\n\n## 2. Verification & Non-Destructive Test Checklist\n1. Validate JSON/YAML syntax and confirm no unmasked secrets remain.\n2. Confirm error-retry/backoff and timeout guards are enabled before re-activating.\n3. Run a non-destructive healthcheck / test webhook and verify HTTP 200 payload shape.\n\n## 3. Team Post-Mortem Note\nRoot Cause (Automation Engine / HIGH): Makes sense\u2014swapping native `disabled` for `aria-disabled` (or passing `focusableWhenDisabled` if you're using the base button wrapper) is definitely the right move here so the ...\nOperational Guard: Audit OAuth2 token refresh loops, enforce schema boundary validation, and configure dead-letter error interception.\n";
@@ -234,7 +234,7 @@
     // Strip YAML frontmatter
     const mdWithoutYaml = rawMarkdown.replace(/^---[\s\S]*?---\s*/, '');
     document.getElementById('content').innerHTML = marked.parse(mdWithoutYaml);
-    fetch("https://triage.baitakstore.com/api/ping-visit?issue=" + encodeURIComponent(caseLeadId) + "&page=" + encodeURIComponent(location.pathname)).catch(function(){});
+    fetch("https://hooktriage.com/api/ping-visit?issue=" + encodeURIComponent(caseLeadId) + "&page=" + encodeURIComponent(location.pathname)).catch(function(){});
 
     window.openCaseTriageModal = function(tier) {
       if (typeof window.openTriageModal === 'function') {
@@ -273,12 +273,12 @@
       btn.disabled = true;
       btn.innerText = 'Sending...';
       try {
-        const r = await fetch("https://triage.baitakstore.com/funnel-api/gate", {
+        const r = await fetch("https://hooktriage.com/funnel-api/gate", {
           method: "POST",
           headers: {"Content-Type": "application/json"},
           body: JSON.stringify({
             email: email,
-            source_channel: "pages_dev",
+            source_channel: "hooktriage_web",
             asset_id: caseLeadId,
             asset_title: caseAssetTitle,
             segment: "track_a",
@@ -327,12 +327,12 @@
       btn.disabled = true;
       btn.innerText = 'Running Audit...';
       try {
-        const r = await fetch("https://triage.baitakstore.com/funnel-api/audit-workflow", {
+        const r = await fetch("https://hooktriage.com/funnel-api/audit-workflow", {
           method: "POST",
           headers: {"Content-Type": "application/json"},
           body: JSON.stringify({
             email: email,
-            source_channel: "pages_dev",
+            source_channel: "hooktriage_web",
             asset_id: caseLeadId,
             sanitized_payload: maskedPayload,
             website: (hpEl ? hpEl.value : '') || ''
@@ -489,7 +489,7 @@
 
 <script>
 (function() {
-  const API = "https://triage.baitakstore.com";
+  const API = "https://hooktriage.com";
   let currentSessionId = "";
   let targetUsdtAddress = "0x57A817bd5D42F14325eE4ec7B67F69D5f884758B";
   let targetUsdtExact = 159.20;

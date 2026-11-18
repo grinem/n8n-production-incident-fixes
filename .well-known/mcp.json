@@ -1,0 +1,25 @@
+{
+  "schema_version": "2024-11-05",
+  "name": "hooktriage-local-audit",
+  "description": "Zero-Trust 0-byte local static scanner & MCP server for n8n workflows, webhooks, and AI agent silent failures.",
+  "homepage": "https://hooktriage.com",
+  "repository": "https://github.com/grinem/hooktriage",
+  "contact": "ops@hooktriage.com",
+  "transport": {
+    "type": "stdio",
+    "command": "npx",
+    "args": ["-y", "github:grinem/hooktriage", "--mcp"]
+  },
+  "cli_usage": "npx -y github:grinem/hooktriage scan ./workflow.json",
+  "tools": [
+    {
+      "name": "scan_n8n_workflow_json",
+      "description": "Audits n8n workflow JSON completely locally (0 bytes uploaded) for missing Error Workflow, HTTP timeouts, retries, synchronous webhook cutoffs, and unguarded AI agent loops."
+    }
+  ],
+  "documentation": {
+    "llms_txt": "https://hooktriage.com/llms.txt",
+    "llms_full_txt": "https://hooktriage.com/llms-full.txt",
+    "watchdog_mit_repo": "https://github.com/grinem/n8n-ai-watchdog"
+  }
+}

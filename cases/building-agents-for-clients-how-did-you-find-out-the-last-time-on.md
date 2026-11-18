@@ -13,7 +13,7 @@ slug: "building-agents-for-clients-how-did-you-find-out-the-last-time-on"
 
 
 > ⚡ **Encountering this exact production bug or need an emergency automation fix?**  
-> [**🚨 Instant Async Production Triage & Resolution (< 6h, Zero Video Calls)**](https://n8n-production-incident-fixes.pages.dev/#triage)
+> [**🚨 Instant Async Production Triage & Resolution (< 6h, Zero Video Calls)**](https://hooktriage.com/#triage)
 
 
 ## Incident Metadata
@@ -40,7 +40,7 @@ Hello @/u/Ok-Machine7983,
 
 
 > ⚡ **Encountering this exact production bug or need an emergency automation fix?**  
-> [**🚨 Instant Async Production Triage & Resolution (< 6h, Zero Video Calls)**](https://n8n-production-incident-fixes.pages.dev/#triage)
+> [**🚨 Instant Async Production Triage & Resolution (< 6h, Zero Video Calls)**](https://hooktriage.com/#triage)
 
 
 [← Back to Live Case Studies Index](../)

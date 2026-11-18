@@ -6,10 +6,10 @@
   <title>Self-conflicting webhook path after Unpublish: cannot republish same workflow (self-hosted CE) | Production Incident Fix</title>
   <meta name="description" content="Client Case Study (User) First, verify there isn&#x27;t a second Webhook node on the canvas sharing `POST` and `m-workflows/book-slot` (even if inactive or disabled), as the publish ...">
   <meta name="robots" content="index, follow">
-  <link rel="canonical" href="https://n8n-production-incident-fixes.pages.dev/cases/self-conflicting-webhook-path-after-unpublish-cannot-republish-sa.html">
+  <link rel="canonical" href="https://hooktriage.com/cases/self-conflicting-webhook-path-after-unpublish-cannot-republish-sa.html">
   <meta property="og:title" content="Self-conflicting webhook path after Unpublish: cannot republish same workflow (self-hosted CE) | Production Incident Fix">
   <meta property="og:description" content="Client Case Study (User) First, verify there isn&#x27;t a second Webhook node on the canvas sharing `POST` and `m-workflows/book-slot` (even if inactive or disabled), as the publish ...">
-  <meta property="og:url" content="https://n8n-production-incident-fixes.pages.dev/cases/self-conflicting-webhook-path-after-unpublish-cannot-republish-sa.html">
+  <meta property="og:url" content="https://hooktriage.com/cases/self-conflicting-webhook-path-after-unpublish-cannot-republish-sa.html">
   <meta property="og:type" content="article">
   <link rel="sitemap" type="application/xml" title="Sitemap" href="/sitemap.xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -62,7 +62,7 @@
     "publisher": {
       "@type": "Organization",
       "name": "Production Incident Radar",
-      "url": "https://n8n-production-incident-fixes.pages.dev"
+      "url": "https://hooktriage.com"
     }
   }
   </script>
@@ -221,7 +221,7 @@
   </div>
 
   <script>
-    const rawMarkdown = "---\nlayout: default\ntitle: \"Self-conflicting webhook path after Unpublish: cannot republish same workflow (self-hosted CE)\"\nplatform: \"n8n\"\nseverity: \"MEDIUM\"\nstatus: \"Resolved\"\ndate: 2026-11-18\ntags: [\"n8n\", \"production-fix\", \"post-mortem\", \"verified-resolution\"]\nslug: \"self-conflicting-webhook-path-after-unpublish-cannot-republish-sa\"\n---\n\n# Self-conflicting webhook path after Unpublish: cannot republish same workflow (self-hosted CE)\n\n\n> \u26a1 **Encountering this exact production bug or need an emergency automation fix?**  \n> [**\ud83d\udea8 Instant Async Production Triage & Resolution (< 6h, Zero Video Calls)**](https://n8n-production-incident-fixes.pages.dev/#triage)\n\n\n## Incident Metadata\n- **Platform / Ecosystem**: `n8n`\n- **Incident Severity**: `MEDIUM`\n- **Resolution Status**: `VERIFIED & RESOLVED`\n- **Logged Timestamp**: `2026-11-18T08:40:40.447588`\n- **Diagnosis Engine**: Autonomous Production Incident Radar\n\n---\n\n## Root-Cause Analysis & Patch Preview (Layer 1)\n\nClient Case Study (User) First, verify there isn't a second Webhook node on the canvas sharing `POST` and `m-workflows/book-slot` (even if inactive or disabled), as the publish validator flags in-workflow duplicate paths as self-conflicts.\n\n---\n\n## Incident Prevention & Operational Takeaways\n1. **Audit Upstream Authentication**: Validate OAuth2 token refresh loops and ensure service credentials cannot be orphaned.\n2. **Implement Schema Boundary Validation**: Guard downstream webhooks against unexpected payload truncations.\n3. **Automate Error Interception**: Configure fallback nodes and alerting monitors before critical production executions.\n\n---\n\n\n> \u26a1 **Encountering this exact production bug or need an emergency automation fix?**  \n> [**\ud83d\udea8 Instant Async Production Triage & Resolution (< 6h, Zero Video Calls)**](https://n8n-production-incident-fixes.pages.dev/#triage)\n\n\n[\u2190 Back to Live Case Studies Index](../)\n";
+    const rawMarkdown = "---\nlayout: default\ntitle: \"Self-conflicting webhook path after Unpublish: cannot republish same workflow (self-hosted CE)\"\nplatform: \"n8n\"\nseverity: \"MEDIUM\"\nstatus: \"Resolved\"\ndate: 2026-11-18\ntags: [\"n8n\", \"production-fix\", \"post-mortem\", \"verified-resolution\"]\nslug: \"self-conflicting-webhook-path-after-unpublish-cannot-republish-sa\"\n---\n\n# Self-conflicting webhook path after Unpublish: cannot republish same workflow (self-hosted CE)\n\n\n> \u26a1 **Encountering this exact production bug or need an emergency automation fix?**  \n> [**\ud83d\udea8 Instant Async Production Triage & Resolution (< 6h, Zero Video Calls)**](https://hooktriage.com/#triage)\n\n\n## Incident Metadata\n- **Platform / Ecosystem**: `n8n`\n- **Incident Severity**: `MEDIUM`\n- **Resolution Status**: `VERIFIED & RESOLVED`\n- **Logged Timestamp**: `2026-11-18T08:40:40.447588`\n- **Diagnosis Engine**: Autonomous Production Incident Radar\n\n---\n\n## Root-Cause Analysis & Patch Preview (Layer 1)\n\nClient Case Study (User) First, verify there isn't a second Webhook node on the canvas sharing `POST` and `m-workflows/book-slot` (even if inactive or disabled), as the publish validator flags in-workflow duplicate paths as self-conflicts.\n\n---\n\n## Incident Prevention & Operational Takeaways\n1. **Audit Upstream Authentication**: Validate OAuth2 token refresh loops and ensure service credentials cannot be orphaned.\n2. **Implement Schema Boundary Validation**: Guard downstream webhooks against unexpected payload truncations.\n3. **Automate Error Interception**: Configure fallback nodes and alerting monitors before critical production executions.\n\n---\n\n\n> \u26a1 **Encountering this exact production bug or need an emergency automation fix?**  \n> [**\ud83d\udea8 Instant Async Production Triage & Resolution (< 6h, Zero Video Calls)**](https://hooktriage.com/#triage)\n\n\n[\u2190 Back to Live Case Studies Index](../)\n";
     const caseLeadId = "n8n_329412";
     const caseAssetTitle = "Self-conflicting webhook path after Unpublish: cannot republish same workflow (self-hosted CE)";
     const caseBundleMarkdown = "# Complete Production Resolution Bundle \u2014 Self-conflicting webhook path after Unpublish: cannot republish same workflow (self-hosted CE)\nEcosystem: n8n | Severity: MEDIUM | Case ID: n8n_329412\n\n## 1. Full Importable Patch / Config Diff (with Error-Retry & Timeout Guard)\nIf the canvas only has the single trigger, you can safely flush the route registration from the UI without touching SQLite: change the webhook path to a temporary string (e.g. `m-workflows/book-slot-tmp`), hit Publish, Unpublish it, revert the path back to `m-workflows/book-slot`, and republish. That forces n8n to cycle the route table cleanly while preserving your workflow ID, credentials, and execution history.\n\n## 2. Verification & Non-Destructive Test Checklist\n1. Validate JSON/YAML syntax and confirm no unmasked secrets remain.\n2. Confirm error-retry/backoff and timeout guards are enabled before re-activating.\n3. Run a non-destructive healthcheck / test webhook and verify HTTP 200 payload shape.\n\n## 3. Team Post-Mortem Note\nRoot Cause (n8n / MEDIUM): Client Case Study (User) First, verify there isn't a second Webhook node on the canvas sharing `POST` and `m-workflows/book-slot` (even if inactive or disabled), as the publish ...\nOperational Guard: Audit OAuth2 token refresh loops, enforce schema boundary validation, and configure dead-letter error interception.\n";
@@ -234,7 +234,7 @@
     // Strip YAML frontmatter
     const mdWithoutYaml = rawMarkdown.replace(/^---[\s\S]*?---\s*/, '');
     document.getElementById('content').innerHTML = marked.parse(mdWithoutYaml);
-    fetch("https://triage.baitakstore.com/api/ping-visit?issue=" + encodeURIComponent(caseLeadId) + "&page=" + encodeURIComponent(location.pathname)).catch(function(){});
+    fetch("https://hooktriage.com/api/ping-visit?issue=" + encodeURIComponent(caseLeadId) + "&page=" + encodeURIComponent(location.pathname)).catch(function(){});
 
     window.openCaseTriageModal = function(tier) {
       if (typeof window.openTriageModal === 'function') {
@@ -273,12 +273,12 @@
       btn.disabled = true;
       btn.innerText = 'Sending...';
       try {
-        const r = await fetch("https://triage.baitakstore.com/funnel-api/gate", {
+        const r = await fetch("https://hooktriage.com/funnel-api/gate", {
           method: "POST",
           headers: {"Content-Type": "application/json"},
           body: JSON.stringify({
             email: email,
-            source_channel: "pages_dev",
+            source_channel: "hooktriage_web",
             asset_id: caseLeadId,
             asset_title: caseAssetTitle,
             segment: "track_a",
@@ -327,12 +327,12 @@
       btn.disabled = true;
       btn.innerText = 'Running Audit...';
       try {
-        const r = await fetch("https://triage.baitakstore.com/funnel-api/audit-workflow", {
+        const r = await fetch("https://hooktriage.com/funnel-api/audit-workflow", {
           method: "POST",
           headers: {"Content-Type": "application/json"},
           body: JSON.stringify({
             email: email,
-            source_channel: "pages_dev",
+            source_channel: "hooktriage_web",
             asset_id: caseLeadId,
             sanitized_payload: maskedPayload,
             website: (hpEl ? hpEl.value : '') || ''
@@ -489,7 +489,7 @@
 
 <script>
 (function() {
-  const API = "https://triage.baitakstore.com";
+  const API = "https://hooktriage.com";
   let currentSessionId = "";
   let targetUsdtAddress = "0x57A817bd5D42F14325eE4ec7B67F69D5f884758B";
   let targetUsdtExact = 159.20;

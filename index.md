@@ -9,7 +9,7 @@ title: "Production Incident Fixes & Post-Mortem Knowledge Base"
 
 
 > ⚡ **Encountering this exact production bug or need an emergency automation fix?**  
-> [**🚨 Instant Async Production Triage & Resolution (< 6h, Zero Video Calls)**](https://n8n-production-incident-fixes.pages.dev/#triage)
+> [**🚨 Instant Async Production Triage & Resolution (< 6h, Zero Video Calls)**](https://hooktriage.com/#triage)
 
 
 ### 📊 Real-Time Operations Telemetry
@@ -165,7 +165,7 @@ Production automation breaks unexpectedly — whether it's an OAuth2 token renew
 - **Direct Root-Cause Identification & Code/Workflow Hotfix**
 - **Live Screen-Share or Remote Patch Deployment**
 
-👉 [**Launch Instant Async Incident Resolution (< 6h, Zero Calls)**](https://n8n-production-incident-fixes.pages.dev/#triage)
+👉 [**Launch Instant Async Incident Resolution (< 6h, Zero Calls)**](https://hooktriage.com/#triage)
 
 ---
 

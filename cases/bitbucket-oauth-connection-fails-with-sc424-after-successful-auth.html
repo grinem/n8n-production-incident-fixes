@@ -6,10 +6,10 @@
   <title>Bitbucket OAuth connection fails with SC424 after successful authorization | Production Incident Fix</title>
   <meta name="description" content="The `SC424` error (&quot;The request failed due to failure of a previous request&quot;) paired with `&quot;Token is invalid, expired, or not supported for this endpoint&quot;` means the initial OAu...">
   <meta name="robots" content="index, follow">
-  <link rel="canonical" href="https://n8n-production-incident-fixes.pages.dev/cases/bitbucket-oauth-connection-fails-with-sc424-after-successful-auth.html">
+  <link rel="canonical" href="https://hooktriage.com/cases/bitbucket-oauth-connection-fails-with-sc424-after-successful-auth.html">
   <meta property="og:title" content="Bitbucket OAuth connection fails with SC424 after successful authorization | Production Incident Fix">
   <meta property="og:description" content="The `SC424` error (&quot;The request failed due to failure of a previous request&quot;) paired with `&quot;Token is invalid, expired, or not supported for this endpoint&quot;` means the initial OAu...">
-  <meta property="og:url" content="https://n8n-production-incident-fixes.pages.dev/cases/bitbucket-oauth-connection-fails-with-sc424-after-successful-auth.html">
+  <meta property="og:url" content="https://hooktriage.com/cases/bitbucket-oauth-connection-fails-with-sc424-after-successful-auth.html">
   <meta property="og:type" content="article">
   <link rel="sitemap" type="application/xml" title="Sitemap" href="/sitemap.xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -62,7 +62,7 @@
     "publisher": {
       "@type": "Organization",
       "name": "Production Incident Radar",
-      "url": "https://n8n-production-incident-fixes.pages.dev"
+      "url": "https://hooktriage.com"
     }
   }
   </script>
@@ -221,7 +221,7 @@
   </div>
 
   <script>
-    const rawMarkdown = "---\nlayout: default\ntitle: \"Bitbucket OAuth connection fails with SC424 after successful authorization\"\nplatform: \"Make.com\"\nseverity: \"CRITICAL\"\nstatus: \"Resolved\"\ndate: 2026-11-13\ntags: [\"make\", \"critical-incident\", \"production-fix\", \"post-mortem\", \"verified-resolution\"]\nslug: \"bitbucket-oauth-connection-fails-with-sc424-after-successful-auth\"\n---\n\n# Bitbucket OAuth connection fails with SC424 after successful authorization\n\n\n> \u26a1 **Encountering this exact production bug or need an emergency automation fix?**  \n> [**\ud83d\udea8 Instant Async Production Triage & Resolution (< 6h, Zero Video Calls)**](https://n8n-production-incident-fixes.pages.dev/#triage)\n\n\n## Incident Metadata\n- **Platform / Ecosystem**: `Make.com`\n- **Incident Severity**: `CRITICAL`\n- **Resolution Status**: `RADAR TRIAGED & READY FOR RESOLUTION`\n- **Logged Timestamp**: `2026-11-13T08:00:28.376597`\n- **Diagnosis Engine**: Autonomous Production Incident Radar\n\n---\n\n## Root-Cause Analysis & Patch Preview (Layer 1)\n\nThe `SC424` error (\"The request failed due to failure of a previous request\") paired with `\"Token is invalid, expired, or not supported for this endpoint\"` means the initial OAuth handshake succeeded, but Make's immediate follow-up validation call to the Bitbucket API failed.\n\n---\n\n## Incident Prevention & Operational Takeaways\n1. **Audit Upstream Authentication**: Validate OAuth2 token refresh loops and ensure service credentials cannot be orphaned.\n2. **Implement Schema Boundary Validation**: Guard downstream webhooks against unexpected payload truncations.\n3. **Automate Error Interception**: Configure fallback nodes and alerting monitors before critical production executions.\n\n---\n\n\n> \u26a1 **Encountering this exact production bug or need an emergency automation fix?**  \n> [**\ud83d\udea8 Instant Async Production Triage & Resolution (< 6h, Zero Video Calls)**](https://n8n-production-incident-fixes.pages.dev/#triage)\n\n\n[\u2190 Back to Live Case Studies Index](../)\n";
+    const rawMarkdown = "---\nlayout: default\ntitle: \"Bitbucket OAuth connection fails with SC424 after successful authorization\"\nplatform: \"Make.com\"\nseverity: \"CRITICAL\"\nstatus: \"Resolved\"\ndate: 2026-11-13\ntags: [\"make\", \"critical-incident\", \"production-fix\", \"post-mortem\", \"verified-resolution\"]\nslug: \"bitbucket-oauth-connection-fails-with-sc424-after-successful-auth\"\n---\n\n# Bitbucket OAuth connection fails with SC424 after successful authorization\n\n\n> \u26a1 **Encountering this exact production bug or need an emergency automation fix?**  \n> [**\ud83d\udea8 Instant Async Production Triage & Resolution (< 6h, Zero Video Calls)**](https://hooktriage.com/#triage)\n\n\n## Incident Metadata\n- **Platform / Ecosystem**: `Make.com`\n- **Incident Severity**: `CRITICAL`\n- **Resolution Status**: `RADAR TRIAGED & READY FOR RESOLUTION`\n- **Logged Timestamp**: `2026-11-13T08:00:28.376597`\n- **Diagnosis Engine**: Autonomous Production Incident Radar\n\n---\n\n## Root-Cause Analysis & Patch Preview (Layer 1)\n\nThe `SC424` error (\"The request failed due to failure of a previous request\") paired with `\"Token is invalid, expired, or not supported for this endpoint\"` means the initial OAuth handshake succeeded, but Make's immediate follow-up validation call to the Bitbucket API failed.\n\n---\n\n## Incident Prevention & Operational Takeaways\n1. **Audit Upstream Authentication**: Validate OAuth2 token refresh loops and ensure service credentials cannot be orphaned.\n2. **Implement Schema Boundary Validation**: Guard downstream webhooks against unexpected payload truncations.\n3. **Automate Error Interception**: Configure fallback nodes and alerting monitors before critical production executions.\n\n---\n\n\n> \u26a1 **Encountering this exact production bug or need an emergency automation fix?**  \n> [**\ud83d\udea8 Instant Async Production Triage & Resolution (< 6h, Zero Video Calls)**](https://hooktriage.com/#triage)\n\n\n[\u2190 Back to Live Case Studies Index](../)\n";
     const caseLeadId = "make_119757";
     const caseAssetTitle = "Bitbucket OAuth connection fails with SC424 after successful authorization";
     const caseBundleMarkdown = "# Complete Production Resolution Bundle \u2014 Bitbucket OAuth connection fails with SC424 after successful authorization\nEcosystem: Make.com | Severity: CRITICAL | Case ID: make_119757\n\n## 1. Full Importable Patch / Config Diff (with Error-Retry & Timeout Guard)\nRight after receiving the auth code, Make queries Bitbucket's `/2.0/user` (and `/2.0/user/emails`) endpoint to identify the user and register the connection name. If your Bitbucket OAuth consumer lacks permission for that endpoint, Bitbucket rejects the token with that exact error.\n\nHere is how to resolve it:\n\n### 1. Update Bitbucket OAuth Consumer Scopes\n1. In Bitbucket, open your workspace settings: **Workspace settings** > **OAuth consumers** (under *Apps and features*).\n2. Edit your custom OAuth consumer.\n3. Verify that the following permissions are checked:\n   - **Account**: `Read` *(mandatory\u2014this is what unblocks the handshake)*\n   - **Email**: `Read`\n   - **Repositories**: `Read` (and `Write` if your scenarios push commits/branches)\n   - **Pull requests**: `Read` / `Write` (if needed)\n   - **Webhooks**: `Read and write` (if you use instant triggers)\n4. Confirm that **This is a private consumer** is ticked.\n5. Save changes.\n\n### 2. Confirm the Callback URL for EU1\nDouble-check that the Callback URL in Bitbucket matches your Make datacenter:\n- `[https]://eu1[.]make[.]com/oauth/cb/bitbucket/`\n*(If you are using legacy Integromat credentials, Bitbucket must match whichever redirect URI Make actually passes in the authorization request).*\n\n### 3. Re-authenticate Without Breaking Scenarios\nTo prevent scenarios from unlinking:\n1. In Make, navigate to **Connections** on the left menu (or open an existing Bitbucket module).\n2. Click **Edit** on your existing connection.\n3. Toggle **Show advanced settings**, enter your Bitbucket **Key** and **Secret**, and run the authorization flow again.\n\nOnce the `Account: Read` permission is present, Make will successfully query the profile endpoint, save the refreshed token to the existing connection ID, and keep all your active scenarios intact.\n\n## 2. Verification & Non-Destructive Test Checklist\n1. Validate JSON/YAML syntax and confirm no unmasked secrets remain.\n2. Confirm error-retry/backoff and timeout guards are enabled before re-activating.\n3. Run a non-destructive healthcheck / test webhook and verify HTTP 200 payload shape.\n\n## 3. Team Post-Mortem Note\nRoot Cause (Make.com / CRITICAL): The `SC424` error (\"The request failed due to failure of a previous request\") paired with `\"Token is invalid, expired, or not supported for this endpoint\"` means the initial OAu...\nOperational Guard: Audit OAuth2 token refresh loops, enforce schema boundary validation, and configure dead-letter error interception.\n";
@@ -234,7 +234,7 @@
     // Strip YAML frontmatter
     const mdWithoutYaml = rawMarkdown.replace(/^---[\s\S]*?---\s*/, '');
     document.getElementById('content').innerHTML = marked.parse(mdWithoutYaml);
-    fetch("https://triage.baitakstore.com/api/ping-visit?issue=" + encodeURIComponent(caseLeadId) + "&page=" + encodeURIComponent(location.pathname)).catch(function(){});
+    fetch("https://hooktriage.com/api/ping-visit?issue=" + encodeURIComponent(caseLeadId) + "&page=" + encodeURIComponent(location.pathname)).catch(function(){});
 
     window.openCaseTriageModal = function(tier) {
       if (typeof window.openTriageModal === 'function') {
@@ -273,12 +273,12 @@
       btn.disabled = true;
       btn.innerText = 'Sending...';
       try {
-        const r = await fetch("https://triage.baitakstore.com/funnel-api/gate", {
+        const r = await fetch("https://hooktriage.com/funnel-api/gate", {
           method: "POST",
           headers: {"Content-Type": "application/json"},
           body: JSON.stringify({
             email: email,
-            source_channel: "pages_dev",
+            source_channel: "hooktriage_web",
             asset_id: caseLeadId,
             asset_title: caseAssetTitle,
             segment: "track_a",
@@ -327,12 +327,12 @@
       btn.disabled = true;
       btn.innerText = 'Running Audit...';
       try {
-        const r = await fetch("https://triage.baitakstore.com/funnel-api/audit-workflow", {
+        const r = await fetch("https://hooktriage.com/funnel-api/audit-workflow", {
           method: "POST",
           headers: {"Content-Type": "application/json"},
           body: JSON.stringify({
             email: email,
-            source_channel: "pages_dev",
+            source_channel: "hooktriage_web",
             asset_id: caseLeadId,
             sanitized_payload: maskedPayload,
             website: (hpEl ? hpEl.value : '') || ''
@@ -489,7 +489,7 @@
 
 <script>
 (function() {
-  const API = "https://triage.baitakstore.com";
+  const API = "https://hooktriage.com";
   let currentSessionId = "";
   let targetUsdtAddress = "0x57A817bd5D42F14325eE4ec7B67F69D5f884758B";
   let targetUsdtExact = 159.20;

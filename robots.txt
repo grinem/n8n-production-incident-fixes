@@ -16,4 +16,4 @@ Allow: /
 User-agent: *
 Allow: /
 
-Sitemap: https://n8n-production-incident-fixes.pages.dev/sitemap.xml
+Sitemap: https://hooktriage.com/sitemap.xml

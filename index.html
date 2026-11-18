@@ -102,7 +102,7 @@
         <div>
           <div class="text-[11px] font-mono uppercase tracking-wider text-[#00d294] mb-1">Free Inbound Sentinel JSON &bull; Zero-Trust Local Scrubber</div>
           <div class="text-sm font-semibold text-[#f0f0f0]">Stop learning about broken n8n workflows &amp; Shopify timeouts from angry clients</div>
-          <div class="text-xs text-[#a1a4a5] mt-1">Import once as your n8n Error Workflow. Masks keys/PII locally inside n8n before diagnosing errors.</div>
+          <div class="text-xs text-[#a1a4a5] mt-1">Import once as your n8n Error Workflow (0 bytes leave your server), or audit workflows directly in your terminal / AI IDE via <code class="bg-[#0a0b0c] px-1.5 py-0.5 rounded border border-[#212629] text-[#f0f0f0]">npx -y github:grinem/hooktriage scan ./workflow.json</code></div>
         </div>
         <div class="flex flex-wrap items-center gap-2 shrink-0">
           <a href="https://github.com/grinem/n8n-ai-watchdog" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center px-3.5 py-2.5 rounded-xl bg-[#191b1e] hover:bg-[#212629] border border-[#293034] text-[#f0f0f0] font-medium text-xs whitespace-nowrap">Inspect MIT Code</a>
@@ -3008,9 +3008,16 @@
     </section>
   </main>
 
-  <footer class="border-t border-[#212629] py-8 text-center text-xs text-[#878d8f]">
-    &copy; 2026 grinem &bull; Autonomous Production Incident Knowledge Base &bull;
-    <a href="https://github.com/grinem/n8n-production-incident-fixes" class="text-[#a1a4a5] hover:text-[#f0f0f0] underline underline-offset-4">GitHub Source Repository</a>
+  <footer class="border-t border-[#212629] py-8 text-center text-xs text-[#878d8f] space-x-3">
+    <span>&copy; 2026 HookTriage (grinem)</span>
+    <span>&bull;</span>
+    <a href="mailto:ops@hooktriage.com" class="text-[#a1a4a5] hover:text-[#f0f0f0] underline underline-offset-4">ops@hooktriage.com</a>
+    <span>&bull;</span>
+    <a href="https://github.com/grinem/hooktriage" class="text-[#a1a4a5] hover:text-[#f0f0f0] underline underline-offset-4">CLI &amp; MCP Server</a>
+    <span>&bull;</span>
+    <a href="https://github.com/grinem/n8n-ai-watchdog" class="text-[#a1a4a5] hover:text-[#f0f0f0] underline underline-offset-4">Watchdog (MIT)</a>
+    <span>&bull;</span>
+    <a href="/bounties" class="text-[#a1a4a5] hover:text-[#f0f0f0] underline underline-offset-4">Fix Library</a>
   </footer>
 
   <script>
@@ -3054,7 +3061,7 @@
       const params = new URLSearchParams(window.location.search);
       const issueId = params.get('issue');
       if (issueId) {
-        fetch("https://triage.baitakstore.com/api/ping-visit?issue=" + encodeURIComponent(issueId) + "&page=index").catch(function(){});
+        fetch("https://hooktriage.com/api/ping-visit?issue=" + encodeURIComponent(issueId) + "&page=index").catch(function(){});
         const el = document.getElementById('issue-' + issueId) || document.querySelector('[data-lead-id="' + issueId + '"]');
         if (el) {
           el.scrollIntoView({ behavior: 'smooth', block: 'center' });
@@ -3184,7 +3191,7 @@
 
 <script>
 (function() {
-  const API = "https://triage.baitakstore.com";
+  const API = "https://hooktriage.com";
   let currentSessionId = "";
   let targetUsdtAddress = "0x57A817bd5D42F14325eE4ec7B67F69D5f884758B";
   let targetUsdtExact = 159.20;

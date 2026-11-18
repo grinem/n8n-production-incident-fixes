@@ -6,10 +6,10 @@
   <title>Help with whatsapp business integration in automation | Production Incident Fix</title>
   <meta name="description" content="Make only bills for the scenario operations executed; it does not bill for WhatsApp messages. All conversation fees are paid directly to Meta, meaning your client must have an a...">
   <meta name="robots" content="index, follow">
-  <link rel="canonical" href="https://n8n-production-incident-fixes.pages.dev/cases/help-with-whatsapp-business-integration-in-automation.html">
+  <link rel="canonical" href="https://hooktriage.com/cases/help-with-whatsapp-business-integration-in-automation.html">
   <meta property="og:title" content="Help with whatsapp business integration in automation | Production Incident Fix">
   <meta property="og:description" content="Make only bills for the scenario operations executed; it does not bill for WhatsApp messages. All conversation fees are paid directly to Meta, meaning your client must have an a...">
-  <meta property="og:url" content="https://n8n-production-incident-fixes.pages.dev/cases/help-with-whatsapp-business-integration-in-automation.html">
+  <meta property="og:url" content="https://hooktriage.com/cases/help-with-whatsapp-business-integration-in-automation.html">
   <meta property="og:type" content="article">
   <link rel="sitemap" type="application/xml" title="Sitemap" href="/sitemap.xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -62,7 +62,7 @@
     "publisher": {
       "@type": "Organization",
       "name": "Production Incident Radar",
-      "url": "https://n8n-production-incident-fixes.pages.dev"
+      "url": "https://hooktriage.com"
     }
   }
   </script>
@@ -221,7 +221,7 @@
   </div>
 
   <script>
-    const rawMarkdown = "---\nlayout: default\ntitle: \"Help with whatsapp business integration in automation\"\nplatform: \"Make.com\"\nseverity: \"MEDIUM\"\nstatus: \"Resolved\"\ndate: 2026-11-14\ntags: [\"make\", \"production-fix\", \"post-mortem\", \"verified-resolution\"]\nslug: \"help-with-whatsapp-business-integration-in-automation\"\n---\n\n# Help with whatsapp business integration in automation\n\n\n> \u26a1 **Encountering this exact production bug or need an emergency automation fix?**  \n> [**\ud83d\udea8 Instant Async Production Triage & Resolution (< 6h, Zero Video Calls)**](https://n8n-production-incident-fixes.pages.dev/#triage)\n\n\n## Incident Metadata\n- **Platform / Ecosystem**: `Make.com`\n- **Incident Severity**: `MEDIUM`\n- **Resolution Status**: `RADAR TRIAGED & READY FOR RESOLUTION`\n- **Logged Timestamp**: `2026-11-14T13:40:31.986195`\n- **Diagnosis Engine**: Autonomous Production Incident Radar\n\n---\n\n## Root-Cause Analysis & Patch Preview (Layer 1)\n\nMake only bills for the scenario operations executed; it does not bill for WhatsApp messages. All conversation fees are paid directly to Meta, meaning your client must have an active payment method attached inside their own Meta Business Manager.\n\n---\n\n## Incident Prevention & Operational Takeaways\n1. **Audit Upstream Authentication**: Validate OAuth2 token refresh loops and ensure service credentials cannot be orphaned.\n2. **Implement Schema Boundary Validation**: Guard downstream webhooks against unexpected payload truncations.\n3. **Automate Error Interception**: Configure fallback nodes and alerting monitors before critical production executions.\n\n---\n\n\n> \u26a1 **Encountering this exact production bug or need an emergency automation fix?**  \n> [**\ud83d\udea8 Instant Async Production Triage & Resolution (< 6h, Zero Video Calls)**](https://n8n-production-incident-fixes.pages.dev/#triage)\n\n\n[\u2190 Back to Live Case Studies Index](../)\n";
+    const rawMarkdown = "---\nlayout: default\ntitle: \"Help with whatsapp business integration in automation\"\nplatform: \"Make.com\"\nseverity: \"MEDIUM\"\nstatus: \"Resolved\"\ndate: 2026-11-14\ntags: [\"make\", \"production-fix\", \"post-mortem\", \"verified-resolution\"]\nslug: \"help-with-whatsapp-business-integration-in-automation\"\n---\n\n# Help with whatsapp business integration in automation\n\n\n> \u26a1 **Encountering this exact production bug or need an emergency automation fix?**  \n> [**\ud83d\udea8 Instant Async Production Triage & Resolution (< 6h, Zero Video Calls)**](https://hooktriage.com/#triage)\n\n\n## Incident Metadata\n- **Platform / Ecosystem**: `Make.com`\n- **Incident Severity**: `MEDIUM`\n- **Resolution Status**: `RADAR TRIAGED & READY FOR RESOLUTION`\n- **Logged Timestamp**: `2026-11-14T13:40:31.986195`\n- **Diagnosis Engine**: Autonomous Production Incident Radar\n\n---\n\n## Root-Cause Analysis & Patch Preview (Layer 1)\n\nMake only bills for the scenario operations executed; it does not bill for WhatsApp messages. All conversation fees are paid directly to Meta, meaning your client must have an active payment method attached inside their own Meta Business Manager.\n\n---\n\n## Incident Prevention & Operational Takeaways\n1. **Audit Upstream Authentication**: Validate OAuth2 token refresh loops and ensure service credentials cannot be orphaned.\n2. **Implement Schema Boundary Validation**: Guard downstream webhooks against unexpected payload truncations.\n3. **Automate Error Interception**: Configure fallback nodes and alerting monitors before critical production executions.\n\n---\n\n\n> \u26a1 **Encountering this exact production bug or need an emergency automation fix?**  \n> [**\ud83d\udea8 Instant Async Production Triage & Resolution (< 6h, Zero Video Calls)**](https://hooktriage.com/#triage)\n\n\n[\u2190 Back to Live Case Studies Index](../)\n";
     const caseLeadId = "make_119812";
     const caseAssetTitle = "Help with whatsapp business integration in automation";
     const caseBundleMarkdown = "# Complete Production Resolution Bundle \u2014 Help with whatsapp business integration in automation\nEcosystem: Make.com | Severity: MEDIUM | Case ID: make_119812\n\n## 1. Full Importable Patch / Config Diff (with Error-Retry & Timeout Guard)\nFor coexistence mode, Meta Cloud API does now support running alongside the WhatsApp Business App. The simplest way to handle client permissions is to screenshare with them while setting up Make's WhatsApp Business Cloud API connection\u2014have them complete the Embedded Signup popup with their own Meta credentials so their WABA, phone number, and payment method remain cleanly under their ownership without sharing raw account logins.\n\n## 2. Verification & Non-Destructive Test Checklist\n1. Validate JSON/YAML syntax and confirm no unmasked secrets remain.\n2. Confirm error-retry/backoff and timeout guards are enabled before re-activating.\n3. Run a non-destructive healthcheck / test webhook and verify HTTP 200 payload shape.\n\n## 3. Team Post-Mortem Note\nRoot Cause (Make.com / MEDIUM): Make only bills for the scenario operations executed; it does not bill for WhatsApp messages. All conversation fees are paid directly to Meta, meaning your client must have an a...\nOperational Guard: Audit OAuth2 token refresh loops, enforce schema boundary validation, and configure dead-letter error interception.\n";
@@ -234,7 +234,7 @@
     // Strip YAML frontmatter
     const mdWithoutYaml = rawMarkdown.replace(/^---[\s\S]*?---\s*/, '');
     document.getElementById('content').innerHTML = marked.parse(mdWithoutYaml);
-    fetch("https://triage.baitakstore.com/api/ping-visit?issue=" + encodeURIComponent(caseLeadId) + "&page=" + encodeURIComponent(location.pathname)).catch(function(){});
+    fetch("https://hooktriage.com/api/ping-visit?issue=" + encodeURIComponent(caseLeadId) + "&page=" + encodeURIComponent(location.pathname)).catch(function(){});
 
     window.openCaseTriageModal = function(tier) {
       if (typeof window.openTriageModal === 'function') {
@@ -273,12 +273,12 @@
       btn.disabled = true;
       btn.innerText = 'Sending...';
       try {
-        const r = await fetch("https://triage.baitakstore.com/funnel-api/gate", {
+        const r = await fetch("https://hooktriage.com/funnel-api/gate", {
           method: "POST",
           headers: {"Content-Type": "application/json"},
           body: JSON.stringify({
             email: email,
-            source_channel: "pages_dev",
+            source_channel: "hooktriage_web",
             asset_id: caseLeadId,
             asset_title: caseAssetTitle,
             segment: "track_a",
@@ -327,12 +327,12 @@
       btn.disabled = true;
       btn.innerText = 'Running Audit...';
       try {
-        const r = await fetch("https://triage.baitakstore.com/funnel-api/audit-workflow", {
+        const r = await fetch("https://hooktriage.com/funnel-api/audit-workflow", {
           method: "POST",
           headers: {"Content-Type": "application/json"},
           body: JSON.stringify({
             email: email,
-            source_channel: "pages_dev",
+            source_channel: "hooktriage_web",
             asset_id: caseLeadId,
             sanitized_payload: maskedPayload,
             website: (hpEl ? hpEl.value : '') || ''
@@ -489,7 +489,7 @@
 
 <script>
 (function() {
-  const API = "https://triage.baitakstore.com";
+  const API = "https://hooktriage.com";
   let currentSessionId = "";
   let targetUsdtAddress = "0x57A817bd5D42F14325eE4ec7B67F69D5f884758B";
   let targetUsdtExact = 159.20;

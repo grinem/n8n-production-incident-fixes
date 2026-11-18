@@ -1,7 +1,7 @@
 title: "Production Incident Fixes | Knowledge Base"
 description: "Live Production Post-Mortems & Automated Incident Resolution for n8n, Make, Bubble, Webhooks & APIs"
 theme: jekyll-theme-primer
-url: "https://n8n-production-incident-fixes.pages.dev"
+url: "https://hooktriage.com"
 baseurl: ""
 github:
   is_project_page: true

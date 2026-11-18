@@ -6,10 +6,10 @@
   <title>Two Merge nodes inside a loop wait for each other, and the execution stops without an error | Production Incident Fix</title>
   <meta name="description" content="Great trace on `processRunExecutionData`. A silent `Success` exit when `waitingExecution` deadlocks without an empty graph is definitely a bug in the scheduler.">
   <meta name="robots" content="index, follow">
-  <link rel="canonical" href="https://n8n-production-incident-fixes.pages.dev/cases/two-merge-nodes-inside-a-loop-wait-for-each-other-and-the-executi.html">
+  <link rel="canonical" href="https://hooktriage.com/cases/two-merge-nodes-inside-a-loop-wait-for-each-other-and-the-executi.html">
   <meta property="og:title" content="Two Merge nodes inside a loop wait for each other, and the execution stops without an error | Production Incident Fix">
   <meta property="og:description" content="Great trace on `processRunExecutionData`. A silent `Success` exit when `waitingExecution` deadlocks without an empty graph is definitely a bug in the scheduler.">
-  <meta property="og:url" content="https://n8n-production-incident-fixes.pages.dev/cases/two-merge-nodes-inside-a-loop-wait-for-each-other-and-the-executi.html">
+  <meta property="og:url" content="https://hooktriage.com/cases/two-merge-nodes-inside-a-loop-wait-for-each-other-and-the-executi.html">
   <meta property="og:type" content="article">
   <link rel="sitemap" type="application/xml" title="Sitemap" href="/sitemap.xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -62,7 +62,7 @@
     "publisher": {
       "@type": "Organization",
       "name": "Production Incident Radar",
-      "url": "https://n8n-production-incident-fixes.pages.dev"
+      "url": "https://hooktriage.com"
     }
   }
   </script>
@@ -221,7 +221,7 @@
   </div>
 
   <script>
-    const rawMarkdown = "---\nlayout: default\ntitle: \"Two Merge nodes inside a loop wait for each other, and the execution stops without an error\"\nplatform: \"n8n\"\nseverity: \"HIGH\"\nstatus: \"Resolved\"\ndate: 2026-11-18\ntags: [\"n8n\", \"production-fix\", \"post-mortem\", \"verified-resolution\"]\nslug: \"two-merge-nodes-inside-a-loop-wait-for-each-other-and-the-executi\"\n---\n\n# Two Merge nodes inside a loop wait for each other, and the execution stops without an error\n\n\n> \u26a1 **Encountering this exact production bug or need an emergency automation fix?**  \n> [**\ud83d\udea8 Instant Async Production Triage & Resolution (< 6h, Zero Video Calls)**](https://n8n-production-incident-fixes.pages.dev/#triage)\n\n\n## Incident Metadata\n- **Platform / Ecosystem**: `n8n`\n- **Incident Severity**: `HIGH`\n- **Resolution Status**: `VERIFIED & RESOLVED`\n- **Logged Timestamp**: `2026-11-18T20:20:43.202177`\n- **Diagnosis Engine**: Autonomous Production Incident Radar\n\n---\n\n## Root-Cause Analysis & Patch Preview (Layer 1)\n\nGreat trace on `processRunExecutionData`. A silent `Success` exit when `waitingExecution` deadlocks without an empty graph is definitely a bug in the scheduler.\n\n---\n\n## Incident Prevention & Operational Takeaways\n1. **Audit Upstream Authentication**: Validate OAuth2 token refresh loops and ensure service credentials cannot be orphaned.\n2. **Implement Schema Boundary Validation**: Guard downstream webhooks against unexpected payload truncations.\n3. **Automate Error Interception**: Configure fallback nodes and alerting monitors before critical production executions.\n\n---\n\n\n> \u26a1 **Encountering this exact production bug or need an emergency automation fix?**  \n> [**\ud83d\udea8 Instant Async Production Triage & Resolution (< 6h, Zero Video Calls)**](https://n8n-production-incident-fixes.pages.dev/#triage)\n\n\n[\u2190 Back to Live Case Studies Index](../)\n";
+    const rawMarkdown = "---\nlayout: default\ntitle: \"Two Merge nodes inside a loop wait for each other, and the execution stops without an error\"\nplatform: \"n8n\"\nseverity: \"HIGH\"\nstatus: \"Resolved\"\ndate: 2026-11-18\ntags: [\"n8n\", \"production-fix\", \"post-mortem\", \"verified-resolution\"]\nslug: \"two-merge-nodes-inside-a-loop-wait-for-each-other-and-the-executi\"\n---\n\n# Two Merge nodes inside a loop wait for each other, and the execution stops without an error\n\n\n> \u26a1 **Encountering this exact production bug or need an emergency automation fix?**  \n> [**\ud83d\udea8 Instant Async Production Triage & Resolution (< 6h, Zero Video Calls)**](https://hooktriage.com/#triage)\n\n\n## Incident Metadata\n- **Platform / Ecosystem**: `n8n`\n- **Incident Severity**: `HIGH`\n- **Resolution Status**: `VERIFIED & RESOLVED`\n- **Logged Timestamp**: `2026-11-18T20:20:43.202177`\n- **Diagnosis Engine**: Autonomous Production Incident Radar\n\n---\n\n## Root-Cause Analysis & Patch Preview (Layer 1)\n\nGreat trace on `processRunExecutionData`. A silent `Success` exit when `waitingExecution` deadlocks without an empty graph is definitely a bug in the scheduler.\n\n---\n\n## Incident Prevention & Operational Takeaways\n1. **Audit Upstream Authentication**: Validate OAuth2 token refresh loops and ensure service credentials cannot be orphaned.\n2. **Implement Schema Boundary Validation**: Guard downstream webhooks against unexpected payload truncations.\n3. **Automate Error Interception**: Configure fallback nodes and alerting monitors before critical production executions.\n\n---\n\n\n> \u26a1 **Encountering this exact production bug or need an emergency automation fix?**  \n> [**\ud83d\udea8 Instant Async Production Triage & Resolution (< 6h, Zero Video Calls)**](https://hooktriage.com/#triage)\n\n\n[\u2190 Back to Live Case Studies Index](../)\n";
     const caseLeadId = "github_n8n-io_n8n_44423";
     const caseAssetTitle = "Two Merge nodes inside a loop wait for each other, and the execution stops without an error";
     const caseBundleMarkdown = "# Complete Production Resolution Bundle \u2014 Two Merge nodes inside a loop wait for each other, and the execution stops without an error\nEcosystem: n8n | Severity: HIGH | Case ID: github_n8n-io_n8n_44423\n\n## 1. Full Importable Patch / Config Diff (with Error-Retry & Timeout Guard)\nThe root issue is that `workflow.getParentNodes()` in `packages/core/src/Workflow.ts` does a standard BFS/DFS traversal over `node.connections` without checking for cyclic back-edges leading back into loop controllers.\n\nIf you want to PR this, the cleanest path is usually modifying `getParentNodes` (or passing a `skipLoopBackEdges = true` flag) to ignore connections feeding back into input `0` of the active `Loop Over Items` node when evaluating `parentIsWaiting`. Otherwise, breaking the cycle in `processRunExecutionData` by falling back to topological depth from the active iteration root would prevent the silent drop.\n\n## 2. Verification & Non-Destructive Test Checklist\n1. Validate JSON/YAML syntax and confirm no unmasked secrets remain.\n2. Confirm error-retry/backoff and timeout guards are enabled before re-activating.\n3. Run a non-destructive healthcheck / test webhook and verify HTTP 200 payload shape.\n\n## 3. Team Post-Mortem Note\nRoot Cause (n8n / HIGH): Great trace on `processRunExecutionData`. A silent `Success` exit when `waitingExecution` deadlocks without an empty graph is definitely a bug in the scheduler.\nOperational Guard: Audit OAuth2 token refresh loops, enforce schema boundary validation, and configure dead-letter error interception.\n";
@@ -234,7 +234,7 @@
     // Strip YAML frontmatter
     const mdWithoutYaml = rawMarkdown.replace(/^---[\s\S]*?---\s*/, '');
     document.getElementById('content').innerHTML = marked.parse(mdWithoutYaml);
-    fetch("https://triage.baitakstore.com/api/ping-visit?issue=" + encodeURIComponent(caseLeadId) + "&page=" + encodeURIComponent(location.pathname)).catch(function(){});
+    fetch("https://hooktriage.com/api/ping-visit?issue=" + encodeURIComponent(caseLeadId) + "&page=" + encodeURIComponent(location.pathname)).catch(function(){});
 
     window.openCaseTriageModal = function(tier) {
       if (typeof window.openTriageModal === 'function') {
@@ -273,12 +273,12 @@
       btn.disabled = true;
       btn.innerText = 'Sending...';
       try {
-        const r = await fetch("https://triage.baitakstore.com/funnel-api/gate", {
+        const r = await fetch("https://hooktriage.com/funnel-api/gate", {
           method: "POST",
           headers: {"Content-Type": "application/json"},
           body: JSON.stringify({
             email: email,
-            source_channel: "pages_dev",
+            source_channel: "hooktriage_web",
             asset_id: caseLeadId,
             asset_title: caseAssetTitle,
             segment: "track_a",
@@ -327,12 +327,12 @@
       btn.disabled = true;
       btn.innerText = 'Running Audit...';
       try {
-        const r = await fetch("https://triage.baitakstore.com/funnel-api/audit-workflow", {
+        const r = await fetch("https://hooktriage.com/funnel-api/audit-workflow", {
           method: "POST",
           headers: {"Content-Type": "application/json"},
           body: JSON.stringify({
             email: email,
-            source_channel: "pages_dev",
+            source_channel: "hooktriage_web",
             asset_id: caseLeadId,
             sanitized_payload: maskedPayload,
             website: (hpEl ? hpEl.value : '') || ''
@@ -489,7 +489,7 @@
 
 <script>
 (function() {
-  const API = "https://triage.baitakstore.com";
+  const API = "https://hooktriage.com";
   let currentSessionId = "";
   let targetUsdtAddress = "0x57A817bd5D42F14325eE4ec7B67F69D5f884758B";
   let targetUsdtExact = 159.20;

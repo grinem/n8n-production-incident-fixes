@@ -6,10 +6,10 @@
   <title>Root `pnpm test` fails because the @n8n/typeorm test script needs ormconfig.json | Production Incident Fix</title>
   <meta name="description" content="In the root `package.json`, running `pnpm test` triggers Turborepo (`turbo run test`). Turbo executes the `test` lifecycle across all workspace packages, including `packages/Cli...">
   <meta name="robots" content="index, follow">
-  <link rel="canonical" href="https://n8n-production-incident-fixes.pages.dev/cases/root-pnpm-test-fails-because-the-n8n-typeorm-test-script-needs-or.html">
+  <link rel="canonical" href="https://hooktriage.com/cases/root-pnpm-test-fails-because-the-n8n-typeorm-test-script-needs-or.html">
   <meta property="og:title" content="Root `pnpm test` fails because the @n8n/typeorm test script needs ormconfig.json | Production Incident Fix">
   <meta property="og:description" content="In the root `package.json`, running `pnpm test` triggers Turborepo (`turbo run test`). Turbo executes the `test` lifecycle across all workspace packages, including `packages/Cli...">
-  <meta property="og:url" content="https://n8n-production-incident-fixes.pages.dev/cases/root-pnpm-test-fails-because-the-n8n-typeorm-test-script-needs-or.html">
+  <meta property="og:url" content="https://hooktriage.com/cases/root-pnpm-test-fails-because-the-n8n-typeorm-test-script-needs-or.html">
   <meta property="og:type" content="article">
   <link rel="sitemap" type="application/xml" title="Sitemap" href="/sitemap.xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -62,7 +62,7 @@
     "publisher": {
       "@type": "Organization",
       "name": "Production Incident Radar",
-      "url": "https://n8n-production-incident-fixes.pages.dev"
+      "url": "https://hooktriage.com"
     }
   }
   </script>
@@ -221,7 +221,7 @@
   </div>
 
   <script>
-    const rawMarkdown = "---\nlayout: default\ntitle: \"Root `pnpm test` fails because the @n8n/typeorm test script needs ormconfig.json\"\nplatform: \"n8n\"\nseverity: \"CRITICAL\"\nstatus: \"Resolved\"\ndate: 2026-11-11\ntags: [\"n8n\", \"critical-incident\", \"production-fix\", \"post-mortem\", \"verified-resolution\"]\nslug: \"root-pnpm-test-fails-because-the-n8n-typeorm-test-script-needs-or\"\n---\n\n# Root `pnpm test` fails because the @n8n/typeorm test script needs ormconfig.json\n\n\n> \u26a1 **Encountering this exact production bug or need an emergency automation fix?**  \n> [**\ud83d\udea8 Instant Async Production Triage & Resolution (< 6h, Zero Video Calls)**](https://n8n-production-incident-fixes.pages.dev/#triage)\n\n\n## Incident Metadata\n- **Platform / Ecosystem**: `n8n`\n- **Incident Severity**: `CRITICAL`\n- **Resolution Status**: `VERIFIED & RESOLVED`\n- **Logged Timestamp**: `2026-11-11T19:20:34.648145`\n- **Diagnosis Engine**: Autonomous Production Incident Radar\n\n---\n\n## Root-Cause Analysis & Patch Preview (Layer 1)\n\nGood catch. You have accurately identified a discrepancy between the local developer guide (`CONTRIBUTING.md`) and n8n's GitHub Actions CI pipeline.\n\n### Why this happens\nIn the root `package.json`, running `pnpm test` triggers Turborepo (`turbo run test`). Turbo executes the `test` lifecycle across all workspace packages, including `packages/Client Case Study (User)/typeorm` (n8n's vendored fork of TypeORM).\n\nIts internal `package.json` retains the upstream TypeORM test script, which expects an `ormconfig.json` database configuration to execute ~1,400 integration tests. Because `ormconfig.json.dist` is not checked into the repository, the runner throws `Error: Cannot find ormconfig.json` and Turbo aborts the pipeline across the monorepo.\n\nIn CI, n8n executes `pnpm test:unit` (which delegates to `turbo run test:unit`). Because `Client Case Study (User)/typeorm` does not declare a `test:unit` script, Turborepo cleanly skips it without failing.\n\n---\n\n### Immediate Workaround (Run tests locally)\nTo run the same test suite executed by CI without hitting the TypeORM integration failure, run:\n\n**Patch Preview (First 3 lines of verified fix):**\n```bash\npnpm test:unit\n# ... [TRUNCATED \u2014 Full production patch & verification steps locked below]\n```\n\n---\n\n## Incident Prevention & Operational Takeaways\n1. **Audit Upstream Authentication**: Validate OAuth2 token refresh loops and ensure service credentials cannot be orphaned.\n2. **Implement Schema Boundary Validation**: Guard downstream webhooks against unexpected payload truncations.\n3. **Automate Error Interception**: Configure fallback nodes and alerting monitors before critical production executions.\n\n---\n\n\n> \u26a1 **Encountering this exact production bug or need an emergency automation fix?**  \n> [**\ud83d\udea8 Instant Async Production Triage & Resolution (< 6h, Zero Video Calls)**](https://n8n-production-incident-fixes.pages.dev/#triage)\n\n\n[\u2190 Back to Live Case Studies Index](../)\n";
+    const rawMarkdown = "---\nlayout: default\ntitle: \"Root `pnpm test` fails because the @n8n/typeorm test script needs ormconfig.json\"\nplatform: \"n8n\"\nseverity: \"CRITICAL\"\nstatus: \"Resolved\"\ndate: 2026-11-11\ntags: [\"n8n\", \"critical-incident\", \"production-fix\", \"post-mortem\", \"verified-resolution\"]\nslug: \"root-pnpm-test-fails-because-the-n8n-typeorm-test-script-needs-or\"\n---\n\n# Root `pnpm test` fails because the @n8n/typeorm test script needs ormconfig.json\n\n\n> \u26a1 **Encountering this exact production bug or need an emergency automation fix?**  \n> [**\ud83d\udea8 Instant Async Production Triage & Resolution (< 6h, Zero Video Calls)**](https://hooktriage.com/#triage)\n\n\n## Incident Metadata\n- **Platform / Ecosystem**: `n8n`\n- **Incident Severity**: `CRITICAL`\n- **Resolution Status**: `VERIFIED & RESOLVED`\n- **Logged Timestamp**: `2026-11-11T19:20:34.648145`\n- **Diagnosis Engine**: Autonomous Production Incident Radar\n\n---\n\n## Root-Cause Analysis & Patch Preview (Layer 1)\n\nGood catch. You have accurately identified a discrepancy between the local developer guide (`CONTRIBUTING.md`) and n8n's GitHub Actions CI pipeline.\n\n### Why this happens\nIn the root `package.json`, running `pnpm test` triggers Turborepo (`turbo run test`). Turbo executes the `test` lifecycle across all workspace packages, including `packages/Client Case Study (User)/typeorm` (n8n's vendored fork of TypeORM).\n\nIts internal `package.json` retains the upstream TypeORM test script, which expects an `ormconfig.json` database configuration to execute ~1,400 integration tests. Because `ormconfig.json.dist` is not checked into the repository, the runner throws `Error: Cannot find ormconfig.json` and Turbo aborts the pipeline across the monorepo.\n\nIn CI, n8n executes `pnpm test:unit` (which delegates to `turbo run test:unit`). Because `Client Case Study (User)/typeorm` does not declare a `test:unit` script, Turborepo cleanly skips it without failing.\n\n---\n\n### Immediate Workaround (Run tests locally)\nTo run the same test suite executed by CI without hitting the TypeORM integration failure, run:\n\n**Patch Preview (First 3 lines of verified fix):**\n```bash\npnpm test:unit\n# ... [TRUNCATED \u2014 Full production patch & verification steps locked below]\n```\n\n---\n\n## Incident Prevention & Operational Takeaways\n1. **Audit Upstream Authentication**: Validate OAuth2 token refresh loops and ensure service credentials cannot be orphaned.\n2. **Implement Schema Boundary Validation**: Guard downstream webhooks against unexpected payload truncations.\n3. **Automate Error Interception**: Configure fallback nodes and alerting monitors before critical production executions.\n\n---\n\n\n> \u26a1 **Encountering this exact production bug or need an emergency automation fix?**  \n> [**\ud83d\udea8 Instant Async Production Triage & Resolution (< 6h, Zero Video Calls)**](https://hooktriage.com/#triage)\n\n\n[\u2190 Back to Live Case Studies Index](../)\n";
     const caseLeadId = "github_n8n-io_n8n_43574";
     const caseAssetTitle = "Root `pnpm test` fails because the @n8n/typeorm test script needs ormconfig.json";
     const caseBundleMarkdown = "# Complete Production Resolution Bundle \u2014 Root `pnpm test` fails because the @n8n/typeorm test script needs ormconfig.json\nEcosystem: n8n | Severity: CRITICAL | Case ID: github_n8n-io_n8n_43574\n\n## 1. Full Importable Patch / Config Diff (with Error-Retry & Timeout Guard)\n```bash\npnpm test:unit\n```\n\nIf you specifically want to run the standard `test` targets across the monorepo while excluding the vendored package, use pnpm's filter exclusion:\n\n```bash\npnpm --filter=!Client Case Study (User)/typeorm test\n```\n\n---\n\n### Proposed Permanent Fix\nTo align root `pnpm test` with expected monorepo behavior, update `packages/Client Case Study (User)/typeorm/package.json` so that upstream database integration tests require an explicit target, preventing Turbo from halting the root test command:\n\n```json\n{\n  \"name\": \"Client Case Study (User)/typeorm\",\n  \"scripts\": {\n    \"test\": \"echo \"Skipping Client Case Study (User)/typeorm integration tests by default. Run pnpm test:upstream with configured ormconfig.json if needed.\"\",\n    \"test:upstream\": \"mocha --opts mocha.opts \"test/**/*.ts\"\"\n  }\n}\n```\n\nAlternatively, submitting a PR updating `CONTRIBUTING.md` to instruct contributors to use `pnpm test:unit` is the cleanest documentation fix.\n\n(Note: Already submitted and tracked in PR #43572).\n\n## 2. Verification & Non-Destructive Test Checklist\n1. Validate JSON/YAML syntax and confirm no unmasked secrets remain.\n2. Confirm error-retry/backoff and timeout guards are enabled before re-activating.\n3. Run a non-destructive healthcheck / test webhook and verify HTTP 200 payload shape.\n\n## 3. Team Post-Mortem Note\nRoot Cause (n8n / CRITICAL): In the root `package.json`, running `pnpm test` triggers Turborepo (`turbo run test`). Turbo executes the `test` lifecycle across all workspace packages, including `packages/Cli...\nOperational Guard: Audit OAuth2 token refresh loops, enforce schema boundary validation, and configure dead-letter error interception.\n";
@@ -234,7 +234,7 @@
     // Strip YAML frontmatter
     const mdWithoutYaml = rawMarkdown.replace(/^---[\s\S]*?---\s*/, '');
     document.getElementById('content').innerHTML = marked.parse(mdWithoutYaml);
-    fetch("https://triage.baitakstore.com/api/ping-visit?issue=" + encodeURIComponent(caseLeadId) + "&page=" + encodeURIComponent(location.pathname)).catch(function(){});
+    fetch("https://hooktriage.com/api/ping-visit?issue=" + encodeURIComponent(caseLeadId) + "&page=" + encodeURIComponent(location.pathname)).catch(function(){});
 
     window.openCaseTriageModal = function(tier) {
       if (typeof window.openTriageModal === 'function') {
@@ -273,12 +273,12 @@
       btn.disabled = true;
       btn.innerText = 'Sending...';
       try {
-        const r = await fetch("https://triage.baitakstore.com/funnel-api/gate", {
+        const r = await fetch("https://hooktriage.com/funnel-api/gate", {
           method: "POST",
           headers: {"Content-Type": "application/json"},
           body: JSON.stringify({
             email: email,
-            source_channel: "pages_dev",
+            source_channel: "hooktriage_web",
             asset_id: caseLeadId,
             asset_title: caseAssetTitle,
             segment: "track_a",
@@ -327,12 +327,12 @@
       btn.disabled = true;
       btn.innerText = 'Running Audit...';
       try {
-        const r = await fetch("https://triage.baitakstore.com/funnel-api/audit-workflow", {
+        const r = await fetch("https://hooktriage.com/funnel-api/audit-workflow", {
           method: "POST",
           headers: {"Content-Type": "application/json"},
           body: JSON.stringify({
             email: email,
-            source_channel: "pages_dev",
+            source_channel: "hooktriage_web",
             asset_id: caseLeadId,
             sanitized_payload: maskedPayload,
             website: (hpEl ? hpEl.value : '') || ''
@@ -489,7 +489,7 @@
 
 <script>
 (function() {
-  const API = "https://triage.baitakstore.com";
+  const API = "https://hooktriage.com";
   let currentSessionId = "";
   let targetUsdtAddress = "0x57A817bd5D42F14325eE4ec7B67F69D5f884758B";
   let targetUsdtExact = 159.20;

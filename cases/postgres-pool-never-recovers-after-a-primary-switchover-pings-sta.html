@@ -6,10 +6,10 @@
   <title>Postgres pool never recovers after a primary switchover: pings stay &quot;not counted, no pooled connection free&quot; | Production Incident Fix</title>
   <meta name="description" content="Spot on. Returning early on `PooledConnectionUnavailableError` without running `probeOutsidePool()` or bumping `consecutiveFailures` creates a permanent deadlock whenever the ex...">
   <meta name="robots" content="index, follow">
-  <link rel="canonical" href="https://n8n-production-incident-fixes.pages.dev/cases/postgres-pool-never-recovers-after-a-primary-switchover-pings-sta.html">
+  <link rel="canonical" href="https://hooktriage.com/cases/postgres-pool-never-recovers-after-a-primary-switchover-pings-sta.html">
   <meta property="og:title" content="Postgres pool never recovers after a primary switchover: pings stay &quot;not counted, no pooled connection free&quot; | Production Incident Fix">
   <meta property="og:description" content="Spot on. Returning early on `PooledConnectionUnavailableError` without running `probeOutsidePool()` or bumping `consecutiveFailures` creates a permanent deadlock whenever the ex...">
-  <meta property="og:url" content="https://n8n-production-incident-fixes.pages.dev/cases/postgres-pool-never-recovers-after-a-primary-switchover-pings-sta.html">
+  <meta property="og:url" content="https://hooktriage.com/cases/postgres-pool-never-recovers-after-a-primary-switchover-pings-sta.html">
   <meta property="og:type" content="article">
   <link rel="sitemap" type="application/xml" title="Sitemap" href="/sitemap.xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -62,7 +62,7 @@
     "publisher": {
       "@type": "Organization",
       "name": "Production Incident Radar",
-      "url": "https://n8n-production-incident-fixes.pages.dev"
+      "url": "https://hooktriage.com"
     }
   }
   </script>
@@ -221,7 +221,7 @@
   </div>
 
   <script>
-    const rawMarkdown = "---\nlayout: default\ntitle: \"Postgres pool never recovers after a primary switchover: pings stay \\\"not counted, no pooled connection free\\\"\"\nplatform: \"n8n\"\nseverity: \"CRITICAL\"\nstatus: \"Resolved\"\ndate: 2026-11-17\ntags: [\"n8n\", \"critical-incident\", \"production-fix\", \"post-mortem\", \"verified-resolution\"]\nslug: \"postgres-pool-never-recovers-after-a-primary-switchover-pings-sta\"\n---\n\n# Postgres pool never recovers after a primary switchover: pings stay \"not counted, no pooled connection free\"\n\n\n> \u26a1 **Encountering this exact production bug or need an emergency automation fix?**  \n> [**\ud83d\udea8 Instant Async Production Triage & Resolution (< 6h, Zero Video Calls)**](https://n8n-production-incident-fixes.pages.dev/#triage)\n\n\n## Incident Metadata\n- **Platform / Ecosystem**: `n8n`\n- **Incident Severity**: `CRITICAL`\n- **Resolution Status**: `VERIFIED & RESOLVED`\n- **Logged Timestamp**: `2026-11-17T15:00:45.671001`\n- **Diagnosis Engine**: Autonomous Production Incident Radar\n\n---\n\n## Root-Cause Analysis & Patch Preview (Layer 1)\n\nSpot on. Returning early on `PooledConnectionUnavailableError` without running `probeOutsidePool()` or bumping `consecutiveFailures` creates a permanent deadlock whenever the existing pool fills up with hung sockets after a failover.\n\n---\n\n## Incident Prevention & Operational Takeaways\n1. **Audit Upstream Authentication**: Validate OAuth2 token refresh loops and ensure service credentials cannot be orphaned.\n2. **Implement Schema Boundary Validation**: Guard downstream webhooks against unexpected payload truncations.\n3. **Automate Error Interception**: Configure fallback nodes and alerting monitors before critical production executions.\n\n---\n\n\n> \u26a1 **Encountering this exact production bug or need an emergency automation fix?**  \n> [**\ud83d\udea8 Instant Async Production Triage & Resolution (< 6h, Zero Video Calls)**](https://n8n-production-incident-fixes.pages.dev/#triage)\n\n\n[\u2190 Back to Live Case Studies Index](../)\n";
+    const rawMarkdown = "---\nlayout: default\ntitle: \"Postgres pool never recovers after a primary switchover: pings stay \\\"not counted, no pooled connection free\\\"\"\nplatform: \"n8n\"\nseverity: \"CRITICAL\"\nstatus: \"Resolved\"\ndate: 2026-11-17\ntags: [\"n8n\", \"critical-incident\", \"production-fix\", \"post-mortem\", \"verified-resolution\"]\nslug: \"postgres-pool-never-recovers-after-a-primary-switchover-pings-sta\"\n---\n\n# Postgres pool never recovers after a primary switchover: pings stay \"not counted, no pooled connection free\"\n\n\n> \u26a1 **Encountering this exact production bug or need an emergency automation fix?**  \n> [**\ud83d\udea8 Instant Async Production Triage & Resolution (< 6h, Zero Video Calls)**](https://hooktriage.com/#triage)\n\n\n## Incident Metadata\n- **Platform / Ecosystem**: `n8n`\n- **Incident Severity**: `CRITICAL`\n- **Resolution Status**: `VERIFIED & RESOLVED`\n- **Logged Timestamp**: `2026-11-17T15:00:45.671001`\n- **Diagnosis Engine**: Autonomous Production Incident Radar\n\n---\n\n## Root-Cause Analysis & Patch Preview (Layer 1)\n\nSpot on. Returning early on `PooledConnectionUnavailableError` without running `probeOutsidePool()` or bumping `consecutiveFailures` creates a permanent deadlock whenever the existing pool fills up with hung sockets after a failover.\n\n---\n\n## Incident Prevention & Operational Takeaways\n1. **Audit Upstream Authentication**: Validate OAuth2 token refresh loops and ensure service credentials cannot be orphaned.\n2. **Implement Schema Boundary Validation**: Guard downstream webhooks against unexpected payload truncations.\n3. **Automate Error Interception**: Configure fallback nodes and alerting monitors before critical production executions.\n\n---\n\n\n> \u26a1 **Encountering this exact production bug or need an emergency automation fix?**  \n> [**\ud83d\udea8 Instant Async Production Triage & Resolution (< 6h, Zero Video Calls)**](https://hooktriage.com/#triage)\n\n\n[\u2190 Back to Live Case Studies Index](../)\n";
     const caseLeadId = "github_n8n-io_n8n_44265";
     const caseAssetTitle = "Postgres pool never recovers after a primary switchover: pings stay \"not counted, no pooled connection free\"";
     const caseBundleMarkdown = "# Complete Production Resolution Bundle \u2014 Postgres pool never recovers after a primary switchover: pings stay \"not counted, no pooled connection free\"\nEcosystem: n8n | Severity: CRITICAL | Case ID: github_n8n-io_n8n_44265\n\n## 1. Full Importable Patch / Config Diff (with Error-Retry & Timeout Guard)\nIf you're up for opening a PR, the cleanest fix is falling through to `probeOutsidePool()` inside that catch block. If the probe succeeds while the pool is blocked, increment `consecutiveFailures` so the pool teardown/rebuild cycle can actually trigger.\n\nIn the meantime, pointing your k8s `livenessProbe` directly at `/healthz/readiness` (rather than `/healthz`) should force a restart when this happens.\n\n## 2. Verification & Non-Destructive Test Checklist\n1. Validate JSON/YAML syntax and confirm no unmasked secrets remain.\n2. Confirm error-retry/backoff and timeout guards are enabled before re-activating.\n3. Run a non-destructive healthcheck / test webhook and verify HTTP 200 payload shape.\n\n## 3. Team Post-Mortem Note\nRoot Cause (n8n / CRITICAL): Spot on. Returning early on `PooledConnectionUnavailableError` without running `probeOutsidePool()` or bumping `consecutiveFailures` creates a permanent deadlock whenever the ex...\nOperational Guard: Audit OAuth2 token refresh loops, enforce schema boundary validation, and configure dead-letter error interception.\n";
@@ -234,7 +234,7 @@
     // Strip YAML frontmatter
     const mdWithoutYaml = rawMarkdown.replace(/^---[\s\S]*?---\s*/, '');
     document.getElementById('content').innerHTML = marked.parse(mdWithoutYaml);
-    fetch("https://triage.baitakstore.com/api/ping-visit?issue=" + encodeURIComponent(caseLeadId) + "&page=" + encodeURIComponent(location.pathname)).catch(function(){});
+    fetch("https://hooktriage.com/api/ping-visit?issue=" + encodeURIComponent(caseLeadId) + "&page=" + encodeURIComponent(location.pathname)).catch(function(){});
 
     window.openCaseTriageModal = function(tier) {
       if (typeof window.openTriageModal === 'function') {
@@ -273,12 +273,12 @@
       btn.disabled = true;
       btn.innerText = 'Sending...';
       try {
-        const r = await fetch("https://triage.baitakstore.com/funnel-api/gate", {
+        const r = await fetch("https://hooktriage.com/funnel-api/gate", {
           method: "POST",
           headers: {"Content-Type": "application/json"},
           body: JSON.stringify({
             email: email,
-            source_channel: "pages_dev",
+            source_channel: "hooktriage_web",
             asset_id: caseLeadId,
             asset_title: caseAssetTitle,
             segment: "track_a",
@@ -327,12 +327,12 @@
       btn.disabled = true;
       btn.innerText = 'Running Audit...';
       try {
-        const r = await fetch("https://triage.baitakstore.com/funnel-api/audit-workflow", {
+        const r = await fetch("https://hooktriage.com/funnel-api/audit-workflow", {
           method: "POST",
           headers: {"Content-Type": "application/json"},
           body: JSON.stringify({
             email: email,
-            source_channel: "pages_dev",
+            source_channel: "hooktriage_web",
             asset_id: caseLeadId,
             sanitized_payload: maskedPayload,
             website: (hpEl ? hpEl.value : '') || ''
@@ -489,7 +489,7 @@
 
 <script>
 (function() {
-  const API = "https://triage.baitakstore.com";
+  const API = "https://hooktriage.com";
   let currentSessionId = "";
   let targetUsdtAddress = "0x57A817bd5D42F14325eE4ec7B67F69D5f884758B";
   let targetUsdtExact = 159.20;

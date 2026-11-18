@@ -6,10 +6,10 @@
   <title>Knowledge base retrieval API keeps the request&#x27;s DB connection during retrieval: at 100 concurrent requests the pool is exhausted and most requests fail | Production Incident Fix</title>
   <meta name="description" content="Great catch. Holding a session across slow network I/O (embedding generation + vector DB search) will exhaust `QueuePool` under any serious concurrency, especially if worker thr...">
   <meta name="robots" content="index, follow">
-  <link rel="canonical" href="https://n8n-production-incident-fixes.pages.dev/cases/knowledge-base-retrieval-api-keeps-the-request-s-db-connection-du.html">
+  <link rel="canonical" href="https://hooktriage.com/cases/knowledge-base-retrieval-api-keeps-the-request-s-db-connection-du.html">
   <meta property="og:title" content="Knowledge base retrieval API keeps the request&#x27;s DB connection during retrieval: at 100 concurrent requests the pool is exhausted and most requests fail | Production Incident Fix">
   <meta property="og:description" content="Great catch. Holding a session across slow network I/O (embedding generation + vector DB search) will exhaust `QueuePool` under any serious concurrency, especially if worker thr...">
-  <meta property="og:url" content="https://n8n-production-incident-fixes.pages.dev/cases/knowledge-base-retrieval-api-keeps-the-request-s-db-connection-du.html">
+  <meta property="og:url" content="https://hooktriage.com/cases/knowledge-base-retrieval-api-keeps-the-request-s-db-connection-du.html">
   <meta property="og:type" content="article">
   <link rel="sitemap" type="application/xml" title="Sitemap" href="/sitemap.xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -62,7 +62,7 @@
     "publisher": {
       "@type": "Organization",
       "name": "Production Incident Radar",
-      "url": "https://n8n-production-incident-fixes.pages.dev"
+      "url": "https://hooktriage.com"
     }
   }
   </script>
@@ -221,7 +221,7 @@
   </div>
 
   <script>
-    const rawMarkdown = "---\nlayout: default\ntitle: \"Knowledge base retrieval API keeps the request's DB connection during retrieval: at 100 concurrent requests the pool is exhausted and most requests fail\"\nplatform: \"Automation Engine\"\nseverity: \"MEDIUM\"\nstatus: \"Resolved\"\ndate: 2026-11-14\ntags: [\"automation engine\", \"production-fix\", \"post-mortem\", \"verified-resolution\"]\nslug: \"knowledge-base-retrieval-api-keeps-the-request-s-db-connection-du\"\n---\n\n# Knowledge base retrieval API keeps the request's DB connection during retrieval: at 100 concurrent requests the pool is exhausted and most requests fail\n\n\n> \u26a1 **Encountering this exact production bug or need an emergency automation fix?**  \n> [**\ud83d\udea8 Instant Async Production Triage & Resolution (< 6h, Zero Video Calls)**](https://n8n-production-incident-fixes.pages.dev/#triage)\n\n\n## Incident Metadata\n- **Platform / Ecosystem**: `Automation Engine`\n- **Incident Severity**: `MEDIUM`\n- **Resolution Status**: `VERIFIED & RESOLVED`\n- **Logged Timestamp**: `2026-11-14T07:40:31.008246`\n- **Diagnosis Engine**: Autonomous Production Incident Radar\n\n---\n\n## Root-Cause Analysis & Patch Preview (Layer 1)\n\nGreat catch. Holding a session across slow network I/O (embedding generation + vector DB search) will exhaust `QueuePool` under any serious concurrency, especially if worker threads spawned downstream checkout additional sessions for `_get_dataset`.\n\nThe clean architectural fix is scoping the session strictly to the metadata retrieval/permission checks, detaching or serializing what's needed, and releasing the connection before triggering retrieval I/O:\n\n**Patch Preview (First 3 lines of verified fix):**\n```python\n# In HitTestingApi.post (or whichever controller entrypoint is involved):\n# Drop Client Case Study (User) at the route level and scope it locally:\nwith session_scope() as session:\n# ... [TRUNCATED \u2014 Full production patch & verification steps locked below]\n```\n\n---\n\n## Incident Prevention & Operational Takeaways\n1. **Audit Upstream Authentication**: Validate OAuth2 token refresh loops and ensure service credentials cannot be orphaned.\n2. **Implement Schema Boundary Validation**: Guard downstream webhooks against unexpected payload truncations.\n3. **Automate Error Interception**: Configure fallback nodes and alerting monitors before critical production executions.\n\n---\n\n\n> \u26a1 **Encountering this exact production bug or need an emergency automation fix?**  \n> [**\ud83d\udea8 Instant Async Production Triage & Resolution (< 6h, Zero Video Calls)**](https://n8n-production-incident-fixes.pages.dev/#triage)\n\n\n[\u2190 Back to Live Case Studies Index](../)\n";
+    const rawMarkdown = "---\nlayout: default\ntitle: \"Knowledge base retrieval API keeps the request's DB connection during retrieval: at 100 concurrent requests the pool is exhausted and most requests fail\"\nplatform: \"Automation Engine\"\nseverity: \"MEDIUM\"\nstatus: \"Resolved\"\ndate: 2026-11-14\ntags: [\"automation engine\", \"production-fix\", \"post-mortem\", \"verified-resolution\"]\nslug: \"knowledge-base-retrieval-api-keeps-the-request-s-db-connection-du\"\n---\n\n# Knowledge base retrieval API keeps the request's DB connection during retrieval: at 100 concurrent requests the pool is exhausted and most requests fail\n\n\n> \u26a1 **Encountering this exact production bug or need an emergency automation fix?**  \n> [**\ud83d\udea8 Instant Async Production Triage & Resolution (< 6h, Zero Video Calls)**](https://hooktriage.com/#triage)\n\n\n## Incident Metadata\n- **Platform / Ecosystem**: `Automation Engine`\n- **Incident Severity**: `MEDIUM`\n- **Resolution Status**: `VERIFIED & RESOLVED`\n- **Logged Timestamp**: `2026-11-14T07:40:31.008246`\n- **Diagnosis Engine**: Autonomous Production Incident Radar\n\n---\n\n## Root-Cause Analysis & Patch Preview (Layer 1)\n\nGreat catch. Holding a session across slow network I/O (embedding generation + vector DB search) will exhaust `QueuePool` under any serious concurrency, especially if worker threads spawned downstream checkout additional sessions for `_get_dataset`.\n\nThe clean architectural fix is scoping the session strictly to the metadata retrieval/permission checks, detaching or serializing what's needed, and releasing the connection before triggering retrieval I/O:\n\n**Patch Preview (First 3 lines of verified fix):**\n```python\n# In HitTestingApi.post (or whichever controller entrypoint is involved):\n# Drop Client Case Study (User) at the route level and scope it locally:\nwith session_scope() as session:\n# ... [TRUNCATED \u2014 Full production patch & verification steps locked below]\n```\n\n---\n\n## Incident Prevention & Operational Takeaways\n1. **Audit Upstream Authentication**: Validate OAuth2 token refresh loops and ensure service credentials cannot be orphaned.\n2. **Implement Schema Boundary Validation**: Guard downstream webhooks against unexpected payload truncations.\n3. **Automate Error Interception**: Configure fallback nodes and alerting monitors before critical production executions.\n\n---\n\n\n> \u26a1 **Encountering this exact production bug or need an emergency automation fix?**  \n> [**\ud83d\udea8 Instant Async Production Triage & Resolution (< 6h, Zero Video Calls)**](https://hooktriage.com/#triage)\n\n\n[\u2190 Back to Live Case Studies Index](../)\n";
     const caseLeadId = "github_langgenius_dify_46373";
     const caseAssetTitle = "Knowledge base retrieval API keeps the request's DB connection during retrieval: at 100 concurrent requests the pool is exhausted and most requests fail";
     const caseBundleMarkdown = "# Complete Production Resolution Bundle \u2014 Knowledge base retrieval API keeps the request's DB connection during retrieval: at 100 concurrent requests the pool is exhausted and most requests fail\nEcosystem: Automation Engine | Severity: MEDIUM | Case ID: github_langgenius_dify_46373\n\n## 1. Full Importable Patch / Config Diff (with Error-Retry & Timeout Guard)\n```python\n# In HitTestingApi.post (or whichever controller entrypoint is involved):\n# Drop Client Case Study (User) at the route level and scope it locally:\nwith session_scope() as session:\n    dataset = get_and_validate_dataset(dataset_id, session=session)\n    # Eager load attributes or dump to a DTO/dict so downstream calls don't touch the DB\n    dataset_dict = dataset.to_dict()\n\n# Network I/O runs with 0 active DB connections checked out:\nresults = HitTestingService.retrieve(\n    dataset_dict=dataset_dict,\n    query=query,\n    ...\n)\n```\n\nAs an immediate workaround while working on a PR, you can bump the pool and Postgres limits in your `.env` / `docker-compose.yaml`:\n\n```env\nSQLALCHEMY_POOL_SIZE=150\nSQLALCHEMY_MAX_OVERFLOW=50\nSQLALCHEMY_POOL_TIMEOUT=30\n```\n(Make sure `max_connections` on the PostgreSQL container is configured to at least ~250\u2013300 to match).\n\nA PR scoping the session lifetime and passing detached dataset config to `HitTestingService` would definitely be the right long-term resolution here.\n\n## 2. Verification & Non-Destructive Test Checklist\n1. Validate JSON/YAML syntax and confirm no unmasked secrets remain.\n2. Confirm error-retry/backoff and timeout guards are enabled before re-activating.\n3. Run a non-destructive healthcheck / test webhook and verify HTTP 200 payload shape.\n\n## 3. Team Post-Mortem Note\nRoot Cause (Automation Engine / MEDIUM): Great catch. Holding a session across slow network I/O (embedding generation + vector DB search) will exhaust `QueuePool` under any serious concurrency, especially if worker thr...\nOperational Guard: Audit OAuth2 token refresh loops, enforce schema boundary validation, and configure dead-letter error interception.\n";
@@ -234,7 +234,7 @@
     // Strip YAML frontmatter
     const mdWithoutYaml = rawMarkdown.replace(/^---[\s\S]*?---\s*/, '');
     document.getElementById('content').innerHTML = marked.parse(mdWithoutYaml);
-    fetch("https://triage.baitakstore.com/api/ping-visit?issue=" + encodeURIComponent(caseLeadId) + "&page=" + encodeURIComponent(location.pathname)).catch(function(){});
+    fetch("https://hooktriage.com/api/ping-visit?issue=" + encodeURIComponent(caseLeadId) + "&page=" + encodeURIComponent(location.pathname)).catch(function(){});
 
     window.openCaseTriageModal = function(tier) {
       if (typeof window.openTriageModal === 'function') {
@@ -273,12 +273,12 @@
       btn.disabled = true;
       btn.innerText = 'Sending...';
       try {
-        const r = await fetch("https://triage.baitakstore.com/funnel-api/gate", {
+        const r = await fetch("https://hooktriage.com/funnel-api/gate", {
           method: "POST",
           headers: {"Content-Type": "application/json"},
           body: JSON.stringify({
             email: email,
-            source_channel: "pages_dev",
+            source_channel: "hooktriage_web",
             asset_id: caseLeadId,
             asset_title: caseAssetTitle,
             segment: "track_a",
@@ -327,12 +327,12 @@
       btn.disabled = true;
       btn.innerText = 'Running Audit...';
       try {
-        const r = await fetch("https://triage.baitakstore.com/funnel-api/audit-workflow", {
+        const r = await fetch("https://hooktriage.com/funnel-api/audit-workflow", {
           method: "POST",
           headers: {"Content-Type": "application/json"},
           body: JSON.stringify({
             email: email,
-            source_channel: "pages_dev",
+            source_channel: "hooktriage_web",
             asset_id: caseLeadId,
             sanitized_payload: maskedPayload,
             website: (hpEl ? hpEl.value : '') || ''
@@ -489,7 +489,7 @@
 
 <script>
 (function() {
-  const API = "https://triage.baitakstore.com";
+  const API = "https://hooktriage.com";
   let currentSessionId = "";
   let targetUsdtAddress = "0x57A817bd5D42F14325eE4ec7B67F69D5f884758B";
   let targetUsdtExact = 159.20;

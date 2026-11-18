@@ -6,10 +6,10 @@
   <title>Nod .. Context limit error (272,000 tokens) persists across all ChatGPT models after ~30 minutes of use | Production Incident Fix</title>
   <meta name="description" content="Switching models fails because Nod continues to pass the entire conversation history from your active session into the payload of the new request, carrying the oversized token c...">
   <meta name="robots" content="index, follow">
-  <link rel="canonical" href="https://n8n-production-incident-fixes.pages.dev/cases/nod-context-limit-error-272-000-tokens-persists-across-all-chatgp.html">
+  <link rel="canonical" href="https://hooktriage.com/cases/nod-context-limit-error-272-000-tokens-persists-across-all-chatgp.html">
   <meta property="og:title" content="Nod .. Context limit error (272,000 tokens) persists across all ChatGPT models after ~30 minutes of use | Production Incident Fix">
   <meta property="og:description" content="Switching models fails because Nod continues to pass the entire conversation history from your active session into the payload of the new request, carrying the oversized token c...">
-  <meta property="og:url" content="https://n8n-production-incident-fixes.pages.dev/cases/nod-context-limit-error-272-000-tokens-persists-across-all-chatgp.html">
+  <meta property="og:url" content="https://hooktriage.com/cases/nod-context-limit-error-272-000-tokens-persists-across-all-chatgp.html">
   <meta property="og:type" content="article">
   <link rel="sitemap" type="application/xml" title="Sitemap" href="/sitemap.xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -62,7 +62,7 @@
     "publisher": {
       "@type": "Organization",
       "name": "Production Incident Radar",
-      "url": "https://n8n-production-incident-fixes.pages.dev"
+      "url": "https://hooktriage.com"
     }
   }
   </script>
@@ -221,7 +221,7 @@
   </div>
 
   <script>
-    const rawMarkdown = "---\nlayout: default\ntitle: \"Nod .. Context limit error (272,000 tokens) persists across all ChatGPT models after ~30 minutes of use\"\nplatform: \"n8n\"\nseverity: \"CRITICAL\"\nstatus: \"Resolved\"\ndate: 2026-11-16\ntags: [\"n8n\", \"critical-incident\", \"production-fix\", \"post-mortem\", \"verified-resolution\"]\nslug: \"nod-context-limit-error-272-000-tokens-persists-across-all-chatgp\"\n---\n\n# Nod .. Context limit error (272,000 tokens) persists across all ChatGPT models after ~30 minutes of use\n\n\n> \u26a1 **Encountering this exact production bug or need an emergency automation fix?**  \n> [**\ud83d\udea8 Instant Async Production Triage & Resolution (< 6h, Zero Video Calls)**](https://n8n-production-incident-fixes.pages.dev/#triage)\n\n\n## Incident Metadata\n- **Platform / Ecosystem**: `n8n`\n- **Incident Severity**: `CRITICAL`\n- **Resolution Status**: `RADAR TRIAGED & READY FOR RESOLUTION`\n- **Logged Timestamp**: `2026-11-16T05:20:32.833126`\n- **Diagnosis Engine**: Autonomous Production Incident Radar\n\n---\n\n## Root-Cause Analysis & Patch Preview (Layer 1)\n\nSwitching models fails because Nod continues to pass the entire conversation history from your active session into the payload of the new request, carrying the oversized token count along with it.\n\n---\n\n## Incident Prevention & Operational Takeaways\n1. **Audit Upstream Authentication**: Validate OAuth2 token refresh loops and ensure service credentials cannot be orphaned.\n2. **Implement Schema Boundary Validation**: Guard downstream webhooks against unexpected payload truncations.\n3. **Automate Error Interception**: Configure fallback nodes and alerting monitors before critical production executions.\n\n---\n\n\n> \u26a1 **Encountering this exact production bug or need an emergency automation fix?**  \n> [**\ud83d\udea8 Instant Async Production Triage & Resolution (< 6h, Zero Video Calls)**](https://n8n-production-incident-fixes.pages.dev/#triage)\n\n\n[\u2190 Back to Live Case Studies Index](../)\n";
+    const rawMarkdown = "---\nlayout: default\ntitle: \"Nod .. Context limit error (272,000 tokens) persists across all ChatGPT models after ~30 minutes of use\"\nplatform: \"n8n\"\nseverity: \"CRITICAL\"\nstatus: \"Resolved\"\ndate: 2026-11-16\ntags: [\"n8n\", \"critical-incident\", \"production-fix\", \"post-mortem\", \"verified-resolution\"]\nslug: \"nod-context-limit-error-272-000-tokens-persists-across-all-chatgp\"\n---\n\n# Nod .. Context limit error (272,000 tokens) persists across all ChatGPT models after ~30 minutes of use\n\n\n> \u26a1 **Encountering this exact production bug or need an emergency automation fix?**  \n> [**\ud83d\udea8 Instant Async Production Triage & Resolution (< 6h, Zero Video Calls)**](https://hooktriage.com/#triage)\n\n\n## Incident Metadata\n- **Platform / Ecosystem**: `n8n`\n- **Incident Severity**: `CRITICAL`\n- **Resolution Status**: `RADAR TRIAGED & READY FOR RESOLUTION`\n- **Logged Timestamp**: `2026-11-16T05:20:32.833126`\n- **Diagnosis Engine**: Autonomous Production Incident Radar\n\n---\n\n## Root-Cause Analysis & Patch Preview (Layer 1)\n\nSwitching models fails because Nod continues to pass the entire conversation history from your active session into the payload of the new request, carrying the oversized token count along with it.\n\n---\n\n## Incident Prevention & Operational Takeaways\n1. **Audit Upstream Authentication**: Validate OAuth2 token refresh loops and ensure service credentials cannot be orphaned.\n2. **Implement Schema Boundary Validation**: Guard downstream webhooks against unexpected payload truncations.\n3. **Automate Error Interception**: Configure fallback nodes and alerting monitors before critical production executions.\n\n---\n\n\n> \u26a1 **Encountering this exact production bug or need an emergency automation fix?**  \n> [**\ud83d\udea8 Instant Async Production Triage & Resolution (< 6h, Zero Video Calls)**](https://hooktriage.com/#triage)\n\n\n[\u2190 Back to Live Case Studies Index](../)\n";
     const caseLeadId = "n8n_328963";
     const caseAssetTitle = "Nod .. Context limit error (272,000 tokens) persists across all ChatGPT models after ~30 minutes of use";
     const caseBundleMarkdown = "# Complete Production Resolution Bundle \u2014 Nod .. Context limit error (272,000 tokens) persists across all ChatGPT models after ~30 minutes of use\nEcosystem: n8n | Severity: CRITICAL | Case ID: n8n_328963\n\n## 1. Full Importable Patch / Config Diff (with Error-Retry & Timeout Guard)\nTo unstick it, you'll need to start a completely fresh chat session or wipe Nod's local session cache if the current thread is frozen. If your workflow involves large tool outputs, raw web scraping, or big JSON payloads, make sure to prune or slice that data before it hits the chat context so the history buffer doesn't blow past the limit over extended runs.\n\n## 2. Verification & Non-Destructive Test Checklist\n1. Validate JSON/YAML syntax and confirm no unmasked secrets remain.\n2. Confirm error-retry/backoff and timeout guards are enabled before re-activating.\n3. Run a non-destructive healthcheck / test webhook and verify HTTP 200 payload shape.\n\n## 3. Team Post-Mortem Note\nRoot Cause (n8n / CRITICAL): Switching models fails because Nod continues to pass the entire conversation history from your active session into the payload of the new request, carrying the oversized token c...\nOperational Guard: Audit OAuth2 token refresh loops, enforce schema boundary validation, and configure dead-letter error interception.\n";
@@ -234,7 +234,7 @@
     // Strip YAML frontmatter
     const mdWithoutYaml = rawMarkdown.replace(/^---[\s\S]*?---\s*/, '');
     document.getElementById('content').innerHTML = marked.parse(mdWithoutYaml);
-    fetch("https://triage.baitakstore.com/api/ping-visit?issue=" + encodeURIComponent(caseLeadId) + "&page=" + encodeURIComponent(location.pathname)).catch(function(){});
+    fetch("https://hooktriage.com/api/ping-visit?issue=" + encodeURIComponent(caseLeadId) + "&page=" + encodeURIComponent(location.pathname)).catch(function(){});
 
     window.openCaseTriageModal = function(tier) {
       if (typeof window.openTriageModal === 'function') {
@@ -273,12 +273,12 @@
       btn.disabled = true;
       btn.innerText = 'Sending...';
       try {
-        const r = await fetch("https://triage.baitakstore.com/funnel-api/gate", {
+        const r = await fetch("https://hooktriage.com/funnel-api/gate", {
           method: "POST",
           headers: {"Content-Type": "application/json"},
           body: JSON.stringify({
             email: email,
-            source_channel: "pages_dev",
+            source_channel: "hooktriage_web",
             asset_id: caseLeadId,
             asset_title: caseAssetTitle,
             segment: "track_a",
@@ -327,12 +327,12 @@
       btn.disabled = true;
       btn.innerText = 'Running Audit...';
       try {
-        const r = await fetch("https://triage.baitakstore.com/funnel-api/audit-workflow", {
+        const r = await fetch("https://hooktriage.com/funnel-api/audit-workflow", {
           method: "POST",
           headers: {"Content-Type": "application/json"},
           body: JSON.stringify({
             email: email,
-            source_channel: "pages_dev",
+            source_channel: "hooktriage_web",
             asset_id: caseLeadId,
             sanitized_payload: maskedPayload,
             website: (hpEl ? hpEl.value : '') || ''
@@ -489,7 +489,7 @@
 
 <script>
 (function() {
-  const API = "https://triage.baitakstore.com";
+  const API = "https://hooktriage.com";
   let currentSessionId = "";
   let targetUsdtAddress = "0x57A817bd5D42F14325eE4ec7B67F69D5f884758B";
   let targetUsdtExact = 159.20;

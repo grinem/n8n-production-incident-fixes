@@ -6,10 +6,10 @@
   <title>Spike in server timeouts Nov 9th | Production Incident Fix</title>
   <meta name="description" content="Transient timeouts on jobs that usually execute in milliseconds are almost always caused by one of two things: underlying infrastructure noise (cluster/proxy saturation) or inte...">
   <meta name="robots" content="index, follow">
-  <link rel="canonical" href="https://n8n-production-incident-fixes.pages.dev/cases/spike-in-server-timeouts-nov-9th.html">
+  <link rel="canonical" href="https://hooktriage.com/cases/spike-in-server-timeouts-nov-9th.html">
   <meta property="og:title" content="Spike in server timeouts Nov 9th | Production Incident Fix">
   <meta property="og:description" content="Transient timeouts on jobs that usually execute in milliseconds are almost always caused by one of two things: underlying infrastructure noise (cluster/proxy saturation) or inte...">
-  <meta property="og:url" content="https://n8n-production-incident-fixes.pages.dev/cases/spike-in-server-timeouts-nov-9th.html">
+  <meta property="og:url" content="https://hooktriage.com/cases/spike-in-server-timeouts-nov-9th.html">
   <meta property="og:type" content="article">
   <link rel="sitemap" type="application/xml" title="Sitemap" href="/sitemap.xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -62,7 +62,7 @@
     "publisher": {
       "@type": "Organization",
       "name": "Production Incident Radar",
-      "url": "https://n8n-production-incident-fixes.pages.dev"
+      "url": "https://hooktriage.com"
     }
   }
   </script>
@@ -221,7 +221,7 @@
   </div>
 
   <script>
-    const rawMarkdown = "---\nlayout: default\ntitle: \"Spike in server timeouts Nov 9th\"\nplatform: \"Bubble.io\"\nseverity: \"HIGH\"\nstatus: \"Resolved\"\ndate: 2026-11-10\ntags: [\"bubble\", \"production-fix\", \"post-mortem\", \"verified-resolution\"]\nslug: \"spike-in-server-timeouts-nov-9th\"\n---\n\n# Spike in server timeouts Nov 9th\n\n\n> \u26a1 **Encountering this exact production bug or need an emergency automation fix?**  \n> [**\ud83d\udea8 Instant Async Production Triage & Resolution (< 6h, Zero Video Calls)**](https://n8n-production-incident-fixes.pages.dev/#triage)\n\n\n## Incident Metadata\n- **Platform / Ecosystem**: `Bubble.io`\n- **Incident Severity**: `HIGH`\n- **Resolution Status**: `VERIFIED & RESOLVED`\n- **Logged Timestamp**: `2026-11-10T12:16:43.153082`\n- **Diagnosis Engine**: Autonomous Production Incident Radar\n\n---\n\n## Root-Cause Analysis & Patch Preview (Layer 1)\n\nTransient timeouts on jobs that usually execute in milliseconds are almost always caused by one of two things: underlying infrastructure noise (cluster/proxy saturation) or internal DB/thread contention during simultaneous executions.\n\n---\n\n## Incident Prevention & Operational Takeaways\n1. **Audit Upstream Authentication**: Validate OAuth2 token refresh loops and ensure service credentials cannot be orphaned.\n2. **Implement Schema Boundary Validation**: Guard downstream webhooks against unexpected payload truncations.\n3. **Automate Error Interception**: Configure fallback nodes and alerting monitors before critical production executions.\n\n---\n\n\n> \u26a1 **Encountering this exact production bug or need an emergency automation fix?**  \n> [**\ud83d\udea8 Instant Async Production Triage & Resolution (< 6h, Zero Video Calls)**](https://n8n-production-incident-fixes.pages.dev/#triage)\n\n\n[\u2190 Back to Live Case Studies Index](../)\n";
+    const rawMarkdown = "---\nlayout: default\ntitle: \"Spike in server timeouts Nov 9th\"\nplatform: \"Bubble.io\"\nseverity: \"HIGH\"\nstatus: \"Resolved\"\ndate: 2026-11-10\ntags: [\"bubble\", \"production-fix\", \"post-mortem\", \"verified-resolution\"]\nslug: \"spike-in-server-timeouts-nov-9th\"\n---\n\n# Spike in server timeouts Nov 9th\n\n\n> \u26a1 **Encountering this exact production bug or need an emergency automation fix?**  \n> [**\ud83d\udea8 Instant Async Production Triage & Resolution (< 6h, Zero Video Calls)**](https://hooktriage.com/#triage)\n\n\n## Incident Metadata\n- **Platform / Ecosystem**: `Bubble.io`\n- **Incident Severity**: `HIGH`\n- **Resolution Status**: `VERIFIED & RESOLVED`\n- **Logged Timestamp**: `2026-11-10T12:16:43.153082`\n- **Diagnosis Engine**: Autonomous Production Incident Radar\n\n---\n\n## Root-Cause Analysis & Patch Preview (Layer 1)\n\nTransient timeouts on jobs that usually execute in milliseconds are almost always caused by one of two things: underlying infrastructure noise (cluster/proxy saturation) or internal DB/thread contention during simultaneous executions.\n\n---\n\n## Incident Prevention & Operational Takeaways\n1. **Audit Upstream Authentication**: Validate OAuth2 token refresh loops and ensure service credentials cannot be orphaned.\n2. **Implement Schema Boundary Validation**: Guard downstream webhooks against unexpected payload truncations.\n3. **Automate Error Interception**: Configure fallback nodes and alerting monitors before critical production executions.\n\n---\n\n\n> \u26a1 **Encountering this exact production bug or need an emergency automation fix?**  \n> [**\ud83d\udea8 Instant Async Production Triage & Resolution (< 6h, Zero Video Calls)**](https://hooktriage.com/#triage)\n\n\n[\u2190 Back to Live Case Studies Index](../)\n";
     const caseLeadId = "bubble_402763";
     const caseAssetTitle = "Spike in server timeouts Nov 9th";
     const caseBundleMarkdown = "# Complete Production Resolution Bundle \u2014 Spike in server timeouts Nov 9th\nEcosystem: Bubble.io | Severity: HIGH | Case ID: bubble_402763\n\n## 1. Full Importable Patch / Config Diff (with Error-Retry & Timeout Guard)\nSince Bubble removed the public median latency breakdown on the status page, here is a reliable method to isolate whether this is localized to your app or platform-wide, along with immediate mitigations:\n\n### 1. Deploy a \"Canary\" Health Check Workflow\nTo definitively know whether Bubble is having cluster-wide hiccups:\n- In **Backend Workflows**, expose a public API workflow named `ping` or `health_check`.\n- Do **not** query or write to the database in this workflow; simply use the `Return data from API` action to return formatted JSON: `{\"status\": \"ok\", \"time\": Current date/time}`.\n- Point a lightweight synthetic monitor (e.g., Better Stack or UptimeRobot) at this endpoint pinging every 60 seconds.\n- **Verdict:** If your canary endpoint spikes to >5,000ms or throws 504s during these incidents, the issue is at the Bubble/AWS/Cloudflare gateway layer. If the canary stays under 100ms while your regular jobs time out, the bottleneck is localized to database locking or workload queue saturation.\n\n### 2. Inspect Server Logs & Workload Charts\n- Go to **Logs > Server logs**, expand the search, and filter strictly for errors around the timestamps of your Nov 9th spikes.\n- Check **Logs > Workload**: look at the minute-by-minute WU consumption chart. A sudden concurrent spike in recursive workflows or scheduled tasks can temporarily throttle incoming requests, pushing short jobs over Bubble's ~30-second synchronous HTTP timeout limit.\n\n### 3. Decouple Synchronous Workflows\nIf these fast jobs are triggered via incoming webhooks or user-facing API calls:\n- Avoid executing database writes or API Connector calls synchronously within the primary webhook flow.\n- Instead, capture the payload, immediately return a `200 OK` using `Return data from API`, and hand off the logic using `Schedule API Workflow` with a delay of `0` seconds. This shifts execution from the strict HTTP gateway timeout (~30s) to the backend background worker pool (~5m).\n\nIf you are comfortable sharing whether these timeouts show up on API endpoints (HTTP 504) or backend scheduled workflows, let me know and I'll be glad to help inspect the logs or workflow structure!\n\n## 2. Verification & Non-Destructive Test Checklist\n1. Validate JSON/YAML syntax and confirm no unmasked secrets remain.\n2. Confirm error-retry/backoff and timeout guards are enabled before re-activating.\n3. Run a non-destructive healthcheck / test webhook and verify HTTP 200 payload shape.\n\n## 3. Team Post-Mortem Note\nRoot Cause (Bubble.io / HIGH): Transient timeouts on jobs that usually execute in milliseconds are almost always caused by one of two things: underlying infrastructure noise (cluster/proxy saturation) or inte...\nOperational Guard: Audit OAuth2 token refresh loops, enforce schema boundary validation, and configure dead-letter error interception.\n";
@@ -234,7 +234,7 @@
     // Strip YAML frontmatter
     const mdWithoutYaml = rawMarkdown.replace(/^---[\s\S]*?---\s*/, '');
     document.getElementById('content').innerHTML = marked.parse(mdWithoutYaml);
-    fetch("https://triage.baitakstore.com/api/ping-visit?issue=" + encodeURIComponent(caseLeadId) + "&page=" + encodeURIComponent(location.pathname)).catch(function(){});
+    fetch("https://hooktriage.com/api/ping-visit?issue=" + encodeURIComponent(caseLeadId) + "&page=" + encodeURIComponent(location.pathname)).catch(function(){});
 
     window.openCaseTriageModal = function(tier) {
       if (typeof window.openTriageModal === 'function') {
@@ -273,12 +273,12 @@
       btn.disabled = true;
       btn.innerText = 'Sending...';
       try {
-        const r = await fetch("https://triage.baitakstore.com/funnel-api/gate", {
+        const r = await fetch("https://hooktriage.com/funnel-api/gate", {
           method: "POST",
           headers: {"Content-Type": "application/json"},
           body: JSON.stringify({
             email: email,
-            source_channel: "pages_dev",
+            source_channel: "hooktriage_web",
             asset_id: caseLeadId,
             asset_title: caseAssetTitle,
             segment: "track_a",
@@ -327,12 +327,12 @@
       btn.disabled = true;
       btn.innerText = 'Running Audit...';
       try {
-        const r = await fetch("https://triage.baitakstore.com/funnel-api/audit-workflow", {
+        const r = await fetch("https://hooktriage.com/funnel-api/audit-workflow", {
           method: "POST",
           headers: {"Content-Type": "application/json"},
           body: JSON.stringify({
             email: email,
-            source_channel: "pages_dev",
+            source_channel: "hooktriage_web",
             asset_id: caseLeadId,
             sanitized_payload: maskedPayload,
             website: (hpEl ? hpEl.value : '') || ''
@@ -489,7 +489,7 @@
 
 <script>
 (function() {
-  const API = "https://triage.baitakstore.com";
+  const API = "https://hooktriage.com";
   let currentSessionId = "";
   let targetUsdtAddress = "0x57A817bd5D42F14325eE4ec7B67F69D5f884758B";
   let targetUsdtExact = 159.20;

@@ -6,10 +6,10 @@
   <title>Streaming a chat answer costs API CPU in proportion to the conversation length for every chunk | Production Incident Fix</title>
   <meta name="description" content="Spot-on analysis. The $O(N \times M)$ overhead comes down to `AppQueueManager.publish` running `self._check_for_sqlalchemy_models(event.model_dump())` on every emitted `QueueLLM...">
   <meta name="robots" content="index, follow">
-  <link rel="canonical" href="https://n8n-production-incident-fixes.pages.dev/cases/streaming-a-chat-answer-costs-api-cpu-in-proportion-to-the-conver.html">
+  <link rel="canonical" href="https://hooktriage.com/cases/streaming-a-chat-answer-costs-api-cpu-in-proportion-to-the-conver.html">
   <meta property="og:title" content="Streaming a chat answer costs API CPU in proportion to the conversation length for every chunk | Production Incident Fix">
   <meta property="og:description" content="Spot-on analysis. The $O(N \times M)$ overhead comes down to `AppQueueManager.publish` running `self._check_for_sqlalchemy_models(event.model_dump())` on every emitted `QueueLLM...">
-  <meta property="og:url" content="https://n8n-production-incident-fixes.pages.dev/cases/streaming-a-chat-answer-costs-api-cpu-in-proportion-to-the-conver.html">
+  <meta property="og:url" content="https://hooktriage.com/cases/streaming-a-chat-answer-costs-api-cpu-in-proportion-to-the-conver.html">
   <meta property="og:type" content="article">
   <link rel="sitemap" type="application/xml" title="Sitemap" href="/sitemap.xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -62,7 +62,7 @@
     "publisher": {
       "@type": "Organization",
       "name": "Production Incident Radar",
-      "url": "https://n8n-production-incident-fixes.pages.dev"
+      "url": "https://hooktriage.com"
     }
   }
   </script>
@@ -221,7 +221,7 @@
   </div>
 
   <script>
-    const rawMarkdown = "---\nlayout: default\ntitle: \"Streaming a chat answer costs API CPU in proportion to the conversation length for every chunk\"\nplatform: \"Automation Engine\"\nseverity: \"MEDIUM\"\nstatus: \"Resolved\"\ndate: 2026-11-14\ntags: [\"automation engine\", \"production-fix\", \"post-mortem\", \"verified-resolution\"]\nslug: \"streaming-a-chat-answer-costs-api-cpu-in-proportion-to-the-conver\"\n---\n\n# Streaming a chat answer costs API CPU in proportion to the conversation length for every chunk\n\n\n> \u26a1 **Encountering this exact production bug or need an emergency automation fix?**  \n> [**\ud83d\udea8 Instant Async Production Triage & Resolution (< 6h, Zero Video Calls)**](https://n8n-production-incident-fixes.pages.dev/#triage)\n\n\n## Incident Metadata\n- **Platform / Ecosystem**: `Automation Engine`\n- **Incident Severity**: `MEDIUM`\n- **Resolution Status**: `VERIFIED & RESOLVED`\n- **Logged Timestamp**: `2026-11-14T12:20:31.712162`\n- **Diagnosis Engine**: Autonomous Production Incident Radar\n\n---\n\n## Root-Cause Analysis & Patch Preview (Layer 1)\n\nSpot-on analysis. The $O(N \\times M)$ overhead comes down to `AppQueueManager.publish` running `self._check_for_sqlalchemy_models(event.model_dump())` on every emitted `QueueLLMChunkEvent`, which forces a full Pydantic dump of the prompt message array per chunk.\n\nTwo clean ways to tackle this:\n\n1. **Exempt pure chunk events from model dumps** in `api/core/app/apps/base_app_queue_manager.py`:\n\n**Patch Preview (First 3 lines of verified fix):**\n```python\ndef publish(self, event: AppQueueEvent, pub_to_redis: bool = False):\n    if not isinstance(event, QueueLLMChunkEvent):\n        self._check_for_sqlalchemy_models(event.model_dump())\n# ... [TRUNCATED \u2014 Full production patch & verification steps locked below]\n```\n\n---\n\n## Incident Prevention & Operational Takeaways\n1. **Audit Upstream Authentication**: Validate OAuth2 token refresh loops and ensure service credentials cannot be orphaned.\n2. **Implement Schema Boundary Validation**: Guard downstream webhooks against unexpected payload truncations.\n3. **Automate Error Interception**: Configure fallback nodes and alerting monitors before critical production executions.\n\n---\n\n\n> \u26a1 **Encountering this exact production bug or need an emergency automation fix?**  \n> [**\ud83d\udea8 Instant Async Production Triage & Resolution (< 6h, Zero Video Calls)**](https://n8n-production-incident-fixes.pages.dev/#triage)\n\n\n[\u2190 Back to Live Case Studies Index](../)\n";
+    const rawMarkdown = "---\nlayout: default\ntitle: \"Streaming a chat answer costs API CPU in proportion to the conversation length for every chunk\"\nplatform: \"Automation Engine\"\nseverity: \"MEDIUM\"\nstatus: \"Resolved\"\ndate: 2026-11-14\ntags: [\"automation engine\", \"production-fix\", \"post-mortem\", \"verified-resolution\"]\nslug: \"streaming-a-chat-answer-costs-api-cpu-in-proportion-to-the-conver\"\n---\n\n# Streaming a chat answer costs API CPU in proportion to the conversation length for every chunk\n\n\n> \u26a1 **Encountering this exact production bug or need an emergency automation fix?**  \n> [**\ud83d\udea8 Instant Async Production Triage & Resolution (< 6h, Zero Video Calls)**](https://hooktriage.com/#triage)\n\n\n## Incident Metadata\n- **Platform / Ecosystem**: `Automation Engine`\n- **Incident Severity**: `MEDIUM`\n- **Resolution Status**: `VERIFIED & RESOLVED`\n- **Logged Timestamp**: `2026-11-14T12:20:31.712162`\n- **Diagnosis Engine**: Autonomous Production Incident Radar\n\n---\n\n## Root-Cause Analysis & Patch Preview (Layer 1)\n\nSpot-on analysis. The $O(N \\times M)$ overhead comes down to `AppQueueManager.publish` running `self._check_for_sqlalchemy_models(event.model_dump())` on every emitted `QueueLLMChunkEvent`, which forces a full Pydantic dump of the prompt message array per chunk.\n\nTwo clean ways to tackle this:\n\n1. **Exempt pure chunk events from model dumps** in `api/core/app/apps/base_app_queue_manager.py`:\n\n**Patch Preview (First 3 lines of verified fix):**\n```python\ndef publish(self, event: AppQueueEvent, pub_to_redis: bool = False):\n    if not isinstance(event, QueueLLMChunkEvent):\n        self._check_for_sqlalchemy_models(event.model_dump())\n# ... [TRUNCATED \u2014 Full production patch & verification steps locked below]\n```\n\n---\n\n## Incident Prevention & Operational Takeaways\n1. **Audit Upstream Authentication**: Validate OAuth2 token refresh loops and ensure service credentials cannot be orphaned.\n2. **Implement Schema Boundary Validation**: Guard downstream webhooks against unexpected payload truncations.\n3. **Automate Error Interception**: Configure fallback nodes and alerting monitors before critical production executions.\n\n---\n\n\n> \u26a1 **Encountering this exact production bug or need an emergency automation fix?**  \n> [**\ud83d\udea8 Instant Async Production Triage & Resolution (< 6h, Zero Video Calls)**](https://hooktriage.com/#triage)\n\n\n[\u2190 Back to Live Case Studies Index](../)\n";
     const caseLeadId = "github_langgenius_dify_46397";
     const caseAssetTitle = "Streaming a chat answer costs API CPU in proportion to the conversation length for every chunk";
     const caseBundleMarkdown = "# Complete Production Resolution Bundle \u2014 Streaming a chat answer costs API CPU in proportion to the conversation length for every chunk\nEcosystem: Automation Engine | Severity: MEDIUM | Case ID: github_langgenius_dify_46397\n\n## 1. Full Importable Patch / Config Diff (with Error-Retry & Timeout Guard)\n```python\ndef publish(self, event: AppQueueEvent, pub_to_redis: bool = False):\n    if not isinstance(event, QueueLLMChunkEvent):\n        self._check_for_sqlalchemy_models(event.model_dump())\n```\n`QueueLLMChunkEvent` only carries transient token payloads and prompt copies, so recursively checking for detached SQLAlchemy models on every single token is unnecessary.\n\n2. **Decouple the prompt history from intermediate chunks** in `_stream_invoke_result_chunks`: only attach `prompt_messages` to the initial or final chunk if listeners downstream require it for token counting.\n\nOption 1 is the cleanest hotfix and flattens per-chunk CPU time back to a constant baseline regardless of context size. A PR for this would be very welcome.\n\n## 2. Verification & Non-Destructive Test Checklist\n1. Validate JSON/YAML syntax and confirm no unmasked secrets remain.\n2. Confirm error-retry/backoff and timeout guards are enabled before re-activating.\n3. Run a non-destructive healthcheck / test webhook and verify HTTP 200 payload shape.\n\n## 3. Team Post-Mortem Note\nRoot Cause (Automation Engine / MEDIUM): Spot-on analysis. The $O(N \\times M)$ overhead comes down to `AppQueueManager.publish` running `self._check_for_sqlalchemy_models(event.model_dump())` on every emitted `QueueLLM...\nOperational Guard: Audit OAuth2 token refresh loops, enforce schema boundary validation, and configure dead-letter error interception.\n";
@@ -234,7 +234,7 @@
     // Strip YAML frontmatter
     const mdWithoutYaml = rawMarkdown.replace(/^---[\s\S]*?---\s*/, '');
     document.getElementById('content').innerHTML = marked.parse(mdWithoutYaml);
-    fetch("https://triage.baitakstore.com/api/ping-visit?issue=" + encodeURIComponent(caseLeadId) + "&page=" + encodeURIComponent(location.pathname)).catch(function(){});
+    fetch("https://hooktriage.com/api/ping-visit?issue=" + encodeURIComponent(caseLeadId) + "&page=" + encodeURIComponent(location.pathname)).catch(function(){});
 
     window.openCaseTriageModal = function(tier) {
       if (typeof window.openTriageModal === 'function') {
@@ -273,12 +273,12 @@
       btn.disabled = true;
       btn.innerText = 'Sending...';
       try {
-        const r = await fetch("https://triage.baitakstore.com/funnel-api/gate", {
+        const r = await fetch("https://hooktriage.com/funnel-api/gate", {
           method: "POST",
           headers: {"Content-Type": "application/json"},
           body: JSON.stringify({
             email: email,
-            source_channel: "pages_dev",
+            source_channel: "hooktriage_web",
             asset_id: caseLeadId,
             asset_title: caseAssetTitle,
             segment: "track_a",
@@ -327,12 +327,12 @@
       btn.disabled = true;
       btn.innerText = 'Running Audit...';
       try {
-        const r = await fetch("https://triage.baitakstore.com/funnel-api/audit-workflow", {
+        const r = await fetch("https://hooktriage.com/funnel-api/audit-workflow", {
           method: "POST",
           headers: {"Content-Type": "application/json"},
           body: JSON.stringify({
             email: email,
-            source_channel: "pages_dev",
+            source_channel: "hooktriage_web",
             asset_id: caseLeadId,
             sanitized_payload: maskedPayload,
             website: (hpEl ? hpEl.value : '') || ''
@@ -489,7 +489,7 @@
 
 <script>
 (function() {
-  const API = "https://triage.baitakstore.com";
+  const API = "https://hooktriage.com";
   let currentSessionId = "";
   let targetUsdtAddress = "0x57A817bd5D42F14325eE4ec7B67F69D5f884758B";
   let targetUsdtExact = 159.20;

@@ -6,10 +6,10 @@
   <title>ErrorReporter logs every error at error level when Sentry is not configured | Production Incident Fix</title>
   <meta name="description" content="When Sentry is enabled, `beforeSend` handles log level filtering (`info`, `warning`, `error`). However, when Sentry is not configured, execution falls back entirely to `ErrorRep...">
   <meta name="robots" content="index, follow">
-  <link rel="canonical" href="https://n8n-production-incident-fixes.pages.dev/cases/errorreporter-logs-every-error-at-error-level-when-sentry-is-not.html">
+  <link rel="canonical" href="https://hooktriage.com/cases/errorreporter-logs-every-error-at-error-level-when-sentry-is-not.html">
   <meta property="og:title" content="ErrorReporter logs every error at error level when Sentry is not configured | Production Incident Fix">
   <meta property="og:description" content="When Sentry is enabled, `beforeSend` handles log level filtering (`info`, `warning`, `error`). However, when Sentry is not configured, execution falls back entirely to `ErrorRep...">
-  <meta property="og:url" content="https://n8n-production-incident-fixes.pages.dev/cases/errorreporter-logs-every-error-at-error-level-when-sentry-is-not.html">
+  <meta property="og:url" content="https://hooktriage.com/cases/errorreporter-logs-every-error-at-error-level-when-sentry-is-not.html">
   <meta property="og:type" content="article">
   <link rel="sitemap" type="application/xml" title="Sitemap" href="/sitemap.xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -62,7 +62,7 @@
     "publisher": {
       "@type": "Organization",
       "name": "Production Incident Radar",
-      "url": "https://n8n-production-incident-fixes.pages.dev"
+      "url": "https://hooktriage.com"
     }
   }
   </script>
@@ -221,7 +221,7 @@
   </div>
 
   <script>
-    const rawMarkdown = "---\nlayout: default\ntitle: \"ErrorReporter logs every error at error level when Sentry is not configured\"\nplatform: \"n8n\"\nseverity: \"HIGH\"\nstatus: \"Resolved\"\ndate: 2026-11-11\ntags: [\"n8n\", \"production-fix\", \"post-mortem\", \"verified-resolution\"]\nslug: \"errorreporter-logs-every-error-at-error-level-when-sentry-is-not\"\n---\n\n# ErrorReporter logs every error at error level when Sentry is not configured\n\n\n> \u26a1 **Encountering this exact production bug or need an emergency automation fix?**  \n> [**\ud83d\udea8 Instant Async Production Triage & Resolution (< 6h, Zero Video Calls)**](https://n8n-production-incident-fixes.pages.dev/#triage)\n\n\n## Incident Metadata\n- **Platform / Ecosystem**: `n8n`\n- **Incident Severity**: `HIGH`\n- **Resolution Status**: `VERIFIED & RESOLVED`\n- **Logged Timestamp**: `2026-11-11T17:40:27.818079`\n- **Diagnosis Engine**: Autonomous Production Incident Radar\n\n---\n\n## Root-Cause Analysis & Patch Preview (Layer 1)\n\nThis is reproducible in `packages/core/src/errors/error-reporter.ts`.\n\n### Root Cause\nWhen Sentry is enabled, `beforeSend` handles log level filtering (`info`, `warning`, `error`). However, when Sentry is not configured, execution falls back entirely to `ErrorReporter.defaultReport()`.\n\nCurrently, `defaultReport` routes all errors and their cause chain directly to `this.logger.error()`, ignoring both `options?.level` and the error class levels (e.g. `UserError` -> `info`, `NodeOperationError`/`NodeApiError` -> `warning`). This floods log collectors (Grafana Loki, Datadog, CloudWatch) with false `error` alerts on standard 4xx API calls and user-handled branch errors.\n\n### Implementation Fix\nTo align `defaultReport` with the Sentry pipeline, log level resolution should inspect `options.level` and the intrinsic `error.level` before dispatching to the logger:\n\n**Patch Preview (First 3 lines of verified fix):**\n```typescript\n// packages/core/src/errors/error-reporter.ts\n\nprivate resolveLogLevel(error: unknown, options?: ReportErrorOptions): 'info' | 'warn' | 'error' {\n# ... [TRUNCATED \u2014 Full production patch & verification steps locked below]\n```\n\n---\n\n## Incident Prevention & Operational Takeaways\n1. **Audit Upstream Authentication**: Validate OAuth2 token refresh loops and ensure service credentials cannot be orphaned.\n2. **Implement Schema Boundary Validation**: Guard downstream webhooks against unexpected payload truncations.\n3. **Automate Error Interception**: Configure fallback nodes and alerting monitors before critical production executions.\n\n---\n\n\n> \u26a1 **Encountering this exact production bug or need an emergency automation fix?**  \n> [**\ud83d\udea8 Instant Async Production Triage & Resolution (< 6h, Zero Video Calls)**](https://n8n-production-incident-fixes.pages.dev/#triage)\n\n\n[\u2190 Back to Live Case Studies Index](../)\n";
+    const rawMarkdown = "---\nlayout: default\ntitle: \"ErrorReporter logs every error at error level when Sentry is not configured\"\nplatform: \"n8n\"\nseverity: \"HIGH\"\nstatus: \"Resolved\"\ndate: 2026-11-11\ntags: [\"n8n\", \"production-fix\", \"post-mortem\", \"verified-resolution\"]\nslug: \"errorreporter-logs-every-error-at-error-level-when-sentry-is-not\"\n---\n\n# ErrorReporter logs every error at error level when Sentry is not configured\n\n\n> \u26a1 **Encountering this exact production bug or need an emergency automation fix?**  \n> [**\ud83d\udea8 Instant Async Production Triage & Resolution (< 6h, Zero Video Calls)**](https://hooktriage.com/#triage)\n\n\n## Incident Metadata\n- **Platform / Ecosystem**: `n8n`\n- **Incident Severity**: `HIGH`\n- **Resolution Status**: `VERIFIED & RESOLVED`\n- **Logged Timestamp**: `2026-11-11T17:40:27.818079`\n- **Diagnosis Engine**: Autonomous Production Incident Radar\n\n---\n\n## Root-Cause Analysis & Patch Preview (Layer 1)\n\nThis is reproducible in `packages/core/src/errors/error-reporter.ts`.\n\n### Root Cause\nWhen Sentry is enabled, `beforeSend` handles log level filtering (`info`, `warning`, `error`). However, when Sentry is not configured, execution falls back entirely to `ErrorReporter.defaultReport()`.\n\nCurrently, `defaultReport` routes all errors and their cause chain directly to `this.logger.error()`, ignoring both `options?.level` and the error class levels (e.g. `UserError` -> `info`, `NodeOperationError`/`NodeApiError` -> `warning`). This floods log collectors (Grafana Loki, Datadog, CloudWatch) with false `error` alerts on standard 4xx API calls and user-handled branch errors.\n\n### Implementation Fix\nTo align `defaultReport` with the Sentry pipeline, log level resolution should inspect `options.level` and the intrinsic `error.level` before dispatching to the logger:\n\n**Patch Preview (First 3 lines of verified fix):**\n```typescript\n// packages/core/src/errors/error-reporter.ts\n\nprivate resolveLogLevel(error: unknown, options?: ReportErrorOptions): 'info' | 'warn' | 'error' {\n# ... [TRUNCATED \u2014 Full production patch & verification steps locked below]\n```\n\n---\n\n## Incident Prevention & Operational Takeaways\n1. **Audit Upstream Authentication**: Validate OAuth2 token refresh loops and ensure service credentials cannot be orphaned.\n2. **Implement Schema Boundary Validation**: Guard downstream webhooks against unexpected payload truncations.\n3. **Automate Error Interception**: Configure fallback nodes and alerting monitors before critical production executions.\n\n---\n\n\n> \u26a1 **Encountering this exact production bug or need an emergency automation fix?**  \n> [**\ud83d\udea8 Instant Async Production Triage & Resolution (< 6h, Zero Video Calls)**](https://hooktriage.com/#triage)\n\n\n[\u2190 Back to Live Case Studies Index](../)\n";
     const caseLeadId = "github_n8n-io_n8n_43567";
     const caseAssetTitle = "ErrorReporter logs every error at error level when Sentry is not configured";
     const caseBundleMarkdown = "# Complete Production Resolution Bundle \u2014 ErrorReporter logs every error at error level when Sentry is not configured\nEcosystem: n8n | Severity: HIGH | Case ID: github_n8n-io_n8n_43567\n\n## 1. Full Importable Patch / Config Diff (with Error-Retry & Timeout Guard)\n```typescript\n// packages/core/src/errors/error-reporter.ts\n\nprivate resolveLogLevel(error: unknown, options?: ReportErrorOptions): 'info' | 'warn' | 'error' {\n\tif (options?.level && options.level !== 'error') {\n\t\tif (options.level === 'warning') return 'warn';\n\t\tif (options.level === 'info') return 'info';\n\t}\n\n\tif (typeof error === 'object' && error !== null && 'level' in error) {\n\t\tconst errorLevel = (error as { level?: string }).level;\n\t\tif (errorLevel === 'info') return 'info';\n\t\tif (errorLevel === 'warning' || errorLevel === 'warn') return 'warn';\n\t}\n\n\treturn 'error';\n}\n\ndefaultReport(error: unknown, options?: ReportErrorOptions): void {\n\tconst level = this.resolveLogLevel(error, options);\n\tconst logMethod = (this.logger[level] ?? this.logger.error).bind(this.logger);\n\n\tfor (const currentError of this.iterateErrorAndCauses(error)) {\n\t\tif (currentError instanceof Error) {\n\t\t\tlogMethod({\n\t\t\t\tmessage: currentError.message,\n\t\t\t\tmetadata: {\n\t\t\t\t\tstack: currentError.stack,\n\t\t\t\t\t...options?.extra,\n\t\t\t\t},\n\t\t\t});\n\t\t} else {\n\t\t\tlogMethod({\n\t\t\t\tmessage: String(currentError),\n\t\t\t\tmetadata: options?.extra,\n\t\t\t});\n\t\t}\n\t}\n}\n```\n\n### Temporary Mitigation (Log Ingestion Layer)\nUntil this is merged upstream, if you run a log shipper like Vector, Promtail, or Fluent Bit, you can remap these records at ingestion:\n\n```vrl\n# Example Vector (VRL) remapping\nif .level == \"error\" && exists(.metadata.function) && .metadata.function == \"defaultReport\" {\n  if match(.message, r'Cannot read properties|TypeError|404 -|Request failed with status code 4') {\n    .level = \"warn\"\n  }\n}\n```\n\nSubmitting a PR with corresponding test cases in `error-reporter.test.ts` to assert that `logger.warn` and `logger[.]info` are called when appropriate would be the fastest path to getting this into an upcoming release.\n\n## 2. Verification & Non-Destructive Test Checklist\n1. Validate JSON/YAML syntax and confirm no unmasked secrets remain.\n2. Confirm error-retry/backoff and timeout guards are enabled before re-activating.\n3. Run a non-destructive healthcheck / test webhook and verify HTTP 200 payload shape.\n\n## 3. Team Post-Mortem Note\nRoot Cause (n8n / HIGH): When Sentry is enabled, `beforeSend` handles log level filtering (`info`, `warning`, `error`). However, when Sentry is not configured, execution falls back entirely to `ErrorRep...\nOperational Guard: Audit OAuth2 token refresh loops, enforce schema boundary validation, and configure dead-letter error interception.\n";
@@ -234,7 +234,7 @@
     // Strip YAML frontmatter
     const mdWithoutYaml = rawMarkdown.replace(/^---[\s\S]*?---\s*/, '');
     document.getElementById('content').innerHTML = marked.parse(mdWithoutYaml);
-    fetch("https://triage.baitakstore.com/api/ping-visit?issue=" + encodeURIComponent(caseLeadId) + "&page=" + encodeURIComponent(location.pathname)).catch(function(){});
+    fetch("https://hooktriage.com/api/ping-visit?issue=" + encodeURIComponent(caseLeadId) + "&page=" + encodeURIComponent(location.pathname)).catch(function(){});
 
     window.openCaseTriageModal = function(tier) {
       if (typeof window.openTriageModal === 'function') {
@@ -273,12 +273,12 @@
       btn.disabled = true;
       btn.innerText = 'Sending...';
       try {
-        const r = await fetch("https://triage.baitakstore.com/funnel-api/gate", {
+        const r = await fetch("https://hooktriage.com/funnel-api/gate", {
           method: "POST",
           headers: {"Content-Type": "application/json"},
           body: JSON.stringify({
             email: email,
-            source_channel: "pages_dev",
+            source_channel: "hooktriage_web",
             asset_id: caseLeadId,
             asset_title: caseAssetTitle,
             segment: "track_a",
@@ -327,12 +327,12 @@
       btn.disabled = true;
       btn.innerText = 'Running Audit...';
       try {
-        const r = await fetch("https://triage.baitakstore.com/funnel-api/audit-workflow", {
+        const r = await fetch("https://hooktriage.com/funnel-api/audit-workflow", {
           method: "POST",
           headers: {"Content-Type": "application/json"},
           body: JSON.stringify({
             email: email,
-            source_channel: "pages_dev",
+            source_channel: "hooktriage_web",
             asset_id: caseLeadId,
             sanitized_payload: maskedPayload,
             website: (hpEl ? hpEl.value : '') || ''
@@ -489,7 +489,7 @@
 
 <script>
 (function() {
-  const API = "https://triage.baitakstore.com";
+  const API = "https://hooktriage.com";
   let currentSessionId = "";
   let targetUsdtAddress = "0x57A817bd5D42F14325eE4ec7B67F69D5f884758B";
   let targetUsdtExact = 159.20;

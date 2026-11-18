@@ -6,10 +6,10 @@
   <title>Weaviate Vector Store: Clear Data keeps only the last insert batch | Production Incident Fix</title>
   <meta name="description" content="Excellent catch and thorough root-cause identification. Having the collection/tenant deletion hook nested directly inside the batch execution loop instead of executing once prio...">
   <meta name="robots" content="index, follow">
-  <link rel="canonical" href="https://n8n-production-incident-fixes.pages.dev/cases/weaviate-vector-store-clear-data-keeps-only-the-last-insert-batch.html">
+  <link rel="canonical" href="https://hooktriage.com/cases/weaviate-vector-store-clear-data-keeps-only-the-last-insert-batch.html">
   <meta property="og:title" content="Weaviate Vector Store: Clear Data keeps only the last insert batch | Production Incident Fix">
   <meta property="og:description" content="Excellent catch and thorough root-cause identification. Having the collection/tenant deletion hook nested directly inside the batch execution loop instead of executing once prio...">
-  <meta property="og:url" content="https://n8n-production-incident-fixes.pages.dev/cases/weaviate-vector-store-clear-data-keeps-only-the-last-insert-batch.html">
+  <meta property="og:url" content="https://hooktriage.com/cases/weaviate-vector-store-clear-data-keeps-only-the-last-insert-batch.html">
   <meta property="og:type" content="article">
   <link rel="sitemap" type="application/xml" title="Sitemap" href="/sitemap.xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -62,7 +62,7 @@
     "publisher": {
       "@type": "Organization",
       "name": "Production Incident Radar",
-      "url": "https://n8n-production-incident-fixes.pages.dev"
+      "url": "https://hooktriage.com"
     }
   }
   </script>
@@ -221,7 +221,7 @@
   </div>
 
   <script>
-    const rawMarkdown = "---\nlayout: default\ntitle: \"Weaviate Vector Store: Clear Data keeps only the last insert batch\"\nplatform: \"n8n\"\nseverity: \"HIGH\"\nstatus: \"Resolved\"\ndate: 2026-11-11\ntags: [\"n8n\", \"production-fix\", \"post-mortem\", \"verified-resolution\"]\nslug: \"weaviate-vector-store-clear-data-keeps-only-the-last-insert-batch\"\n---\n\n# Weaviate Vector Store: Clear Data keeps only the last insert batch\n\n\n> \u26a1 **Encountering this exact production bug or need an emergency automation fix?**  \n> [**\ud83d\udea8 Instant Async Production Triage & Resolution (< 6h, Zero Video Calls)**](https://n8n-production-incident-fixes.pages.dev/#triage)\n\n\n## Incident Metadata\n- **Platform / Ecosystem**: `n8n`\n- **Incident Severity**: `HIGH`\n- **Resolution Status**: `VERIFIED & RESOLVED`\n- **Logged Timestamp**: `2026-11-11T21:00:31.905652`\n- **Diagnosis Engine**: Autonomous Production Incident Radar\n\n---\n\n## Root-Cause Analysis & Patch Preview (Layer 1)\n\nExcellent catch and thorough root-cause identification. Having the collection/tenant deletion hook nested directly inside the batch execution loop instead of executing once prior to the document chunking explains the silent data loss whenever `Embedding Batch Size` is smaller than the total record count.\n\nUntil PR #43518 is reviewed, merged, and cut into an official release, you can prevent this silent overwrite right now without downgrading your node by separating the collection purge from the insertion pipeline:\n\n### Immediate Workaround Protocol\n\n1. **Disable In-Node Purge:** Open your **Weaviate Vector Store** node and toggle **Clear Data** to **OFF** (`false`).\n2. **Explicit Pre-flight Deletion:** Add an **HTTP Request** node immediately before your embedding/document loader branch to reset the collection once at the start of the execution.\n3. Configure the HTTP Request node to target the Weaviate Schema endpoint with `DELETE`. Enable \"Never Error\" (or ignore HTTP 404) so first-time executions do not halt if the class has not been instantiated yet.\n\n### Ready-to-use Workflow Snippet (Pre-flight Purge Pattern)\n\nYou can copy and paste this JSON snippet directly onto your n8n workflow canvas:\n\n**Patch Preview (First 3 lines of verified fix):**\n```json\n{\n  \"nodes\": [\n    {\n# ... [TRUNCATED \u2014 Full production patch & verification steps locked below]\n```\n\n---\n\n## Incident Prevention & Operational Takeaways\n1. **Audit Upstream Authentication**: Validate OAuth2 token refresh loops and ensure service credentials cannot be orphaned.\n2. **Implement Schema Boundary Validation**: Guard downstream webhooks against unexpected payload truncations.\n3. **Automate Error Interception**: Configure fallback nodes and alerting monitors before critical production executions.\n\n---\n\n\n> \u26a1 **Encountering this exact production bug or need an emergency automation fix?**  \n> [**\ud83d\udea8 Instant Async Production Triage & Resolution (< 6h, Zero Video Calls)**](https://n8n-production-incident-fixes.pages.dev/#triage)\n\n\n[\u2190 Back to Live Case Studies Index](../)\n";
+    const rawMarkdown = "---\nlayout: default\ntitle: \"Weaviate Vector Store: Clear Data keeps only the last insert batch\"\nplatform: \"n8n\"\nseverity: \"HIGH\"\nstatus: \"Resolved\"\ndate: 2026-11-11\ntags: [\"n8n\", \"production-fix\", \"post-mortem\", \"verified-resolution\"]\nslug: \"weaviate-vector-store-clear-data-keeps-only-the-last-insert-batch\"\n---\n\n# Weaviate Vector Store: Clear Data keeps only the last insert batch\n\n\n> \u26a1 **Encountering this exact production bug or need an emergency automation fix?**  \n> [**\ud83d\udea8 Instant Async Production Triage & Resolution (< 6h, Zero Video Calls)**](https://hooktriage.com/#triage)\n\n\n## Incident Metadata\n- **Platform / Ecosystem**: `n8n`\n- **Incident Severity**: `HIGH`\n- **Resolution Status**: `VERIFIED & RESOLVED`\n- **Logged Timestamp**: `2026-11-11T21:00:31.905652`\n- **Diagnosis Engine**: Autonomous Production Incident Radar\n\n---\n\n## Root-Cause Analysis & Patch Preview (Layer 1)\n\nExcellent catch and thorough root-cause identification. Having the collection/tenant deletion hook nested directly inside the batch execution loop instead of executing once prior to the document chunking explains the silent data loss whenever `Embedding Batch Size` is smaller than the total record count.\n\nUntil PR #43518 is reviewed, merged, and cut into an official release, you can prevent this silent overwrite right now without downgrading your node by separating the collection purge from the insertion pipeline:\n\n### Immediate Workaround Protocol\n\n1. **Disable In-Node Purge:** Open your **Weaviate Vector Store** node and toggle **Clear Data** to **OFF** (`false`).\n2. **Explicit Pre-flight Deletion:** Add an **HTTP Request** node immediately before your embedding/document loader branch to reset the collection once at the start of the execution.\n3. Configure the HTTP Request node to target the Weaviate Schema endpoint with `DELETE`. Enable \"Never Error\" (or ignore HTTP 404) so first-time executions do not halt if the class has not been instantiated yet.\n\n### Ready-to-use Workflow Snippet (Pre-flight Purge Pattern)\n\nYou can copy and paste this JSON snippet directly onto your n8n workflow canvas:\n\n**Patch Preview (First 3 lines of verified fix):**\n```json\n{\n  \"nodes\": [\n    {\n# ... [TRUNCATED \u2014 Full production patch & verification steps locked below]\n```\n\n---\n\n## Incident Prevention & Operational Takeaways\n1. **Audit Upstream Authentication**: Validate OAuth2 token refresh loops and ensure service credentials cannot be orphaned.\n2. **Implement Schema Boundary Validation**: Guard downstream webhooks against unexpected payload truncations.\n3. **Automate Error Interception**: Configure fallback nodes and alerting monitors before critical production executions.\n\n---\n\n\n> \u26a1 **Encountering this exact production bug or need an emergency automation fix?**  \n> [**\ud83d\udea8 Instant Async Production Triage & Resolution (< 6h, Zero Video Calls)**](https://hooktriage.com/#triage)\n\n\n[\u2190 Back to Live Case Studies Index](../)\n";
     const caseLeadId = "github_n8n-io_n8n_43577";
     const caseAssetTitle = "Weaviate Vector Store: Clear Data keeps only the last insert batch";
     const caseBundleMarkdown = "# Complete Production Resolution Bundle \u2014 Weaviate Vector Store: Clear Data keeps only the last insert batch\nEcosystem: n8n | Severity: HIGH | Case ID: github_n8n-io_n8n_43577\n\n## 1. Full Importable Patch / Config Diff (with Error-Retry & Timeout Guard)\n```json\n{\n  \"nodes\": [\n    {\n      \"parameters\": {\n        \"method\": \"DELETE\",\n        \"url\": \"[https]://YOUR_WEAVIATE_HOST/v1/schema/YOUR_CLASS_NAME\",\n        \"authentication\": \"genericCredentialType\",\n        \"genericAuthType\": \"httpHeaderAuth\",\n        \"options\": {\n          \"allowUnauthorizedCerts\": false,\n          \"response\": {\n            \"response\": {\n              \"neverError\": true\n            }\n          }\n        }\n      },\n      \"id\": \"e0b82142-9999-4d22-b5e1-9871c5a00001\",\n      \"name\": \"Weaviate - Purge Collection Once\",\n      \"type\": \"n8n-nodes-base.httpRequest\",\n      \"typeVersion\": 4.2,\n      \"position\": [\n        260,\n        300\n      ]\n    }\n  ],\n  \"connections\": {}\n}\n```\n\n*(Note: Replace `YOUR_WEAVIATE_HOST` with your local or cloud Weaviate endpoint formatted as `[http]://localhost:8080` or `[https]://your-cluster[.]weaviate[.]cloud`, and replace `YOUR_CLASS_NAME` with your target class).*\n\nAlternatively, if you are working with a modest dataset that will not exceed your embedding model's rate limits or context window, temporarily setting the **Embedding Batch Size** parameter higher than the total document count forces a single batch execution, bypassing the looping deletion.\n\nIf you'd like, I can also share the complete JSON blueprint / flow template with you for free\u2014just let me know and I'll send it over.\n\nLet me know if your tenant setup requires multi-tenancy headers or if you hit any edge cases while testing the workaround!\n\n## 2. Verification & Non-Destructive Test Checklist\n1. Validate JSON/YAML syntax and confirm no unmasked secrets remain.\n2. Confirm error-retry/backoff and timeout guards are enabled before re-activating.\n3. Run a non-destructive healthcheck / test webhook and verify HTTP 200 payload shape.\n\n## 3. Team Post-Mortem Note\nRoot Cause (n8n / HIGH): Excellent catch and thorough root-cause identification. Having the collection/tenant deletion hook nested directly inside the batch execution loop instead of executing once prio...\nOperational Guard: Audit OAuth2 token refresh loops, enforce schema boundary validation, and configure dead-letter error interception.\n";
@@ -234,7 +234,7 @@
     // Strip YAML frontmatter
     const mdWithoutYaml = rawMarkdown.replace(/^---[\s\S]*?---\s*/, '');
     document.getElementById('content').innerHTML = marked.parse(mdWithoutYaml);
-    fetch("https://triage.baitakstore.com/api/ping-visit?issue=" + encodeURIComponent(caseLeadId) + "&page=" + encodeURIComponent(location.pathname)).catch(function(){});
+    fetch("https://hooktriage.com/api/ping-visit?issue=" + encodeURIComponent(caseLeadId) + "&page=" + encodeURIComponent(location.pathname)).catch(function(){});
 
     window.openCaseTriageModal = function(tier) {
       if (typeof window.openTriageModal === 'function') {
@@ -273,12 +273,12 @@
       btn.disabled = true;
       btn.innerText = 'Sending...';
       try {
-        const r = await fetch("https://triage.baitakstore.com/funnel-api/gate", {
+        const r = await fetch("https://hooktriage.com/funnel-api/gate", {
           method: "POST",
           headers: {"Content-Type": "application/json"},
           body: JSON.stringify({
             email: email,
-            source_channel: "pages_dev",
+            source_channel: "hooktriage_web",
             asset_id: caseLeadId,
             asset_title: caseAssetTitle,
             segment: "track_a",
@@ -327,12 +327,12 @@
       btn.disabled = true;
       btn.innerText = 'Running Audit...';
       try {
-        const r = await fetch("https://triage.baitakstore.com/funnel-api/audit-workflow", {
+        const r = await fetch("https://hooktriage.com/funnel-api/audit-workflow", {
           method: "POST",
           headers: {"Content-Type": "application/json"},
           body: JSON.stringify({
             email: email,
-            source_channel: "pages_dev",
+            source_channel: "hooktriage_web",
             asset_id: caseLeadId,
             sanitized_payload: maskedPayload,
             website: (hpEl ? hpEl.value : '') || ''
@@ -489,7 +489,7 @@
 
 <script>
 (function() {
-  const API = "https://triage.baitakstore.com";
+  const API = "https://hooktriage.com";
   let currentSessionId = "";
   let targetUsdtAddress = "0x57A817bd5D42F14325eE4ec7B67F69D5f884758B";
   let targetUsdtExact = 159.20;

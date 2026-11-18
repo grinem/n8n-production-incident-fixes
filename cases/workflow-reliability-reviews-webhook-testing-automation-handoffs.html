@@ -6,10 +6,10 @@
   <title>Workflow Reliability Reviews, Webhook Testing &amp; Automation Handoffs | Production Incident Fix</title>
   <meta name="description" content="Here is what is likely causing this issue and how to resolve it:">
   <meta name="robots" content="index, follow">
-  <link rel="canonical" href="https://n8n-production-incident-fixes.pages.dev/cases/workflow-reliability-reviews-webhook-testing-automation-handoffs.html">
+  <link rel="canonical" href="https://hooktriage.com/cases/workflow-reliability-reviews-webhook-testing-automation-handoffs.html">
   <meta property="og:title" content="Workflow Reliability Reviews, Webhook Testing &amp; Automation Handoffs | Production Incident Fix">
   <meta property="og:description" content="Here is what is likely causing this issue and how to resolve it:">
-  <meta property="og:url" content="https://n8n-production-incident-fixes.pages.dev/cases/workflow-reliability-reviews-webhook-testing-automation-handoffs.html">
+  <meta property="og:url" content="https://hooktriage.com/cases/workflow-reliability-reviews-webhook-testing-automation-handoffs.html">
   <meta property="og:type" content="article">
   <link rel="sitemap" type="application/xml" title="Sitemap" href="/sitemap.xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -62,7 +62,7 @@
     "publisher": {
       "@type": "Organization",
       "name": "Production Incident Radar",
-      "url": "https://n8n-production-incident-fixes.pages.dev"
+      "url": "https://hooktriage.com"
     }
   }
   </script>
@@ -221,7 +221,7 @@
   </div>
 
   <script>
-    const rawMarkdown = "---\nlayout: default\ntitle: \"Workflow Reliability Reviews, Webhook Testing & Automation Handoffs\"\nplatform: \"Make.com\"\nseverity: \"MEDIUM\"\nstatus: \"Resolved\"\ndate: 2026-11-10\ntags: [\"make\", \"production-fix\", \"post-mortem\", \"verified-resolution\"]\nslug: \"workflow-reliability-reviews-webhook-testing-automation-handoffs\"\n---\n\n# Workflow Reliability Reviews, Webhook Testing & Automation Handoffs\n\n\n> \u26a1 **Encountering this exact production bug or need an emergency automation fix?**  \n> [**\ud83d\udea8 Instant Async Production Triage & Resolution (< 6h, Zero Video Calls)**](https://n8n-production-incident-fixes.pages.dev/#triage)\n\n\n## Incident Metadata\n- **Platform / Ecosystem**: `Make.com`\n- **Incident Severity**: `MEDIUM`\n- **Resolution Status**: `VERIFIED & RESOLVED`\n- **Logged Timestamp**: `2026-11-10T10:34:03.296566`\n- **Diagnosis Engine**: Autonomous Production Incident Radar\n\n---\n\n## Root-Cause Analysis & Patch Preview (Layer 1)\n\nHere is what is likely causing this issue and how to resolve it:\n\n---\n\n## Incident Prevention & Operational Takeaways\n1. **Audit Upstream Authentication**: Validate OAuth2 token refresh loops and ensure service credentials cannot be orphaned.\n2. **Implement Schema Boundary Validation**: Guard downstream webhooks against unexpected payload truncations.\n3. **Automate Error Interception**: Configure fallback nodes and alerting monitors before critical production executions.\n\n---\n\n\n> \u26a1 **Encountering this exact production bug or need an emergency automation fix?**  \n> [**\ud83d\udea8 Instant Async Production Triage & Resolution (< 6h, Zero Video Calls)**](https://n8n-production-incident-fixes.pages.dev/#triage)\n\n\n[\u2190 Back to Live Case Studies Index](../)\n";
+    const rawMarkdown = "---\nlayout: default\ntitle: \"Workflow Reliability Reviews, Webhook Testing & Automation Handoffs\"\nplatform: \"Make.com\"\nseverity: \"MEDIUM\"\nstatus: \"Resolved\"\ndate: 2026-11-10\ntags: [\"make\", \"production-fix\", \"post-mortem\", \"verified-resolution\"]\nslug: \"workflow-reliability-reviews-webhook-testing-automation-handoffs\"\n---\n\n# Workflow Reliability Reviews, Webhook Testing & Automation Handoffs\n\n\n> \u26a1 **Encountering this exact production bug or need an emergency automation fix?**  \n> [**\ud83d\udea8 Instant Async Production Triage & Resolution (< 6h, Zero Video Calls)**](https://hooktriage.com/#triage)\n\n\n## Incident Metadata\n- **Platform / Ecosystem**: `Make.com`\n- **Incident Severity**: `MEDIUM`\n- **Resolution Status**: `VERIFIED & RESOLVED`\n- **Logged Timestamp**: `2026-11-10T10:34:03.296566`\n- **Diagnosis Engine**: Autonomous Production Incident Radar\n\n---\n\n## Root-Cause Analysis & Patch Preview (Layer 1)\n\nHere is what is likely causing this issue and how to resolve it:\n\n---\n\n## Incident Prevention & Operational Takeaways\n1. **Audit Upstream Authentication**: Validate OAuth2 token refresh loops and ensure service credentials cannot be orphaned.\n2. **Implement Schema Boundary Validation**: Guard downstream webhooks against unexpected payload truncations.\n3. **Automate Error Interception**: Configure fallback nodes and alerting monitors before critical production executions.\n\n---\n\n\n> \u26a1 **Encountering this exact production bug or need an emergency automation fix?**  \n> [**\ud83d\udea8 Instant Async Production Triage & Resolution (< 6h, Zero Video Calls)**](https://hooktriage.com/#triage)\n\n\n[\u2190 Back to Live Case Studies Index](../)\n";
     const caseLeadId = "make_119594";
     const caseAssetTitle = "Workflow Reliability Reviews, Webhook Testing & Automation Handoffs";
     const caseBundleMarkdown = "# Complete Production Resolution Bundle \u2014 Workflow Reliability Reviews, Webhook Testing & Automation Handoffs\nEcosystem: Make.com | Severity: MEDIUM | Case ID: make_119594\n\n## 1. Full Importable Patch / Config Diff (with Error-Retry & Timeout Guard)\nPour transposer la logique de r\u00e9silience (comme les tests Python/SQLite) directement au sein du moteur Make.com, impl\u00e9mentez l'architecture standard \u00e0 3 couches :\n\n### \u00c9tape 1 : D\u00e9couplage Ingestion / Traitement (Fast ACK Pattern)\n1. Placez imm\u00e9diatement apr\u00e8s le d\u00e9clencheur **Custom Webhook** le module **Webhook Response**.\n   - **Status :** `200` (ou `202 Accepted`).\n   - **Body :** `{\"status\":\n\nHope this helps point you in the right direction! Let me know if you hit any snag with the configuration.\n\n## 2. Verification & Non-Destructive Test Checklist\n1. Validate JSON/YAML syntax and confirm no unmasked secrets remain.\n2. Confirm error-retry/backoff and timeout guards are enabled before re-activating.\n3. Run a non-destructive healthcheck / test webhook and verify HTTP 200 payload shape.\n\n## 3. Team Post-Mortem Note\nRoot Cause (Make.com / MEDIUM): Here is what is likely causing this issue and how to resolve it:\nOperational Guard: Audit OAuth2 token refresh loops, enforce schema boundary validation, and configure dead-letter error interception.\n";
@@ -234,7 +234,7 @@
     // Strip YAML frontmatter
     const mdWithoutYaml = rawMarkdown.replace(/^---[\s\S]*?---\s*/, '');
     document.getElementById('content').innerHTML = marked.parse(mdWithoutYaml);
-    fetch("https://triage.baitakstore.com/api/ping-visit?issue=" + encodeURIComponent(caseLeadId) + "&page=" + encodeURIComponent(location.pathname)).catch(function(){});
+    fetch("https://hooktriage.com/api/ping-visit?issue=" + encodeURIComponent(caseLeadId) + "&page=" + encodeURIComponent(location.pathname)).catch(function(){});
 
     window.openCaseTriageModal = function(tier) {
       if (typeof window.openTriageModal === 'function') {
@@ -273,12 +273,12 @@
       btn.disabled = true;
       btn.innerText = 'Sending...';
       try {
-        const r = await fetch("https://triage.baitakstore.com/funnel-api/gate", {
+        const r = await fetch("https://hooktriage.com/funnel-api/gate", {
           method: "POST",
           headers: {"Content-Type": "application/json"},
           body: JSON.stringify({
             email: email,
-            source_channel: "pages_dev",
+            source_channel: "hooktriage_web",
             asset_id: caseLeadId,
             asset_title: caseAssetTitle,
             segment: "track_a",
@@ -327,12 +327,12 @@
       btn.disabled = true;
       btn.innerText = 'Running Audit...';
       try {
-        const r = await fetch("https://triage.baitakstore.com/funnel-api/audit-workflow", {
+        const r = await fetch("https://hooktriage.com/funnel-api/audit-workflow", {
           method: "POST",
           headers: {"Content-Type": "application/json"},
           body: JSON.stringify({
             email: email,
-            source_channel: "pages_dev",
+            source_channel: "hooktriage_web",
             asset_id: caseLeadId,
             sanitized_payload: maskedPayload,
             website: (hpEl ? hpEl.value : '') || ''
@@ -489,7 +489,7 @@
 
 <script>
 (function() {
-  const API = "https://triage.baitakstore.com";
+  const API = "https://hooktriage.com";
   let currentSessionId = "";
   let targetUsdtAddress = "0x57A817bd5D42F14325eE4ec7B67F69D5f884758B";
   let targetUsdtExact = 159.20;

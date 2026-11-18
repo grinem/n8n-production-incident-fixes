@@ -6,10 +6,10 @@
   <title>Google Gemini node: Message a Model crashes with &quot;reading &#x27;flatMap&#x27;&quot; when Gemini blocks the prompt | Production Incident Fix</title>
   <meta name="description" content="Spot-on diagnosis! The root issue stems from the Google Gemini API returning an HTTP 200 OK containing only `promptFeedback.blockReason` while completely omitting the `candidate...">
   <meta name="robots" content="index, follow">
-  <link rel="canonical" href="https://n8n-production-incident-fixes.pages.dev/cases/google-gemini-node-message-a-model-crashes-with-reading-flatmap-w.html">
+  <link rel="canonical" href="https://hooktriage.com/cases/google-gemini-node-message-a-model-crashes-with-reading-flatmap-w.html">
   <meta property="og:title" content="Google Gemini node: Message a Model crashes with &quot;reading &#x27;flatMap&#x27;&quot; when Gemini blocks the prompt | Production Incident Fix">
   <meta property="og:description" content="Spot-on diagnosis! The root issue stems from the Google Gemini API returning an HTTP 200 OK containing only `promptFeedback.blockReason` while completely omitting the `candidate...">
-  <meta property="og:url" content="https://n8n-production-incident-fixes.pages.dev/cases/google-gemini-node-message-a-model-crashes-with-reading-flatmap-w.html">
+  <meta property="og:url" content="https://hooktriage.com/cases/google-gemini-node-message-a-model-crashes-with-reading-flatmap-w.html">
   <meta property="og:type" content="article">
   <link rel="sitemap" type="application/xml" title="Sitemap" href="/sitemap.xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -62,7 +62,7 @@
     "publisher": {
       "@type": "Organization",
       "name": "Production Incident Radar",
-      "url": "https://n8n-production-incident-fixes.pages.dev"
+      "url": "https://hooktriage.com"
     }
   }
   </script>
@@ -221,7 +221,7 @@
   </div>
 
   <script>
-    const rawMarkdown = "---\nlayout: default\ntitle: \"Google Gemini node: Message a Model crashes with \\\"reading 'flatMap'\\\" when Gemini blocks the prompt\"\nplatform: \"n8n\"\nseverity: \"CRITICAL\"\nstatus: \"Resolved\"\ndate: 2026-11-12\ntags: [\"n8n\", \"critical-incident\", \"production-fix\", \"post-mortem\", \"verified-resolution\"]\nslug: \"google-gemini-node-message-a-model-crashes-with-reading-flatmap-w\"\n---\n\n# Google Gemini node: Message a Model crashes with \"reading 'flatMap'\" when Gemini blocks the prompt\n\n\n> \u26a1 **Encountering this exact production bug or need an emergency automation fix?**  \n> [**\ud83d\udea8 Instant Async Production Triage & Resolution (< 6h, Zero Video Calls)**](https://n8n-production-incident-fixes.pages.dev/#triage)\n\n\n## Incident Metadata\n- **Platform / Ecosystem**: `n8n`\n- **Incident Severity**: `CRITICAL`\n- **Resolution Status**: `VERIFIED & RESOLVED`\n- **Logged Timestamp**: `2026-11-12T03:00:28.682892`\n- **Diagnosis Engine**: Autonomous Production Incident Radar\n\n---\n\n## Root-Cause Analysis & Patch Preview (Layer 1)\n\nSpot-on diagnosis! The root issue stems from the Google Gemini API returning an HTTP 200 OK containing only `promptFeedback.blockReason` while completely omitting the `candidates` array whenever a safety threshold or prohibited content policy is triggered. Because `GenerateContentResponse` in `helpers/interfaces.ts` currently marks `candidates` as strictly required, operations like `getToolCalls` immediately hit `response.candidates.flatMap(...)` and crash with an unhandled `TypeError: Cannot read properties of undefined (reading 'flatMap')`.\n\nLooking closely at the implementation:\n1. In `message.operation.ts:581` and `message.operation.ts:614`, `response.candidates` is directly mapped and accessed without verifying its presence. Adding optional chaining and a defensive check `(response.candidates ?? []).flatMap(...)` or an early guard `if (!response.candidates?.length)` prevents this crash.\n2. In fact, `image.operation.ts` already handles prompt blocking appropriately by inspecting `promptFeedback?.blockReason` before attempting to access candidate outputs. Standardizing this pattern via a shared helper or bringing the same defensive check into `message.operation.ts` ensures consistent error handling across the entire Google Gemini node.\n\n### Proposed Code Adjustment\n\nIn `helpers/interfaces.ts`, `candidates` should be marked optional to reflect actual upstream API responses:\n\n**Patch Preview (First 3 lines of verified fix):**\n```typescript\nexport interface GenerateContentResponse {\n\tcandidates?: Candidate[]; // Optional: omitted by Gemini when prompt is blocked\n\tpromptFeedback?: {\n# ... [TRUNCATED \u2014 Full production patch & verification steps locked below]\n```\n\n---\n\n## Incident Prevention & Operational Takeaways\n1. **Audit Upstream Authentication**: Validate OAuth2 token refresh loops and ensure service credentials cannot be orphaned.\n2. **Implement Schema Boundary Validation**: Guard downstream webhooks against unexpected payload truncations.\n3. **Automate Error Interception**: Configure fallback nodes and alerting monitors before critical production executions.\n\n---\n\n\n> \u26a1 **Encountering this exact production bug or need an emergency automation fix?**  \n> [**\ud83d\udea8 Instant Async Production Triage & Resolution (< 6h, Zero Video Calls)**](https://n8n-production-incident-fixes.pages.dev/#triage)\n\n\n[\u2190 Back to Live Case Studies Index](../)\n";
+    const rawMarkdown = "---\nlayout: default\ntitle: \"Google Gemini node: Message a Model crashes with \\\"reading 'flatMap'\\\" when Gemini blocks the prompt\"\nplatform: \"n8n\"\nseverity: \"CRITICAL\"\nstatus: \"Resolved\"\ndate: 2026-11-12\ntags: [\"n8n\", \"critical-incident\", \"production-fix\", \"post-mortem\", \"verified-resolution\"]\nslug: \"google-gemini-node-message-a-model-crashes-with-reading-flatmap-w\"\n---\n\n# Google Gemini node: Message a Model crashes with \"reading 'flatMap'\" when Gemini blocks the prompt\n\n\n> \u26a1 **Encountering this exact production bug or need an emergency automation fix?**  \n> [**\ud83d\udea8 Instant Async Production Triage & Resolution (< 6h, Zero Video Calls)**](https://hooktriage.com/#triage)\n\n\n## Incident Metadata\n- **Platform / Ecosystem**: `n8n`\n- **Incident Severity**: `CRITICAL`\n- **Resolution Status**: `VERIFIED & RESOLVED`\n- **Logged Timestamp**: `2026-11-12T03:00:28.682892`\n- **Diagnosis Engine**: Autonomous Production Incident Radar\n\n---\n\n## Root-Cause Analysis & Patch Preview (Layer 1)\n\nSpot-on diagnosis! The root issue stems from the Google Gemini API returning an HTTP 200 OK containing only `promptFeedback.blockReason` while completely omitting the `candidates` array whenever a safety threshold or prohibited content policy is triggered. Because `GenerateContentResponse` in `helpers/interfaces.ts` currently marks `candidates` as strictly required, operations like `getToolCalls` immediately hit `response.candidates.flatMap(...)` and crash with an unhandled `TypeError: Cannot read properties of undefined (reading 'flatMap')`.\n\nLooking closely at the implementation:\n1. In `message.operation.ts:581` and `message.operation.ts:614`, `response.candidates` is directly mapped and accessed without verifying its presence. Adding optional chaining and a defensive check `(response.candidates ?? []).flatMap(...)` or an early guard `if (!response.candidates?.length)` prevents this crash.\n2. In fact, `image.operation.ts` already handles prompt blocking appropriately by inspecting `promptFeedback?.blockReason` before attempting to access candidate outputs. Standardizing this pattern via a shared helper or bringing the same defensive check into `message.operation.ts` ensures consistent error handling across the entire Google Gemini node.\n\n### Proposed Code Adjustment\n\nIn `helpers/interfaces.ts`, `candidates` should be marked optional to reflect actual upstream API responses:\n\n**Patch Preview (First 3 lines of verified fix):**\n```typescript\nexport interface GenerateContentResponse {\n\tcandidates?: Candidate[]; // Optional: omitted by Gemini when prompt is blocked\n\tpromptFeedback?: {\n# ... [TRUNCATED \u2014 Full production patch & verification steps locked below]\n```\n\n---\n\n## Incident Prevention & Operational Takeaways\n1. **Audit Upstream Authentication**: Validate OAuth2 token refresh loops and ensure service credentials cannot be orphaned.\n2. **Implement Schema Boundary Validation**: Guard downstream webhooks against unexpected payload truncations.\n3. **Automate Error Interception**: Configure fallback nodes and alerting monitors before critical production executions.\n\n---\n\n\n> \u26a1 **Encountering this exact production bug or need an emergency automation fix?**  \n> [**\ud83d\udea8 Instant Async Production Triage & Resolution (< 6h, Zero Video Calls)**](https://hooktriage.com/#triage)\n\n\n[\u2190 Back to Live Case Studies Index](../)\n";
     const caseLeadId = "github_n8n-io_n8n_43590";
     const caseAssetTitle = "Google Gemini node: Message a Model crashes with \"reading 'flatMap'\" when Gemini blocks the prompt";
     const caseBundleMarkdown = "# Complete Production Resolution Bundle \u2014 Google Gemini node: Message a Model crashes with \"reading 'flatMap'\" when Gemini blocks the prompt\nEcosystem: n8n | Severity: CRITICAL | Case ID: github_n8n-io_n8n_43590\n\n## 1. Full Importable Patch / Config Diff (with Error-Retry & Timeout Guard)\n```typescript\nexport interface GenerateContentResponse {\n\tcandidates?: Candidate[]; // Optional: omitted by Gemini when prompt is blocked\n\tpromptFeedback?: {\n\t\tblockReason?: string;\n\t\tblockReasonMessage?: string;\n\t\tsafetyRatings?: SafetyRating[];\n\t};\n\tusageMetadata?: UsageMetadata;\n}\n```\n\nAnd in `message.operation.ts` (around lines 581 & 614), guard against undefined candidates before calling `.flatMap(...)`:\n\n```typescript\nif (response.promptFeedback?.blockReason) {\n\tthrow new NodeOperationError(\n\t\tthis.getNode(),\n\t\t`Google Gemini blocked the prompt: ${response.promptFeedback.blockReason}${\n\t\t\tresponse.promptFeedback.blockReasonMessage ? ` - ${response.promptFeedback.blockReasonMessage}` : ''\n\t\t}`,\n\t);\n}\n\nconst toolCalls = (response.candidates ?? []).flatMap((candidate) => getToolCalls(candidate));\n```\n\n### Unit Test Fixture\n\nTo verify this regression fix in `message.operation.test.ts`, here is a clean fixture simulating a safety-blocked response:\n\n```typescript\ndescribe('Google Gemini - Message a Model (Safety Block)', () => {\n\tit('should gracefully handle responses where candidates is undefined due to blockReason', async () => {\n\t\tconst blockedResponse: GenerateContentResponse = {\n\t\t\tpromptFeedback: {\n\t\t\t\tblockReason: 'SAFETY',\n\t\t\t\tblockReasonMessage: 'Prompt violated safety policies',\n\t\t\t\tsafetyRatings: [\n\t\t\t\t\t{\n\t\t\t\t\t\tcategory: 'HARM_CATEGORY_HARASSMENT',\n\t\t\t\t\t\tprobability: 'HIGH',\n\t\t\t\t\t},\n\t\t\t\t],\n\t\t\t},\n\t\t};\n\n\t\t// Mock the API client call\n\t\tjest.spyOn(apiClient, 'generateContent').mockResolvedValue(blockedResponse);\n\n\t\tawait expect(executeMessageOperation.call(mockExecuteFunctions, blockedResponse)).rejects.toThrow(\n\t\t\t/Google Gemini blocked the prompt: SAFETY/,\n\t\t);\n\t});\n});\n```\n\nHappy to review your PR once opened!\n\n## 2. Verification & Non-Destructive Test Checklist\n1. Validate JSON/YAML syntax and confirm no unmasked secrets remain.\n2. Confirm error-retry/backoff and timeout guards are enabled before re-activating.\n3. Run a non-destructive healthcheck / test webhook and verify HTTP 200 payload shape.\n\n## 3. Team Post-Mortem Note\nRoot Cause (n8n / CRITICAL): Spot-on diagnosis! The root issue stems from the Google Gemini API returning an HTTP 200 OK containing only `promptFeedback.blockReason` while completely omitting the `candidate...\nOperational Guard: Audit OAuth2 token refresh loops, enforce schema boundary validation, and configure dead-letter error interception.\n";
@@ -234,7 +234,7 @@
     // Strip YAML frontmatter
     const mdWithoutYaml = rawMarkdown.replace(/^---[\s\S]*?---\s*/, '');
     document.getElementById('content').innerHTML = marked.parse(mdWithoutYaml);
-    fetch("https://triage.baitakstore.com/api/ping-visit?issue=" + encodeURIComponent(caseLeadId) + "&page=" + encodeURIComponent(location.pathname)).catch(function(){});
+    fetch("https://hooktriage.com/api/ping-visit?issue=" + encodeURIComponent(caseLeadId) + "&page=" + encodeURIComponent(location.pathname)).catch(function(){});
 
     window.openCaseTriageModal = function(tier) {
       if (typeof window.openTriageModal === 'function') {
@@ -273,12 +273,12 @@
       btn.disabled = true;
       btn.innerText = 'Sending...';
       try {
-        const r = await fetch("https://triage.baitakstore.com/funnel-api/gate", {
+        const r = await fetch("https://hooktriage.com/funnel-api/gate", {
           method: "POST",
           headers: {"Content-Type": "application/json"},
           body: JSON.stringify({
             email: email,
-            source_channel: "pages_dev",
+            source_channel: "hooktriage_web",
             asset_id: caseLeadId,
             asset_title: caseAssetTitle,
             segment: "track_a",
@@ -327,12 +327,12 @@
       btn.disabled = true;
       btn.innerText = 'Running Audit...';
       try {
-        const r = await fetch("https://triage.baitakstore.com/funnel-api/audit-workflow", {
+        const r = await fetch("https://hooktriage.com/funnel-api/audit-workflow", {
           method: "POST",
           headers: {"Content-Type": "application/json"},
           body: JSON.stringify({
             email: email,
-            source_channel: "pages_dev",
+            source_channel: "hooktriage_web",
             asset_id: caseLeadId,
             sanitized_payload: maskedPayload,
             website: (hpEl ? hpEl.value : '') || ''
@@ -489,7 +489,7 @@
 
 <script>
 (function() {
-  const API = "https://triage.baitakstore.com";
+  const API = "https://hooktriage.com";
   let currentSessionId = "";
   let targetUsdtAddress = "0x57A817bd5D42F14325eE4ec7B67F69D5f884758B";
   let targetUsdtExact = 159.20;

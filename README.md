@@ -2,7 +2,7 @@
 
 [![GitHub Pages](https://img.shields.io/badge/GitHub%20Pages-Live%20Showcase-brightgreen?style=flat-square&logo=github)](https://grinem.github.io/n8n-production-incident-fixes/)
 [![Incidents Resolved](https://img.shields.io/badge/Incidents%20Resolved-130%20Verified-blue?style=flat-square)](cases/)
-[![Emergency SLA](https://img.shields.io/badge/Incident%20SLA-%3C%206%20Hours-orange?style=flat-square)](https://n8n-production-incident-fixes.pages.dev/#triage)
+[![Emergency SLA](https://img.shields.io/badge/Incident%20SLA-%3C%206%20Hours-orange?style=flat-square)](https://hooktriage.com/#triage)
 [![Async Triage](https://img.shields.io/badge/Async%20Triage-Zero%20Calls-success?style=flat-square)](https://n8n-production-incident-fixes.pages.dev/#triage)
 
 Welcome to the **Production Incident Fixes & Technical Post-Mortem Knowledge Base**.  
@@ -14,7 +14,7 @@ This repository houses real, verified production failure diagnostics, root-cause
 
 
 > ⚡ **Encountering this exact production bug or need an emergency automation fix?**  
-> [**🚨 Instant Async Production Triage & Resolution (< 6h, Zero Video Calls)**](https://n8n-production-incident-fixes.pages.dev/#triage)
+> [**🚨 Instant Async Production Triage & Resolution (< 6h, Zero Video Calls)**](https://hooktriage.com/#triage)
 
 
 ---
@@ -184,7 +184,7 @@ I specialize in high-stakes emergency automation recovery:
 2. **Minimal-Downtime Hotfix**: Patching workflows, container environments, and database records safely.
 3. **Hardened Resilience**: Implementing retry queues, exponential backoff, and idempotent consumers.
 
-👉 [**Launch Instant Async Incident Resolution (< 6h, Zero Calls)**](https://n8n-production-incident-fixes.pages.dev/#triage)
+👉 [**Launch Instant Async Incident Resolution (< 6h, Zero Calls)**](https://hooktriage.com/#triage)
 
 ---
 

@@ -6,10 +6,10 @@
   <title>Plugin backwards invocation for knowledge base operations (documents, metadata, pipeline runs) | Production Incident Fix</title>
   <meta name="description" content="This is indeed a missing piece in the plugin architecture. Right now, backward invocation routes via `dify-plugin-daemon` directly to `core` through `inner_api` endpoints, but d...">
   <meta name="robots" content="index, follow">
-  <link rel="canonical" href="https://n8n-production-incident-fixes.pages.dev/cases/plugin-backwards-invocation-for-knowledge-base-operations-documen.html">
+  <link rel="canonical" href="https://hooktriage.com/cases/plugin-backwards-invocation-for-knowledge-base-operations-documen.html">
   <meta property="og:title" content="Plugin backwards invocation for knowledge base operations (documents, metadata, pipeline runs) | Production Incident Fix">
   <meta property="og:description" content="This is indeed a missing piece in the plugin architecture. Right now, backward invocation routes via `dify-plugin-daemon` directly to `core` through `inner_api` endpoints, but d...">
-  <meta property="og:url" content="https://n8n-production-incident-fixes.pages.dev/cases/plugin-backwards-invocation-for-knowledge-base-operations-documen.html">
+  <meta property="og:url" content="https://hooktriage.com/cases/plugin-backwards-invocation-for-knowledge-base-operations-documen.html">
   <meta property="og:type" content="article">
   <link rel="sitemap" type="application/xml" title="Sitemap" href="/sitemap.xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -62,7 +62,7 @@
     "publisher": {
       "@type": "Organization",
       "name": "Production Incident Radar",
-      "url": "https://n8n-production-incident-fixes.pages.dev"
+      "url": "https://hooktriage.com"
     }
   }
   </script>
@@ -221,7 +221,7 @@
   </div>
 
   <script>
-    const rawMarkdown = "---\nlayout: default\ntitle: \"Plugin backwards invocation for knowledge base operations (documents, metadata, pipeline runs)\"\nplatform: \"Meta / Webhooks\"\nseverity: \"HIGH\"\nstatus: \"Resolved\"\ndate: 2026-11-17\ntags: [\"meta / webhooks\", \"production-fix\", \"post-mortem\", \"verified-resolution\"]\nslug: \"plugin-backwards-invocation-for-knowledge-base-operations-documen\"\n---\n\n# Plugin backwards invocation for knowledge base operations (documents, metadata, pipeline runs)\n\n\n> \u26a1 **Encountering this exact production bug or need an emergency automation fix?**  \n> [**\ud83d\udea8 Instant Async Production Triage & Resolution (< 6h, Zero Video Calls)**](https://n8n-production-incident-fixes.pages.dev/#triage)\n\n\n## Incident Metadata\n- **Platform / Ecosystem**: `Meta / Webhooks`\n- **Incident Severity**: `HIGH`\n- **Resolution Status**: `VERIFIED & RESOLVED`\n- **Logged Timestamp**: `2026-11-17T21:40:34.573756`\n- **Diagnosis Engine**: Autonomous Production Incident Radar\n\n---\n\n## Root-Cause Analysis & Patch Preview (Layer 1)\n\nThis is indeed a missing piece in the plugin architecture. Right now, backward invocation routes via `dify-plugin-daemon` directly to `core` through `inner_api` endpoints, but dataset and knowledge pipeline operations were never wired into the inner API or exposed via `dify-plugin-sdks`.\n\nUntil `self.session.knowledge` (or equivalent dataset RPC dispatching) is implemented in core, here is the cleanest way to handle this without fighting the SSRF proxy:\n\n1. **Bypass SSRF for internal calls**:\n   In your `.env`, set:\n\n**Patch Preview (First 3 lines of verified fix):**\n```env\nNO_PROXY=api,plugin_daemon,localhost,127.0.0.1\n# ... [TRUNCATED \u2014 Full production patch & verification steps locked below]\n```\n\n---\n\n## Incident Prevention & Operational Takeaways\n1. **Audit Upstream Authentication**: Validate OAuth2 token refresh loops and ensure service credentials cannot be orphaned.\n2. **Implement Schema Boundary Validation**: Guard downstream webhooks against unexpected payload truncations.\n3. **Automate Error Interception**: Configure fallback nodes and alerting monitors before critical production executions.\n\n---\n\n\n> \u26a1 **Encountering this exact production bug or need an emergency automation fix?**  \n> [**\ud83d\udea8 Instant Async Production Triage & Resolution (< 6h, Zero Video Calls)**](https://n8n-production-incident-fixes.pages.dev/#triage)\n\n\n[\u2190 Back to Live Case Studies Index](../)\n";
+    const rawMarkdown = "---\nlayout: default\ntitle: \"Plugin backwards invocation for knowledge base operations (documents, metadata, pipeline runs)\"\nplatform: \"Meta / Webhooks\"\nseverity: \"HIGH\"\nstatus: \"Resolved\"\ndate: 2026-11-17\ntags: [\"meta / webhooks\", \"production-fix\", \"post-mortem\", \"verified-resolution\"]\nslug: \"plugin-backwards-invocation-for-knowledge-base-operations-documen\"\n---\n\n# Plugin backwards invocation for knowledge base operations (documents, metadata, pipeline runs)\n\n\n> \u26a1 **Encountering this exact production bug or need an emergency automation fix?**  \n> [**\ud83d\udea8 Instant Async Production Triage & Resolution (< 6h, Zero Video Calls)**](https://hooktriage.com/#triage)\n\n\n## Incident Metadata\n- **Platform / Ecosystem**: `Meta / Webhooks`\n- **Incident Severity**: `HIGH`\n- **Resolution Status**: `VERIFIED & RESOLVED`\n- **Logged Timestamp**: `2026-11-17T21:40:34.573756`\n- **Diagnosis Engine**: Autonomous Production Incident Radar\n\n---\n\n## Root-Cause Analysis & Patch Preview (Layer 1)\n\nThis is indeed a missing piece in the plugin architecture. Right now, backward invocation routes via `dify-plugin-daemon` directly to `core` through `inner_api` endpoints, but dataset and knowledge pipeline operations were never wired into the inner API or exposed via `dify-plugin-sdks`.\n\nUntil `self.session.knowledge` (or equivalent dataset RPC dispatching) is implemented in core, here is the cleanest way to handle this without fighting the SSRF proxy:\n\n1. **Bypass SSRF for internal calls**:\n   In your `.env`, set:\n\n**Patch Preview (First 3 lines of verified fix):**\n```env\nNO_PROXY=api,plugin_daemon,localhost,127.0.0.1\n# ... [TRUNCATED \u2014 Full production patch & verification steps locked below]\n```\n\n---\n\n## Incident Prevention & Operational Takeaways\n1. **Audit Upstream Authentication**: Validate OAuth2 token refresh loops and ensure service credentials cannot be orphaned.\n2. **Implement Schema Boundary Validation**: Guard downstream webhooks against unexpected payload truncations.\n3. **Automate Error Interception**: Configure fallback nodes and alerting monitors before critical production executions.\n\n---\n\n\n> \u26a1 **Encountering this exact production bug or need an emergency automation fix?**  \n> [**\ud83d\udea8 Instant Async Production Triage & Resolution (< 6h, Zero Video Calls)**](https://hooktriage.com/#triage)\n\n\n[\u2190 Back to Live Case Studies Index](../)\n";
     const caseLeadId = "github_langgenius_dify_46637";
     const caseAssetTitle = "Plugin backwards invocation for knowledge base operations (documents, metadata, pipeline runs)";
     const caseBundleMarkdown = "# Complete Production Resolution Bundle \u2014 Plugin backwards invocation for knowledge base operations (documents, metadata, pipeline runs)\nEcosystem: Meta / Webhooks | Severity: HIGH | Case ID: github_langgenius_dify_46637\n\n## 1. Full Importable Patch / Config Diff (with Error-Retry & Timeout Guard)\n```env\n   NO_PROXY=api,plugin_daemon,localhost,127.0.0.1\n   ```\n   Or allow private network routing if you are triggering this from workflow HTTP nodes:\n   ```env\n   SSRF_PROXY_ALLOW_PRIVATE_IPS=true\n   ```\n   Make sure both containers share the same Docker network so resolving `[http]://api:5001` works cleanly.\n\n2. **Re-runs / Deduplication**:\n   Since `POST /v1/datasets/{dataset_id}/pipeline/run` does not currently accept an `original_document_id` for in-place re-indexing, you will need to poll `GET /v1/datasets/{dataset_id}/documents/batch/{batch_id}/indexing-status` until completed, then issue a `DELETE` against the superseded document ID to prevent duplicate chunks in your index.\n\nOpening a PR to expose dataset CRUD under `api/controllers/inner_api/` and adding the corresponding methods to `dify-plugin-sdks` is definitely the right long-term fix here.\n\n## 2. Verification & Non-Destructive Test Checklist\n1. Validate JSON/YAML syntax and confirm no unmasked secrets remain.\n2. Confirm error-retry/backoff and timeout guards are enabled before re-activating.\n3. Run a non-destructive healthcheck / test webhook and verify HTTP 200 payload shape.\n\n## 3. Team Post-Mortem Note\nRoot Cause (Meta / Webhooks / HIGH): This is indeed a missing piece in the plugin architecture. Right now, backward invocation routes via `dify-plugin-daemon` directly to `core` through `inner_api` endpoints, but d...\nOperational Guard: Audit OAuth2 token refresh loops, enforce schema boundary validation, and configure dead-letter error interception.\n";
@@ -234,7 +234,7 @@
     // Strip YAML frontmatter
     const mdWithoutYaml = rawMarkdown.replace(/^---[\s\S]*?---\s*/, '');
     document.getElementById('content').innerHTML = marked.parse(mdWithoutYaml);
-    fetch("https://triage.baitakstore.com/api/ping-visit?issue=" + encodeURIComponent(caseLeadId) + "&page=" + encodeURIComponent(location.pathname)).catch(function(){});
+    fetch("https://hooktriage.com/api/ping-visit?issue=" + encodeURIComponent(caseLeadId) + "&page=" + encodeURIComponent(location.pathname)).catch(function(){});
 
     window.openCaseTriageModal = function(tier) {
       if (typeof window.openTriageModal === 'function') {
@@ -273,12 +273,12 @@
       btn.disabled = true;
       btn.innerText = 'Sending...';
       try {
-        const r = await fetch("https://triage.baitakstore.com/funnel-api/gate", {
+        const r = await fetch("https://hooktriage.com/funnel-api/gate", {
           method: "POST",
           headers: {"Content-Type": "application/json"},
           body: JSON.stringify({
             email: email,
-            source_channel: "pages_dev",
+            source_channel: "hooktriage_web",
             asset_id: caseLeadId,
             asset_title: caseAssetTitle,
             segment: "track_a",
@@ -327,12 +327,12 @@
       btn.disabled = true;
       btn.innerText = 'Running Audit...';
       try {
-        const r = await fetch("https://triage.baitakstore.com/funnel-api/audit-workflow", {
+        const r = await fetch("https://hooktriage.com/funnel-api/audit-workflow", {
           method: "POST",
           headers: {"Content-Type": "application/json"},
           body: JSON.stringify({
             email: email,
-            source_channel: "pages_dev",
+            source_channel: "hooktriage_web",
             asset_id: caseLeadId,
             sanitized_payload: maskedPayload,
             website: (hpEl ? hpEl.value : '') || ''
@@ -489,7 +489,7 @@
 
 <script>
 (function() {
-  const API = "https://triage.baitakstore.com";
+  const API = "https://hooktriage.com";
   let currentSessionId = "";
   let targetUsdtAddress = "0x57A817bd5D42F14325eE4ec7B67F69D5f884758B";
   let targetUsdtExact = 159.20;

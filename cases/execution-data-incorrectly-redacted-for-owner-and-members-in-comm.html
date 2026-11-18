@@ -6,10 +6,10 @@
   <title>Execution data incorrectly redacted for Owner and Members in Community Edition (v2.46.6) | Production Incident Fix</title>
   <meta name="description" content="Two key things stand out here:">
   <meta name="robots" content="index, follow">
-  <link rel="canonical" href="https://n8n-production-incident-fixes.pages.dev/cases/execution-data-incorrectly-redacted-for-owner-and-members-in-comm.html">
+  <link rel="canonical" href="https://hooktriage.com/cases/execution-data-incorrectly-redacted-for-owner-and-members-in-comm.html">
   <meta property="og:title" content="Execution data incorrectly redacted for Owner and Members in Community Edition (v2.46.6) | Production Incident Fix">
   <meta property="og:description" content="Two key things stand out here:">
-  <meta property="og:url" content="https://n8n-production-incident-fixes.pages.dev/cases/execution-data-incorrectly-redacted-for-owner-and-members-in-comm.html">
+  <meta property="og:url" content="https://hooktriage.com/cases/execution-data-incorrectly-redacted-for-owner-and-members-in-comm.html">
   <meta property="og:type" content="article">
   <link rel="sitemap" type="application/xml" title="Sitemap" href="/sitemap.xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -62,7 +62,7 @@
     "publisher": {
       "@type": "Organization",
       "name": "Production Incident Radar",
-      "url": "https://n8n-production-incident-fixes.pages.dev"
+      "url": "https://hooktriage.com"
     }
   }
   </script>
@@ -221,7 +221,7 @@
   </div>
 
   <script>
-    const rawMarkdown = "---\nlayout: default\ntitle: \"Execution data incorrectly redacted for Owner and Members in Community Edition (v2.46.6)\"\nplatform: \"n8n\"\nseverity: \"MEDIUM\"\nstatus: \"Resolved\"\ndate: 2026-11-13\ntags: [\"n8n\", \"production-fix\", \"post-mortem\", \"verified-resolution\"]\nslug: \"execution-data-incorrectly-redacted-for-owner-and-members-in-comm\"\n---\n\n# Execution data incorrectly redacted for Owner and Members in Community Edition (v2.46.6)\n\n\n> \u26a1 **Encountering this exact production bug or need an emergency automation fix?**  \n> [**\ud83d\udea8 Instant Async Production Triage & Resolution (< 6h, Zero Video Calls)**](https://n8n-production-incident-fixes.pages.dev/#triage)\n\n\n> \u2705 **Confirmed Production Resolution (Timestamp: `2026-11-14T01:20:18.738000+01:00`)**  \n> **Author (`LUISDASARTIMANHAS`) verified on [the live thread](https://github.com/n8n-io/n8n/issues/43896)**:  \n> *\"I recreated the credentials and it seems to have worked, even though I used the same credentials as before and logged in with the other laptop...\"*\n\n\n## Incident Metadata\n- **Platform / Ecosystem**: `n8n`\n- **Incident Severity**: `MEDIUM`\n- **Resolution Status**: `CONFIRMED BY AUTHOR IN PRODUCTION`\n- **Logged Timestamp**: `2026-11-13T18:00:40.656677`\n- **Diagnosis Engine**: Autonomous Production Incident Radar\n\n---\n\n## Root-Cause Analysis & Patch Preview (Layer 1)\n\nTwo key things stand out here:\n\n---\n\n## Incident Prevention & Operational Takeaways\n1. **Audit Upstream Authentication**: Validate OAuth2 token refresh loops and ensure service credentials cannot be orphaned.\n2. **Implement Schema Boundary Validation**: Guard downstream webhooks against unexpected payload truncations.\n3. **Automate Error Interception**: Configure fallback nodes and alerting monitors before critical production executions.\n\n---\n\n\n> \u26a1 **Encountering this exact production bug or need an emergency automation fix?**  \n> [**\ud83d\udea8 Instant Async Production Triage & Resolution (< 6h, Zero Video Calls)**](https://n8n-production-incident-fixes.pages.dev/#triage)\n\n\n[\u2190 Back to Live Case Studies Index](../)\n";
+    const rawMarkdown = "---\nlayout: default\ntitle: \"Execution data incorrectly redacted for Owner and Members in Community Edition (v2.46.6)\"\nplatform: \"n8n\"\nseverity: \"MEDIUM\"\nstatus: \"Resolved\"\ndate: 2026-11-13\ntags: [\"n8n\", \"production-fix\", \"post-mortem\", \"verified-resolution\"]\nslug: \"execution-data-incorrectly-redacted-for-owner-and-members-in-comm\"\n---\n\n# Execution data incorrectly redacted for Owner and Members in Community Edition (v2.46.6)\n\n\n> \u26a1 **Encountering this exact production bug or need an emergency automation fix?**  \n> [**\ud83d\udea8 Instant Async Production Triage & Resolution (< 6h, Zero Video Calls)**](https://hooktriage.com/#triage)\n\n\n> \u2705 **Confirmed Production Resolution (Timestamp: `2026-11-14T01:20:18.738000+01:00`)**  \n> **Author (`LUISDASARTIMANHAS`) verified on [the live thread](https://github.com/n8n-io/n8n/issues/43896)**:  \n> *\"I recreated the credentials and it seems to have worked, even though I used the same credentials as before and logged in with the other laptop...\"*\n\n\n## Incident Metadata\n- **Platform / Ecosystem**: `n8n`\n- **Incident Severity**: `MEDIUM`\n- **Resolution Status**: `CONFIRMED BY AUTHOR IN PRODUCTION`\n- **Logged Timestamp**: `2026-11-13T18:00:40.656677`\n- **Diagnosis Engine**: Autonomous Production Incident Radar\n\n---\n\n## Root-Cause Analysis & Patch Preview (Layer 1)\n\nTwo key things stand out here:\n\n---\n\n## Incident Prevention & Operational Takeaways\n1. **Audit Upstream Authentication**: Validate OAuth2 token refresh loops and ensure service credentials cannot be orphaned.\n2. **Implement Schema Boundary Validation**: Guard downstream webhooks against unexpected payload truncations.\n3. **Automate Error Interception**: Configure fallback nodes and alerting monitors before critical production executions.\n\n---\n\n\n> \u26a1 **Encountering this exact production bug or need an emergency automation fix?**  \n> [**\ud83d\udea8 Instant Async Production Triage & Resolution (< 6h, Zero Video Calls)**](https://hooktriage.com/#triage)\n\n\n[\u2190 Back to Live Case Studies Index](../)\n";
     const caseLeadId = "github_n8n-io_n8n_43896";
     const caseAssetTitle = "Execution data incorrectly redacted for Owner and Members in Community Edition (v2.46.6)";
     const caseBundleMarkdown = "# Complete Production Resolution Bundle \u2014 Execution data incorrectly redacted for Owner and Members in Community Edition (v2.46.6)\nEcosystem: n8n | Severity: MEDIUM | Case ID: github_n8n-io_n8n_43896\n\n## 1. Full Importable Patch / Config Diff (with Error-Retry & Timeout Guard)\n1. Your debug info lists `license: enterprise (production)`. When an Enterprise license is applied (or was previously active/expired), n8n enforces strict project-level credential isolation across personal workspaces. Even the instance Owner cannot view execution data containing credentials belonging to another user's personal project unless that credential is explicitly shared.\n2. The redirect to the subscription page on \"Give yourself access\" usually happens when the instance detects multi-project credential sharing but the active license tier lacks the RBAC/Advanced Permissions entitlement to manage cross-project access.\n\nUntil the core team looks at the Linear ticket (GHC-9760), the immediate workaround is to recreate the Gmail credential directly within the Owner account (or have the workflow run strictly under the project that owns the credential) so execution data isn't flagged as foreign and redacted.\n\n## 2. Verification & Non-Destructive Test Checklist\n1. Validate JSON/YAML syntax and confirm no unmasked secrets remain.\n2. Confirm error-retry/backoff and timeout guards are enabled before re-activating.\n3. Run a non-destructive healthcheck / test webhook and verify HTTP 200 payload shape.\n\n## 3. Team Post-Mortem Note\nRoot Cause (n8n / MEDIUM): Two key things stand out here:\nOperational Guard: Audit OAuth2 token refresh loops, enforce schema boundary validation, and configure dead-letter error interception.\n";
@@ -234,7 +234,7 @@
     // Strip YAML frontmatter
     const mdWithoutYaml = rawMarkdown.replace(/^---[\s\S]*?---\s*/, '');
     document.getElementById('content').innerHTML = marked.parse(mdWithoutYaml);
-    fetch("https://triage.baitakstore.com/api/ping-visit?issue=" + encodeURIComponent(caseLeadId) + "&page=" + encodeURIComponent(location.pathname)).catch(function(){});
+    fetch("https://hooktriage.com/api/ping-visit?issue=" + encodeURIComponent(caseLeadId) + "&page=" + encodeURIComponent(location.pathname)).catch(function(){});
 
     window.openCaseTriageModal = function(tier) {
       if (typeof window.openTriageModal === 'function') {
@@ -273,12 +273,12 @@
       btn.disabled = true;
       btn.innerText = 'Sending...';
       try {
-        const r = await fetch("https://triage.baitakstore.com/funnel-api/gate", {
+        const r = await fetch("https://hooktriage.com/funnel-api/gate", {
           method: "POST",
           headers: {"Content-Type": "application/json"},
           body: JSON.stringify({
             email: email,
-            source_channel: "pages_dev",
+            source_channel: "hooktriage_web",
             asset_id: caseLeadId,
             asset_title: caseAssetTitle,
             segment: "track_a",
@@ -327,12 +327,12 @@
       btn.disabled = true;
       btn.innerText = 'Running Audit...';
       try {
-        const r = await fetch("https://triage.baitakstore.com/funnel-api/audit-workflow", {
+        const r = await fetch("https://hooktriage.com/funnel-api/audit-workflow", {
           method: "POST",
           headers: {"Content-Type": "application/json"},
           body: JSON.stringify({
             email: email,
-            source_channel: "pages_dev",
+            source_channel: "hooktriage_web",
             asset_id: caseLeadId,
             sanitized_payload: maskedPayload,
             website: (hpEl ? hpEl.value : '') || ''
@@ -489,7 +489,7 @@
 
 <script>
 (function() {
-  const API = "https://triage.baitakstore.com";
+  const API = "https://hooktriage.com";
   let currentSessionId = "";
   let targetUsdtAddress = "0x57A817bd5D42F14325eE4ec7B67F69D5f884758B";
   let targetUsdtExact = 159.20;

@@ -6,10 +6,10 @@
   <title>Human Input submissions fail and workflow event streams return 404 when API_WORKFLOW_RUN_REPOSITORY uses LogStore | Production Incident Fix</title>
   <meta name="description" content="The issue is missing protocol delegation to `self._sql_repo` inside `api/extensions/logstore/repositories/logstore_api_workflow_run_repository.py`.">
   <meta name="robots" content="index, follow">
-  <link rel="canonical" href="https://n8n-production-incident-fixes.pages.dev/cases/human-input-submissions-fail-and-workflow-event-streams-return-40.html">
+  <link rel="canonical" href="https://hooktriage.com/cases/human-input-submissions-fail-and-workflow-event-streams-return-40.html">
   <meta property="og:title" content="Human Input submissions fail and workflow event streams return 404 when API_WORKFLOW_RUN_REPOSITORY uses LogStore | Production Incident Fix">
   <meta property="og:description" content="The issue is missing protocol delegation to `self._sql_repo` inside `api/extensions/logstore/repositories/logstore_api_workflow_run_repository.py`.">
-  <meta property="og:url" content="https://n8n-production-incident-fixes.pages.dev/cases/human-input-submissions-fail-and-workflow-event-streams-return-40.html">
+  <meta property="og:url" content="https://hooktriage.com/cases/human-input-submissions-fail-and-workflow-event-streams-return-40.html">
   <meta property="og:type" content="article">
   <link rel="sitemap" type="application/xml" title="Sitemap" href="/sitemap.xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -62,7 +62,7 @@
     "publisher": {
       "@type": "Organization",
       "name": "Production Incident Radar",
-      "url": "https://n8n-production-incident-fixes.pages.dev"
+      "url": "https://hooktriage.com"
     }
   }
   </script>
@@ -221,7 +221,7 @@
   </div>
 
   <script>
-    const rawMarkdown = "---\nlayout: default\ntitle: \"Human Input submissions fail and workflow event streams return 404 when API_WORKFLOW_RUN_REPOSITORY uses LogStore\"\nplatform: \"Automation Engine\"\nseverity: \"MEDIUM\"\nstatus: \"Resolved\"\ndate: 2026-11-16\ntags: [\"automation engine\", \"production-fix\", \"post-mortem\", \"verified-resolution\"]\nslug: \"human-input-submissions-fail-and-workflow-event-streams-return-40\"\n---\n\n# Human Input submissions fail and workflow event streams return 404 when API_WORKFLOW_RUN_REPOSITORY uses LogStore\n\n\n> \u26a1 **Encountering this exact production bug or need an emergency automation fix?**  \n> [**\ud83d\udea8 Instant Async Production Triage & Resolution (< 6h, Zero Video Calls)**](https://n8n-production-incident-fixes.pages.dev/#triage)\n\n\n## Incident Metadata\n- **Platform / Ecosystem**: `Automation Engine`\n- **Incident Severity**: `MEDIUM`\n- **Resolution Status**: `VERIFIED & RESOLVED`\n- **Logged Timestamp**: `2026-11-16T08:00:34.879995`\n- **Diagnosis Engine**: Autonomous Production Incident Radar\n\n---\n\n## Root-Cause Analysis & Patch Preview (Layer 1)\n\nThe issue is missing protocol delegation to `self._sql_repo` inside `api/extensions/logstore/repositories/logstore_api_workflow_run_repository.py`.\n\nHuman input submissions and pause resumes depend on row-locking the active run in SQL via `get_workflow_run_by_id_for_update`, while the Celery retention workers call `get_cleanup_refs_batch_by_time_range`. Since both currently hit the default base stub and return `None`, the service layer throws a 404 during form execution and silent failures during retention.\n\nDelegating those two methods to `self._sql_repo` resolves the failure:\n\n**Patch Preview (First 3 lines of verified fix):**\n```python\ndef get_workflow_run_by_id_for_update(\n    self,\n    session: Session,\n# ... [TRUNCATED \u2014 Full production patch & verification steps locked below]\n```\n\n---\n\n## Incident Prevention & Operational Takeaways\n1. **Audit Upstream Authentication**: Validate OAuth2 token refresh loops and ensure service credentials cannot be orphaned.\n2. **Implement Schema Boundary Validation**: Guard downstream webhooks against unexpected payload truncations.\n3. **Automate Error Interception**: Configure fallback nodes and alerting monitors before critical production executions.\n\n---\n\n\n> \u26a1 **Encountering this exact production bug or need an emergency automation fix?**  \n> [**\ud83d\udea8 Instant Async Production Triage & Resolution (< 6h, Zero Video Calls)**](https://n8n-production-incident-fixes.pages.dev/#triage)\n\n\n[\u2190 Back to Live Case Studies Index](../)\n";
+    const rawMarkdown = "---\nlayout: default\ntitle: \"Human Input submissions fail and workflow event streams return 404 when API_WORKFLOW_RUN_REPOSITORY uses LogStore\"\nplatform: \"Automation Engine\"\nseverity: \"MEDIUM\"\nstatus: \"Resolved\"\ndate: 2026-11-16\ntags: [\"automation engine\", \"production-fix\", \"post-mortem\", \"verified-resolution\"]\nslug: \"human-input-submissions-fail-and-workflow-event-streams-return-40\"\n---\n\n# Human Input submissions fail and workflow event streams return 404 when API_WORKFLOW_RUN_REPOSITORY uses LogStore\n\n\n> \u26a1 **Encountering this exact production bug or need an emergency automation fix?**  \n> [**\ud83d\udea8 Instant Async Production Triage & Resolution (< 6h, Zero Video Calls)**](https://hooktriage.com/#triage)\n\n\n## Incident Metadata\n- **Platform / Ecosystem**: `Automation Engine`\n- **Incident Severity**: `MEDIUM`\n- **Resolution Status**: `VERIFIED & RESOLVED`\n- **Logged Timestamp**: `2026-11-16T08:00:34.879995`\n- **Diagnosis Engine**: Autonomous Production Incident Radar\n\n---\n\n## Root-Cause Analysis & Patch Preview (Layer 1)\n\nThe issue is missing protocol delegation to `self._sql_repo` inside `api/extensions/logstore/repositories/logstore_api_workflow_run_repository.py`.\n\nHuman input submissions and pause resumes depend on row-locking the active run in SQL via `get_workflow_run_by_id_for_update`, while the Celery retention workers call `get_cleanup_refs_batch_by_time_range`. Since both currently hit the default base stub and return `None`, the service layer throws a 404 during form execution and silent failures during retention.\n\nDelegating those two methods to `self._sql_repo` resolves the failure:\n\n**Patch Preview (First 3 lines of verified fix):**\n```python\ndef get_workflow_run_by_id_for_update(\n    self,\n    session: Session,\n# ... [TRUNCATED \u2014 Full production patch & verification steps locked below]\n```\n\n---\n\n## Incident Prevention & Operational Takeaways\n1. **Audit Upstream Authentication**: Validate OAuth2 token refresh loops and ensure service credentials cannot be orphaned.\n2. **Implement Schema Boundary Validation**: Guard downstream webhooks against unexpected payload truncations.\n3. **Automate Error Interception**: Configure fallback nodes and alerting monitors before critical production executions.\n\n---\n\n\n> \u26a1 **Encountering this exact production bug or need an emergency automation fix?**  \n> [**\ud83d\udea8 Instant Async Production Triage & Resolution (< 6h, Zero Video Calls)**](https://hooktriage.com/#triage)\n\n\n[\u2190 Back to Live Case Studies Index](../)\n";
     const caseLeadId = "github_langgenius_dify_46493";
     const caseAssetTitle = "Human Input submissions fail and workflow event streams return 404 when API_WORKFLOW_RUN_REPOSITORY uses LogStore";
     const caseBundleMarkdown = "# Complete Production Resolution Bundle \u2014 Human Input submissions fail and workflow event streams return 404 when API_WORKFLOW_RUN_REPOSITORY uses LogStore\nEcosystem: Automation Engine | Severity: MEDIUM | Case ID: github_langgenius_dify_46493\n\n## 1. Full Importable Patch / Config Diff (with Error-Retry & Timeout Guard)\n```python\ndef get_workflow_run_by_id_for_update(\n    self,\n    session: Session,\n    *,\n    tenant_id: str,\n    app_id: str,\n    run_id: str,\n) -> WorkflowRun | None:\n    return self._sql_repo.get_workflow_run_by_id_for_update(\n        session,\n        tenant_id=tenant_id,\n        app_id=app_id,\n        run_id=run_id,\n    )\n\ndef get_cleanup_refs_batch_by_time_range(\n    self,\n    session: Session,\n    start_time: datetime | None,\n    end_time: datetime | None,\n    limit: int,\n) -> Sequence[WorkflowRunCleanupRef]:\n    return self._sql_repo.get_cleanup_refs_batch_by_time_range(\n        session,\n        start_time=start_time,\n        end_time=end_time,\n        limit=limit,\n    )\n```\n\nAlso check if your event stream endpoint (`/workflows/run/:run_id/events`) needs a fallback to `self._sql_repo.get_workflow_run_by_id` if SLS indexing latency prevents immediate reads right after run creation.\n\nSince you already have the test cases working against the SQLite schema, please consider opening a PR with this patch.\n\n## 2. Verification & Non-Destructive Test Checklist\n1. Validate JSON/YAML syntax and confirm no unmasked secrets remain.\n2. Confirm error-retry/backoff and timeout guards are enabled before re-activating.\n3. Run a non-destructive healthcheck / test webhook and verify HTTP 200 payload shape.\n\n## 3. Team Post-Mortem Note\nRoot Cause (Automation Engine / MEDIUM): The issue is missing protocol delegation to `self._sql_repo` inside `api/extensions/logstore/repositories/logstore_api_workflow_run_repository.py`.\nOperational Guard: Audit OAuth2 token refresh loops, enforce schema boundary validation, and configure dead-letter error interception.\n";
@@ -234,7 +234,7 @@
     // Strip YAML frontmatter
     const mdWithoutYaml = rawMarkdown.replace(/^---[\s\S]*?---\s*/, '');
     document.getElementById('content').innerHTML = marked.parse(mdWithoutYaml);
-    fetch("https://triage.baitakstore.com/api/ping-visit?issue=" + encodeURIComponent(caseLeadId) + "&page=" + encodeURIComponent(location.pathname)).catch(function(){});
+    fetch("https://hooktriage.com/api/ping-visit?issue=" + encodeURIComponent(caseLeadId) + "&page=" + encodeURIComponent(location.pathname)).catch(function(){});
 
     window.openCaseTriageModal = function(tier) {
       if (typeof window.openTriageModal === 'function') {
@@ -273,12 +273,12 @@
       btn.disabled = true;
       btn.innerText = 'Sending...';
       try {
-        const r = await fetch("https://triage.baitakstore.com/funnel-api/gate", {
+        const r = await fetch("https://hooktriage.com/funnel-api/gate", {
           method: "POST",
           headers: {"Content-Type": "application/json"},
           body: JSON.stringify({
             email: email,
-            source_channel: "pages_dev",
+            source_channel: "hooktriage_web",
             asset_id: caseLeadId,
             asset_title: caseAssetTitle,
             segment: "track_a",
@@ -327,12 +327,12 @@
       btn.disabled = true;
       btn.innerText = 'Running Audit...';
       try {
-        const r = await fetch("https://triage.baitakstore.com/funnel-api/audit-workflow", {
+        const r = await fetch("https://hooktriage.com/funnel-api/audit-workflow", {
           method: "POST",
           headers: {"Content-Type": "application/json"},
           body: JSON.stringify({
             email: email,
-            source_channel: "pages_dev",
+            source_channel: "hooktriage_web",
             asset_id: caseLeadId,
             sanitized_payload: maskedPayload,
             website: (hpEl ? hpEl.value : '') || ''
@@ -489,7 +489,7 @@
 
 <script>
 (function() {
-  const API = "https://triage.baitakstore.com";
+  const API = "https://hooktriage.com";
   let currentSessionId = "";
   let targetUsdtAddress = "0x57A817bd5D42F14325eE4ec7B67F69D5f884758B";
   let targetUsdtExact = 159.20;

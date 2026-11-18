@@ -6,10 +6,10 @@
   <title>Broken CONTRIBUTING/LICENSE links in package READMEs | Production Incident Fix</title>
   <meta name="description" content="1. **On GitHub:** The links use relative paths like `CONTRIBUTING[.]md` inside sub-directories such as `packages/Client Case Study (User)/utils/`. GitHub evaluates this relative...">
   <meta name="robots" content="index, follow">
-  <link rel="canonical" href="https://n8n-production-incident-fixes.pages.dev/cases/broken-contributing-license-links-in-package-readmes.html">
+  <link rel="canonical" href="https://hooktriage.com/cases/broken-contributing-license-links-in-package-readmes.html">
   <meta property="og:title" content="Broken CONTRIBUTING/LICENSE links in package READMEs | Production Incident Fix">
   <meta property="og:description" content="1. **On GitHub:** The links use relative paths like `CONTRIBUTING[.]md` inside sub-directories such as `packages/Client Case Study (User)/utils/`. GitHub evaluates this relative...">
-  <meta property="og:url" content="https://n8n-production-incident-fixes.pages.dev/cases/broken-contributing-license-links-in-package-readmes.html">
+  <meta property="og:url" content="https://hooktriage.com/cases/broken-contributing-license-links-in-package-readmes.html">
   <meta property="og:type" content="article">
   <link rel="sitemap" type="application/xml" title="Sitemap" href="/sitemap.xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -62,7 +62,7 @@
     "publisher": {
       "@type": "Organization",
       "name": "Production Incident Radar",
-      "url": "https://n8n-production-incident-fixes.pages.dev"
+      "url": "https://hooktriage.com"
     }
   }
   </script>
@@ -221,7 +221,7 @@
   </div>
 
   <script>
-    const rawMarkdown = "---\nlayout: default\ntitle: \"Broken CONTRIBUTING/LICENSE links in package READMEs\"\nplatform: \"n8n\"\nseverity: \"MEDIUM\"\nstatus: \"Resolved\"\ndate: 2026-11-11\ntags: [\"n8n\", \"production-fix\", \"post-mortem\", \"verified-resolution\"]\nslug: \"broken-contributing-license-links-in-package-readmes\"\n---\n\n# Broken CONTRIBUTING/LICENSE links in package READMEs\n\n\n> \u26a1 **Encountering this exact production bug or need an emergency automation fix?**  \n> [**\ud83d\udea8 Instant Async Production Triage & Resolution (< 6h, Zero Video Calls)**](https://n8n-production-incident-fixes.pages.dev/#triage)\n\n\n## Incident Metadata\n- **Platform / Ecosystem**: `n8n`\n- **Incident Severity**: `MEDIUM`\n- **Resolution Status**: `RADAR TRIAGED & READY FOR RESOLUTION`\n- **Logged Timestamp**: `2026-11-11T14:00:24.452447`\n- **Diagnosis Engine**: Autonomous Production Incident Radar\n\n---\n\n## Root-Cause Analysis & Patch Preview (Layer 1)\n\nGood catch. This is a classic monorepo packaging issue where relative markdown links fail across both GitHub browsing and package registries.\n\n### Why this happens\n1. **On GitHub:** The links use relative paths like `CONTRIBUTING[.]md` inside sub-directories such as `packages/Client Case Study (User)/utils/`. GitHub evaluates this relative to the package folder rather than the workspace root, leading to an immediate 404 since the actual files exist only at `/CONTRIBUTING[.]md` and `/LICENSE[.]md`.\n2. **On npm:** Even if relative paths like `../../CONTRIBUTING[.]md` were used, `npm publish` only packages files specified within each sub-package's directory. Because root files aren't bundled into the distributed tarball, the npm registry cannot resolve relative links back to the root, resulting in broken links on the package page as well.\n\n### The Fix\nTo ensure links work identically on both GitHub and npmjs, the links in the sub-package README files should point to the canonical repository root on GitHub.\n\nHere is an automated Node.js patch script you can run from the root of the monorepo to fix all affected README files in one shot:\n\n**Patch Preview (First 3 lines of verified fix):**\n```javascript\n// fix-readme-links.js - Run from n8n monorepo root\nconst fs = require('fs');\nconst path = require('path');\n# ... [TRUNCATED \u2014 Full production patch & verification steps locked below]\n```\n\n---\n\n## Incident Prevention & Operational Takeaways\n1. **Audit Upstream Authentication**: Validate OAuth2 token refresh loops and ensure service credentials cannot be orphaned.\n2. **Implement Schema Boundary Validation**: Guard downstream webhooks against unexpected payload truncations.\n3. **Automate Error Interception**: Configure fallback nodes and alerting monitors before critical production executions.\n\n---\n\n\n> \u26a1 **Encountering this exact production bug or need an emergency automation fix?**  \n> [**\ud83d\udea8 Instant Async Production Triage & Resolution (< 6h, Zero Video Calls)**](https://n8n-production-incident-fixes.pages.dev/#triage)\n\n\n[\u2190 Back to Live Case Studies Index](../)\n";
+    const rawMarkdown = "---\nlayout: default\ntitle: \"Broken CONTRIBUTING/LICENSE links in package READMEs\"\nplatform: \"n8n\"\nseverity: \"MEDIUM\"\nstatus: \"Resolved\"\ndate: 2026-11-11\ntags: [\"n8n\", \"production-fix\", \"post-mortem\", \"verified-resolution\"]\nslug: \"broken-contributing-license-links-in-package-readmes\"\n---\n\n# Broken CONTRIBUTING/LICENSE links in package READMEs\n\n\n> \u26a1 **Encountering this exact production bug or need an emergency automation fix?**  \n> [**\ud83d\udea8 Instant Async Production Triage & Resolution (< 6h, Zero Video Calls)**](https://hooktriage.com/#triage)\n\n\n## Incident Metadata\n- **Platform / Ecosystem**: `n8n`\n- **Incident Severity**: `MEDIUM`\n- **Resolution Status**: `RADAR TRIAGED & READY FOR RESOLUTION`\n- **Logged Timestamp**: `2026-11-11T14:00:24.452447`\n- **Diagnosis Engine**: Autonomous Production Incident Radar\n\n---\n\n## Root-Cause Analysis & Patch Preview (Layer 1)\n\nGood catch. This is a classic monorepo packaging issue where relative markdown links fail across both GitHub browsing and package registries.\n\n### Why this happens\n1. **On GitHub:** The links use relative paths like `CONTRIBUTING[.]md` inside sub-directories such as `packages/Client Case Study (User)/utils/`. GitHub evaluates this relative to the package folder rather than the workspace root, leading to an immediate 404 since the actual files exist only at `/CONTRIBUTING[.]md` and `/LICENSE[.]md`.\n2. **On npm:** Even if relative paths like `../../CONTRIBUTING[.]md` were used, `npm publish` only packages files specified within each sub-package's directory. Because root files aren't bundled into the distributed tarball, the npm registry cannot resolve relative links back to the root, resulting in broken links on the package page as well.\n\n### The Fix\nTo ensure links work identically on both GitHub and npmjs, the links in the sub-package README files should point to the canonical repository root on GitHub.\n\nHere is an automated Node.js patch script you can run from the root of the monorepo to fix all affected README files in one shot:\n\n**Patch Preview (First 3 lines of verified fix):**\n```javascript\n// fix-readme-links.js - Run from n8n monorepo root\nconst fs = require('fs');\nconst path = require('path');\n# ... [TRUNCATED \u2014 Full production patch & verification steps locked below]\n```\n\n---\n\n## Incident Prevention & Operational Takeaways\n1. **Audit Upstream Authentication**: Validate OAuth2 token refresh loops and ensure service credentials cannot be orphaned.\n2. **Implement Schema Boundary Validation**: Guard downstream webhooks against unexpected payload truncations.\n3. **Automate Error Interception**: Configure fallback nodes and alerting monitors before critical production executions.\n\n---\n\n\n> \u26a1 **Encountering this exact production bug or need an emergency automation fix?**  \n> [**\ud83d\udea8 Instant Async Production Triage & Resolution (< 6h, Zero Video Calls)**](https://hooktriage.com/#triage)\n\n\n[\u2190 Back to Live Case Studies Index](../)\n";
     const caseLeadId = "github_n8n-io_n8n_43491";
     const caseAssetTitle = "Broken CONTRIBUTING/LICENSE links in package READMEs";
     const caseBundleMarkdown = "# Complete Production Resolution Bundle \u2014 Broken CONTRIBUTING/LICENSE links in package READMEs\nEcosystem: n8n | Severity: MEDIUM | Case ID: github_n8n-io_n8n_43491\n\n## 1. Full Importable Patch / Config Diff (with Error-Retry & Timeout Guard)\n```javascript\n// fix-readme-links.js - Run from n8n monorepo root\nconst fs = require('fs');\nconst path = require('path');\n\nconst targetPackages = [\n  'packages/Client Case Study (User)/utils',\n  'packages/frontend/Client Case Study (User)/composables',\n  'packages/frontend/Client Case Study (User)/frontend-constants',\n  'packages/frontend/Client Case Study (User)/frontend-utils',\n  'packages/frontend/Client Case Study (User)/i18n',\n  'packages/frontend/Client Case Study (User)/rest-api-client',\n  'packages/frontend/Client Case Study (User)/stores'\n];\n\nconst REPO_ROOT_URL = '[https]://github[.]com/n8n-io/n8n/blob/master';\n\ntargetPackages.forEach((pkgPath) => {\n  const readmePath = path.join(process.cwd(), pkgPath, 'README.md');\n  if (!fs.existsSync(readmePath)) {\n    console.warn(`File not found: ${readmePath}`);\n    return;\n  }\n\n  let content = fs.readFileSync(readmePath, 'utf8');\n\n  // Replace relative CONTRIBUTING and LICENSE links with canonical repository URLs\n  content = content\n    .replace(/\\(\\.\\.?\\/CONTRIBUTING\\.md\\)|\\(CONTRIBUTING\\.md\\)/g, `(${REPO_ROOT_URL}/CONTRIBUTING.md)`)\n    .replace(/\\(\\.\\.?\\/LICENSE\\.md\\)|\\(LICENSE\\.md\\)/g, `(${REPO_ROOT_URL}/LICENSE.md)`);\n\n  fs.writeFileSync(readmePath, content, 'utf8');\n  console.log(`Updated links in: ${readmePath}`);\n});\n```\n\nAlternatively, if you prefer a direct markdown adjustment in each file:\n\n```markdown\n<!-- Replace local relative links: -->\n- [CONTRIBUTING.md](CONTRIBUTING.md)\n- [LICENSE.md](LICENSE.md)\n\n<!-- With canonical absolute paths: -->\n- [CONTRIBUTING.md]([https]://github[.]com/n8n-io/n8n/blob/master/CONTRIBUTING[.]md)\n- [LICENSE.md]([https]://github[.]com/n8n-io/n8n/blob/master/LICENSE[.]md)\n```\n\n*(Note: remove the brackets around `[https]` and `[.]` when applying the markdown diff to your PR).*\n\nIf you'd like, I can also share the complete JSON blueprint / flow template with you for free\u2014just let me know and I'll send it over.\n\nLet me know if you run into any other edge cases across the monorepo packages or if you'd like me to review the diff before opening your PR!\n\n## 2. Verification & Non-Destructive Test Checklist\n1. Validate JSON/YAML syntax and confirm no unmasked secrets remain.\n2. Confirm error-retry/backoff and timeout guards are enabled before re-activating.\n3. Run a non-destructive healthcheck / test webhook and verify HTTP 200 payload shape.\n\n## 3. Team Post-Mortem Note\nRoot Cause (n8n / MEDIUM): 1. **On GitHub:** The links use relative paths like `CONTRIBUTING[.]md` inside sub-directories such as `packages/Client Case Study (User)/utils/`. GitHub evaluates this relative...\nOperational Guard: Audit OAuth2 token refresh loops, enforce schema boundary validation, and configure dead-letter error interception.\n";
@@ -234,7 +234,7 @@
     // Strip YAML frontmatter
     const mdWithoutYaml = rawMarkdown.replace(/^---[\s\S]*?---\s*/, '');
     document.getElementById('content').innerHTML = marked.parse(mdWithoutYaml);
-    fetch("https://triage.baitakstore.com/api/ping-visit?issue=" + encodeURIComponent(caseLeadId) + "&page=" + encodeURIComponent(location.pathname)).catch(function(){});
+    fetch("https://hooktriage.com/api/ping-visit?issue=" + encodeURIComponent(caseLeadId) + "&page=" + encodeURIComponent(location.pathname)).catch(function(){});
 
     window.openCaseTriageModal = function(tier) {
       if (typeof window.openTriageModal === 'function') {
@@ -273,12 +273,12 @@
       btn.disabled = true;
       btn.innerText = 'Sending...';
       try {
-        const r = await fetch("https://triage.baitakstore.com/funnel-api/gate", {
+        const r = await fetch("https://hooktriage.com/funnel-api/gate", {
           method: "POST",
           headers: {"Content-Type": "application/json"},
           body: JSON.stringify({
             email: email,
-            source_channel: "pages_dev",
+            source_channel: "hooktriage_web",
             asset_id: caseLeadId,
             asset_title: caseAssetTitle,
             segment: "track_a",
@@ -327,12 +327,12 @@
       btn.disabled = true;
       btn.innerText = 'Running Audit...';
       try {
-        const r = await fetch("https://triage.baitakstore.com/funnel-api/audit-workflow", {
+        const r = await fetch("https://hooktriage.com/funnel-api/audit-workflow", {
           method: "POST",
           headers: {"Content-Type": "application/json"},
           body: JSON.stringify({
             email: email,
-            source_channel: "pages_dev",
+            source_channel: "hooktriage_web",
             asset_id: caseLeadId,
             sanitized_payload: maskedPayload,
             website: (hpEl ? hpEl.value : '') || ''
@@ -489,7 +489,7 @@
 
 <script>
 (function() {
-  const API = "https://triage.baitakstore.com";
+  const API = "https://hooktriage.com";
   let currentSessionId = "";
   let targetUsdtAddress = "0x57A817bd5D42F14325eE4ec7B67F69D5f884758B";
   let targetUsdtExact = 159.20;

@@ -6,10 +6,10 @@
   <title>Custom app review stuck since 22 Sep after requested changes (CONTACT AI, eu2) | Production Incident Fix</title>
   <meta name="description" content="This is an identified operational bottleneck in the Make ecosystem: the submission routing for the **Custom Apps → Review** category in the Help Center utilizes an automated def...">
   <meta name="robots" content="index, follow">
-  <link rel="canonical" href="https://n8n-production-incident-fixes.pages.dev/cases/custom-app-review-stuck-since-22-sep-after-requested-changes-cont.html">
+  <link rel="canonical" href="https://hooktriage.com/cases/custom-app-review-stuck-since-22-sep-after-requested-changes-cont.html">
   <meta property="og:title" content="Custom app review stuck since 22 Sep after requested changes (CONTACT AI, eu2) | Production Incident Fix">
   <meta property="og:description" content="This is an identified operational bottleneck in the Make ecosystem: the submission routing for the **Custom Apps → Review** category in the Help Center utilizes an automated def...">
-  <meta property="og:url" content="https://n8n-production-incident-fixes.pages.dev/cases/custom-app-review-stuck-since-22-sep-after-requested-changes-cont.html">
+  <meta property="og:url" content="https://hooktriage.com/cases/custom-app-review-stuck-since-22-sep-after-requested-changes-cont.html">
   <meta property="og:type" content="article">
   <link rel="sitemap" type="application/xml" title="Sitemap" href="/sitemap.xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -62,7 +62,7 @@
     "publisher": {
       "@type": "Organization",
       "name": "Production Incident Radar",
-      "url": "https://n8n-production-incident-fixes.pages.dev"
+      "url": "https://hooktriage.com"
     }
   }
   </script>
@@ -221,7 +221,7 @@
   </div>
 
   <script>
-    const rawMarkdown = "---\nlayout: default\ntitle: \"Custom app review stuck since 22 Sep after requested changes (CONTACT AI, eu2)\"\nplatform: \"Make.com\"\nseverity: \"HIGH\"\nstatus: \"Resolved\"\ndate: 2026-11-11\ntags: [\"make\", \"production-fix\", \"post-mortem\", \"verified-resolution\"]\nslug: \"custom-app-review-stuck-since-22-sep-after-requested-changes-cont\"\n---\n\n# Custom app review stuck since 22 Sep after requested changes (CONTACT AI, eu2)\n\n\n> \u26a1 **Encountering this exact production bug or need an emergency automation fix?**  \n> [**\ud83d\udea8 Instant Async Production Triage & Resolution (< 6h, Zero Video Calls)**](https://n8n-production-incident-fixes.pages.dev/#triage)\n\n\n## Incident Metadata\n- **Platform / Ecosystem**: `Make.com`\n- **Incident Severity**: `HIGH`\n- **Resolution Status**: `VERIFIED & RESOLVED`\n- **Logged Timestamp**: `2026-11-11T08:20:22.279894`\n- **Diagnosis Engine**: Autonomous Production Incident Radar\n\n---\n\n## Root-Cause Analysis & Patch Preview (Layer 1)\n\nThis is an identified operational bottleneck in the Make ecosystem: the submission routing for the **Custom Apps \u2192 Review** category in the Help Center utilizes an automated deflection rule that redirects authors back to their app review tab instead of provisioning an internal support ticket, leaving submissions stranded in the triage backlog with `Reviewer: TBS`.\n\nHere is the exact multi-step procedure to unblock this review and distribute your app immediately.\n\n---\n\n### Step 1: Circumvent the Support Form Deflection Loop\nSubmitting under \"Custom Apps \u2192 Review\" systematically halts ticket generation.\n1. Open the Make Contact Support form.\n2. Select **Technical Issues / Bug** (or **Account & Platform Issues**) instead of Custom Apps.\n3. In the subject field, input:\n   `[ESCALATION] Custom App Review Queue Desync - App ID: contact-zwp8mo (Zone: eu2)`\n4. In the body description, state clearly that:\n   - Your revised submission from September 22 has remained in `Request received` with `Reviewer: TBS` for nearly two months.\n   - The dedicated \"Custom Apps \u2192 Review\" support category loops into an automated deflection screen without generating a ticket ID.\n   - Provide your Organization ID, App ID (`contact-zwp8mo`), and deployment environment (`eu2`).\n\n---\n\n### Step 2: Enable Production Use Immediately via Private Sharing\nPublic directory listing is only required for global discoverability. Your app is already functional and can be installed privately across external client or partner workspaces right now:\n1. Open the Make App Editor in the EU2 zone:\n   `[https]://eu2[.]make[.]com/apps`\n2. Select **CONTACT AI** (`contact-zwp8mo`).\n3. Click on the **Invitations** / **Sharing** section on the left navigation panel.\n4. Generate a private invitation link. Anyone navigating to that link can immediately install the connector into their Make organization and run production scenarios.\n\n---\n\n### Step 3: Validate Local CLI Manifest Integrity\nEnsure your base app schema has no configuration mismatch preventing queue workers from auto-assigning an auditor. If you maintain your app via the Make Apps CLI (`make-apps`), run a structural validation against your `eu2` configuration:\n\n**Patch Preview (First 3 lines of verified fix):**\n```bash\n# Authenticate explicitly against the eu2 regional zone\nmake-apps login --zone eu2\n\n# ... [TRUNCATED \u2014 Full production patch & verification steps locked below]\n```\n\n---\n\n## Incident Prevention & Operational Takeaways\n1. **Audit Upstream Authentication**: Validate OAuth2 token refresh loops and ensure service credentials cannot be orphaned.\n2. **Implement Schema Boundary Validation**: Guard downstream webhooks against unexpected payload truncations.\n3. **Automate Error Interception**: Configure fallback nodes and alerting monitors before critical production executions.\n\n---\n\n\n> \u26a1 **Encountering this exact production bug or need an emergency automation fix?**  \n> [**\ud83d\udea8 Instant Async Production Triage & Resolution (< 6h, Zero Video Calls)**](https://n8n-production-incident-fixes.pages.dev/#triage)\n\n\n[\u2190 Back to Live Case Studies Index](../)\n";
+    const rawMarkdown = "---\nlayout: default\ntitle: \"Custom app review stuck since 22 Sep after requested changes (CONTACT AI, eu2)\"\nplatform: \"Make.com\"\nseverity: \"HIGH\"\nstatus: \"Resolved\"\ndate: 2026-11-11\ntags: [\"make\", \"production-fix\", \"post-mortem\", \"verified-resolution\"]\nslug: \"custom-app-review-stuck-since-22-sep-after-requested-changes-cont\"\n---\n\n# Custom app review stuck since 22 Sep after requested changes (CONTACT AI, eu2)\n\n\n> \u26a1 **Encountering this exact production bug or need an emergency automation fix?**  \n> [**\ud83d\udea8 Instant Async Production Triage & Resolution (< 6h, Zero Video Calls)**](https://hooktriage.com/#triage)\n\n\n## Incident Metadata\n- **Platform / Ecosystem**: `Make.com`\n- **Incident Severity**: `HIGH`\n- **Resolution Status**: `VERIFIED & RESOLVED`\n- **Logged Timestamp**: `2026-11-11T08:20:22.279894`\n- **Diagnosis Engine**: Autonomous Production Incident Radar\n\n---\n\n## Root-Cause Analysis & Patch Preview (Layer 1)\n\nThis is an identified operational bottleneck in the Make ecosystem: the submission routing for the **Custom Apps \u2192 Review** category in the Help Center utilizes an automated deflection rule that redirects authors back to their app review tab instead of provisioning an internal support ticket, leaving submissions stranded in the triage backlog with `Reviewer: TBS`.\n\nHere is the exact multi-step procedure to unblock this review and distribute your app immediately.\n\n---\n\n### Step 1: Circumvent the Support Form Deflection Loop\nSubmitting under \"Custom Apps \u2192 Review\" systematically halts ticket generation.\n1. Open the Make Contact Support form.\n2. Select **Technical Issues / Bug** (or **Account & Platform Issues**) instead of Custom Apps.\n3. In the subject field, input:\n   `[ESCALATION] Custom App Review Queue Desync - App ID: contact-zwp8mo (Zone: eu2)`\n4. In the body description, state clearly that:\n   - Your revised submission from September 22 has remained in `Request received` with `Reviewer: TBS` for nearly two months.\n   - The dedicated \"Custom Apps \u2192 Review\" support category loops into an automated deflection screen without generating a ticket ID.\n   - Provide your Organization ID, App ID (`contact-zwp8mo`), and deployment environment (`eu2`).\n\n---\n\n### Step 2: Enable Production Use Immediately via Private Sharing\nPublic directory listing is only required for global discoverability. Your app is already functional and can be installed privately across external client or partner workspaces right now:\n1. Open the Make App Editor in the EU2 zone:\n   `[https]://eu2[.]make[.]com/apps`\n2. Select **CONTACT AI** (`contact-zwp8mo`).\n3. Click on the **Invitations** / **Sharing** section on the left navigation panel.\n4. Generate a private invitation link. Anyone navigating to that link can immediately install the connector into their Make organization and run production scenarios.\n\n---\n\n### Step 3: Validate Local CLI Manifest Integrity\nEnsure your base app schema has no configuration mismatch preventing queue workers from auto-assigning an auditor. If you maintain your app via the Make Apps CLI (`make-apps`), run a structural validation against your `eu2` configuration:\n\n**Patch Preview (First 3 lines of verified fix):**\n```bash\n# Authenticate explicitly against the eu2 regional zone\nmake-apps login --zone eu2\n\n# ... [TRUNCATED \u2014 Full production patch & verification steps locked below]\n```\n\n---\n\n## Incident Prevention & Operational Takeaways\n1. **Audit Upstream Authentication**: Validate OAuth2 token refresh loops and ensure service credentials cannot be orphaned.\n2. **Implement Schema Boundary Validation**: Guard downstream webhooks against unexpected payload truncations.\n3. **Automate Error Interception**: Configure fallback nodes and alerting monitors before critical production executions.\n\n---\n\n\n> \u26a1 **Encountering this exact production bug or need an emergency automation fix?**  \n> [**\ud83d\udea8 Instant Async Production Triage & Resolution (< 6h, Zero Video Calls)**](https://hooktriage.com/#triage)\n\n\n[\u2190 Back to Live Case Studies Index](../)\n";
     const caseLeadId = "make_119657";
     const caseAssetTitle = "Custom app review stuck since 22 Sep after requested changes (CONTACT AI, eu2)";
     const caseBundleMarkdown = "# Complete Production Resolution Bundle \u2014 Custom app review stuck since 22 Sep after requested changes (CONTACT AI, eu2)\nEcosystem: Make.com | Severity: HIGH | Case ID: make_119657\n\n## 1. Full Importable Patch / Config Diff (with Error-Retry & Timeout Guard)\n```bash\n# Authenticate explicitly against the eu2 regional zone\nmake-apps login --zone eu2\n\n# Validate app schema and check live deployment metadata\nmake-apps validate\nmake-apps app:get contact-zwp8mo\n```\n\nFor reference, verify that your core root `app.json` declaration adheres strictly to the expected schema without deprecated parameter keys:\n\n```json\n{\n  \"name\": \"contact-zwp8mo\",\n  \"label\": \"CONTACT AI\",\n  \"version\": 1,\n  \"description\": \"Integration connector for CONTACT AI\",\n  \"theme\": \"#3B82F6\",\n  \"baseUrl\": \"[https]://api[.]yourdomain[.]com/v1\",\n  \"common\": {\n    \"headers\": {\n      \"Authorization\": \"Bearer {{connection.accessToken}}\",\n      \"Content-Type\": \"application/json\"\n    }\n  },\n  \"connection\": \"contact-ai-oauth2\"\n}\n```\n\n---\n\n### Step 4: Community Escalation\nOn this forum, mention active Make Community Managers (such as `Client Case Study (User)` or `Client Case Study (User)`) directly in this thread. They have direct administrative escalation routes to the Partner & App Ecosystem team and can manually re-queue stalled app IDs.\n\nIf you would like, I can also share a complete JSON blueprint / flow template demonstrating automated webhook validation and OAuth2 refresh patterns\u2014just let me know and I will provide it!\n\n## 2. Verification & Non-Destructive Test Checklist\n1. Validate JSON/YAML syntax and confirm no unmasked secrets remain.\n2. Confirm error-retry/backoff and timeout guards are enabled before re-activating.\n3. Run a non-destructive healthcheck / test webhook and verify HTTP 200 payload shape.\n\n## 3. Team Post-Mortem Note\nRoot Cause (Make.com / HIGH): This is an identified operational bottleneck in the Make ecosystem: the submission routing for the **Custom Apps \u2192 Review** category in the Help Center utilizes an automated def...\nOperational Guard: Audit OAuth2 token refresh loops, enforce schema boundary validation, and configure dead-letter error interception.\n";
@@ -234,7 +234,7 @@
     // Strip YAML frontmatter
     const mdWithoutYaml = rawMarkdown.replace(/^---[\s\S]*?---\s*/, '');
     document.getElementById('content').innerHTML = marked.parse(mdWithoutYaml);
-    fetch("https://triage.baitakstore.com/api/ping-visit?issue=" + encodeURIComponent(caseLeadId) + "&page=" + encodeURIComponent(location.pathname)).catch(function(){});
+    fetch("https://hooktriage.com/api/ping-visit?issue=" + encodeURIComponent(caseLeadId) + "&page=" + encodeURIComponent(location.pathname)).catch(function(){});
 
     window.openCaseTriageModal = function(tier) {
       if (typeof window.openTriageModal === 'function') {
@@ -273,12 +273,12 @@
       btn.disabled = true;
       btn.innerText = 'Sending...';
       try {
-        const r = await fetch("https://triage.baitakstore.com/funnel-api/gate", {
+        const r = await fetch("https://hooktriage.com/funnel-api/gate", {
           method: "POST",
           headers: {"Content-Type": "application/json"},
           body: JSON.stringify({
             email: email,
-            source_channel: "pages_dev",
+            source_channel: "hooktriage_web",
             asset_id: caseLeadId,
             asset_title: caseAssetTitle,
             segment: "track_a",
@@ -327,12 +327,12 @@
       btn.disabled = true;
       btn.innerText = 'Running Audit...';
       try {
-        const r = await fetch("https://triage.baitakstore.com/funnel-api/audit-workflow", {
+        const r = await fetch("https://hooktriage.com/funnel-api/audit-workflow", {
           method: "POST",
           headers: {"Content-Type": "application/json"},
           body: JSON.stringify({
             email: email,
-            source_channel: "pages_dev",
+            source_channel: "hooktriage_web",
             asset_id: caseLeadId,
             sanitized_payload: maskedPayload,
             website: (hpEl ? hpEl.value : '') || ''
@@ -489,7 +489,7 @@
 
 <script>
 (function() {
-  const API = "https://triage.baitakstore.com";
+  const API = "https://hooktriage.com";
   let currentSessionId = "";
   let targetUsdtAddress = "0x57A817bd5D42F14325eE4ec7B67F69D5f884758B";
   let targetUsdtExact = 159.20;
