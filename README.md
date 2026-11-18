@@ -1,7 +1,7 @@
 # 🛠️ n8n & Low-Code Production Incident Fixes (Live Knowledge Base)
 
 [![GitHub Pages](https://img.shields.io/badge/GitHub%20Pages-Live%20Showcase-brightgreen?style=flat-square&logo=github)](https://grinem.github.io/n8n-production-incident-fixes/)
-[![Incidents Resolved](https://img.shields.io/badge/Incidents%20Resolved-129%20Verified-blue?style=flat-square)](cases/)
+[![Incidents Resolved](https://img.shields.io/badge/Incidents%20Resolved-130%20Verified-blue?style=flat-square)](cases/)
 [![Emergency SLA](https://img.shields.io/badge/Incident%20SLA-%3C%206%20Hours-orange?style=flat-square)](https://n8n-production-incident-fixes.pages.dev/#triage)
 [![Async Triage](https://img.shields.io/badge/Async%20Triage-Zero%20Calls-success?style=flat-square)](https://n8n-production-incident-fixes.pages.dev/#triage)
 
@@ -38,10 +38,11 @@ All incident post-mortems in this repository are autonomously generated and sync
 
 ---
 
-## 📚 Documented Production Incidents (129)
+## 📚 Documented Production Incidents (130)
 
 | Ecosystem | Incident Case Study | Root Cause Snapshot | Severity | Solution Link |
 |:----------|:--------------------|:--------------------|:--------:|:-------------:|
+| **n8n** | [Two Merge nodes inside a loop wait for each other, and the execution stops without an error](cases/two-merge-nodes-inside-a-loop-wait-for-each-other-and-the-executi.md) | Great trace on `processRunExecutionData`. A silent `Success` exit when `waitingExecution` deadlocks without an empty graph is definitely a bug in the scheduler. | 🟠 `HIGH` | [**Solution**](cases/two-merge-nodes-inside-a-loop-wait-for-each-other-and-the-executi.md) |
 | **Bubble.io** | [Atomic operator to prevent DB lock issues / race conditions?](cases/atomic-operator-to-prevent-db-lock-issues-race-conditions.md) | Do not tear down your Redis setup—the Bubble AI agent completely hallucinated that. | 🟡 `MEDIUM` | [**Solution**](cases/atomic-operator-to-prevent-db-lock-issues-race-conditions.md) |
 | **n8n** | [Pushbullet file uploads resolve the binary field name from item 0 for every item](cases/pushbullet-file-uploads-resolve-the-binary-field-name-from-item-0.md) | Inside `packages/nodes-base/nodes/Pushbullet/Pushbullet.node.ts`, the parameter lookup passes hardcoded index `0`: | 🟡 `MEDIUM` | [**Solution**](cases/pushbullet-file-uploads-resolve-the-binary-field-name-from-item-0.md) |
 | **n8n** | [Reasoning_effort error with n8n Assistant and OpenAI-compatible endpoint](cases/reasoning-effort-error-with-n8n-assistant-and-openai-compatible-e.md) | Seconding Client Case Study (User)'s suggestion. n8n Assistant hardcodes requests to `/v1/chat/completions` with tool definitions attached, which Langdock rejects whenever reaso... | 🟠 `HIGH` | [**Solution**](cases/reasoning-effort-error-with-n8n-assistant-and-openai-compatible-e.md) |
