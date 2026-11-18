@@ -19,7 +19,7 @@ slug: "how-do-you-prevent-duplicate-api-operations-when-workflows-retry"
 ## Incident Metadata
 - **Platform / Ecosystem**: `n8n`
 - **Incident Severity**: `HIGH`
-- **Resolution Status**: `RADAR TRIAGED & READY FOR RESOLUTION`
+- **Resolution Status**: `VERIFIED & RESOLVED`
 - **Logged Timestamp**: `2026-11-18T08:20:40.134545`
 - **Diagnosis Engine**: Autonomous Production Incident Radar
 

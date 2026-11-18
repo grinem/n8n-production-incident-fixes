@@ -19,7 +19,7 @@ slug: "regression-in-2-46-0-node-first-returns-null-for-a-node-s-error-o"
 ## Incident Metadata
 - **Platform / Ecosystem**: `n8n`
 - **Incident Severity**: `CRITICAL`
-- **Resolution Status**: `RADAR TRIAGED & READY FOR RESOLUTION`
+- **Resolution Status**: `VERIFIED & RESOLVED`
 - **Logged Timestamp**: `2026-11-18T07:30:12.759634`
 - **Diagnosis Engine**: Autonomous Production Incident Radar
 
