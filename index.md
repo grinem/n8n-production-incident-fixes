@@ -13,9 +13,9 @@ title: "Production Incident Fixes & Post-Mortem Knowledge Base"
 
 
 ### 📊 Real-Time Operations Telemetry
-- **Total Production Incidents Documented**: `130`
+- **Total Production Incidents Documented**: `131`
 - **Active Incident Resolvers**: Automated Production Radar + Lead SRE Engineer
-- **Breakdown by Platform**: **n8n**: 66 | **Make.com**: 24 | **Automation Engine**: 23 | **Activepieces**: 7 | **Bubble.io**: 5 | **Meta / Webhooks**: 3 | **Baserow**: 2
+- **Breakdown by Platform**: **n8n**: 66 | **Make.com**: 25 | **Automation Engine**: 23 | **Activepieces**: 7 | **Bubble.io**: 5 | **Meta / Webhooks**: 3 | **Baserow**: 2
 - **Average Diagnosis & Root-Cause Pinpoint**: `< 15 Minutes`
 
 ---
@@ -24,6 +24,7 @@ title: "Production Incident Fixes & Post-Mortem Knowledge Base"
 
 | Ecosystem | Incident Summary | Root Cause Snapshot | Severity | Resolution Guide |
 |:----------|:-----------------|:--------------------|:--------:|:----------------:|
+| **Make.com** | [Persistent Telegram Bot errors – ModuleTimeoutError and 502 Bad Gateway](cases/persistent-telegram-bot-errors-moduletimeouterror-and-502-bad-gat.html) | You don't need to download the binary through Make at all—that's what triggers the 40s socket timeout whenever Telegram's CDN lags. | 🟠 `HIGH` | [**View Solution →**](cases/persistent-telegram-bot-errors-moduletimeouterror-and-502-bad-gat.html) |
 | **n8n** | [Two Merge nodes inside a loop wait for each other, and the execution stops without an error](cases/two-merge-nodes-inside-a-loop-wait-for-each-other-and-the-executi.html) | Great trace on `processRunExecutionData`. A silent `Success` exit when `waitingExecution` deadlocks without an empty graph is definitely a bug in the scheduler. | 🟠 `HIGH` | [**View Solution →**](cases/two-merge-nodes-inside-a-loop-wait-for-each-other-and-the-executi.html) |
 | **Bubble.io** | [Atomic operator to prevent DB lock issues / race conditions?](cases/atomic-operator-to-prevent-db-lock-issues-race-conditions.html) | Do not tear down your Redis setup—the Bubble AI agent completely hallucinated that. | 🟡 `MEDIUM` | [**View Solution →**](cases/atomic-operator-to-prevent-db-lock-issues-race-conditions.html) |
 | **n8n** | [Pushbullet file uploads resolve the binary field name from item 0 for every item](cases/pushbullet-file-uploads-resolve-the-binary-field-name-from-item-0.html) | Inside `packages/nodes-base/nodes/Pushbullet/Pushbullet.node.ts`, the parameter lookup passes hardcoded index `0`: | 🟡 `MEDIUM` | [**View Solution →**](cases/pushbullet-file-uploads-resolve-the-binary-field-name-from-item-0.html) |

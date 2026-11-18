@@ -13,7 +13,8 @@
 - Sitemap: https://hooktriage.com/sitemap.xml
 - Maintainer GitHub Profile: https://github.com/grinem
 
-## Documented Production Incidents (130)
+## Documented Production Incidents (131)
+- [Make.com] Persistent Telegram Bot errors – ModuleTimeoutError and 502 Bad Gateway: https://hooktriage.com/cases/persistent-telegram-bot-errors-moduletimeouterror-and-502-bad-gat.html - Root Cause: You don't need to download the binary through Make at all—that's what triggers the 40s socket timeout whenever Telegram's CDN lags.
 - [n8n] Two Merge nodes inside a loop wait for each other, and the execution stops without an error: https://hooktriage.com/cases/two-merge-nodes-inside-a-loop-wait-for-each-other-and-the-executi.html - Root Cause: Great trace on `processRunExecutionData`. A silent `Success` exit when `waitingExecution` deadlocks without an empty graph is definitely a bug in the scheduler.
 - [Bubble.io] Atomic operator to prevent DB lock issues / race conditions?: https://hooktriage.com/cases/atomic-operator-to-prevent-db-lock-issues-race-conditions.html - Root Cause: Do not tear down your Redis setup—the Bubble AI agent completely hallucinated that.
 - [n8n] Pushbullet file uploads resolve the binary field name from item 0 for every item: https://hooktriage.com/cases/pushbullet-file-uploads-resolve-the-binary-field-name-from-item-0.html - Root Cause: Inside `packages/nodes-base/nodes/Pushbullet/Pushbullet.node.ts`, the parameter lookup passes hardcoded index `0`:
