@@ -19,7 +19,7 @@ slug: "if-function-doesn-t-work-in-a-module-mapping-formula"
 ## Incident Metadata
 - **Platform / Ecosystem**: `Make.com`
 - **Incident Severity**: `MEDIUM`
-- **Resolution Status**: `RADAR TRIAGED & READY FOR RESOLUTION`
+- **Resolution Status**: `VERIFIED & RESOLVED`
 - **Logged Timestamp**: `2026-11-18T12:00:44.397645`
 - **Diagnosis Engine**: Autonomous Production Incident Radar
 
