@@ -13,9 +13,9 @@ title: "Production Incident Fixes & Post-Mortem Knowledge Base"
 
 
 ### 📊 Real-Time Operations Telemetry
-- **Total Production Incidents Documented**: `120`
+- **Total Production Incidents Documented**: `121`
 - **Active Incident Resolvers**: Automated Production Radar + Lead SRE Engineer
-- **Breakdown by Platform**: **n8n**: 59 | **Make.com**: 23 | **Automation Engine**: 22 | **Activepieces**: 7 | **Bubble.io**: 4 | **Meta / Webhooks**: 3 | **Baserow**: 2
+- **Breakdown by Platform**: **n8n**: 60 | **Make.com**: 23 | **Automation Engine**: 22 | **Activepieces**: 7 | **Bubble.io**: 4 | **Meta / Webhooks**: 3 | **Baserow**: 2
 - **Average Diagnosis & Root-Cause Pinpoint**: `< 15 Minutes`
 
 ---
@@ -24,6 +24,7 @@ title: "Production Incident Fixes & Post-Mortem Knowledge Base"
 
 | Ecosystem | Incident Summary | Root Cause Snapshot | Severity | Resolution Guide |
 |:----------|:-----------------|:--------------------|:--------:|:----------------:|
+| **n8n** | [Microsoft SQL node: \ inside [bracketed] identifier treated as unbound query parameter](cases/microsoft-sql-node-inside-identifier-treated-as-unbound-query-par.html) | Good catch on `bindQueryParameters` missing T-SQL bracketed identifiers. | 🟡 `MEDIUM` | [**View Solution →**](cases/microsoft-sql-node-inside-identifier-treated-as-unbound-query-par.html) |
 | **n8n** | [N8n AI Agent + Gemini OpenAI-compatible API: 400 Bad Request when executing Gmail tools](cases/n8n-ai-agent-gemini-openai-compatible-api-400-bad-request-when-ex.html) | two things are tripping this up: | 🟡 `MEDIUM` | [**View Solution →**](cases/n8n-ai-agent-gemini-openai-compatible-api-400-bad-request-when-ex.html) |
 | **n8n** | [N8n Cloud Form Trigger – Submission Fails Despite Authentication Set to None](cases/n8n-cloud-form-trigger-submission-fails-despite-authentication-se.html) | One common culprit when the editor stays stuck in "Listening" is an ad blocker (uBlock, AdGuard) or Brave Shields blocking the client-side background POST call to `/form-test/` ... | 🔴 `CRITICAL` | [**View Solution →**](cases/n8n-cloud-form-trigger-submission-fails-despite-authentication-se.html) |
 | **n8n** | [Self-conflicting webhook path after Unpublish: cannot republish same workflow (self-hosted CE)](cases/self-conflicting-webhook-path-after-unpublish-cannot-republish-sa.html) | Client Case Study (User) First, verify there isn't a second Webhook node on the canvas sharing `POST` and `m-workflows/book-slot` (even if inactive or disabled), as the publish ... | 🟡 `MEDIUM` | [**View Solution →**](cases/self-conflicting-webhook-path-after-unpublish-cannot-republish-sa.html) |
