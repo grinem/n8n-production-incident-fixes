@@ -19,7 +19,7 @@ slug: "reasoning-effort-error-with-n8n-assistant-and-openai-compatible-e"
 ## Incident Metadata
 - **Platform / Ecosystem**: `n8n`
 - **Incident Severity**: `HIGH`
-- **Resolution Status**: `RADAR TRIAGED & READY FOR RESOLUTION`
+- **Resolution Status**: `VERIFIED & RESOLVED`
 - **Logged Timestamp**: `2026-11-18T14:00:44.689477`
 - **Diagnosis Engine**: Autonomous Production Incident Radar
 
