@@ -13,9 +13,9 @@ title: "Production Incident Fixes & Post-Mortem Knowledge Base"
 
 
 ### 📊 Real-Time Operations Telemetry
-- **Total Production Incidents Documented**: `107`
+- **Total Production Incidents Documented**: `108`
 - **Active Incident Resolvers**: Automated Production Radar + Lead SRE Engineer
-- **Breakdown by Platform**: **n8n**: 50 | **Make.com**: 23 | **Automation Engine**: 19 | **Activepieces**: 6 | **Bubble.io**: 4 | **Meta / Webhooks**: 3 | **Baserow**: 2
+- **Breakdown by Platform**: **n8n**: 51 | **Make.com**: 23 | **Automation Engine**: 19 | **Activepieces**: 6 | **Bubble.io**: 4 | **Meta / Webhooks**: 3 | **Baserow**: 2
 - **Average Diagnosis & Root-Cause Pinpoint**: `< 15 Minutes`
 
 ---
@@ -24,6 +24,7 @@ title: "Production Incident Fixes & Post-Mortem Knowledge Base"
 
 | Ecosystem | Incident Summary | Root Cause Snapshot | Severity | Resolution Guide |
 |:----------|:-----------------|:--------------------|:--------:|:----------------:|
+| **n8n** | [Workflow aborts before the first node when safeRegex times out in internal displayOptions validation](cases/workflow-aborts-before-the-first-node-when-saferegex-times-out-in.html) | This is definitely a false-positive timeout caused by Node's `vm.runInContext` measuring wall-clock time rather than CPU time. On worker containers under burst load, CFS quota t... | 🟡 `MEDIUM` | [**View Solution →**](cases/workflow-aborts-before-the-first-node-when-saferegex-times-out-in.html) |
 | **Make.com** | [Need help finishing final set up fase](cases/need-help-finishing-final-set-up-fase.html) | If you're stuck inside a template setup wizard, click the **X** in the top-right corner of the pop-up (or Skip) to get back to the main scenario canvas and layout editor. | 🟠 `HIGH` | [**View Solution →**](cases/need-help-finishing-final-set-up-fase.html) |
 | **Meta / Webhooks** | [Plugin backwards invocation for knowledge base operations (documents, metadata, pipeline runs)](cases/plugin-backwards-invocation-for-knowledge-base-operations-documen.html) | This is indeed a missing piece in the plugin architecture. Right now, backward invocation routes via `dify-plugin-daemon` directly to `core` through `inner_api` endpoints, but d... | 🟠 `HIGH` | [**View Solution →**](cases/plugin-backwards-invocation-for-knowledge-base-operations-documen.html) |
 | **Make.com** | [[Feature]: Make Scopes optional on the HTTP (OAuth2) connection](cases/make-scopes-optional-on-the-http-oauth2-connection.html) | Makes total sense—RFC 6749 treats `scope` as optional, and providers like SAP strictly reject empty `scope=` query params or body fields. | 🟡 `MEDIUM` | [**View Solution →**](cases/make-scopes-optional-on-the-http-oauth2-connection.html) |
