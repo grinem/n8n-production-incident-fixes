@@ -19,7 +19,7 @@ slug: "error-integration-of-e-mail-address-for-automations"
 ## Incident Metadata
 - **Platform / Ecosystem**: `Baserow`
 - **Incident Severity**: `CRITICAL`
-- **Resolution Status**: `RADAR TRIAGED & READY FOR RESOLUTION`
+- **Resolution Status**: `VERIFIED & RESOLVED`
 - **Logged Timestamp**: `2026-11-10T21:20:19.290397`
 - **Diagnosis Engine**: Autonomous Production Incident Radar
 
