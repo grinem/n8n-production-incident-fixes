@@ -19,7 +19,7 @@ slug: "loop-node-issue-it-outputs-more-than-one-item-when-it-is-done"
 ## Incident Metadata
 - **Platform / Ecosystem**: `n8n`
 - **Incident Severity**: `MEDIUM`
-- **Resolution Status**: `RADAR TRIAGED & READY FOR RESOLUTION`
+- **Resolution Status**: `VERIFIED & RESOLVED`
 - **Logged Timestamp**: `2026-11-18T11:20:43.813329`
 - **Diagnosis Engine**: Autonomous Production Incident Radar
 

@@ -1,7 +1,7 @@
 # 🛠️ n8n & Low-Code Production Incident Fixes (Live Knowledge Base)
 
 [![GitHub Pages](https://img.shields.io/badge/GitHub%20Pages-Live%20Showcase-brightgreen?style=flat-square&logo=github)](https://grinem.github.io/n8n-production-incident-fixes/)
-[![Incidents Resolved](https://img.shields.io/badge/Incidents%20Resolved-128%20Verified-blue?style=flat-square)](cases/)
+[![Incidents Resolved](https://img.shields.io/badge/Incidents%20Resolved-129%20Verified-blue?style=flat-square)](cases/)
 [![Emergency SLA](https://img.shields.io/badge/Incident%20SLA-%3C%206%20Hours-orange?style=flat-square)](https://n8n-production-incident-fixes.pages.dev/#triage)
 [![Async Triage](https://img.shields.io/badge/Async%20Triage-Zero%20Calls-success?style=flat-square)](https://n8n-production-incident-fixes.pages.dev/#triage)
 
@@ -38,7 +38,7 @@ All incident post-mortems in this repository are autonomously generated and sync
 
 ---
 
-## 📚 Documented Production Incidents (128)
+## 📚 Documented Production Incidents (129)
 
 | Ecosystem | Incident Case Study | Root Cause Snapshot | Severity | Solution Link |
 |:----------|:--------------------|:--------------------|:--------:|:-------------:|
@@ -68,6 +68,7 @@ All incident post-mortems in this repository are autonomously generated and sync
 | **Make.com** | [[Feature]: Make Scopes optional on the HTTP (OAuth2) connection](cases/make-scopes-optional-on-the-http-oauth2-connection.md) | Makes total sense—RFC 6749 treats `scope` as optional, and providers like SAP strictly reject empty `scope=` query params or body fields. | 🟡 `MEDIUM` | [**Solution**](cases/make-scopes-optional-on-the-http-oauth2-connection.md) |
 | **Activepieces** | [[BUG]: ConnectUC integration - persistent "Error loading domains" failure.](cases/connectuc-integration-persistent-error-loading-domains-failure.md) | Client Case Study (User) If you open browser DevTools (Network tab) and trigger the dropdown, what HTTP status code and body come back on the POST to `/api/v1/pieces/options`? | 🟠 `HIGH` | [**Solution**](cases/connectuc-integration-persistent-error-loading-domains-failure.md) |
 | **Make.com** | [[Feature]: Make the Test Step / Test Trigger button bolder and independent of the brand colour](cases/make-the-test-step-test-trigger-button-bolder-and-independent-of.md) | Makes complete sense—soft accent tints completely wash out with pastel/yellow tenant palettes, especially stacked with `disabled:opacity-50`. | 🟡 `MEDIUM` | [**Solution**](cases/make-the-test-step-test-trigger-button-bolder-and-independent-of.md) |
+| **n8n** | [Help shape n8n: the future of credentials](cases/help-shape-n8n-the-future-of-credentials.md) | This incident was triaged under autonomous radar surveillance. Common root causes include OAuth token refresh invalidation, webhook schema drift, or downstream API gateway timeo... | 🟡 `MEDIUM` | [**Solution**](cases/help-shape-n8n-the-future-of-credentials.md) |
 | **n8n** | [Postgres pool never recovers after a primary switchover: pings stay "not counted, no pooled connection free"](cases/postgres-pool-never-recovers-after-a-primary-switchover-pings-sta.md) | Spot on. Returning early on `PooledConnectionUnavailableError` without running `probeOutsidePool()` or bumping `consecutiveFailures` creates a permanent deadlock whenever the ex... | 🔴 `CRITICAL` | [**Solution**](cases/postgres-pool-never-recovers-after-a-primary-switchover-pings-sta.md) |
 | **Automation Engine** | [Knowledge base list embeds Base64 custom icons, producing a ~7 MB response and slow loading](cases/knowledge-base-list-embeds-base64-custom-icons-producing-a-7-mb-r.md) | Good catch. The frontend icon picker dumps the raw `readImageDataURL` string directly into `datasets.icon_info` rather than uploading the asset via `/console/api/files/upload` a... | 🟡 `MEDIUM` | [**Solution**](cases/knowledge-base-list-embeds-base64-custom-icons-producing-a-7-mb-r.md) |
 | **Activepieces** | [IMAP piece leaks its socket when login fails; 5 minutes later the socket timeout crashes an unrelated flow run (`SANDBOX_INTERNAL_ERROR`)](cases/imap-piece-leaks-its-socket-when-login-fails-5-minutes-later-the.md) | Spot-on diagnosis. In `SANDBOX_CODE_ONLY`, process reuse causes any unhandled socket error emitted after the promise rejects to bubble up as an `uncaughtException` in the worker... | 🔴 `CRITICAL` | [**Solution**](cases/imap-piece-leaks-its-socket-when-login-fails-5-minutes-later-the.md) |

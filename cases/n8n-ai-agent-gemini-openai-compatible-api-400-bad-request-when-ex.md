@@ -19,7 +19,7 @@ slug: "n8n-ai-agent-gemini-openai-compatible-api-400-bad-request-when-ex"
 ## Incident Metadata
 - **Platform / Ecosystem**: `n8n`
 - **Incident Severity**: `MEDIUM`
-- **Resolution Status**: `RADAR TRIAGED & READY FOR RESOLUTION`
+- **Resolution Status**: `VERIFIED & RESOLVED`
 - **Logged Timestamp**: `2026-11-18T08:42:29.037141`
 - **Diagnosis Engine**: Autonomous Production Incident Radar
 
