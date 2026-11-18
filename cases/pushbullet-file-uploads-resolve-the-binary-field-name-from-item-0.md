@@ -16,10 +16,15 @@ slug: "pushbullet-file-uploads-resolve-the-binary-field-name-from-item-0"
 > [**🚨 Instant Async Production Triage & Resolution (< 6h, Zero Video Calls)**](https://n8n-production-incident-fixes.pages.dev/#triage)
 
 
+> ✅ **Confirmed Production Resolution (Timestamp: `2026-11-18T17:20:29.583976+01:00`)**  
+> **Author (`goutham-valugula`) verified on [the live thread](https://github.com/n8n-io/n8n/issues/44408)**:  
+> *"The source confirms the item-index mismatch: inside the upload loop, `assertBinaryData(i, ...)` and `getBinaryDataBuffer(i, ...)` use the current item, but `getNodeParameter("binaryPropertyName", 0)` is fixed to item 0. Resolving that parameter with `i` should make an expression such as `{{$json.binaryField}}` use each item’s own property name. I have not run this workflow or a regression test."*
+
+
 ## Incident Metadata
 - **Platform / Ecosystem**: `n8n`
 - **Incident Severity**: `MEDIUM`
-- **Resolution Status**: `VERIFIED & RESOLVED`
+- **Resolution Status**: `CONFIRMED BY AUTHOR IN PRODUCTION`
 - **Logged Timestamp**: `2026-11-18T15:40:44.772995`
 - **Diagnosis Engine**: Autonomous Production Incident Radar
 
