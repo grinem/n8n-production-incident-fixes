@@ -194,16 +194,26 @@
       </div>
     </details>
 
-    <!-- Free Zero-Trust n8n Watchdog JSON CTA (Inbound Sensor) -->
-    <div class="mt-4 rounded-3xl bg-[#141517] border border-[#00d294]/30 p-5 sm:p-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-      <div>
-        <div class="text-xs font-mono text-[#00d294] mb-1">FREE ZERO-TRUST TOOL &bull; 30-SEC IMPORT</div>
-        <h4 class="text-sm sm:text-base font-semibold text-[#f0f0f0]">Catch Silent n8n &amp; Shopify Webhook Failures Automatically</h4>
-        <p class="text-xs text-[#a1a4a5] mt-1">3-node JSON with built-in local secret scrubber (API keys/emails never leave your server). Prints root cause + private fix URL on crash.</p>
+    <!-- Free Zero-Trust CLI/MCP Scanner & n8n Watchdog CTA (Inbound Sensors) -->
+    <div class="mt-4 rounded-3xl bg-[#141517] border border-[#00d294]/30 p-5 sm:p-6 space-y-4">
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <div>
+          <div class="text-xs font-mono text-[#00d294] mb-1">FREE ZERO-TRUST SENSORS &bull; 0 BYTES UPLOADED &bull; MIT</div>
+          <h4 class="text-sm sm:text-base font-semibold text-[#f0f0f0]">Install the Free Local CLI / MCP Scanner &amp; n8n Silent-Failure Watchdog</h4>
+          <p class="text-xs text-[#a1a4a5] mt-1">Audit workflows locally in 1 command (Cursor, Claude Code, terminal) or import the 3-node n8n Watchdog JSON with built-in local secret scrubbing.</p>
+        </div>
+        <div class="flex flex-wrap items-center gap-2 shrink-0">
+          <a href="https://github.com/grinem/hooktriage" target="_blank" rel="noopener noreferrer" class="px-3.5 py-2 rounded-xl bg-[#191b1e] hover:bg-[#212629] border border-[#293034] text-xs font-medium text-[#f0f0f0] whitespace-nowrap">CLI &amp; MCP Repo (MIT)</a>
+          <a href="https://github.com/grinem/n8n-ai-watchdog" target="_blank" rel="noopener noreferrer" class="px-3.5 py-2 rounded-xl bg-[#191b1e] hover:bg-[#212629] border border-[#293034] text-xs font-medium text-[#f0f0f0] whitespace-nowrap">n8n Watchdog Repo</a>
+          <a href="https://raw.githubusercontent.com/grinem/n8n-ai-watchdog/main/n8n-silent-failure-watchdog.json" target="_blank" rel="noopener noreferrer" class="px-4 py-2 rounded-xl bg-[#00d294] hover:opacity-90 text-xs font-semibold text-black whitespace-nowrap">Get Watchdog JSON &rarr;</a>
+        </div>
       </div>
-      <div class="flex flex-wrap items-center gap-2 shrink-0">
-        <a href="https://github.com/grinem/n8n-ai-watchdog" target="_blank" rel="noopener noreferrer" class="px-3.5 py-2 rounded-xl bg-[#191b1e] hover:bg-[#212629] border border-[#293034] text-xs font-medium text-[#f0f0f0] whitespace-nowrap">Inspect MIT Repo</a>
-        <a href="https://raw.githubusercontent.com/grinem/n8n-ai-watchdog/main/n8n-silent-failure-watchdog.json" target="_blank" rel="noopener noreferrer" class="px-4 py-2 rounded-xl bg-[#00d294] hover:opacity-90 text-xs font-semibold text-black whitespace-nowrap">Get Watchdog JSON (MIT) &rarr;</a>
+      <div class="rounded-2xl bg-[#0a0b0c] border border-[#212629] px-4 py-3 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+        <code id="hooktriageCliCmd" class="text-xs font-mono text-[#00d294] overflow-x-auto whitespace-nowrap">npx -y github:grinem/hooktriage scan ./workflow.json</code>
+        <div class="flex items-center gap-2 shrink-0">
+          <span class="text-[11px] font-mono text-[#878d8f]">MCP: <code class="text-[#a1a4a5]">--mcp</code></span>
+          <button type="button" onclick="navigator.clipboard &amp;&amp; navigator.clipboard.writeText('npx -y github:grinem/hooktriage scan ./workflow.json').then(function(){ var b=event.currentTarget; b.innerText='Copied!'; setTimeout(function(){ b.innerText='Copy CLI'; }, 1800); })" class="px-3 py-1.5 rounded-lg bg-[#191b1e] hover:bg-[#212629] border border-[#293034] text-xs font-medium text-[#f0f0f0] cursor-pointer whitespace-nowrap">Copy CLI</button>
+        </div>
       </div>
     </div>
 
