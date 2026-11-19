@@ -19,7 +19,7 @@ slug: "isemail-returns-true-for-strings-containing-an-email-plus-extra-c"
 ## Incident Metadata
 - **Platform / Ecosystem**: `n8n`
 - **Incident Severity**: `MEDIUM`
-- **Resolution Status**: `RADAR TRIAGED & READY FOR RESOLUTION`
+- **Resolution Status**: `VERIFIED & RESOLVED`
 - **Logged Timestamp**: `2026-11-18T05:00:36.653290`
 - **Diagnosis Engine**: Autonomous Production Incident Radar
 
