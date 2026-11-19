@@ -13,9 +13,9 @@ title: "Production Incident Fixes & Post-Mortem Knowledge Base"
 
 
 ### 📊 Real-Time Operations Telemetry
-- **Total Production Incidents Documented**: `137`
+- **Total Production Incidents Documented**: `139`
 - **Active Incident Resolvers**: Automated Production Radar + Lead SRE Engineer
-- **Breakdown by Platform**: **n8n**: 69 | **Make.com**: 26 | **Automation Engine**: 24 | **Activepieces**: 8 | **Bubble.io**: 5 | **Meta / Webhooks**: 3 | **Baserow**: 2
+- **Breakdown by Platform**: **n8n**: 70 | **Make.com**: 26 | **Automation Engine**: 24 | **Activepieces**: 9 | **Bubble.io**: 5 | **Meta / Webhooks**: 3 | **Baserow**: 2
 - **Average Diagnosis & Root-Cause Pinpoint**: `< 15 Minutes`
 
 ---
@@ -24,6 +24,8 @@ title: "Production Incident Fixes & Post-Mortem Knowledge Base"
 
 | Ecosystem | Incident Summary | Root Cause Snapshot | Severity | Resolution Guide |
 |:----------|:-----------------|:--------------------|:--------:|:----------------:|
+| **n8n** | [Teams agent channel: credential check returns 403 "missing scope" for project owners (credentialId param shadows projectId/agentId in userHasScopes)](cases/teams-agent-channel-credential-check-returns-403-missing-scope-fo.html) | Spot-on analysis. One detail to watch out for if putting together a PR: solely swapping the evaluation order (`agentId` before `credentialId`) risks reverse-shadowing if a compo... | 🟠 `HIGH` | [**View Solution →**](cases/teams-agent-channel-credential-check-returns-403-missing-scope-fo.html) |
+| **Activepieces** | [[BUG]: OpenAI piece: Ask ChatGPT defaults to gpt-3.5-turbo (already shut down); Sentiment, Vision, Text-to-Speech and Translate Audio use models/endpoints OpenAI retires by Feb 2027](cases/openai-piece-ask-chatgpt-defaults-to-gpt-3-5-turbo-already-shut-d.html) | Good catch on those line references. | 🟡 `MEDIUM` | [**View Solution →**](cases/openai-piece-ask-chatgpt-defaults-to-gpt-3-5-turbo-already-shut-d.html) |
 | **n8n** | [How do you catch a silently failed n8n node before a message is lost?](cases/how-do-you-catch-a-silently-failed-n8n-node-before-a-message-is-l.html) | Check your execution history for that run and look at the item count entering the sending node. 9 times out of 10, an upstream `If` or `Filter` node output `0 items`—n8n treats ... | 🟠 `HIGH` | [**View Solution →**](cases/how-do-you-catch-a-silently-failed-n8n-node-before-a-message-is-l.html) |
 | **n8n** | [If Node Problem-Emails nicht sortiert](cases/if-node-problem-emails-nicht-sortiert.html) | If *all* emails are passing through to that folder, check whether **Value 1** in your IF node is set to **Fixed** instead of **Expression**. If it's set to Fixed with text like ... | 🟡 `MEDIUM` | [**View Solution →**](cases/if-node-problem-emails-nicht-sortiert.html) |
 | **n8n** | [Array .chunk() expression should reject fractional and infinite sizes](cases/array-chunk-expression-should-reject-fractional-and-infinite-size.html) | Spot on analysis. Swapping the guard to `!Number.isInteger(chunkSize) || chunkSize <= 0` cleanly handles floats, `Infinity`, `NaN`, and non-numbers in a single check without nee... | 🟡 `MEDIUM` | [**View Solution →**](cases/array-chunk-expression-should-reject-fractional-and-infinite-size.html) |
