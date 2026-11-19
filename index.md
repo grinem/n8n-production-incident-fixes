@@ -13,9 +13,9 @@ title: "Production Incident Fixes & Post-Mortem Knowledge Base"
 
 
 ### 📊 Real-Time Operations Telemetry
-- **Total Production Incidents Documented**: `133`
+- **Total Production Incidents Documented**: `134`
 - **Active Incident Resolvers**: Automated Production Radar + Lead SRE Engineer
-- **Breakdown by Platform**: **n8n**: 66 | **Make.com**: 25 | **Automation Engine**: 24 | **Activepieces**: 8 | **Bubble.io**: 5 | **Meta / Webhooks**: 3 | **Baserow**: 2
+- **Breakdown by Platform**: **n8n**: 66 | **Make.com**: 26 | **Automation Engine**: 24 | **Activepieces**: 8 | **Bubble.io**: 5 | **Meta / Webhooks**: 3 | **Baserow**: 2
 - **Average Diagnosis & Root-Cause Pinpoint**: `< 15 Minutes`
 
 ---
@@ -24,6 +24,7 @@ title: "Production Incident Fixes & Post-Mortem Knowledge Base"
 
 | Ecosystem | Incident Summary | Root Cause Snapshot | Severity | Resolution Guide |
 |:----------|:-----------------|:--------------------|:--------:|:----------------:|
+| **Make.com** | [Make the OpenSearch client timeout configurable (searches fail with read timeout=10 on cold k-NN graphs)](cases/make-the-opensearch-client-timeout-configurable-searches-fail-wit.html) | Spot-on diagnosis. Loading cold HNSW graphs from EBS into off-heap memory on baseline gp3 (~125 MiB/s) consistently crosses the 10s default once shard graph segments hit ~1 GiB+. | 🟡 `MEDIUM` | [**View Solution →**](cases/make-the-opensearch-client-timeout-configurable-searches-fail-wit.html) |
 | **Automation Engine** | [Version 1.19.0, the problem classifier cannot add a category by clicking](cases/version-1-19-0-the-problem-classifier-cannot-add-a-category-by-cl.html) | Can you open your browser console (F12) when clicking "Add" and share the error log here? | 🟠 `HIGH` | [**View Solution →**](cases/version-1-19-0-the-problem-classifier-cannot-add-a-category-by-cl.html) |
 | **Activepieces** | [[BUG]: Webhook rejects CloudEvents JSON with HTTP 415](cases/webhook-rejects-cloudevents-json-with-http-415.html) | Spot on diagnosis. `FST_ERR_CTP_INVALID_MEDIA_TYPE` is thrown directly by Fastify at the HTTP parser layer before the request can reach the webhook handler or queue. | 🟡 `MEDIUM` | [**View Solution →**](cases/webhook-rejects-cloudevents-json-with-http-415.html) |
 | **Make.com** | [Persistent Telegram Bot errors – ModuleTimeoutError and 502 Bad Gateway](cases/persistent-telegram-bot-errors-moduletimeouterror-and-502-bad-gat.html) | You don't need to download the binary through Make at all—that's what triggers the 40s socket timeout whenever Telegram's CDN lags. | 🟠 `HIGH` | [**View Solution →**](cases/persistent-telegram-bot-errors-moduletimeouterror-and-502-bad-gat.html) |

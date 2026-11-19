@@ -13,7 +13,8 @@
 - Sitemap: https://hooktriage.com/sitemap.xml
 - Maintainer GitHub Profile: https://github.com/grinem
 
-## Documented Production Incidents (133)
+## Documented Production Incidents (134)
+- [Make.com] Make the OpenSearch client timeout configurable (searches fail with read timeout=10 on cold k-NN graphs): https://hooktriage.com/cases/make-the-opensearch-client-timeout-configurable-searches-fail-wit.html - Root Cause: Spot-on diagnosis. Loading cold HNSW graphs from EBS into off-heap memory on baseline gp3 (~125 MiB/s) consistently crosses the 10s default once shard graph segments hit ~1 GiB+.
 - [Automation Engine] Version 1.19.0, the problem classifier cannot add a category by clicking: https://hooktriage.com/cases/version-1-19-0-the-problem-classifier-cannot-add-a-category-by-cl.html - Root Cause: Can you open your browser console (F12) when clicking "Add" and share the error log here?
 - [Activepieces] [BUG]: Webhook rejects CloudEvents JSON with HTTP 415: https://hooktriage.com/cases/webhook-rejects-cloudevents-json-with-http-415.html - Root Cause: Spot on diagnosis. `FST_ERR_CTP_INVALID_MEDIA_TYPE` is thrown directly by Fastify at the HTTP parser layer before the request can reach the webhook handler or queue.
 - [Make.com] Persistent Telegram Bot errors – ModuleTimeoutError and 502 Bad Gateway: https://hooktriage.com/cases/persistent-telegram-bot-errors-moduletimeouterror-and-502-bad-gat.html - Root Cause: You don't need to download the binary through Make at all—that's what triggers the 40s socket timeout whenever Telegram's CDN lags.
