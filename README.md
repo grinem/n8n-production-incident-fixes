@@ -1,7 +1,7 @@
 # 🛠️ n8n & Low-Code Production Incident Fixes (Live Knowledge Base)
 
 [![GitHub Pages](https://img.shields.io/badge/GitHub%20Pages-Live%20Showcase-brightgreen?style=flat-square&logo=github)](https://grinem.github.io/n8n-production-incident-fixes/)
-[![Incidents Resolved](https://img.shields.io/badge/Incidents%20Resolved-131%20Verified-blue?style=flat-square)](cases/)
+[![Incidents Resolved](https://img.shields.io/badge/Incidents%20Resolved-132%20Verified-blue?style=flat-square)](cases/)
 [![Emergency SLA](https://img.shields.io/badge/Incident%20SLA-%3C%206%20Hours-orange?style=flat-square)](https://hooktriage.com/#triage)
 [![Async Triage](https://img.shields.io/badge/Async%20Triage-Zero%20Calls-success?style=flat-square)](https://hooktriage.com/#triage)
 
@@ -38,10 +38,11 @@ All incident post-mortems in this repository are autonomously generated and sync
 
 ---
 
-## 📚 Documented Production Incidents (131)
+## 📚 Documented Production Incidents (132)
 
 | Ecosystem | Incident Case Study | Root Cause Snapshot | Severity | Solution Link |
 |:----------|:--------------------|:--------------------|:--------:|:-------------:|
+| **Activepieces** | [[BUG]: Webhook rejects CloudEvents JSON with HTTP 415](cases/webhook-rejects-cloudevents-json-with-http-415.md) | Spot on diagnosis. `FST_ERR_CTP_INVALID_MEDIA_TYPE` is thrown directly by Fastify at the HTTP parser layer before the request can reach the webhook handler or queue. | 🟡 `MEDIUM` | [**Solution**](cases/webhook-rejects-cloudevents-json-with-http-415.md) |
 | **Make.com** | [Persistent Telegram Bot errors – ModuleTimeoutError and 502 Bad Gateway](cases/persistent-telegram-bot-errors-moduletimeouterror-and-502-bad-gat.md) | You don't need to download the binary through Make at all—that's what triggers the 40s socket timeout whenever Telegram's CDN lags. | 🟠 `HIGH` | [**Solution**](cases/persistent-telegram-bot-errors-moduletimeouterror-and-502-bad-gat.md) |
 | **n8n** | [Two Merge nodes inside a loop wait for each other, and the execution stops without an error](cases/two-merge-nodes-inside-a-loop-wait-for-each-other-and-the-executi.md) | Great trace on `processRunExecutionData`. A silent `Success` exit when `waitingExecution` deadlocks without an empty graph is definitely a bug in the scheduler. | 🟠 `HIGH` | [**Solution**](cases/two-merge-nodes-inside-a-loop-wait-for-each-other-and-the-executi.md) |
 | **Bubble.io** | [Atomic operator to prevent DB lock issues / race conditions?](cases/atomic-operator-to-prevent-db-lock-issues-race-conditions.md) | Do not tear down your Redis setup—the Bubble AI agent completely hallucinated that. | 🟡 `MEDIUM` | [**Solution**](cases/atomic-operator-to-prevent-db-lock-issues-race-conditions.md) |
