@@ -16,9 +16,9 @@ slug: "how-to-upload-an-image-file-to-a-shopify-order-write-files-scope"
 > [**🚨 Instant Async Production Triage & Resolution (< 6h, Zero Video Calls)**](https://hooktriage.com/#triage)
 
 
-> ✅ **Confirmed Production Resolution (Timestamp: `2026-11-19T07:40:17.776576+01:00`)**  
+> ✅ **Confirmed Production Resolution (Timestamp: `2026-11-19T08:41:05.141452+01:00`)**  
 > **Author (`Sheeza_Aslam`) verified on [the live thread](https://community.make.com/t/how-to-upload-an-image-file-to-a-shopify-order-write-files-scope-missing-in-the-make-connection/119701)**:  
-> *"It worked using the integromat.com URL. Thank you for your help"*
+> *"Thank you Priyanshu and thanks for the two warnings. Yes, the photo now shows up on the order. The upload works end to end: stagedUploadsCreate, HTTP multipart upload, fileCreate, then metafieldsSet. The order is found and the file appears in the Carton photos card. The HTTP step only worked once the photo was sent as a real file part (field named file, last in the form). One more question, about the result. My team currently pastes the photo into the order Timeline comment box and types the order number, so it shows in the timeline and downloads with one click (screenshot 1). With the metafield approach (screenshot 2) the file is stored in Content, Files, which we use only for website images and downloading takes more steps. From what I found, there is no API mutation to create a timeline comment with an attachment (CommentEvent is read-only). Do you know of any workaround, or a way to attach a private file to an order without it landing in the Files library? Image 1 (what a person does today): a staff member pastes the photo into the order Timeline comment box and types the order number. The photo shows in the timeline and can be opened and downloaded with one click. Image 2 (what my Make scenario does): the photo is uploaded as a file and attached to an order metafield. It appears in the Carton photos card but the file is stored in Content, Files (our website image library), which we don’t want. Downloading it also takes more steps. I would like the result of Screenshot image 1 Thank you! ref Image 1 and 2 1758×1022 94.5 KB"*
 
 
 ## Incident Metadata
