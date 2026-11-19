@@ -13,9 +13,9 @@ title: "Production Incident Fixes & Post-Mortem Knowledge Base"
 
 
 ### 📊 Real-Time Operations Telemetry
-- **Total Production Incidents Documented**: `141`
+- **Total Production Incidents Documented**: `142`
 - **Active Incident Resolvers**: Automated Production Radar + Lead SRE Engineer
-- **Breakdown by Platform**: **n8n**: 70 | **Automation Engine**: 26 | **Make.com**: 26 | **Activepieces**: 9 | **Bubble.io**: 5 | **Meta / Webhooks**: 3 | **Baserow**: 2
+- **Breakdown by Platform**: **n8n**: 71 | **Automation Engine**: 26 | **Make.com**: 26 | **Activepieces**: 9 | **Bubble.io**: 5 | **Meta / Webhooks**: 3 | **Baserow**: 2
 - **Average Diagnosis & Root-Cause Pinpoint**: `< 15 Minutes`
 
 ---
@@ -24,6 +24,7 @@ title: "Production Incident Fixes & Post-Mortem Knowledge Base"
 
 | Ecosystem | Incident Summary | Root Cause Snapshot | Severity | Resolution Guide |
 |:----------|:-----------------|:--------------------|:--------:|:----------------:|
+| **n8n** | [DateTime.diffTo() silently returns undefined for the units weekday, weekNumber and yearDayNumber](cases/datetime-diffto-silently-returns-undefined-for-the-units-weekday.html) | Great catch and spot-on root-cause analysis. | 🔴 `CRITICAL` | [**View Solution →**](cases/datetime-diffto-silently-returns-undefined-for-the-units-weekday.html) |
 | **Automation Engine** | [Workflow run output panel double-encodes structured JSON](cases/workflow-run-output-panel-double-encodes-structured-json.html) | Nice catch. Passing `outputs` directly to `<CodeEditor value={outputs} isJSONStringifyBeauty />` is the right call here since `serializeCodeEditorValue` handles the formatting i... | 🔴 `CRITICAL` | [**View Solution →**](cases/workflow-run-output-panel-double-encodes-structured-json.html) |
 | **Automation Engine** | [Agent transient commands ignore timeout while replaying truncated output](cases/agent-transient-commands-ignore-timeout-while-replaying-truncated.html) | Confirmed, nice repro script. | 🟠 `HIGH` | [**View Solution →**](cases/agent-transient-commands-ignore-timeout-while-replaying-truncated.html) |
 | **n8n** | [Teams agent channel: credential check returns 403 "missing scope" for project owners (credentialId param shadows projectId/agentId in userHasScopes)](cases/teams-agent-channel-credential-check-returns-403-missing-scope-fo.html) | Spot-on analysis. One detail to watch out for if putting together a PR: solely swapping the evaluation order (`agentId` before `credentialId`) risks reverse-shadowing if a compo... | 🟠 `HIGH` | [**View Solution →**](cases/teams-agent-channel-credential-check-returns-403-missing-scope-fo.html) |

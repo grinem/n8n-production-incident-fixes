@@ -1,7 +1,7 @@
 # 🛠️ n8n & Low-Code Production Incident Fixes (Live Knowledge Base)
 
 [![GitHub Pages](https://img.shields.io/badge/GitHub%20Pages-Live%20Showcase-brightgreen?style=flat-square&logo=github)](https://grinem.github.io/n8n-production-incident-fixes/)
-[![Incidents Resolved](https://img.shields.io/badge/Incidents%20Resolved-141%20Verified-blue?style=flat-square)](cases/)
+[![Incidents Resolved](https://img.shields.io/badge/Incidents%20Resolved-142%20Verified-blue?style=flat-square)](cases/)
 [![Emergency SLA](https://img.shields.io/badge/Incident%20SLA-%3C%206%20Hours-orange?style=flat-square)](https://hooktriage.com/#triage)
 [![Async Triage](https://img.shields.io/badge/Async%20Triage-Zero%20Calls-success?style=flat-square)](https://hooktriage.com/#triage)
 
@@ -38,10 +38,11 @@ All incident post-mortems in this repository are autonomously generated and sync
 
 ---
 
-## 📚 Documented Production Incidents (141)
+## 📚 Documented Production Incidents (142)
 
 | Ecosystem | Incident Case Study | Root Cause Snapshot | Severity | Solution Link |
 |:----------|:--------------------|:--------------------|:--------:|:-------------:|
+| **n8n** | [DateTime.diffTo() silently returns undefined for the units weekday, weekNumber and yearDayNumber](cases/datetime-diffto-silently-returns-undefined-for-the-units-weekday.md) | Great catch and spot-on root-cause analysis. | 🔴 `CRITICAL` | [**Solution**](cases/datetime-diffto-silently-returns-undefined-for-the-units-weekday.md) |
 | **Automation Engine** | [Workflow run output panel double-encodes structured JSON](cases/workflow-run-output-panel-double-encodes-structured-json.md) | Nice catch. Passing `outputs` directly to `<CodeEditor value={outputs} isJSONStringifyBeauty />` is the right call here since `serializeCodeEditorValue` handles the formatting i... | 🔴 `CRITICAL` | [**Solution**](cases/workflow-run-output-panel-double-encodes-structured-json.md) |
 | **Automation Engine** | [Agent transient commands ignore timeout while replaying truncated output](cases/agent-transient-commands-ignore-timeout-while-replaying-truncated.md) | Confirmed, nice repro script. | 🟠 `HIGH` | [**Solution**](cases/agent-transient-commands-ignore-timeout-while-replaying-truncated.md) |
 | **n8n** | [Teams agent channel: credential check returns 403 "missing scope" for project owners (credentialId param shadows projectId/agentId in userHasScopes)](cases/teams-agent-channel-credential-check-returns-403-missing-scope-fo.md) | Spot-on analysis. One detail to watch out for if putting together a PR: solely swapping the evaluation order (`agentId` before `credentialId`) risks reverse-shadowing if a compo... | 🟠 `HIGH` | [**Solution**](cases/teams-agent-channel-credential-check-returns-403-missing-scope-fo.md) |
