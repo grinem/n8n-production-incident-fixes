@@ -19,7 +19,7 @@ slug: "agent-transient-commands-ignore-timeout-while-replaying-truncated"
 ## Incident Metadata
 - **Platform / Ecosystem**: `Automation Engine`
 - **Incident Severity**: `HIGH`
-- **Resolution Status**: `RADAR TRIAGED & READY FOR RESOLUTION`
+- **Resolution Status**: `VERIFIED & RESOLVED`
 - **Logged Timestamp**: `2026-11-19T15:40:48.602034`
 - **Diagnosis Engine**: Autonomous Production Incident Radar
 
