@@ -16,10 +16,15 @@ slug: "n8n-cloud-form-trigger-submission-fails-despite-authentication-se"
 > [**🚨 Instant Async Production Triage & Resolution (< 6h, Zero Video Calls)**](https://hooktriage.com/#triage)
 
 
+> ✅ **Confirmed Production Resolution (Timestamp: `2026-11-19T06:40:27.779017+01:00`)**  
+> **Author (`fkrt_tywb`) verified on [the live thread](https://community.n8n.io/t/n8n-cloud-form-trigger-submission-fails-despite-authentication-set-to-none/329416)**:  
+> *"Yes, we tested previous versions of Fekra Tube in this workspace, and they all passed their tests successfully. Version v8 is the first version that failed. The issue appeared with this version, while the previous versions worked as expected."*
+
+
 ## Incident Metadata
 - **Platform / Ecosystem**: `n8n`
 - **Incident Severity**: `CRITICAL`
-- **Resolution Status**: `VERIFIED & RESOLVED`
+- **Resolution Status**: `CONFIRMED BY AUTHOR IN PRODUCTION`
 - **Logged Timestamp**: `2026-11-18T08:41:41.921102`
 - **Diagnosis Engine**: Autonomous Production Incident Radar
 
