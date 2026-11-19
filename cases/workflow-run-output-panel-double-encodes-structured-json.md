@@ -19,7 +19,7 @@ slug: "workflow-run-output-panel-double-encodes-structured-json"
 ## Incident Metadata
 - **Platform / Ecosystem**: `Automation Engine`
 - **Incident Severity**: `CRITICAL`
-- **Resolution Status**: `RADAR TRIAGED & READY FOR RESOLUTION`
+- **Resolution Status**: `VERIFIED & RESOLVED`
 - **Logged Timestamp**: `2026-11-19T15:43:03.330895`
 - **Diagnosis Engine**: Autonomous Production Incident Radar
 

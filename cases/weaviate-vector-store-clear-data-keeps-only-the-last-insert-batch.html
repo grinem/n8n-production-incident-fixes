@@ -498,6 +498,120 @@
   </div>
 </div>
 
+<!-- Self-Serve Hardening Kit ($27) Modal -->
+<div id="kitModal" class="fixed inset-0 z-50 hidden items-center justify-center bg-black/80 backdrop-blur-md p-4">
+  <div class="w-full max-w-xl rounded-3xl bg-[#141517] border border-[#212629] p-6 sm:p-7 text-[#f0f0f0] shadow-2xl max-h-[90vh] overflow-y-auto">
+    <div class="flex items-start justify-between border-b border-[#212629] pb-4 mb-5">
+      <div>
+        <div class="inline-flex items-center gap-2 text-[11px] font-mono uppercase tracking-wider text-[#00d294] mb-1">
+          <span>Self-Serve Production Hardening Kit</span>
+          <span>&bull;</span>
+          <span>$27 One-Time</span>
+        </div>
+        <h3 class="text-lg font-semibold tracking-tight text-[#f0f0f0]">4 Hardened JSON Templates + SKILL.md</h3>
+        <p class="text-xs text-[#a1a4a5] mt-1">Instant .zip download + backup email link upon confirmation.</p>
+      </div>
+      <button onclick="window.closeKitModal()" class="text-[#878d8f] hover:text-[#f0f0f0] text-xl leading-none px-2 py-1 rounded-lg hover:bg-[#191b1e] transition cursor-pointer">&times;</button>
+    </div>
+
+    <div id="kitStep1" class="space-y-4">
+      <div class="rounded-2xl bg-[#0a0b0c] border border-[#212629] p-4 space-y-2 text-xs text-[#a1a4a5]">
+        <div class="font-semibold text-[#f0f0f0] text-xs">Included in <code class="text-[#00d294]">hooktriage-hardening-kit-v1.zip</code>:</div>
+        <ul class="list-disc pl-4 space-y-1">
+          <li><strong class="text-[#f0f0f0]">Webhook Idempotency Gate</strong> (drop-in n8n / Stripe / Shopify duplicate protection)</li>
+          <li><strong class="text-[#f0f0f0]">Dead-Letter Queue (DLQ) &amp; Auto-Replay</strong> (zero lost payloads on downstream 5xx)</li>
+          <li><strong class="text-[#f0f0f0]">AI Agent Runaway Loop &amp; Token Budget Guard</strong> (hard circuit-breakers)</li>
+          <li><strong class="text-[#f0f0f0]">Exponential Backoff + Jitter Retry Wrapper</strong> &amp; full <code class="text-[#f0f0f0]">SKILL.md</code> playbook</li>
+        </ul>
+      </div>
+      <div>
+        <label class="block text-xs font-medium text-[#a1a4a5] mb-1.5">Email Address (for instant download link &amp; receipt)</label>
+        <input id="kitEmail" type="email" placeholder="you@company.com" class="w-full rounded-xl bg-[#0a0b0c] border border-[#212629] px-3.5 py-2.5 text-sm text-[#f0f0f0] placeholder-[#52595b] focus:outline-none focus:border-[#3b4345] transition" />
+      </div>
+      <div id="kitErr1" class="text-xs text-rose-400 hidden"></div>
+      <button id="kitSubmitBtn" onclick="window.submitKitCheckout()" class="w-full rounded-2xl bg-[#00d294] hover:opacity-90 text-black font-semibold py-3 px-4 text-sm transition cursor-pointer">
+        Continue to $27 Checkout &rarr;
+      </button>
+    </div>
+
+    <div id="kitStep2" class="hidden space-y-4">
+      <div class="rounded-2xl bg-[#0a0b0c] border border-[#212629] p-3.5 flex items-center justify-between gap-2">
+        <div>
+          <div class="text-[11px] font-mono uppercase tracking-wider text-[#878d8f]" id="kitSessionLabel">Session</div>
+          <div class="text-sm font-semibold text-[#f0f0f0] mt-0.5">Self-Serve Hardening Kit &mdash; <span class="text-[#00d294]">$27 USD</span></div>
+        </div>
+        <div class="text-right">
+          <div class="text-[11px] text-[#878d8f]">Exact BEP20 Amount</div>
+          <div class="text-sm font-mono font-semibold text-[#f0f0f0]" id="kitUsdtExactTop">27.01 USDT</div>
+        </div>
+      </div>
+
+      <div id="kitNowWrap" class="hidden">
+        <a id="kitNowBtn" href="#" target="_blank" rel="noopener noreferrer" class="flex items-center justify-center gap-2 w-full rounded-2xl bg-[#00d294] hover:opacity-90 text-black font-semibold py-3 px-4 text-sm transition cursor-pointer">
+          <span>Pay via NOWPayments (150+ Cryptos &mdash; Auto-Unlock $27)</span>
+        </a>
+      </div>
+
+      <div class="space-y-2">
+        <button id="kitWeb3Btn" onclick="window.payKitWithWeb3()" class="flex items-center justify-center gap-2 w-full rounded-2xl bg-white hover:bg-white/90 text-black font-semibold py-3 px-4 text-sm transition cursor-pointer">
+          <span>1-Click Web3 Wallet (MetaMask / Rabby / Binance) &mdash; <span id="kitUsdtAmount">27.01 USDT</span></span>
+        </button>
+        <div id="kitWeb3Status" class="text-xs text-center text-[#00d294] hidden"></div>
+      </div>
+
+      <div>
+        <a id="kitCardBtn" href="#" target="_blank" rel="noopener noreferrer" class="flex items-center justify-center gap-2 w-full rounded-2xl bg-[#191b1e] hover:bg-[#212629] border border-[#293034] text-[#f0f0f0] font-medium py-3 px-4 text-sm transition cursor-pointer">
+          <span>Pay with Visa / Mastercard / Apple Pay ($27 USD)</span>
+        </a>
+      </div>
+
+      <div class="rounded-2xl bg-[#0a0b0c] border border-[#212629] p-3.5 flex items-center gap-3.5 flex-wrap sm:flex-nowrap">
+        <img src="https://api.qrserver.com/v1/create-qr-code/?size=144x144&amp;margin=4&amp;data=0x57A817bd5D42F14325eE4ec7B67F69D5f884758B" alt="RedotPay BEP20 QR Code" width="104" height="104" class="rounded-xl bg-white p-1.5 flex-shrink-0" />
+        <div class="flex-1 min-w-[180px] space-y-2">
+          <div class="text-xs text-[#a1a4a5]">Or send exact <strong class="text-[#f0f0f0]" id="kitQrAmount">27.01 USDT</strong> (BEP20) to:</div>
+          <div class="flex items-center gap-2">
+            <code id="kitUsdtAddr" class="flex-1 text-[11px] font-mono bg-[#141517] border border-[#212629] px-2.5 py-1.5 rounded-lg text-[#f0f0f0] break-all">0x57A817bd5D42F14325eE4ec7B67F69D5f884758B</code>
+            <button type="button" onclick="navigator.clipboard.writeText(document.getElementById('kitUsdtAddr').innerText);this.innerText='Copied!';setTimeout(()=>this.innerText='Copy',1800);" class="rounded-lg bg-[#191b1e] hover:bg-[#212629] border border-[#293034] text-xs font-medium text-[#f0f0f0] px-2.5 py-1.5 cursor-pointer flex-shrink-0">Copy</button>
+          </div>
+        </div>
+      </div>
+
+      <details class="rounded-2xl bg-[#0a0b0c] border border-[#212629] p-3.5">
+        <summary class="text-xs text-[#a1a4a5] hover:text-[#f0f0f0] cursor-pointer select-none">Paid via ChangeNOW Card or exchange? Paste TxHash</summary>
+        <div class="mt-3 flex flex-col sm:flex-row gap-2">
+          <input id="kitTxHash" type="text" placeholder="Paste BEP20 TxHash (0x...)" class="flex-1 rounded-xl bg-[#141517] border border-[#212629] px-3 py-2 text-xs font-mono text-[#f0f0f0] placeholder-[#52595b] focus:outline-none focus:border-[#3b4345]" />
+          <button type="button" onclick="window.verifyManualKitTx()" class="rounded-xl bg-white hover:bg-white/90 text-black font-semibold text-xs px-4 py-2 cursor-pointer whitespace-nowrap">Verify TxHash</button>
+        </div>
+        <div id="kitManualStatus" class="text-xs text-rose-400 mt-2 hidden"></div>
+      </details>
+
+      <div class="rounded-2xl bg-[#0a0b0c] border border-[#212629] p-3.5 flex items-center gap-3">
+        <div class="relative flex h-2.5 w-2.5 flex-shrink-0">
+          <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#00d294] opacity-75"></span>
+          <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-[#00d294]"></span>
+        </div>
+        <div class="flex-1 text-xs text-[#a1a4a5]">
+          <div class="font-medium text-[#f0f0f0]">Auto-Polling Active (every 5s)</div>
+          <p class="text-[11px] text-[#878d8f] mt-0.5">Your .zip download button unlocks here automatically &amp; arrives by email as soon as payment settles.</p>
+        </div>
+      </div>
+    </div>
+
+    <div id="kitStep3" class="hidden space-y-4">
+      <div class="rounded-2xl bg-[#0a0b0c] border border-[#00d294]/40 p-5 text-center space-y-3">
+        <div class="inline-flex items-center gap-2 text-xs font-semibold text-[#00d294]">
+          <span class="h-2 w-2 rounded-full bg-[#00d294]"></span>
+          <span>Payment Verified &mdash; Hardening Kit Unlocked</span>
+        </div>
+        <p class="text-xs text-[#a1a4a5]">We also emailed a backup download link to your inbox. Click below to download your package now:</p>
+        <a id="kitDownloadBtn" href="#" class="inline-flex items-center justify-center gap-2 w-full rounded-2xl bg-[#00d294] hover:opacity-90 text-black font-semibold py-3.5 px-5 text-sm transition cursor-pointer">
+          <span>Download hooktriage-hardening-kit-v1.zip &darr;</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+
 <script>
 (function() {
   const API = "https://hooktriage.com";
@@ -720,6 +834,188 @@
       st.innerText = "Network error verifying transaction";
     }
   };
+
+  // Self-Serve Hardening Kit ($27) Checkout & Polling
+  let kitSessionId = "";
+  let kitUsdtAddress = "0x57A817bd5D42F14325eE4ec7B67F69D5f884758B";
+  let kitUsdtExact = 27.01;
+  let kitPollTimer = null;
+
+  function unlockKitUI(downloadUrl) {
+    if (kitPollTimer) { clearInterval(kitPollTimer); kitPollTimer = null; }
+    const dlBtn = document.getElementById("kitDownloadBtn");
+    if (dlBtn && downloadUrl) dlBtn.href = downloadUrl;
+    document.getElementById("kitStep1").classList.add("hidden");
+    document.getElementById("kitStep2").classList.add("hidden");
+    document.getElementById("kitStep3").classList.remove("hidden");
+  }
+
+  window.openKitModal = function() {
+    document.getElementById("kitStep1").classList.remove("hidden");
+    document.getElementById("kitStep2").classList.add("hidden");
+    document.getElementById("kitStep3").classList.add("hidden");
+    const err = document.getElementById("kitErr1");
+    if (err) err.classList.add("hidden");
+    const m = document.getElementById("kitModal");
+    m.classList.remove("hidden");
+    m.classList.add("flex");
+  };
+
+  window.closeKitModal = function() {
+    if (kitPollTimer) { clearInterval(kitPollTimer); kitPollTimer = null; }
+    const m = document.getElementById("kitModal");
+    m.classList.add("hidden");
+    m.classList.remove("flex");
+  };
+
+  window.submitKitCheckout = async function() {
+    const email = (document.getElementById("kitEmail").value || "").trim();
+    const err = document.getElementById("kitErr1");
+    const btn = document.getElementById("kitSubmitBtn");
+    err.classList.add("hidden");
+    if (!email || !email.includes("@")) {
+      err.innerText = "Please enter a valid email address for delivery.";
+      err.classList.remove("hidden");
+      return;
+    }
+    btn.disabled = true;
+    btn.innerText = "Creating $27 Checkout Session...";
+    try {
+      const r = await fetch(API + "/api/kit-checkout", {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({email})
+      });
+      const d = await r.json();
+      if (!r.ok) throw new Error(d.error || "Checkout initialization failed");
+      kitSessionId = d.session_id;
+      if (d.usdt_address) kitUsdtAddress = d.usdt_address;
+      kitUsdtExact = Number(d.usdt_exact || 27.01);
+      const exactStr = kitUsdtExact.toFixed(2) + " USDT";
+
+      document.getElementById("kitSessionLabel").innerText = "Session " + d.session_id;
+      document.getElementById("kitUsdtExactTop").innerText = exactStr;
+      document.getElementById("kitUsdtAmount").innerText = exactStr;
+      document.getElementById("kitQrAmount").innerText = exactStr;
+      document.getElementById("kitUsdtAddr").innerText = kitUsdtAddress;
+
+      const nowWrap = document.getElementById("kitNowWrap");
+      const nowBtn = document.getElementById("kitNowBtn");
+      if (d.nowpayments_url && nowWrap && nowBtn) {
+        nowBtn.href = d.nowpayments_url;
+        nowWrap.classList.remove("hidden");
+      } else if (nowWrap) {
+        nowWrap.classList.add("hidden");
+      }
+      document.getElementById("kitCardBtn").href = d.onramp_url || d.card_checkout_url || "#";
+
+      document.getElementById("kitStep1").classList.add("hidden");
+      document.getElementById("kitStep2").classList.remove("hidden");
+
+      if (kitPollTimer) clearInterval(kitPollTimer);
+      kitPollTimer = setInterval(async function() {
+        if (!kitSessionId) return;
+        try {
+          const sr = await fetch(API + "/api/session-status?session_id=" + encodeURIComponent(kitSessionId));
+          if (sr.ok) {
+            const sd = await sr.json();
+            if (sd.status === "PAID" && sd.download_url) {
+              unlockKitUI(sd.download_url);
+            }
+          }
+        } catch (_) {}
+      }, 5000);
+    } catch (e) {
+      err.innerText = e.message || "Network error";
+      err.classList.remove("hidden");
+    } finally {
+      btn.disabled = false;
+      btn.innerText = "Continue to $27 Checkout →";
+    }
+  };
+
+  window.payKitWithWeb3 = async function() {
+    const statusEl = document.getElementById("kitWeb3Status");
+    const btn = document.getElementById("kitWeb3Btn");
+    statusEl.classList.remove("hidden");
+    statusEl.className = "text-xs text-center text-indigo-400";
+    statusEl.innerText = "Connecting to Web3 wallet...";
+
+    if (typeof window.ethereum === "undefined") {
+      const amountWei = BigInt(Math.round(kitUsdtExact * 100)) * BigInt(10**16);
+      window.location.href = "ethereum:0x55d398326f99059ff775485246999027b3197955@56/transfer?address=" + kitUsdtAddress + "&uint256=" + amountWei.toString();
+      return;
+    }
+    try {
+      btn.disabled = true;
+      try {
+        await window.ethereum.request({ method: "wallet_switchEthereumChain", params: [{ chainId: "0x38" }] });
+      } catch (sw) {
+        if (sw.code === 4902) {
+          await window.ethereum.request({
+            method: "wallet_addEthereumChain",
+            params: [{
+              chainId: "0x38",
+              chainName: "BNB Smart Chain Mainnet",
+              nativeCurrency: { name: "BNB", symbol: "BNB", decimals: 18 },
+              rpcUrls: ["https://bsc-dataseed.binance.org/"],
+              blockExplorerUrls: ["https://bscscan.com/"]
+            }]
+          });
+        } else { throw sw; }
+      }
+      const accounts = await window.ethereum.request({ method: "eth_requestAccounts" });
+      const userAccount = accounts[0];
+      statusEl.innerText = "Confirm " + kitUsdtExact.toFixed(2) + " USDT transfer in wallet...";
+      const cleanTo = kitUsdtAddress.toLowerCase().replace(/^0x/, "").padStart(64, "0");
+      const amountWei = BigInt(Math.round(kitUsdtExact * 100)) * BigInt(10**16);
+      const dataHex = "0xa9059cbb" + cleanTo + amountWei.toString(16).padStart(64, "0");
+      const txHash = await window.ethereum.request({
+        method: "eth_sendTransaction",
+        params: [{ from: userAccount, to: "0x55d398326f99059ff775485246999027b3197955", data: dataHex }]
+      });
+      statusEl.className = "text-xs text-center text-emerald-400 font-bold";
+      statusEl.innerText = "Tx sent: " + txHash.slice(0, 10) + "... Verifying on BSC...";
+      const vr = await fetch(API + "/api/verify-usdt", {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({session_id: kitSessionId, tx_hash: txHash})
+      });
+      const vd = await vr.json();
+      if (vd.ok && vd.download_url) unlockKitUI(vd.download_url);
+    } catch (err) {
+      statusEl.className = "text-xs text-center text-rose-400";
+      statusEl.innerText = err.message || "Payment cancelled";
+    } finally {
+      btn.disabled = false;
+    }
+  };
+
+  window.verifyManualKitTx = async function() {
+    const txHash = (document.getElementById("kitTxHash").value || "").trim();
+    const st = document.getElementById("kitManualStatus");
+    st.classList.remove("hidden");
+    st.className = "text-xs text-[#00d294] mt-2";
+    st.innerText = "Verifying BEP20 TxHash on-chain...";
+    try {
+      const r = await fetch(API + "/api/verify-usdt", {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({session_id: kitSessionId, tx_hash: txHash})
+      });
+      const d = await r.json();
+      if (d.ok && d.download_url) {
+        unlockKitUI(d.download_url);
+      } else {
+        st.className = "text-xs text-rose-400 mt-2";
+        st.innerText = d.error || "Verification failed";
+      }
+    } catch (_) {
+      st.className = "text-xs text-rose-400 mt-2";
+      st.innerText = "Network error verifying transaction";
+    }
+  };
+
 })();
 </script>
 
