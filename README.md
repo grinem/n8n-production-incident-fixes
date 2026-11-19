@@ -1,7 +1,7 @@
 # 🛠️ n8n & Low-Code Production Incident Fixes (Live Knowledge Base)
 
 [![GitHub Pages](https://img.shields.io/badge/GitHub%20Pages-Live%20Showcase-brightgreen?style=flat-square&logo=github)](https://grinem.github.io/n8n-production-incident-fixes/)
-[![Incidents Resolved](https://img.shields.io/badge/Incidents%20Resolved-134%20Verified-blue?style=flat-square)](cases/)
+[![Incidents Resolved](https://img.shields.io/badge/Incidents%20Resolved-135%20Verified-blue?style=flat-square)](cases/)
 [![Emergency SLA](https://img.shields.io/badge/Incident%20SLA-%3C%206%20Hours-orange?style=flat-square)](https://hooktriage.com/#triage)
 [![Async Triage](https://img.shields.io/badge/Async%20Triage-Zero%20Calls-success?style=flat-square)](https://hooktriage.com/#triage)
 
@@ -38,10 +38,11 @@ All incident post-mortems in this repository are autonomously generated and sync
 
 ---
 
-## 📚 Documented Production Incidents (134)
+## 📚 Documented Production Incidents (135)
 
 | Ecosystem | Incident Case Study | Root Cause Snapshot | Severity | Solution Link |
 |:----------|:--------------------|:--------------------|:--------:|:-------------:|
+| **n8n** | [Array .chunk() expression should reject fractional and infinite sizes](cases/array-chunk-expression-should-reject-fractional-and-infinite-size.md) | Spot on analysis. Swapping the guard to `!Number.isInteger(chunkSize) || chunkSize <= 0` cleanly handles floats, `Infinity`, `NaN`, and non-numbers in a single check without nee... | 🟡 `MEDIUM` | [**Solution**](cases/array-chunk-expression-should-reject-fractional-and-infinite-size.md) |
 | **Make.com** | [Make the OpenSearch client timeout configurable (searches fail with read timeout=10 on cold k-NN graphs)](cases/make-the-opensearch-client-timeout-configurable-searches-fail-wit.md) | Spot-on diagnosis. Loading cold HNSW graphs from EBS into off-heap memory on baseline gp3 (~125 MiB/s) consistently crosses the 10s default once shard graph segments hit ~1 GiB+. | 🟡 `MEDIUM` | [**Solution**](cases/make-the-opensearch-client-timeout-configurable-searches-fail-wit.md) |
 | **Automation Engine** | [Version 1.19.0, the problem classifier cannot add a category by clicking](cases/version-1-19-0-the-problem-classifier-cannot-add-a-category-by-cl.md) | Can you open your browser console (F12) when clicking "Add" and share the error log here? | 🟠 `HIGH` | [**Solution**](cases/version-1-19-0-the-problem-classifier-cannot-add-a-category-by-cl.md) |
 | **Activepieces** | [[BUG]: Webhook rejects CloudEvents JSON with HTTP 415](cases/webhook-rejects-cloudevents-json-with-http-415.md) | Spot on diagnosis. `FST_ERR_CTP_INVALID_MEDIA_TYPE` is thrown directly by Fastify at the HTTP parser layer before the request can reach the webhook handler or queue. | 🟡 `MEDIUM` | [**Solution**](cases/webhook-rejects-cloudevents-json-with-http-415.md) |
