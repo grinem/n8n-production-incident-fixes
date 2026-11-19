@@ -19,7 +19,7 @@ slug: "make-the-opensearch-client-timeout-configurable-searches-fail-wit"
 ## Incident Metadata
 - **Platform / Ecosystem**: `Make.com`
 - **Incident Severity**: `MEDIUM`
-- **Resolution Status**: `RADAR TRIAGED & READY FOR RESOLUTION`
+- **Resolution Status**: `VERIFIED & RESOLVED`
 - **Logged Timestamp**: `2026-11-19T08:02:31.022476`
 - **Diagnosis Engine**: Autonomous Production Incident Radar
 
