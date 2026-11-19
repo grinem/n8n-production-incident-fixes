@@ -13,9 +13,9 @@ title: "Production Incident Fixes & Post-Mortem Knowledge Base"
 
 
 ### 📊 Real-Time Operations Telemetry
-- **Total Production Incidents Documented**: `143`
+- **Total Production Incidents Documented**: `144`
 - **Active Incident Resolvers**: Automated Production Radar + Lead SRE Engineer
-- **Breakdown by Platform**: **n8n**: 71 | **Automation Engine**: 27 | **Make.com**: 26 | **Activepieces**: 9 | **Bubble.io**: 5 | **Meta / Webhooks**: 3 | **Baserow**: 2
+- **Breakdown by Platform**: **n8n**: 72 | **Automation Engine**: 27 | **Make.com**: 26 | **Activepieces**: 9 | **Bubble.io**: 5 | **Meta / Webhooks**: 3 | **Baserow**: 2
 - **Average Diagnosis & Root-Cause Pinpoint**: `< 15 Minutes`
 
 ---
@@ -24,6 +24,7 @@ title: "Production Incident Fixes & Post-Mortem Knowledge Base"
 
 | Ecosystem | Incident Summary | Root Cause Snapshot | Severity | Resolution Guide |
 |:----------|:-----------------|:--------------------|:--------:|:----------------:|
+| **n8n** | [Evolution API: one instance goes “connected but deaf” right after another instance reconnects. Anyone seen this?](cases/evolution-api-one-instance-goes-connected-but-deaf-right-after-an.html) | Yes, this is the classic "half-open" deaf socket state in Baileys. | 🟠 `HIGH` | [**View Solution →**](cases/evolution-api-one-instance-goes-connected-but-deaf-right-after-an.html) |
 | **Automation Engine** | [autofix fails on PRs touching api/ because a .github test file on main is not Ruff-formatted](cases/autofix-fails-on-prs-touching-api-because-a-github-test-file-on-m.html) | Spot on. `autofix.ci` hard-blocks changes inside `.github/` by design to prevent unauthorized workflow modifications. | 🔴 `CRITICAL` | [**View Solution →**](cases/autofix-fails-on-prs-touching-api-because-a-github-test-file-on-m.html) |
 | **n8n** | [DateTime.diffTo() silently returns undefined for the units weekday, weekNumber and yearDayNumber](cases/datetime-diffto-silently-returns-undefined-for-the-units-weekday.html) | Great catch and spot-on root-cause analysis. | 🔴 `CRITICAL` | [**View Solution →**](cases/datetime-diffto-silently-returns-undefined-for-the-units-weekday.html) |
 | **Automation Engine** | [Workflow run output panel double-encodes structured JSON](cases/workflow-run-output-panel-double-encodes-structured-json.html) | Nice catch. Passing `outputs` directly to `<CodeEditor value={outputs} isJSONStringifyBeauty />` is the right call here since `serializeCodeEditorValue` handles the formatting i... | 🔴 `CRITICAL` | [**View Solution →**](cases/workflow-run-output-panel-double-encodes-structured-json.html) |
