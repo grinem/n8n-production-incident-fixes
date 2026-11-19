@@ -13,7 +13,9 @@
 - Sitemap: https://hooktriage.com/sitemap.xml
 - Maintainer GitHub Profile: https://github.com/grinem
 
-## Documented Production Incidents (139)
+## Documented Production Incidents (141)
+- [Automation Engine] Workflow run output panel double-encodes structured JSON: https://hooktriage.com/cases/workflow-run-output-panel-double-encodes-structured-json.html - Root Cause: Nice catch. Passing `outputs` directly to `<CodeEditor value={outputs} isJSONStringifyBeauty />` is the right call here since `serializeCodeEditorValue` handles the formatting i...
+- [Automation Engine] Agent transient commands ignore timeout while replaying truncated output: https://hooktriage.com/cases/agent-transient-commands-ignore-timeout-while-replaying-truncated.html - Root Cause: Confirmed, nice repro script.
 - [n8n] Teams agent channel: credential check returns 403 "missing scope" for project owners (credentialId param shadows projectId/agentId in userHasScopes): https://hooktriage.com/cases/teams-agent-channel-credential-check-returns-403-missing-scope-fo.html - Root Cause: Spot-on analysis. One detail to watch out for if putting together a PR: solely swapping the evaluation order (`agentId` before `credentialId`) risks reverse-shadowing if a compo...
 - [Activepieces] [BUG]: OpenAI piece: Ask ChatGPT defaults to gpt-3.5-turbo (already shut down); Sentiment, Vision, Text-to-Speech and Translate Audio use models/endpoints OpenAI retires by Feb 2027: https://hooktriage.com/cases/openai-piece-ask-chatgpt-defaults-to-gpt-3-5-turbo-already-shut-d.html - Root Cause: Good catch on those line references.
 - [n8n] How do you catch a silently failed n8n node before a message is lost?: https://hooktriage.com/cases/how-do-you-catch-a-silently-failed-n8n-node-before-a-message-is-l.html - Root Cause: Check your execution history for that run and look at the item count entering the sending node. 9 times out of 10, an upstream `If` or `Filter` node output `0 items`—n8n treats ...
