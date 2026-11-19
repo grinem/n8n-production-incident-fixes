@@ -1,7 +1,7 @@
 # 🛠️ n8n & Low-Code Production Incident Fixes (Live Knowledge Base)
 
 [![GitHub Pages](https://img.shields.io/badge/GitHub%20Pages-Live%20Showcase-brightgreen?style=flat-square&logo=github)](https://grinem.github.io/n8n-production-incident-fixes/)
-[![Incidents Resolved](https://img.shields.io/badge/Incidents%20Resolved-136%20Verified-blue?style=flat-square)](cases/)
+[![Incidents Resolved](https://img.shields.io/badge/Incidents%20Resolved-137%20Verified-blue?style=flat-square)](cases/)
 [![Emergency SLA](https://img.shields.io/badge/Incident%20SLA-%3C%206%20Hours-orange?style=flat-square)](https://hooktriage.com/#triage)
 [![Async Triage](https://img.shields.io/badge/Async%20Triage-Zero%20Calls-success?style=flat-square)](https://hooktriage.com/#triage)
 
@@ -38,10 +38,11 @@ All incident post-mortems in this repository are autonomously generated and sync
 
 ---
 
-## 📚 Documented Production Incidents (136)
+## 📚 Documented Production Incidents (137)
 
 | Ecosystem | Incident Case Study | Root Cause Snapshot | Severity | Solution Link |
 |:----------|:--------------------|:--------------------|:--------:|:-------------:|
+| **n8n** | [How do you catch a silently failed n8n node before a message is lost?](cases/how-do-you-catch-a-silently-failed-n8n-node-before-a-message-is-l.md) | Check your execution history for that run and look at the item count entering the sending node. 9 times out of 10, an upstream `If` or `Filter` node output `0 items`—n8n treats ... | 🟠 `HIGH` | [**Solution**](cases/how-do-you-catch-a-silently-failed-n8n-node-before-a-message-is-l.md) |
 | **n8n** | [If Node Problem-Emails nicht sortiert](cases/if-node-problem-emails-nicht-sortiert.md) | If *all* emails are passing through to that folder, check whether **Value 1** in your IF node is set to **Fixed** instead of **Expression**. If it's set to Fixed with text like ... | 🟡 `MEDIUM` | [**Solution**](cases/if-node-problem-emails-nicht-sortiert.md) |
 | **n8n** | [Array .chunk() expression should reject fractional and infinite sizes](cases/array-chunk-expression-should-reject-fractional-and-infinite-size.md) | Spot on analysis. Swapping the guard to `!Number.isInteger(chunkSize) || chunkSize <= 0` cleanly handles floats, `Infinity`, `NaN`, and non-numbers in a single check without nee... | 🟡 `MEDIUM` | [**Solution**](cases/array-chunk-expression-should-reject-fractional-and-infinite-size.md) |
 | **Make.com** | [Make the OpenSearch client timeout configurable (searches fail with read timeout=10 on cold k-NN graphs)](cases/make-the-opensearch-client-timeout-configurable-searches-fail-wit.md) | Spot-on diagnosis. Loading cold HNSW graphs from EBS into off-heap memory on baseline gp3 (~125 MiB/s) consistently crosses the 10s default once shard graph segments hit ~1 GiB+. | 🟡 `MEDIUM` | [**Solution**](cases/make-the-opensearch-client-timeout-configurable-searches-fail-wit.md) |

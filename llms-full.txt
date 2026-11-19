@@ -13,7 +13,8 @@
 - Sitemap: https://hooktriage.com/sitemap.xml
 - Maintainer GitHub Profile: https://github.com/grinem
 
-## Documented Production Incidents (136)
+## Documented Production Incidents (137)
+- [n8n] How do you catch a silently failed n8n node before a message is lost?: https://hooktriage.com/cases/how-do-you-catch-a-silently-failed-n8n-node-before-a-message-is-l.html - Root Cause: Check your execution history for that run and look at the item count entering the sending node. 9 times out of 10, an upstream `If` or `Filter` node output `0 items`—n8n treats ...
 - [n8n] If Node Problem-Emails nicht sortiert: https://hooktriage.com/cases/if-node-problem-emails-nicht-sortiert.html - Root Cause: If *all* emails are passing through to that folder, check whether **Value 1** in your IF node is set to **Fixed** instead of **Expression**. If it's set to Fixed with text like ...
 - [n8n] Array .chunk() expression should reject fractional and infinite sizes: https://hooktriage.com/cases/array-chunk-expression-should-reject-fractional-and-infinite-size.html - Root Cause: Spot on analysis. Swapping the guard to `!Number.isInteger(chunkSize) || chunkSize <= 0` cleanly handles floats, `Infinity`, `NaN`, and non-numbers in a single check without nee...
 - [Make.com] Make the OpenSearch client timeout configurable (searches fail with read timeout=10 on cold k-NN graphs): https://hooktriage.com/cases/make-the-opensearch-client-timeout-configurable-searches-fail-wit.html - Root Cause: Spot-on diagnosis. Loading cold HNSW graphs from EBS into off-heap memory on baseline gp3 (~125 MiB/s) consistently crosses the 10s default once shard graph segments hit ~1 GiB+.
