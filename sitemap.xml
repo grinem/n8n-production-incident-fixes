@@ -7,6 +7,12 @@
     <priority>1.0</priority>
   </url>
   <url>
+    <loc>https://hooktriage.com/cases/autofix-fails-on-prs-touching-api-because-a-github-test-file-on-m.html</loc>
+    <lastmod>2026-11-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://hooktriage.com/cases/datetime-diffto-silently-returns-undefined-for-the-units-weekday.html</loc>
     <lastmod>2026-11-19</lastmod>
     <changefreq>weekly</changefreq>

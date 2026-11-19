@@ -13,7 +13,8 @@
 - Sitemap: https://hooktriage.com/sitemap.xml
 - Maintainer GitHub Profile: https://github.com/grinem
 
-## Documented Production Incidents (142)
+## Documented Production Incidents (143)
+- [Automation Engine] autofix fails on PRs touching api/ because a .github test file on main is not Ruff-formatted: https://hooktriage.com/cases/autofix-fails-on-prs-touching-api-because-a-github-test-file-on-m.html - Root Cause: Spot on. `autofix.ci` hard-blocks changes inside `.github/` by design to prevent unauthorized workflow modifications.
 - [n8n] DateTime.diffTo() silently returns undefined for the units weekday, weekNumber and yearDayNumber: https://hooktriage.com/cases/datetime-diffto-silently-returns-undefined-for-the-units-weekday.html - Root Cause: Great catch and spot-on root-cause analysis.
 - [Automation Engine] Workflow run output panel double-encodes structured JSON: https://hooktriage.com/cases/workflow-run-output-panel-double-encodes-structured-json.html - Root Cause: Nice catch. Passing `outputs` directly to `<CodeEditor value={outputs} isJSONStringifyBeauty />` is the right call here since `serializeCodeEditorValue` handles the formatting i...
 - [Automation Engine] Agent transient commands ignore timeout while replaying truncated output: https://hooktriage.com/cases/agent-transient-commands-ignore-timeout-while-replaying-truncated.html - Root Cause: Confirmed, nice repro script.

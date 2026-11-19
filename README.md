@@ -1,7 +1,7 @@
 # 🛠️ n8n & Low-Code Production Incident Fixes (Live Knowledge Base)
 
 [![GitHub Pages](https://img.shields.io/badge/GitHub%20Pages-Live%20Showcase-brightgreen?style=flat-square&logo=github)](https://grinem.github.io/n8n-production-incident-fixes/)
-[![Incidents Resolved](https://img.shields.io/badge/Incidents%20Resolved-142%20Verified-blue?style=flat-square)](cases/)
+[![Incidents Resolved](https://img.shields.io/badge/Incidents%20Resolved-143%20Verified-blue?style=flat-square)](cases/)
 [![Emergency SLA](https://img.shields.io/badge/Incident%20SLA-%3C%206%20Hours-orange?style=flat-square)](https://hooktriage.com/#triage)
 [![Async Triage](https://img.shields.io/badge/Async%20Triage-Zero%20Calls-success?style=flat-square)](https://hooktriage.com/#triage)
 
@@ -38,10 +38,11 @@ All incident post-mortems in this repository are autonomously generated and sync
 
 ---
 
-## 📚 Documented Production Incidents (142)
+## 📚 Documented Production Incidents (143)
 
 | Ecosystem | Incident Case Study | Root Cause Snapshot | Severity | Solution Link |
 |:----------|:--------------------|:--------------------|:--------:|:-------------:|
+| **Automation Engine** | [autofix fails on PRs touching api/ because a .github test file on main is not Ruff-formatted](cases/autofix-fails-on-prs-touching-api-because-a-github-test-file-on-m.md) | Spot on. `autofix.ci` hard-blocks changes inside `.github/` by design to prevent unauthorized workflow modifications. | 🔴 `CRITICAL` | [**Solution**](cases/autofix-fails-on-prs-touching-api-because-a-github-test-file-on-m.md) |
 | **n8n** | [DateTime.diffTo() silently returns undefined for the units weekday, weekNumber and yearDayNumber](cases/datetime-diffto-silently-returns-undefined-for-the-units-weekday.md) | Great catch and spot-on root-cause analysis. | 🔴 `CRITICAL` | [**Solution**](cases/datetime-diffto-silently-returns-undefined-for-the-units-weekday.md) |
 | **Automation Engine** | [Workflow run output panel double-encodes structured JSON](cases/workflow-run-output-panel-double-encodes-structured-json.md) | Nice catch. Passing `outputs` directly to `<CodeEditor value={outputs} isJSONStringifyBeauty />` is the right call here since `serializeCodeEditorValue` handles the formatting i... | 🔴 `CRITICAL` | [**Solution**](cases/workflow-run-output-panel-double-encodes-structured-json.md) |
 | **Automation Engine** | [Agent transient commands ignore timeout while replaying truncated output](cases/agent-transient-commands-ignore-timeout-while-replaying-truncated.md) | Confirmed, nice repro script. | 🟠 `HIGH` | [**Solution**](cases/agent-transient-commands-ignore-timeout-while-replaying-truncated.md) |
