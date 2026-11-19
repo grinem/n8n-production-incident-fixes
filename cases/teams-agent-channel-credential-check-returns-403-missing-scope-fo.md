@@ -19,7 +19,7 @@ slug: "teams-agent-channel-credential-check-returns-403-missing-scope-fo"
 ## Incident Metadata
 - **Platform / Ecosystem**: `n8n`
 - **Incident Severity**: `HIGH`
-- **Resolution Status**: `RADAR TRIAGED & READY FOR RESOLUTION`
+- **Resolution Status**: `VERIFIED & RESOLVED`
 - **Logged Timestamp**: `2026-11-19T13:10:29.303991`
 - **Diagnosis Engine**: Autonomous Production Incident Radar
 
