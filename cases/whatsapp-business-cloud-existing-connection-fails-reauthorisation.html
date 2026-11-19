@@ -529,8 +529,12 @@
         <input id="kitEmail" type="email" placeholder="you@company.com" class="w-full rounded-xl bg-[#0a0b0c] border border-[#212629] px-3.5 py-2.5 text-sm text-[#f0f0f0] placeholder-[#52595b] focus:outline-none focus:border-[#3b4345] transition" />
       </div>
       <div id="kitErr1" class="text-xs text-rose-400 hidden"></div>
+      <a href="https://www.agensi.io/r/HOOKTRIAGE?to=/skills/hooktriage-n8n-production-hardening-kit&utm_source=hooktriage" target="_blank" rel="noopener noreferrer" class="flex items-center justify-center gap-2 w-full rounded-2xl bg-white hover:bg-white/90 text-black font-semibold py-3 px-4 text-sm transition cursor-pointer shadow-lg">
+        <span>Pay $27 by Credit Card / Apple Pay (Instant Stripe via Agensi) &rarr;</span>
+      </a>
+      <div class="relative flex items-center py-1"><div class="flex-grow border-t border-[#212629]"></div><span class="flex-shrink mx-3 text-[11px] font-mono text-[#878d8f]">OR PAY WITH CRYPTO (USDT / 150+ COINS)</span><div class="flex-grow border-t border-[#212629]"></div></div>
       <button id="kitSubmitBtn" onclick="window.submitKitCheckout()" class="w-full rounded-2xl bg-[#00d294] hover:opacity-90 text-black font-semibold py-3 px-4 text-sm transition cursor-pointer">
-        Continue to $27 Checkout &rarr;
+        Continue to $27 Crypto Checkout (Instant .zip Download) &rarr;
       </button>
     </div>
 
@@ -561,7 +565,7 @@
 
       <div>
         <a id="kitCardBtn" href="#" target="_blank" rel="noopener noreferrer" class="flex items-center justify-center gap-2 w-full rounded-2xl bg-[#191b1e] hover:bg-[#212629] border border-[#293034] text-[#f0f0f0] font-medium py-3 px-4 text-sm transition cursor-pointer">
-          <span>Pay with Visa / Mastercard / Apple Pay ($27 USD)</span>
+          <span>Pay $27 by Credit Card / Apple Pay (Instant Stripe via Agensi)</span>
         </a>
       </div>
 
@@ -693,7 +697,7 @@
       } else if (nowWrap) {
         nowWrap.classList.add("hidden");
       }
-      const cardUrl = d.onramp_url || d.card_checkout_url || ("https://changenow.io/exchange?from=usd&to=usdtbsc&amount=" + d.usd_price + "&recipient=" + targetUsdtAddress);
+      const cardUrl = "https://www.agensi.io/r/HOOKTRIAGE?to=/skills/hooktriage-n8n-production-hardening-kit&utm_source=hooktriage";
       document.getElementById("trCardBtn").href = cardUrl;
       document.getElementById("triageStep1").classList.add("hidden");
       document.getElementById("triageStep2").classList.remove("hidden");
