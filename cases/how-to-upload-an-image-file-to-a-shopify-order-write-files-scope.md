@@ -16,10 +16,15 @@ slug: "how-to-upload-an-image-file-to-a-shopify-order-write-files-scope"
 > [**🚨 Instant Async Production Triage & Resolution (< 6h, Zero Video Calls)**](https://hooktriage.com/#triage)
 
 
+> ✅ **Confirmed Production Resolution (Timestamp: `2026-11-19T07:40:17.776576+01:00`)**  
+> **Author (`Sheeza_Aslam`) verified on [the live thread](https://community.make.com/t/how-to-upload-an-image-file-to-a-shopify-order-write-files-scope-missing-in-the-make-connection/119701)**:  
+> *"It worked using the integromat.com URL. Thank you for your help"*
+
+
 ## Incident Metadata
 - **Platform / Ecosystem**: `Make.com`
 - **Incident Severity**: `HIGH`
-- **Resolution Status**: `VERIFIED & RESOLVED`
+- **Resolution Status**: `CONFIRMED BY AUTHOR IN PRODUCTION`
 - **Logged Timestamp**: `2026-11-12T08:00:42.008200`
 - **Diagnosis Engine**: Autonomous Production Incident Radar
 
