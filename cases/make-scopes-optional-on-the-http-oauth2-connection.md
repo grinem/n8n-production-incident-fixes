@@ -19,7 +19,7 @@ slug: "make-scopes-optional-on-the-http-oauth2-connection"
 ## Incident Metadata
 - **Platform / Ecosystem**: `Make.com`
 - **Incident Severity**: `MEDIUM`
-- **Resolution Status**: `RADAR TRIAGED & READY FOR RESOLUTION`
+- **Resolution Status**: `VERIFIED & RESOLVED`
 - **Logged Timestamp**: `2026-11-17T20:25:15.651989`
 - **Diagnosis Engine**: Autonomous Production Incident Radar
 
