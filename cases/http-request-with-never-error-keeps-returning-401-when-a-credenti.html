@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="ht-light">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -46,7 +46,222 @@
     #content ul { list-style-type: disc; padding-left: 1.35rem; margin: 0.75rem 0; }
     #content ol { list-style-type: decimal; padding-left: 1.35rem; margin: 0.75rem 0; }
     #content hr { border: none; border-top: 1px solid #212629; margin: 1.75rem 0; }
+
+    /* === GLOBAL AGENSI LUMINOUS LIGHT MODE (DEFAULT) & DARK MODE ENGINE === */
+    html.ht-light, html.ht-light body {
+      background-color: #f8fafc !important;
+      color: #0f172a !important;
+      background-image: radial-gradient(#cbd5e1 0.85px, transparent 0.85px);
+      background-size: 24px 24px;
+    }
+    html.ht-light header, html.ht-light header.ht-topbar {
+      background: rgba(255, 255, 255, 0.90) !important;
+      border-bottom-color: #e2e8f0 !important;
+      box-shadow: 0 1px 3px rgba(15, 23, 42, 0.04);
+    }
+    html.ht-light .ht-surface,
+    html.ht-light #content,
+    html.ht-light #valueFirstGateCard,
+    html.ht-light details {
+      background-color: #ffffff !important;
+      border-color: #e2e8f0 !important;
+      color: #0f172a !important;
+      box-shadow: 0 4px 20px -2px rgba(15, 23, 42, 0.05);
+    }
+    html.ht-light .ht-surface-subtle {
+      background-color: #f1f5f9 !important;
+      border-color: #e2e8f0 !important;
+      color: #334155 !important;
+    }
+    html.ht-light .ht-text-main { color: #0f172a !important; }
+    html.ht-light .ht-text-muted { color: #475569 !important; }
+    html.ht-light .ht-text-soft { color: #64748b !important; }
+
+    /* Case study article (#content) typography in Light Mode */
+    html.ht-light #content h1,
+    html.ht-light #content h2,
+    html.ht-light #content h3,
+    html.ht-light #content strong,
+    html.ht-light #valueFirstGateCard h3,
+    html.ht-light details summary {
+      color: #0f172a !important;
+      border-bottom-color: #e2e8f0 !important;
+    }
+    html.ht-light #content p,
+    html.ht-light #content li,
+    html.ht-light #valueFirstGateCard ul,
+    html.ht-light #valueFirstGateCard p,
+    html.ht-light details p {
+      color: #334155 !important;
+    }
+    html.ht-light #content a {
+      color: #2563eb !important;
+      text-decoration-color: #93c5fd !important;
+    }
+    html.ht-light #content a:hover {
+      color: #1d4ed8 !important;
+      text-decoration-color: #2563eb !important;
+    }
+    html.ht-light #content blockquote {
+      background: #f8fafc !important;
+      border-left: 3px solid #2563eb !important;
+      color: #334155 !important;
+    }
+    html.ht-light #content code,
+    html.ht-light #valueFirstGateCard code,
+    html.ht-light details code {
+      background: #f1f5f9 !important;
+      border-color: #cbd5e1 !important;
+      color: #0f172a !important;
+    }
+    /* Keep multi-line <pre> code terminals dark & high-contrast even in Light Mode */
+    html.ht-light #content pre,
+    html.ht-light pre#gateBundlePatch,
+    html.ht-light pre#gateBundleChecklist,
+    html.ht-light pre#gateBundlePostmortem {
+      background: #0f172a !important;
+      border-color: #1e293b !important;
+      color: #f8fafc !important;
+    }
+    html.ht-light #content pre code {
+      background: transparent !important;
+      border: none !important;
+      color: #f8fafc !important;
+    }
+    html.ht-light #content hr {
+      border-top-color: #e2e8f0 !important;
+    }
+
+    /* Fix Capture 3: Incident Cards on Index in Light Mode (NEVER white text on hover!) */
+    html.ht-light .incident-card {
+      background-color: #ffffff !important;
+      border-color: #e2e8f0 !important;
+      box-shadow: 0 2px 10px rgba(15, 23, 42, 0.04);
+    }
+    html.ht-light .incident-card:hover {
+      background-color: #ffffff !important;
+      border-color: #2563eb !important;
+      box-shadow: 0 10px 25px -5px rgba(37, 99, 235, 0.14);
+    }
+    html.ht-light .incident-card h3,
+    html.ht-light .incident-card h3 a,
+    html.ht-light .incident-card .ht-card-title-link,
+    html.ht-light .incident-card .ht-card-view-link {
+      color: #0f172a !important;
+    }
+    html.ht-light .incident-card:hover h3 a,
+    html.ht-light .incident-card h3 a:hover,
+    html.ht-light .incident-card .ht-card-title-link:hover,
+    html.ht-light .incident-card .ht-card-view-link:hover,
+    html.ht-light .incident-card a:hover {
+      color: #2563eb !important;
+    }
+
+    /* Fix Capture 2: Modals (#triageModal & #kitModal) + Floating Action Button in Light Mode */
+    html.ht-light #triageFab {
+      background-color: #0f172a !important;
+      color: #ffffff !important;
+      border-color: #1e293b !important;
+      box-shadow: 0 10px 25px rgba(15, 23, 42, 0.22) !important;
+    }
+    html.ht-light #triageModal,
+    html.ht-light #kitModal {
+      background-color: rgba(15, 23, 42, 0.45) !important;
+    }
+    html.ht-light #triageModal > div,
+    html.ht-light #kitModal > div {
+      background-color: #ffffff !important;
+      border-color: #cbd5e1 !important;
+      color: #0f172a !important;
+      box-shadow: 0 25px 50px -12px rgba(15, 23, 42, 0.25) !important;
+    }
+    html.ht-light #triageModal h3,
+    html.ht-light #kitModal h3,
+    html.ht-light #triageModal strong,
+    html.ht-light #kitModal strong,
+    html.ht-light #triageModal .text-\[\#f0f0f0\],
+    html.ht-light #kitModal .text-\[\#f0f0f0\] {
+      color: #0f172a !important;
+    }
+    html.ht-light #triageModal label,
+    html.ht-light #kitModal label,
+    html.ht-light #triageModal .text-\[\#a1a4a5\],
+    html.ht-light #kitModal .text-\[\#a1a4a5\],
+    html.ht-light #triageModal .text-\[\#878d8f\],
+    html.ht-light #kitModal .text-\[\#878d8f\] {
+      color: #475569 !important;
+    }
+    html.ht-light #triageModal .bg-\[\#0a0b0c\],
+    html.ht-light #kitModal .bg-\[\#0a0b0c\],
+    html.ht-light #triageModal .bg-\[\#191b1e\],
+    html.ht-light #kitModal .bg-\[\#191b1e\],
+    html.ht-light #valueFirstGateCard .bg-\[\#191b1e\],
+    html.ht-light #valueFirstGateCard .bg-\[\#0a0b0c\] {
+      background-color: #f1f5f9 !important;
+      border-color: #cbd5e1 !important;
+      color: #0f172a !important;
+    }
+    html.ht-light #triageModal input,
+    html.ht-light #triageModal textarea,
+    html.ht-light #kitModal input,
+    html.ht-light #valueFirstGateCard input,
+    html.ht-light details input,
+    html.ht-light details textarea {
+      background-color: #f8fafc !important;
+      border-color: #cbd5e1 !important;
+      color: #0f172a !important;
+    }
+    html.ht-light #triageModal input:focus,
+    html.ht-light #triageModal textarea:focus,
+    html.ht-light #kitModal input:focus,
+    html.ht-light #valueFirstGateCard input:focus {
+      border-color: #2563eb !important;
+      background-color: #ffffff !important;
+    }
+    /* Turn white CTA buttons inside modals & gate into vibrant Agensi Blue in Light Mode */
+    html.ht-light #triageModal button.bg-white,
+    html.ht-light #kitModal a.bg-white,
+    html.ht-light #kitModal button.bg-white,
+    html.ht-light #valueFirstGateCard button.bg-white,
+    html.ht-light header button.bg-white {
+      background-color: #2563eb !important;
+      color: #ffffff !important;
+    }
+    html.ht-light #triageModal button.bg-white:hover,
+    html.ht-light #kitModal a.bg-white:hover,
+    html.ht-light #kitModal button.bg-white:hover,
+    html.ht-light #valueFirstGateCard button.bg-white:hover {
+      background-color: #1d4ed8 !important;
+    }
+    html.ht-light #triageModal .border-\[\#212629\],
+    html.ht-light #kitModal .border-\[\#212629\],
+    html.ht-light #valueFirstGateCard .border-\[\#212629\],
+    html.ht-light details .border-\[\#212629\] {
+      border-color: #e2e8f0 !important;
+    }
   </style>
+  <script>
+    (function() {
+      try {
+        var saved = localStorage.getItem('ht_theme');
+        if (saved === 'dark') {
+          document.documentElement.classList.remove('ht-light');
+        } else {
+          document.documentElement.classList.add('ht-light');
+        }
+      } catch(e) {
+        document.documentElement.classList.add('ht-light');
+      }
+    })();
+    window.toggleHtTheme = function() {
+      var htmlEl = document.documentElement;
+      var isLight = htmlEl.classList.toggle('ht-light');
+      try { localStorage.setItem('ht_theme', isLight ? 'light' : 'dark'); } catch(e) {}
+      document.querySelectorAll('.ht-theme-btn').forEach(function(btn) {
+        btn.innerHTML = isLight ? '&#9728;&#65039; <span class="hidden md:inline text-[11px]">Light</span>' : '&#127769; <span class="hidden md:inline text-[11px]">Dark</span>';
+      });
+    };
+  </script>
   <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
   <script type="application/ld+json">
   {
@@ -68,16 +283,33 @@
   </script>
 </head>
 <body class="bg-[#000000] text-[#f0f0f0] min-h-screen font-sans antialiased selection:bg-white/20 selection:text-white">
-  <!-- Minimal Sticky Top Bar -->
-  <header class="sticky top-0 z-40 h-[58px] bg-black/75 backdrop-blur-md border-b border-[#212629]">
-    <div class="max-w-5xl mx-auto h-full px-6 flex items-center justify-between gap-4">
-      <a href="../" class="inline-flex items-center gap-2 text-sm font-medium text-[#a1a4a5] hover:text-[#f0f0f0] transition">
-        <span>&larr;</span><span>Incident Knowledge Base</span>
-      </a>
-      <button onclick="window.openTriageModal()" class="inline-flex items-center gap-2 rounded-xl bg-white hover:bg-white/90 text-black text-xs font-semibold px-3.5 py-2 transition cursor-pointer">
-        <span class="h-1.5 w-1.5 rounded-full bg-[#00d294]"></span>
-        <span>Launch Async Triage</span>
-      </button>
+  <!-- Agensi-Style Sticky Top Bar for Case Studies -->
+  <header class="ht-topbar sticky top-0 z-40 h-[62px] bg-[#0b0f19]/85 backdrop-blur-md border-b border-[#212629] transition-colors">
+    <div class="max-w-5xl mx-auto h-full px-4 sm:px-6 flex items-center justify-between gap-3">
+      <div class="flex items-center gap-4">
+        <a href="../" class="inline-flex items-center gap-2.5 text-sm font-bold ht-text-main hover:text-blue-600 transition">
+          <div class="w-8 h-8 rounded-xl bg-[#0a0f18] border border-[#00d294]/40 flex items-center justify-center shadow-sm">
+            <svg class="w-4 h-4 text-[#00d294]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M12 3l7 3v6c0 5-3.5 8.5-7 9-3.5-.5-7-4-7-9V6l7-3z"/>
+              <path stroke-linecap="round" stroke-linejoin="round" d="M13 8l-3 5h4l-3 5"/>
+            </svg>
+          </div>
+          <span>&larr; HookTriage Storefront &amp; All Fixes</span>
+        </a>
+      </div>
+      <div class="flex items-center gap-2">
+        <button onclick="window.toggleHtTheme()" title="Switch Light / Dark Mode" class="ht-theme-btn ht-surface-subtle inline-flex items-center gap-1 px-2.5 py-1.5 rounded-xl border border-[#212629] text-xs font-medium cursor-pointer hover:opacity-85 transition">
+          &#9728;&#65039; <span class="hidden md:inline text-[11px]">Light</span>
+        </button>
+        <button onclick="window.openKitModal()" class="inline-flex items-center gap-1.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-xs font-semibold px-3 py-2 transition cursor-pointer shadow-sm">
+          <span>Hardening Kit</span>
+          <span class="px-1.5 py-0.5 rounded bg-white/20 text-[10px] font-bold">$27</span>
+        </button>
+        <button onclick="window.openTriageModal()" class="hidden sm:inline-flex items-center gap-1.5 rounded-xl bg-[#0f172a] hover:bg-[#1e293b] text-white text-xs font-semibold px-3 py-2 transition cursor-pointer">
+          <span class="h-1.5 w-1.5 rounded-full bg-[#00d294]"></span>
+          <span>Async Triage</span>
+        </button>
+      </div>
     </div>
   </header>
 
