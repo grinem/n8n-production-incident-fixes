@@ -1,7 +1,7 @@
 # 🛠️ n8n & Low-Code Production Incident Fixes (Live Knowledge Base)
 
 [![GitHub Pages](https://img.shields.io/badge/GitHub%20Pages-Live%20Showcase-brightgreen?style=flat-square&logo=github)](https://grinem.github.io/n8n-production-incident-fixes/)
-[![Incidents Resolved](https://img.shields.io/badge/Incidents%20Resolved-145%20Verified-blue?style=flat-square)](cases/)
+[![Incidents Resolved](https://img.shields.io/badge/Incidents%20Resolved-146%20Verified-blue?style=flat-square)](cases/)
 [![Emergency SLA](https://img.shields.io/badge/Incident%20SLA-%3C%206%20Hours-orange?style=flat-square)](https://hooktriage.com/#triage)
 [![Async Triage](https://img.shields.io/badge/Async%20Triage-Zero%20Calls-success?style=flat-square)](https://hooktriage.com/#triage)
 
@@ -38,10 +38,11 @@ All incident post-mortems in this repository are autonomously generated and sync
 
 ---
 
-## 📚 Documented Production Incidents (145)
+## 📚 Documented Production Incidents (146)
 
 | Ecosystem | Incident Case Study | Root Cause Snapshot | Severity | Solution Link |
 |:----------|:--------------------|:--------------------|:--------:|:-------------:|
+| **n8n** | [Need help with creating a Google Calendar --> Sheets/ or Docs--> NotebookLM pipeline](cases/need-help-with-creating-a-google-calendar-sheets-or-docs-notebook.md) | You don't need an `.ics` file at all—that's what's overcomplicating your setup. | 🟡 `MEDIUM` | [**Solution**](cases/need-help-with-creating-a-google-calendar-sheets-or-docs-notebook.md) |
 | **Automation Engine** | [IP policy saves wait for a list refresh after the server confirms success](cases/ip-policy-saves-wait-for-a-list-refresh-after-the-server-confirms.md) | The submit handler is currently awaiting the list revalidation query instead of resolving on the `POST` response alone. When the subsequent list fetch fails or hangs, the whole ... | 🔴 `CRITICAL` | [**Solution**](cases/ip-policy-saves-wait-for-a-list-refresh-after-the-server-confirms.md) |
 | **n8n** | [Evolution API: one instance goes “connected but deaf” right after another instance reconnects. Anyone seen this?](cases/evolution-api-one-instance-goes-connected-but-deaf-right-after-an.md) | Yes, this is the classic "half-open" deaf socket state in Baileys. | 🟠 `HIGH` | [**Solution**](cases/evolution-api-one-instance-goes-connected-but-deaf-right-after-an.md) |
 | **Automation Engine** | [autofix fails on PRs touching api/ because a .github test file on main is not Ruff-formatted](cases/autofix-fails-on-prs-touching-api-because-a-github-test-file-on-m.md) | Spot on. `autofix.ci` hard-blocks changes inside `.github/` by design to prevent unauthorized workflow modifications. | 🔴 `CRITICAL` | [**Solution**](cases/autofix-fails-on-prs-touching-api-because-a-github-test-file-on-m.md) |
