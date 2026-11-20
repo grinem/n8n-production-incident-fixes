@@ -13,9 +13,9 @@ title: "Production Incident Fixes & Post-Mortem Knowledge Base"
 
 
 ### 📊 Real-Time Operations Telemetry
-- **Total Production Incidents Documented**: `155`
+- **Total Production Incidents Documented**: `156`
 - **Active Incident Resolvers**: Automated Production Radar + Lead SRE Engineer
-- **Breakdown by Platform**: **n8n**: 76 | **Automation Engine**: 32 | **Make.com**: 27 | **Activepieces**: 10 | **Bubble.io**: 5 | **Meta / Webhooks**: 3 | **Baserow**: 2
+- **Breakdown by Platform**: **n8n**: 76 | **Automation Engine**: 32 | **Make.com**: 28 | **Activepieces**: 10 | **Bubble.io**: 5 | **Meta / Webhooks**: 3 | **Baserow**: 2
 - **Average Diagnosis & Root-Cause Pinpoint**: `< 15 Minutes`
 
 ---
@@ -24,6 +24,7 @@ title: "Production Incident Fixes & Post-Mortem Knowledge Base"
 
 | Ecosystem | Incident Summary | Root Cause Snapshot | Severity | Resolution Guide |
 |:----------|:-----------------|:--------------------|:--------:|:----------------:|
+| **Make.com** | [Facebook Pages OAuth requires a Page-list permission missing from consent](cases/facebook-pages-oauth-requires-a-page-list-permission-missing-from.html) | Meta strips the `pages_show_list` scope whenever you try to cherry-pick pages inside the OAuth consent modal. Make relies on that scope to enumerate your accounts and retrieve t... | 🟡 `MEDIUM` | [**View Solution →**](cases/facebook-pages-oauth-requires-a-page-list-permission-missing-from.html) |
 | **Make.com** | [WhatsApp Coexistence setup stuck before completion](cases/whatsapp-coexistence-setup-stuck-before-completion.html) | That disabled "Next" button usually means Meta is waiting on a 6-digit two-step verification PIN or an in-app confirmation prompt inside your WhatsApp Business mobile app (check... | 🟠 `HIGH` | [**View Solution →**](cases/whatsapp-coexistence-setup-stuck-before-completion.html) |
 | **Automation Engine** | [fix(api): support Enterprise test-channel discovery in the workspace console](cases/fix-api-support-enterprise-test-channel-discovery-in-the-workspac.html) | The 501 comes from `test-channels` reusing the workspace channel-management edition guard, which trips in Enterprise mode since channel provisioning is handled at the deployment... | 🟡 `MEDIUM` | [**View Solution →**](cases/fix-api-support-enterprise-test-channel-discovery-in-the-workspac.html) |
 | **Automation Engine** | [[Bug] Agent V2 converts multiple-select tool arrays into Python repr strings](cases/agent-v2-converts-multiple-select-tool-arrays-into-python-repr-st.html) | Since you already have the DTO patch working and the 6 regression tests passing against `MockTransport`, opening a PR directly against `dify-agent` would be the fastest path to ... | 🟡 `MEDIUM` | [**View Solution →**](cases/agent-v2-converts-multiple-select-tool-arrays-into-python-repr-st.html) |
