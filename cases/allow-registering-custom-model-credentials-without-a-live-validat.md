@@ -19,7 +19,7 @@ slug: "allow-registering-custom-model-credentials-without-a-live-validat"
 ## Incident Metadata
 - **Platform / Ecosystem**: `Automation Engine`
 - **Incident Severity**: `MEDIUM`
-- **Resolution Status**: `RADAR TRIAGED & READY FOR RESOLUTION`
+- **Resolution Status**: `VERIFIED & RESOLVED`
 - **Logged Timestamp**: `2026-11-20T13:24:59.144307`
 - **Diagnosis Engine**: Autonomous Production Incident Radar
 
