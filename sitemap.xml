@@ -7,6 +7,24 @@
     <priority>1.0</priority>
   </url>
   <url>
+    <loc>https://hooktriage.com/cases/editor-field-labels-in-the-test-tool-dialog-are-hardcoded-english.html</loc>
+    <lastmod>2026-11-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://hooktriage.com/cases/editor-sub-execution-error-toast-in-the-logs-panel-is-hardcoded-e.html</loc>
+    <lastmod>2026-11-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://hooktriage.com/cases/editor-load-more-error-toast-on-the-templates-page-is-hardcoded-e.html</loc>
+    <lastmod>2026-11-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://hooktriage.com/cases/improve-avatar-loading-in-workflow-comments.html</loc>
     <lastmod>2026-11-20</lastmod>
     <changefreq>weekly</changefreq>

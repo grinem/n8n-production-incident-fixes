@@ -13,9 +13,9 @@ title: "Production Incident Fixes & Post-Mortem Knowledge Base"
 
 
 ### 📊 Real-Time Operations Telemetry
-- **Total Production Incidents Documented**: `149`
+- **Total Production Incidents Documented**: `152`
 - **Active Incident Resolvers**: Automated Production Radar + Lead SRE Engineer
-- **Breakdown by Platform**: **n8n**: 73 | **Automation Engine**: 30 | **Make.com**: 26 | **Activepieces**: 10 | **Bubble.io**: 5 | **Meta / Webhooks**: 3 | **Baserow**: 2
+- **Breakdown by Platform**: **n8n**: 76 | **Automation Engine**: 30 | **Make.com**: 26 | **Activepieces**: 10 | **Bubble.io**: 5 | **Meta / Webhooks**: 3 | **Baserow**: 2
 - **Average Diagnosis & Root-Cause Pinpoint**: `< 15 Minutes`
 
 ---
@@ -24,6 +24,9 @@ title: "Production Incident Fixes & Post-Mortem Knowledge Base"
 
 | Ecosystem | Incident Summary | Root Cause Snapshot | Severity | Resolution Guide |
 |:----------|:-----------------|:--------------------|:--------:|:----------------:|
+| **n8n** | [Editor: Field labels in the test tool dialog are hardcoded English](cases/editor-field-labels-in-the-test-tool-dialog-are-hardcoded-english.html) | When opening the PR, remember to register the new keys under `packages/frontend/editor-ui/src/app/locale/en.json` so CrowdIn can pick them up properly. | 🟠 `HIGH` | [**View Solution →**](cases/editor-field-labels-in-the-test-tool-dialog-are-hardcoded-english.html) |
+| **n8n** | [Editor: Sub execution error toast in the logs panel is hardcoded English](cases/editor-sub-execution-error-toast-in-the-logs-panel-is-hardcoded-e.html) | Checking `packages/frontend/editor-ui/src/features/execution/logs/composables/useLogsExecutionData.ts` around line 148, the notification call passes the title as a raw string li... | 🟠 `HIGH` | [**View Solution →**](cases/editor-sub-execution-error-toast-in-the-logs-panel-is-hardcoded-e.html) |
+| **n8n** | [Editor: Load more error toast on the templates page is hardcoded English](cases/editor-load-more-error-toast-on-the-templates-page-is-hardcoded-e.html) | Mapping those toast arguments to `this.locale.baseText('generic.error')` (or `generic.errorTitle`) along with a dedicated `templates.search.loadMoreError` key in `packages/front... | 🔴 `CRITICAL` | [**View Solution →**](cases/editor-load-more-error-toast-on-the-templates-page-is-hardcoded-e.html) |
 | **Automation Engine** | [Improve avatar loading in workflow comments](cases/improve-avatar-loading-in-workflow-comments.html) | The flicker comes from presigned S3 query params changing on refetch. Because the URL string changes, the avatar component unmounts the previous image and resets its loading sta... | 🟠 `HIGH` | [**View Solution →**](cases/improve-avatar-loading-in-workflow-comments.html) |
 | **Activepieces** | [[BUG]: {{ }} expressions are still cut off at an inner }} (follow-up to #13094)](cases/expressions-are-still-cut-off-at-an-inner-follow-up-to-13094.html) | Check the step execution logs or dump the output of `extractMustacheTokens(input)` directly: you'll see the expression gets chopped at the first inner `}}` because the current p... | 🟡 `MEDIUM` | [**View Solution →**](cases/expressions-are-still-cut-off-at-an-inner-follow-up-to-13094.html) |
 | **Automation Engine** | [Importing a DSL from a GitHub blob URL fails when the host is capitalized](cases/importing-a-dsl-from-a-github-blob-url-fails-when-the-host-is-cap.html) | Check the worker logs on import failure; it bails out on the validation step because `urlsplit` preserves the raw casing from the request. | 🔴 `CRITICAL` | [**View Solution →**](cases/importing-a-dsl-from-a-github-blob-url-fails-when-the-host-is-cap.html) |
