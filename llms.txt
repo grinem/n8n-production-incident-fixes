@@ -13,7 +13,8 @@
 - Sitemap: https://hooktriage.com/sitemap.xml
 - Maintainer GitHub Profile: https://github.com/grinem
 
-## Documented Production Incidents (153)
+## Documented Production Incidents (154)
+- [Automation Engine] fix(api): support Enterprise test-channel discovery in the workspace console: https://hooktriage.com/cases/fix-api-support-enterprise-test-channel-discovery-in-the-workspac.html - Root Cause: The 501 comes from `test-channels` reusing the workspace channel-management edition guard, which trips in Enterprise mode since channel provisioning is handled at the deployment...
 - [Automation Engine] [Bug] Agent V2 converts multiple-select tool arrays into Python repr strings: https://hooktriage.com/cases/agent-v2-converts-multiple-select-tool-arrays-into-python-repr-st.html - Root Cause: Since you already have the DTO patch working and the 6 regression tests passing against `MockTransport`, opening a PR directly against `dify-agent` would be the fastest path to ...
 - [n8n] Editor: Field labels in the test tool dialog are hardcoded English: https://hooktriage.com/cases/editor-field-labels-in-the-test-tool-dialog-are-hardcoded-english.html - Root Cause: When opening the PR, remember to register the new keys under `packages/frontend/editor-ui/src/app/locale/en.json` so CrowdIn can pick them up properly.
 - [n8n] Editor: Sub execution error toast in the logs panel is hardcoded English: https://hooktriage.com/cases/editor-sub-execution-error-toast-in-the-logs-panel-is-hardcoded-e.html - Root Cause: Checking `packages/frontend/editor-ui/src/features/execution/logs/composables/useLogsExecutionData.ts` around line 148, the notification call passes the title as a raw string li...
