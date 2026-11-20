@@ -2,7 +2,7 @@
 layout: default
 title: "Twilio Webhook triggers twice and creates duplicate Google Sheets rows & SMS"
 platform: "Make.com"
-severity: "HIGH"
+severity: "MEDIUM"
 status: "Resolved"
 date: 2026-11-16
 tags: ["make", "production-fix", "post-mortem", "verified-resolution"]
@@ -18,7 +18,7 @@ slug: "twilio-webhook-triggers-twice-and-creates-duplicate-google-sheets"
 
 ## Incident Metadata
 - **Platform / Ecosystem**: `Make.com`
-- **Incident Severity**: `HIGH`
+- **Incident Severity**: `MEDIUM`
 - **Resolution Status**: `RADAR TRIAGED & READY FOR RESOLUTION`
 - **Logged Timestamp**: `2026-11-16T09:21:30.182879`
 - **Diagnosis Engine**: Autonomous Production Incident Radar
@@ -27,7 +27,7 @@ slug: "twilio-webhook-triggers-twice-and-creates-duplicate-google-sheets"
 
 ## Root-Cause Analysis & Patch Preview (Layer 1)
 
-You're running into a classic race condition: Make processes incoming webhooks concurrently by default, so both executions search Google Sheets before either one has finished appending the new row.
+Toggle **Sequential processing** on in Scenario Settings (gear icon in the bottom toolbar).
 
 ---
 

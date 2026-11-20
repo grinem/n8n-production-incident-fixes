@@ -2,10 +2,10 @@
 layout: default
 title: "Nod .. Context limit error (272,000 tokens) persists across all ChatGPT models after ~30 minutes of use"
 platform: "n8n"
-severity: "CRITICAL"
+severity: "HIGH"
 status: "Resolved"
 date: 2026-11-16
-tags: ["n8n", "critical-incident", "production-fix", "post-mortem", "verified-resolution"]
+tags: ["n8n", "production-fix", "post-mortem", "verified-resolution"]
 slug: "nod-context-limit-error-272-000-tokens-persists-across-all-chatgp"
 ---
 
@@ -18,7 +18,7 @@ slug: "nod-context-limit-error-272-000-tokens-persists-across-all-chatgp"
 
 ## Incident Metadata
 - **Platform / Ecosystem**: `n8n`
-- **Incident Severity**: `CRITICAL`
+- **Incident Severity**: `HIGH`
 - **Resolution Status**: `RADAR TRIAGED & READY FOR RESOLUTION`
 - **Logged Timestamp**: `2026-11-16T05:20:32.833126`
 - **Diagnosis Engine**: Autonomous Production Incident Radar
@@ -27,7 +27,7 @@ slug: "nod-context-limit-error-272-000-tokens-persists-across-all-chatgp"
 
 ## Root-Cause Analysis & Patch Preview (Layer 1)
 
-Switching models fails because Nod continues to pass the entire conversation history from your active session into the payload of the new request, carrying the oversized token count along with it.
+Switching models won't help here because Nod keeps appending the full conversation history from the active session into the payload, so that massive token count just carries over to the new model. You'll need to kill the current thread and start a fresh session (or wip...
 
 ---
 

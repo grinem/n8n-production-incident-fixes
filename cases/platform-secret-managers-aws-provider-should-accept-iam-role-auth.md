@@ -2,7 +2,7 @@
 layout: default
 title: "[Feature]: Platform Secret Managers: AWS provider should accept IAM role auth (default credential chain) instead of only static access keys"
 platform: "Activepieces"
-severity: "MEDIUM"
+severity: "HIGH"
 status: "Resolved"
 date: 2026-11-11
 tags: ["activepieces", "production-fix", "post-mortem", "verified-resolution"]
@@ -18,7 +18,7 @@ slug: "platform-secret-managers-aws-provider-should-accept-iam-role-auth"
 
 ## Incident Metadata
 - **Platform / Ecosystem**: `Activepieces`
-- **Incident Severity**: `MEDIUM`
+- **Incident Severity**: `HIGH`
 - **Resolution Status**: `RADAR TRIAGED & READY FOR RESOLUTION`
 - **Logged Timestamp**: `2026-11-11T17:41:10.063471`
 - **Diagnosis Engine**: Autonomous Production Incident Radar
@@ -27,15 +27,11 @@ slug: "platform-secret-managers-aws-provider-should-accept-iam-role-auth"
 
 ## Root-Cause Analysis & Patch Preview (Layer 1)
 
-Completely agree. In EKS (IRSA) or ECS/EC2 environments, enforcing static IAM keys conflicts directly with least-privilege security policies.
+If you check `env` inside the pod, `AWS_ROLE_ARN` and `AWS_WEB_IDENTITY_TOKEN_FILE` (or ECS metadata endpoints) are likely already injected, but the API throws a validation error upfront because the schema explicitly demands static keys before the AWS SDK v3 default credential provider chain can even run.
 
-The issue stems from two spots in the codebase:
-1. `packages/core/shared/src/lib/ee/secret-managers/dto.ts`: `AWSProviderConfigSchema` treats `accessKeyId` and `secretAccessKey` as required.
-2. `packages/server/api/src/app/ee/secret-managers/secret-manager-providers/aws-provider.ts`: `getSecretsManagerClient()` explicitly injects `credentials: { accessKeyId, secretAccessKey }`, which bypasses the AWS SDK v3 Default Credential Provider Chain.
+Making them optional in the schema and omitting `credentials` when empty allows the SDK to resolve ambient credentials automatically while keeping backward compatibility.
 
-Making these keys optional in the schema and omitting `credentials` when empty allows the SDK to automatically resolve ambient credentials via `AWS_ROLE_ARN` / `AWS_WEB_IDENTITY_TOKEN_FILE` or IMDSv2 while staying backward-compatible:
-
-**1. `packages/core/shared/src/lib/ee/secret-managers/dto.ts`**
+`packages/core/shared/src/lib/ee/secret-managers/dto.ts`:
 
 **Patch Preview (First 3 lines of verified fix):**
 ```typescript

@@ -27,7 +27,7 @@ slug: "google-sheets-search-rows-504-gateway-timeout-when-loading-the-or"
 
 ## Root-Cause Analysis & Patch Preview (Layer 1)
 
-The 100-second `ECONNABORTED` and subsequent 504 Cloudflare timeout happen because Make's module inspector dynamically queries Google Sheets (`values:batchGet`) to introspect your columns and populate dropdowns like **Order by**.
+The 100s `ECONNABORTED` / 504 triggers because Make's module inspector runs a dynamic `values:batchGet` call to introspect column headers for the "Order by" dropdown, and Google Sheets is taking longer than 100 seconds to evaluate the grid.
 
 ---
 

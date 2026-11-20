@@ -27,7 +27,7 @@ slug: "bitbucket-oauth-connection-fails-with-sc424-after-successful-auth"
 
 ## Root-Cause Analysis & Patch Preview (Layer 1)
 
-The `SC424` error ("The request failed due to failure of a previous request") paired with `"Token is invalid, expired, or not supported for this endpoint"` means the initial OAuth handshake succeeded, but Make's immediate follow-up validation call to the Bitbucket API failed.
+SC424 triggers here because right after the initial handshake, Make immediately hits Bitbucket's `/2.0/user` endpoint to grab profile data, and the token gets rejected if it lacks the proper permissions. Head into your Bitbucket OAuth consumer settings and make sure **Account: Read** and **Email: Read** are checked, and verify that "T...
 
 ---
 

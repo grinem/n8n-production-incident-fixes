@@ -51,7 +51,7 @@
       <div class="flex items-center gap-2.5">
         <span class="h-2 w-2 rounded-full bg-[#00d294]"></span>
         <span class="text-sm font-semibold tracking-tight text-[#f0f0f0]">Production Incident Fixes</span>
-        <span class="hidden sm:inline-block text-[11px] font-mono text-[#878d8f] border border-[#212629] bg-[#141517] px-2 py-0.5 rounded-full">148 cases</span>
+        <span class="hidden sm:inline-block text-[11px] font-mono text-[#878d8f] border border-[#212629] bg-[#141517] px-2 py-0.5 rounded-full">149 cases</span>
       </div>
       <div class="flex items-center gap-4">
         <a href="https://github.com/grinem/n8n-production-incident-fixes" target="_blank" rel="noopener noreferrer" class="hidden sm:inline-flex text-xs font-medium text-[#a1a4a5] hover:text-[#f0f0f0] transition">GitHub</a>
@@ -80,7 +80,7 @@
       <!-- Key Metric Counters -->
       <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4 max-w-2xl mx-auto">
         <div class="bg-[#141517] rounded-2xl p-4 sm:p-5 border border-[#212629]">
-          <div class="text-2xl sm:text-3xl font-semibold tracking-tight text-[#f0f0f0]">148</div>
+          <div class="text-2xl sm:text-3xl font-semibold tracking-tight text-[#f0f0f0]">149</div>
           <div class="text-xs text-[#878d8f] mt-1 font-medium">Documented Fixes</div>
         </div>
         <div class="bg-[#141517] rounded-2xl p-4 sm:p-5 border border-[#212629]">
@@ -133,9 +133,9 @@
     <!-- Filter & Search Controls -->
     <div class="mb-8 flex flex-col md:flex-row items-center justify-between gap-4">
       <div class="flex flex-wrap gap-2 justify-center md:justify-start">
-        <button class="filter-btn px-3.5 py-1.5 rounded-xl text-xs font-medium bg-white text-black border border-white transition cursor-pointer" data-filter="all">All Incidents (148)</button>
+        <button class="filter-btn px-3.5 py-1.5 rounded-xl text-xs font-medium bg-white text-black border border-white transition cursor-pointer" data-filter="all">All Incidents (149)</button>
 <button class="filter-btn px-3.5 py-1.5 rounded-xl text-xs font-medium bg-[#141517] text-[#a1a4a5] hover:bg-[#191b1e] hover:text-[#f0f0f0] border border-[#212629] transition cursor-pointer" data-filter="Activepieces">Activepieces (10)</button>
-<button class="filter-btn px-3.5 py-1.5 rounded-xl text-xs font-medium bg-[#141517] text-[#a1a4a5] hover:bg-[#191b1e] hover:text-[#f0f0f0] border border-[#212629] transition cursor-pointer" data-filter="Automation Engine">Automation Engine (29)</button>
+<button class="filter-btn px-3.5 py-1.5 rounded-xl text-xs font-medium bg-[#141517] text-[#a1a4a5] hover:bg-[#191b1e] hover:text-[#f0f0f0] border border-[#212629] transition cursor-pointer" data-filter="Automation Engine">Automation Engine (30)</button>
 <button class="filter-btn px-3.5 py-1.5 rounded-xl text-xs font-medium bg-[#141517] text-[#a1a4a5] hover:bg-[#191b1e] hover:text-[#f0f0f0] border border-[#212629] transition cursor-pointer" data-filter="Baserow">Baserow (2)</button>
 <button class="filter-btn px-3.5 py-1.5 rounded-xl text-xs font-medium bg-[#141517] text-[#a1a4a5] hover:bg-[#191b1e] hover:text-[#f0f0f0] border border-[#212629] transition cursor-pointer" data-filter="Bubble.io">Bubble.io (5)</button>
 <button class="filter-btn px-3.5 py-1.5 rounded-xl text-xs font-medium bg-[#141517] text-[#a1a4a5] hover:bg-[#191b1e] hover:text-[#f0f0f0] border border-[#212629] transition cursor-pointer" data-filter="Make.com">Make.com (26)</button>
@@ -150,6 +150,28 @@
     <!-- Case Studies Cards Grid -->
     <div id="cardsGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5">
       
+        <div id="issue-github_langgenius_dify_46831" data-lead-id="github_langgenius_dify_46831" class="incident-card bg-[#141517] hover:bg-[#191b1e] rounded-2xl p-6 border border-[#212629] hover:border-[#293034] transition-colors flex flex-col justify-between" data-eco="Automation Engine">
+          <div>
+            <div class="flex items-center justify-between gap-2 mb-3.5">
+              <span class="px-2.5 py-0.5 rounded-full text-[11px] font-mono font-medium bg-[#0a0b0c] text-[#a1a4a5] border border-[#212629]">Automation Engine</span>
+              <span class="px-2.5 py-0.5 rounded-full text-[11px] font-mono font-medium border bg-[#f99c00]/10 text-[#ffb547] border-[#f99c00]/25">HIGH</span>
+            </div>
+            <h3 class="text-base font-semibold tracking-tight text-[#f0f0f0] mb-2 leading-snug">
+              <a href="cases/improve-avatar-loading-in-workflow-comments.html" class="hover:text-white transition">Improve avatar loading in workflow comments</a>
+            </h3>
+            <p class="text-[#878d8f] text-sm leading-relaxed mb-5 line-clamp-3">
+              <span class="font-medium text-[#a1a4a5]">Root Cause:</span> The flicker comes from presigned S3 query params changing on refetch. Because the URL string changes, the avatar component unmounts the previous image and resets its loading sta...
+            </p>
+          </div>
+          <div class="pt-4 border-t border-[#212629] flex items-center justify-between text-xs text-[#878d8f]">
+            <span class="font-mono text-[11px]">Logged: 2026-11-20</span>
+            <a href="cases/improve-avatar-loading-in-workflow-comments.html" class="text-[#f0f0f0] hover:text-white font-medium flex items-center gap-1 transition">
+              <span>View Fix</span><span>&rarr;</span>
+            </a>
+          </div>
+        </div>
+        
+
         <div id="issue-github_activepieces_activepieces_17652" data-lead-id="github_activepieces_activepieces_17652" class="incident-card bg-[#141517] hover:bg-[#191b1e] rounded-2xl p-6 border border-[#212629] hover:border-[#293034] transition-colors flex flex-col justify-between" data-eco="Activepieces">
           <div>
             <div class="flex items-center justify-between gap-2 mb-3.5">
@@ -160,7 +182,7 @@
               <a href="cases/expressions-are-still-cut-off-at-an-inner-follow-up-to-13094.html" class="hover:text-white transition">[BUG]: {{ }} expressions are still cut off at an inner }} (follow-up to #13094)</a>
             </h3>
             <p class="text-[#878d8f] text-sm leading-relaxed mb-5 line-clamp-3">
-              <span class="font-medium text-[#a1a4a5]">Root Cause:</span> Spot on. The current parser treats `}}` unconditionally without maintaining single-brace depth or tracking quote boundaries (`&#x27;`, `&quot;`, `` ` ``).
+              <span class="font-medium text-[#a1a4a5]">Root Cause:</span> Check the step execution logs or dump the output of `extractMustacheTokens(input)` directly: you&#x27;ll see the expression gets chopped at the first inner `}}` because the current p...
             </p>
           </div>
           <div class="pt-4 border-t border-[#212629] flex items-center justify-between text-xs text-[#878d8f]">
@@ -182,7 +204,7 @@
               <a href="cases/importing-a-dsl-from-a-github-blob-url-fails-when-the-host-is-cap.html" class="hover:text-white transition">Importing a DSL from a GitHub blob URL fails when the host is capitalized</a>
             </h3>
             <p class="text-[#878d8f] text-sm leading-relaxed mb-5 line-clamp-3">
-              <span class="font-medium text-[#a1a4a5]">Root Cause:</span> Good catch. Using `parsed.hostname.lower()` is the cleanest fix here since `hostname` handles casing and strips potential port components cleanly:
+              <span class="font-medium text-[#a1a4a5]">Root Cause:</span> Check the worker logs on import failure; it bails out on the validation step because `urlsplit` preserves the raw casing from the request.
             </p>
           </div>
           <div class="pt-4 border-t border-[#212629] flex items-center justify-between text-xs text-[#878d8f]">
@@ -248,7 +270,7 @@
               <a href="cases/evolution-api-one-instance-goes-connected-but-deaf-right-after-an.html" class="hover:text-white transition">Evolution API: one instance goes “connected but deaf” right after another instance reconnects. Anyone seen this?</a>
             </h3>
             <p class="text-[#878d8f] text-sm leading-relaxed mb-5 line-clamp-3">
-              <span class="font-medium text-[#a1a4a5]">Root Cause:</span> Yes, this is the classic &quot;half-open&quot; deaf socket state in Baileys.
+              <span class="font-medium text-[#a1a4a5]">Root Cause:</span> Check your container logs right around the reconnect timestamp for `stream errored out` or a sudden spike in event loop lag.
             </p>
           </div>
           <div class="pt-4 border-t border-[#212629] flex items-center justify-between text-xs text-[#878d8f]">
@@ -1590,7 +1612,7 @@
               <a href="cases/microsoft-oauth2-credential-never-refreshes-when-the-api-returns.html" class="hover:text-white transition">Microsoft OAuth2 credential never refreshes when the API returns 403 on an expired token (Power BI)</a>
             </h3>
             <p class="text-[#878d8f] text-sm leading-relaxed mb-5 line-clamp-3">
-              <span class="font-medium text-[#a1a4a5]">Root Cause:</span> Spot on. For a PR, since Graph and Flow APIs return 401 while Power BI returns 403, hardcoding 403 as a default on `microsoftOAuth2Api` would break the former unless `resolveTok...
+              <span class="font-medium text-[#a1a4a5]">Root Cause:</span> Check the node&#x27;s raw response headers in your execution log first to verify Power BI is returning `Www-Authenticate: Bearer error=&quot;invalid_token&quot;` with that 403, rather than an ...
             </p>
           </div>
           <div class="pt-4 border-t border-[#212629] flex items-center justify-between text-xs text-[#878d8f]">
@@ -1804,13 +1826,13 @@
           <div>
             <div class="flex items-center justify-between gap-2 mb-3.5">
               <span class="px-2.5 py-0.5 rounded-full text-[11px] font-mono font-medium bg-[#0a0b0c] text-[#a1a4a5] border border-[#212629]">Make.com</span>
-              <span class="px-2.5 py-0.5 rounded-full text-[11px] font-mono font-medium border bg-[#f99c00]/10 text-[#ffb547] border-[#f99c00]/25">HIGH</span>
+              <span class="px-2.5 py-0.5 rounded-full text-[11px] font-mono font-medium border bg-[#191b1e] text-[#a1a4a5] border-[#212629]">MEDIUM</span>
             </div>
             <h3 class="text-base font-semibold tracking-tight text-[#f0f0f0] mb-2 leading-snug">
               <a href="cases/twilio-webhook-triggers-twice-and-creates-duplicate-google-sheets.html" class="hover:text-white transition">Twilio Webhook triggers twice and creates duplicate Google Sheets rows &amp; SMS</a>
             </h3>
             <p class="text-[#878d8f] text-sm leading-relaxed mb-5 line-clamp-3">
-              <span class="font-medium text-[#a1a4a5]">Root Cause:</span> You&#x27;re running into a classic race condition: Make processes incoming webhooks concurrently by default, so both executions search Google Sheets before either one has finished ap...
+              <span class="font-medium text-[#a1a4a5]">Root Cause:</span> Toggle **Sequential processing** on in Scenario Settings (gear icon in the bottom toolbar).
             </p>
           </div>
           <div class="pt-4 border-t border-[#212629] flex items-center justify-between text-xs text-[#878d8f]">
@@ -1892,13 +1914,13 @@
           <div>
             <div class="flex items-center justify-between gap-2 mb-3.5">
               <span class="px-2.5 py-0.5 rounded-full text-[11px] font-mono font-medium bg-[#0a0b0c] text-[#a1a4a5] border border-[#212629]">n8n</span>
-              <span class="px-2.5 py-0.5 rounded-full text-[11px] font-mono font-medium border bg-[#fb2c36]/10 text-[#ff6b72] border-[#fb2c36]/25">CRITICAL</span>
+              <span class="px-2.5 py-0.5 rounded-full text-[11px] font-mono font-medium border bg-[#f99c00]/10 text-[#ffb547] border-[#f99c00]/25">HIGH</span>
             </div>
             <h3 class="text-base font-semibold tracking-tight text-[#f0f0f0] mb-2 leading-snug">
               <a href="cases/nod-context-limit-error-272-000-tokens-persists-across-all-chatgp.html" class="hover:text-white transition">Nod .. Context limit error (272,000 tokens) persists across all ChatGPT models after ~30 minutes of use</a>
             </h3>
             <p class="text-[#878d8f] text-sm leading-relaxed mb-5 line-clamp-3">
-              <span class="font-medium text-[#a1a4a5]">Root Cause:</span> Switching models fails because Nod continues to pass the entire conversation history from your active session into the payload of the new request, carrying the oversized token c...
+              <span class="font-medium text-[#a1a4a5]">Root Cause:</span> Switching models won&#x27;t help here because Nod keeps appending the full conversation history from the active session into the payload, so that massive token count just carries ove...
             </p>
           </div>
           <div class="pt-4 border-t border-[#212629] flex items-center justify-between text-xs text-[#878d8f]">
@@ -2046,13 +2068,13 @@
           <div>
             <div class="flex items-center justify-between gap-2 mb-3.5">
               <span class="px-2.5 py-0.5 rounded-full text-[11px] font-mono font-medium bg-[#0a0b0c] text-[#a1a4a5] border border-[#212629]">Baserow</span>
-              <span class="px-2.5 py-0.5 rounded-full text-[11px] font-mono font-medium border bg-[#fb2c36]/10 text-[#ff6b72] border-[#fb2c36]/25">CRITICAL</span>
+              <span class="px-2.5 py-0.5 rounded-full text-[11px] font-mono font-medium border bg-[#f99c00]/10 text-[#ffb547] border-[#f99c00]/25">HIGH</span>
             </div>
             <h3 class="text-base font-semibold tracking-tight text-[#f0f0f0] mb-2 leading-snug">
               <a href="cases/request-failed-with-status-code-500.html" class="hover:text-white transition">Request failed with status code 500</a>
             </h3>
             <p class="text-[#878d8f] text-sm leading-relaxed mb-5 line-clamp-3">
-              <span class="font-medium text-[#a1a4a5]">Root Cause:</span> On Baserow SaaS, a 500 when switching tables or editing rows is usually caused by a broken view filter/sort or a formula referencing a field that changed type.
+              <span class="font-medium text-[#a1a4a5]">Root Cause:</span> A 500 when switching tables or editing rows in Baserow SaaS usually means a view filter/sort broke or a formula is referencing a field whose type was modified.
             </p>
           </div>
           <div class="pt-4 border-t border-[#212629] flex items-center justify-between text-xs text-[#878d8f]">
@@ -2580,7 +2602,7 @@
               <a href="cases/google-sheets-search-rows-504-gateway-timeout-when-loading-the-or.html" class="hover:text-white transition">Google Sheets Search Rows: 504 Gateway Timeout when loading the &quot;Order by&quot; field</a>
             </h3>
             <p class="text-[#878d8f] text-sm leading-relaxed mb-5 line-clamp-3">
-              <span class="font-medium text-[#a1a4a5]">Root Cause:</span> The 100-second `ECONNABORTED` and subsequent 504 Cloudflare timeout happen because Make&#x27;s module inspector dynamically queries Google Sheets (`values:batchGet`) to introspect yo...
+              <span class="font-medium text-[#a1a4a5]">Root Cause:</span> The 100s `ECONNABORTED` / 504 triggers because Make&#x27;s module inspector runs a dynamic `values:batchGet` call to introspect column headers for the &quot;Order by&quot; dropdown, and Google...
             </p>
           </div>
           <div class="pt-4 border-t border-[#212629] flex items-center justify-between text-xs text-[#878d8f]">
@@ -2602,7 +2624,7 @@
               <a href="cases/bitbucket-oauth-connection-fails-with-sc424-after-successful-auth.html" class="hover:text-white transition">Bitbucket OAuth connection fails with SC424 after successful authorization</a>
             </h3>
             <p class="text-[#878d8f] text-sm leading-relaxed mb-5 line-clamp-3">
-              <span class="font-medium text-[#a1a4a5]">Root Cause:</span> The `SC424` error (&quot;The request failed due to failure of a previous request&quot;) paired with `&quot;Token is invalid, expired, or not supported for this endpoint&quot;` means the initial OAu...
+              <span class="font-medium text-[#a1a4a5]">Root Cause:</span> SC424 triggers here because right after the initial handshake, Make immediately hits Bitbucket&#x27;s `/2.0/user` endpoint to grab profile data, and the token gets rejected if it lac...
             </p>
           </div>
           <div class="pt-4 border-t border-[#212629] flex items-center justify-between text-xs text-[#878d8f]">
@@ -2838,13 +2860,13 @@
           <div>
             <div class="flex items-center justify-between gap-2 mb-3.5">
               <span class="px-2.5 py-0.5 rounded-full text-[11px] font-mono font-medium bg-[#0a0b0c] text-[#a1a4a5] border border-[#212629]">Activepieces</span>
-              <span class="px-2.5 py-0.5 rounded-full text-[11px] font-mono font-medium border bg-[#191b1e] text-[#a1a4a5] border-[#212629]">MEDIUM</span>
+              <span class="px-2.5 py-0.5 rounded-full text-[11px] font-mono font-medium border bg-[#f99c00]/10 text-[#ffb547] border-[#f99c00]/25">HIGH</span>
             </div>
             <h3 class="text-base font-semibold tracking-tight text-[#f0f0f0] mb-2 leading-snug">
               <a href="cases/platform-secret-managers-aws-provider-should-accept-iam-role-auth.html" class="hover:text-white transition">[Feature]: Platform Secret Managers: AWS provider should accept IAM role auth (default credential chain) instead of only static access keys</a>
             </h3>
             <p class="text-[#878d8f] text-sm leading-relaxed mb-5 line-clamp-3">
-              <span class="font-medium text-[#a1a4a5]">Root Cause:</span> Completely agree. In EKS (IRSA) or ECS/EC2 environments, enforcing static IAM keys conflicts directly with least-privilege security policies.
+              <span class="font-medium text-[#a1a4a5]">Root Cause:</span> If you check `env` inside the pod, `AWS_ROLE_ARN` and `AWS_WEB_IDENTITY_TOKEN_FILE` (or ECS metadata endpoints) are likely already injected, but the API throws a validation erro...
             </p>
           </div>
           <div class="pt-4 border-t border-[#212629] flex items-center justify-between text-xs text-[#878d8f]">
@@ -2910,7 +2932,7 @@
               <a href="cases/platform-unavailable-error-code-1794338958142x997066484691378600.html" class="hover:text-white transition">Platform unavailable - error code 1794338958142x997066484691378600</a>
             </h3>
             <p class="text-[#878d8f] text-sm leading-relaxed mb-5 line-clamp-3">
-              <span class="font-medium text-[#a1a4a5]">Root Cause:</span> That error format (`[timestamp]x[internal_id]`) means your app&#x27;s isolated container hit an unhandled fatal crash or process timeout, rather than a global Bubble infrastructure o...
+              <span class="font-medium text-[#a1a4a5]">Root Cause:</span> That error format (`[timestamp]x[internal_id]`) means your app container hit a fatal crash or process timeout, not a global Bubble outage. Paste `1794338958142x99706648469137860...
             </p>
           </div>
           <div class="pt-4 border-t border-[#212629] flex items-center justify-between text-xs text-[#878d8f]">
@@ -2932,7 +2954,7 @@
               <a href="cases/broken-contributing-license-links-in-package-readmes.html" class="hover:text-white transition">Broken CONTRIBUTING/LICENSE links in package READMEs</a>
             </h3>
             <p class="text-[#878d8f] text-sm leading-relaxed mb-5 line-clamp-3">
-              <span class="font-medium text-[#a1a4a5]">Root Cause:</span> 1. **On GitHub:** The links use relative paths like `CONTRIBUTING[.]md` inside sub-directories such as `packages/Client Case Study (User)/utils/`. GitHub evaluates this relative...
+              <span class="font-medium text-[#a1a4a5]">Root Cause:</span> Relative links like `CONTRIBUTING.md` inside subdirectories like `packages/Client Case Study (User)/utils/` resolve relative to the package folder instead of the monorepo root o...
             </p>
           </div>
           <div class="pt-4 border-t border-[#212629] flex items-center justify-between text-xs text-[#878d8f]">
@@ -2954,7 +2976,7 @@
               <a href="cases/meta-lead-ads-test-lead-stuck-in-pending-status.html" class="hover:text-white transition">Meta Lead Ads test lead stuck in Pending status</a>
             </h3>
             <p class="text-[#878d8f] text-sm leading-relaxed mb-5 line-clamp-3">
-              <span class="font-medium text-[#a1a4a5]">Root Cause:</span> B Krishna,
+              <span class="font-medium text-[#a1a4a5]">Root Cause:</span> The dashboard &quot;Send to My Server&quot; button bypasses the Page pipeline entirely. The Facebook Page itself must be subscribed to `leadgen` using a Page Access Token with `pages_mana...
             </p>
           </div>
           <div class="pt-4 border-t border-[#212629] flex items-center justify-between text-xs text-[#878d8f]">
@@ -3020,7 +3042,7 @@
               <a href="cases/does-restoring-a-make-scenario-preserve-its-webhook-queue.html" class="hover:text-white transition">Does restoring a Make scenario preserve its webhook queue?</a>
             </h3>
             <p class="text-[#878d8f] text-sm leading-relaxed mb-5 line-clamp-3">
-              <span class="font-medium text-[#a1a4a5]">Root Cause:</span> Here is the exact technical behavior of Make concerning scenario versions, webhook bindings, and queued requests.
+              <span class="font-medium text-[#a1a4a5]">Root Cause:</span> Make webhook queues live at the workspace level tied directly to `parameters.hook: &lt;id&gt;`, decoupled from scenario version history. Restoring a version keeps the binding and queu...
             </p>
           </div>
           <div class="pt-4 border-t border-[#212629] flex items-center justify-between text-xs text-[#878d8f]">
@@ -3102,13 +3124,13 @@
           <div>
             <div class="flex items-center justify-between gap-2 mb-3.5">
               <span class="px-2.5 py-0.5 rounded-full text-[11px] font-mono font-medium bg-[#0a0b0c] text-[#a1a4a5] border border-[#212629]">Make.com</span>
-              <span class="px-2.5 py-0.5 rounded-full text-[11px] font-mono font-medium border bg-[#fb2c36]/10 text-[#ff6b72] border-[#fb2c36]/25">CRITICAL</span>
+              <span class="px-2.5 py-0.5 rounded-full text-[11px] font-mono font-medium border bg-[#191b1e] text-[#a1a4a5] border-[#212629]">MEDIUM</span>
             </div>
             <h3 class="text-base font-semibold tracking-tight text-[#f0f0f0] mb-2 leading-snug">
               <a href="cases/does-a-verified-app-stay-published-if-the-owner-downgrades-to-fre.html" class="hover:text-white transition">Does a verified app stay published if the owner downgrades to Free? (ticket form not working)</a>
             </h3>
             <p class="text-[#878d8f] text-sm leading-relaxed mb-5 line-clamp-3">
-              <span class="font-medium text-[#a1a4a5]">Root Cause:</span> Here are the definitive answers regarding how verified Custom Apps behave when changing plans, along with a quick workaround for the ticket form issue.
+              <span class="font-medium text-[#a1a4a5]">Root Cause:</span> The app stays published in the public directory and customer scenarios won&#x27;t be affected at all, since executions run inside their own organizations and consume their plan quota...
             </p>
           </div>
           <div class="pt-4 border-t border-[#212629] flex items-center justify-between text-xs text-[#878d8f]">
@@ -3234,13 +3256,13 @@
           <div>
             <div class="flex items-center justify-between gap-2 mb-3.5">
               <span class="px-2.5 py-0.5 rounded-full text-[11px] font-mono font-medium bg-[#0a0b0c] text-[#a1a4a5] border border-[#212629]">n8n</span>
-              <span class="px-2.5 py-0.5 rounded-full text-[11px] font-mono font-medium border bg-[#f99c00]/10 text-[#ffb547] border-[#f99c00]/25">HIGH</span>
+              <span class="px-2.5 py-0.5 rounded-full text-[11px] font-mono font-medium border bg-[#fb2c36]/10 text-[#ff6b72] border-[#fb2c36]/25">CRITICAL</span>
             </div>
             <h3 class="text-base font-semibold tracking-tight text-[#f0f0f0] mb-2 leading-snug">
               <a href="cases/cloud-instance-stuck-on-your-instance-is-starting-for-over-2-hour.html" class="hover:text-white transition">Cloud instance stuck on &quot;Your instance is starting&quot; for over 2 hours</a>
             </h3>
             <p class="text-[#878d8f] text-sm leading-relaxed mb-5 line-clamp-3">
-              <span class="font-medium text-[#a1a4a5]">Root Cause:</span> This issue happens when the n8n Cloud provisioning orchestrator gets stuck in a state machine transition.
+              <span class="font-medium text-[#a1a4a5]">Root Cause:</span> The provisioning orchestrator is stuck on a migration probe or volume mount, which is why the readiness check fails and the edge proxy shows &quot;No instance here&quot; for portalia[.]ap...
             </p>
           </div>
           <div class="pt-4 border-t border-[#212629] flex items-center justify-between text-xs text-[#878d8f]">
@@ -3322,13 +3344,13 @@
           <div>
             <div class="flex items-center justify-between gap-2 mb-3.5">
               <span class="px-2.5 py-0.5 rounded-full text-[11px] font-mono font-medium bg-[#0a0b0c] text-[#a1a4a5] border border-[#212629]">n8n</span>
-              <span class="px-2.5 py-0.5 rounded-full text-[11px] font-mono font-medium border bg-[#f99c00]/10 text-[#ffb547] border-[#f99c00]/25">HIGH</span>
+              <span class="px-2.5 py-0.5 rounded-full text-[11px] font-mono font-medium border bg-[#fb2c36]/10 text-[#ff6b72] border-[#fb2c36]/25">CRITICAL</span>
             </div>
             <h3 class="text-base font-semibold tracking-tight text-[#f0f0f0] mb-2 leading-snug">
               <a href="cases/troubleshooting-telegram-api-errors-thumbnail-as-animation-no-doc.html" class="hover:text-white transition">Troubleshooting Telegram API Errors: &#x27;Thumbnail as Animation&#x27; &amp; &#x27;No Document in Request&#x27; when using n8n HTTP Request</a>
             </h3>
             <p class="text-[#878d8f] text-sm leading-relaxed mb-5 line-clamp-3">
-              <span class="font-medium text-[#a1a4a5]">Root Cause:</span> === SECTION 0: RESUME DU PROBLEME EN FRANCAIS ===
+              <span class="font-medium text-[#a1a4a5]">Root Cause:</span> Two things are breaking here. First, you&#x27;re referencing the nested thumbnail ID (`$json.message.animation.thumbnail.file_id`) instead of the root media ID (`$json.message.animat...
             </p>
           </div>
           <div class="pt-4 border-t border-[#212629] flex items-center justify-between text-xs text-[#878d8f]">
@@ -3344,13 +3366,13 @@
           <div>
             <div class="flex items-center justify-between gap-2 mb-3.5">
               <span class="px-2.5 py-0.5 rounded-full text-[11px] font-mono font-medium bg-[#0a0b0c] text-[#a1a4a5] border border-[#212629]">n8n</span>
-              <span class="px-2.5 py-0.5 rounded-full text-[11px] font-mono font-medium border bg-[#fb2c36]/10 text-[#ff6b72] border-[#fb2c36]/25">CRITICAL</span>
+              <span class="px-2.5 py-0.5 rounded-full text-[11px] font-mono font-medium border bg-[#f99c00]/10 text-[#ffb547] border-[#f99c00]/25">HIGH</span>
             </div>
             <h3 class="text-base font-semibold tracking-tight text-[#f0f0f0] mb-2 leading-snug">
               <a href="cases/learning-n8n-how-do-you-handle-workflow-failures.html" class="hover:text-white transition">Learning n8n: How Do You Handle Workflow Failures?</a>
             </h3>
             <p class="text-[#878d8f] text-sm leading-relaxed mb-5 line-clamp-3">
-              <span class="font-medium text-[#a1a4a5]">Root Cause:</span> === SECTION 0: RESUME DU PROBLEME EN FRANCAIS ===
+              <span class="font-medium text-[#a1a4a5]">Root Cause:</span> n8n executes workflows as a synchronous DAG where any unhandled node error halts execution immediately, so handling failures reliably requires three distinct layers: local retri...
             </p>
           </div>
           <div class="pt-4 border-t border-[#212629] flex items-center justify-between text-xs text-[#878d8f]">
@@ -3366,13 +3388,13 @@
           <div>
             <div class="flex items-center justify-between gap-2 mb-3.5">
               <span class="px-2.5 py-0.5 rounded-full text-[11px] font-mono font-medium bg-[#0a0b0c] text-[#a1a4a5] border border-[#212629]">Make.com</span>
-              <span class="px-2.5 py-0.5 rounded-full text-[11px] font-mono font-medium border bg-[#fb2c36]/10 text-[#ff6b72] border-[#fb2c36]/25">CRITICAL</span>
+              <span class="px-2.5 py-0.5 rounded-full text-[11px] font-mono font-medium border bg-[#191b1e] text-[#a1a4a5] border-[#212629]">MEDIUM</span>
             </div>
             <h3 class="text-base font-semibold tracking-tight text-[#f0f0f0] mb-2 leading-snug">
               <a href="cases/naif-gravity-api-webhook-json-troubleshooting.html" class="hover:text-white transition">NAIF Gravity — API, Webhook &amp; JSON Troubleshooting</a>
             </h3>
             <p class="text-[#878d8f] text-sm leading-relaxed mb-5 line-clamp-3">
-              <span class="font-medium text-[#a1a4a5]">Root Cause:</span> === SECTION 0: RESUME DU PROBLEME EN FRANCAIS ===
+              <span class="font-medium text-[#a1a4a5]">Root Cause:</span> Check your Custom Webhook settings first: is **JSON pass-through** toggled to `Yes`, or is Make locking down the schema from your first test run and resolving drifting keys to `...
             </p>
           </div>
           <div class="pt-4 border-t border-[#212629] flex items-center justify-between text-xs text-[#878d8f]">
@@ -3388,13 +3410,13 @@
           <div>
             <div class="flex items-center justify-between gap-2 mb-3.5">
               <span class="px-2.5 py-0.5 rounded-full text-[11px] font-mono font-medium bg-[#0a0b0c] text-[#a1a4a5] border border-[#212629]">Make.com</span>
-              <span class="px-2.5 py-0.5 rounded-full text-[11px] font-mono font-medium border bg-[#fb2c36]/10 text-[#ff6b72] border-[#fb2c36]/25">CRITICAL</span>
+              <span class="px-2.5 py-0.5 rounded-full text-[11px] font-mono font-medium border bg-[#f99c00]/10 text-[#ffb547] border-[#f99c00]/25">HIGH</span>
             </div>
             <h3 class="text-base font-semibold tracking-tight text-[#f0f0f0] mb-2 leading-snug">
               <a href="cases/ai-automation-delivery-lead-make-com-builds-with-tested-ai-steps.html" class="hover:text-white transition">AI Automation Delivery Lead | Make.com builds with tested AI steps and real error handling</a>
             </h3>
             <p class="text-[#878d8f] text-sm leading-relaxed mb-5 line-clamp-3">
-              <span class="font-medium text-[#a1a4a5]">Root Cause:</span> === SECTION 0: RESUME DU PROBLEME EN FRANCAIS ===
+              <span class="font-medium text-[#a1a4a5]">Root Cause:</span> Place a `Webhook Response` module right after your intake `Custom Webhook` configured with Status `202` and Body `{&quot;status&quot;: &quot;queued&quot;, &quot;received_at&quot;: &quot;{{now}}&quot;}`. Running OCR pl...
             </p>
           </div>
           <div class="pt-4 border-t border-[#212629] flex items-center justify-between text-xs text-[#878d8f]">

@@ -27,7 +27,7 @@ slug: "evolution-api-one-instance-goes-connected-but-deaf-right-after-an"
 
 ## Root-Cause Analysis & Patch Preview (Layer 1)
 
-Yes, this is the classic "half-open" deaf socket state in Baileys.
+Check your container logs right around the reconnect timestamp for `stream errored out` or a sudden spike in event loop lag.
 
 ---
 

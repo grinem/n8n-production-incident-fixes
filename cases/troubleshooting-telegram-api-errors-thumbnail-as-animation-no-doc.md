@@ -2,10 +2,10 @@
 layout: default
 title: "Troubleshooting Telegram API Errors: 'Thumbnail as Animation' & 'No Document in Request' when using n8n HTTP Request"
 platform: "n8n"
-severity: "HIGH"
+severity: "CRITICAL"
 status: "Resolved"
 date: 2026-11-09
-tags: ["n8n", "production-fix", "post-mortem", "verified-resolution"]
+tags: ["n8n", "critical-incident", "production-fix", "post-mortem", "verified-resolution"]
 slug: "troubleshooting-telegram-api-errors-thumbnail-as-animation-no-doc"
 ---
 
@@ -18,7 +18,7 @@ slug: "troubleshooting-telegram-api-errors-thumbnail-as-animation-no-doc"
 
 ## Incident Metadata
 - **Platform / Ecosystem**: `n8n`
-- **Incident Severity**: `HIGH`
+- **Incident Severity**: `CRITICAL`
 - **Resolution Status**: `VERIFIED & RESOLVED`
 - **Logged Timestamp**: `2026-11-09T21:27:47.662944`
 - **Diagnosis Engine**: Autonomous Production Incident Radar
@@ -27,51 +27,17 @@ slug: "troubleshooting-telegram-api-errors-thumbnail-as-animation-no-doc"
 
 ## Root-Cause Analysis & Patch Preview (Layer 1)
 
-=== SECTION 0: RESUME DU PROBLEME EN FRANCAIS ===
-L'utilisateur cherche à relayer des animations, stickers et documents via l'API Telegram à l'aide du nœud HTTP Request de n8n en réutilisant des `file_id` existants. Son flux échouait sur deux erreurs bloquantes de l'API Telegram (HTTP 400) : *« can’t use file of type Thumbnail as Animation »* et *« there is no document in the request »*. Ces interruptions résultent d'une part de la sélection de la clé imbriquée de vignette (`thumb.file_id` au lieu du `file_id` racine du média), et d'autre part de l'envoi d'un en-tête `multipart/form-data` mal formé au lieu d'un format `application/json` natif qui est le standard requis par Telegram lors du référencement d'un identifiant déjà hébergé sur leurs serveurs.
+Two things are breaking here. First, you're referencing the nested thumbnail ID (`$json.message.animation.thumbnail.file_id`) instead of the root media ID (`$json.message.animation.file_id`), so Telegram throws a type mismatch when it sees a static image hash hitting an animation endpoint.
 
-=== SECTION 1: ROOT CAUSE ANALYSIS ===
-Deux mécanismes d'échec distincts se produisent au niveau du protocole HTTP et de la validation du schéma Telegram Bot API :
+Second, switch your HTTP Request node from `multipart/form-data` to pure JSON. Telegram expects an actual binary stream when multipart boundaries are declared, which fails if you're just passing a string `file_id`.
 
-1. **Schema Divergence & Asset Type Mismatch (`can't use file of type Thumbnail as Animation`)** :
-   Dans l'arborescence du payload Telegram (pour les types `Animation`, `Document` ou `Sticker`), l'objet parent expose son propre `file_id` (représentant le conteneur complet, ex. MP4 sans audio ou WEBP/TGS). Il expose également un sous-objet `thumbnail` (type `PhotoSize`) possédant un identifiant distinct. Les serveurs Telegram inspectent les métadonnées internes associées au hash du `file_id`. L'envoi du `thumbnail.file_id` vers les endpoints `/sendAnimation` ou `/sendSticker` lève une exception de validation de type : le serveur refuse d'instancier un lecteur d'animation sur une miniature statique.
-
-2. **HTTP Payload Encoding & Parser Failure (`there is no document in the request`)** :
-   Lorsqu'une requête est envoyée avec le header `Content-Type: multipart/form-data`, le parser de l'API Telegram s'attend à un flux binaire délimité par des `boundary` contenant les chunks du fichier sous la clé `document`. Lorsque l'utilisateur tente d'envoyer une chaîne textuelle (`file_id`) sous un encodage multipart configuré de manière incorrecte dans n8n, la frontière multipartite n'associe aucun stream binaire au champ requis, ce qui déclenche le rejet `400 Bad Request: there is no document in the request`. Lorsque le fichier existe déjà sur les serveurs Telegram, l'API accepte explicitement un corps `application/json`, évitant l'overhead et les erreurs d'encodage du multipart.
-
-=== SECTION 2: TECHNICAL FIX PROTOCOL (80% ACTIONABLE) ===
-
-### Étape 1 : Isoler la bonne clé dans les données entrantes (n8n Code ou Set Node)
-Assurez-vous de capturer le `file_id` situé à la racine du document/animation, et non dans l'objet `thumbnail`/`thumb`.
-
-*Pour une animation :*
-`$json.message.animation.file_id` *(et NON `$json.message.animation.thumbnail.file_id`)*
-
-*Pour un document :*
-`$json.message.document.file_id` *(et NON `$json.message.document.thumb.file_id`)*
-
----
-
-### Étape 2 : Configuration du nœud HTTP Request dans n8n
-Basculez impérativement la méthode d'envoi en JSON pur.
-
-1. **Method** : `POST`
-2. **URL** : `https://api.telegram.org/bot<YOUR_BOT_TOKEN>/sendDocument` (ou `/sendAnimation`, `/sendSticker`)
-3. **Authentication** : `None` (le token est dans l'URL) ou via generic Credential
-4. **Send Headers** : Activé
-   * **Name** : `Content-Type`
-   * **Value** : `application/json`
-5. **Send Body** : Activé
-6. **Body Content Type** : `JSON`
-7. **Specify Body** : `Using JSON`
-
-**Payload JSON exact :**
+Set the node to POST to `[https]://api[.]telegram[.]org/bot<YOUR_BOT_TOKEN>/sendAnimation` (or `/sendDocument`), set Body Content Type to JSON, and send this payload:
 
 **Patch Preview (First 3 lines of verified fix):**
 ```json
 {
   "chat_id": "={{ $json.chat_id }}",
-  "document": "={{ $json.message.document.file_id }}",
+  "animation": "={{ $json.message.animation.file_id }}"
 # ... [TRUNCATED — Full production patch & verification steps locked below]
 ```
 

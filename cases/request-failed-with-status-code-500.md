@@ -2,10 +2,10 @@
 layout: default
 title: "Request failed with status code 500"
 platform: "Baserow"
-severity: "CRITICAL"
+severity: "HIGH"
 status: "Resolved"
 date: 2026-11-15
-tags: ["baserow", "critical-incident", "production-fix", "post-mortem", "verified-resolution"]
+tags: ["baserow", "production-fix", "post-mortem", "verified-resolution"]
 slug: "request-failed-with-status-code-500"
 ---
 
@@ -18,7 +18,7 @@ slug: "request-failed-with-status-code-500"
 
 ## Incident Metadata
 - **Platform / Ecosystem**: `Baserow`
-- **Incident Severity**: `CRITICAL`
+- **Incident Severity**: `HIGH`
 - **Resolution Status**: `RADAR TRIAGED & READY FOR RESOLUTION`
 - **Logged Timestamp**: `2026-11-15T10:01:19.678606`
 - **Diagnosis Engine**: Autonomous Production Incident Radar
@@ -27,7 +27,7 @@ slug: "request-failed-with-status-code-500"
 
 ## Root-Cause Analysis & Patch Preview (Layer 1)
 
-On Baserow SaaS, a 500 when switching tables or editing rows is usually caused by a broken view filter/sort or a formula referencing a field that changed type.
+A 500 when switching tables or editing rows in Baserow SaaS usually means a view filter/sort broke or a formula is referencing a field whose type was modified.
 
 ---
 

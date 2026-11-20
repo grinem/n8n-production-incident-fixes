@@ -27,7 +27,9 @@ slug: "importing-a-dsl-from-a-github-blob-url-fails-when-the-host-is-cap"
 
 ## Root-Cause Analysis & Patch Preview (Layer 1)
 
-Good catch. Using `parsed.hostname.lower()` is the cleanest fix here since `hostname` handles casing and strips potential port components cleanly:
+Check the worker logs on import failure; it bails out on the validation step because `urlsplit` preserves the raw casing from the request.
+
+Switching to `parsed.hostname.lower()` is the right move here since `hostname` handles case normalization and strips potential port components cleanly:
 
 **Patch Preview (First 3 lines of verified fix):**
 ```python

@@ -27,7 +27,7 @@ slug: "microsoft-oauth2-credential-never-refreshes-when-the-api-returns"
 
 ## Root-Cause Analysis & Patch Preview (Layer 1)
 
-Spot on. For a PR, since Graph and Flow APIs return 401 while Power BI returns 403, hardcoding 403 as a default on `microsoftOAuth2Api` would break the former unless `resolveTokenExpiredStatusCode` in `packages/core` is updated to support an array (e.g. `[401, 403]`), or if `tokenExpiredStatusCode` is unhidden/exposed on `microsoftOAuth2Api` for manual configuration.
+Check the node's raw response headers in your execution log first to verify Power BI is returning `Www-Authenticate: Bearer error="invalid_token"` with that 403, rather than an actual scope/permissions rejection.
 
 ---
 

@@ -27,24 +27,7 @@ slug: "broken-contributing-license-links-in-package-readmes"
 
 ## Root-Cause Analysis & Patch Preview (Layer 1)
 
-Good catch. This is a classic monorepo packaging issue where relative markdown links fail across both GitHub browsing and package registries.
-
-### Why this happens
-1. **On GitHub:** The links use relative paths like `CONTRIBUTING[.]md` inside sub-directories such as `packages/Client Case Study (User)/utils/`. GitHub evaluates this relative to the package folder rather than the workspace root, leading to an immediate 404 since the actual files exist only at `/CONTRIBUTING[.]md` and `/LICENSE[.]md`.
-2. **On npm:** Even if relative paths like `../../CONTRIBUTING[.]md` were used, `npm publish` only packages files specified within each sub-package's directory. Because root files aren't bundled into the distributed tarball, the npm registry cannot resolve relative links back to the root, resulting in broken links on the package page as well.
-
-### The Fix
-To ensure links work identically on both GitHub and npmjs, the links in the sub-package README files should point to the canonical repository root on GitHub.
-
-Here is an automated Node.js patch script you can run from the root of the monorepo to fix all affected README files in one shot:
-
-**Patch Preview (First 3 lines of verified fix):**
-```javascript
-// fix-readme-links.js - Run from n8n monorepo root
-const fs = require('fs');
-const path = require('path');
-# ... [TRUNCATED — Full production patch & verification steps locked below]
-```
+Relative links like `CONTRIBUTING.md` inside subdirectories like `packages/Client Case Study (User)/utils/` resolve relative to the package folder instead of th...
 
 ---
 

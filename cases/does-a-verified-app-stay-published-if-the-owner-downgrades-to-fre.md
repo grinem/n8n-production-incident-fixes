@@ -2,10 +2,10 @@
 layout: default
 title: "Does a verified app stay published if the owner downgrades to Free? (ticket form not working)"
 platform: "Make.com"
-severity: "CRITICAL"
+severity: "MEDIUM"
 status: "Resolved"
 date: 2026-11-10
-tags: ["make", "critical-incident", "production-fix", "post-mortem", "verified-resolution"]
+tags: ["make", "production-fix", "post-mortem", "verified-resolution"]
 slug: "does-a-verified-app-stay-published-if-the-owner-downgrades-to-fre"
 ---
 
@@ -18,7 +18,7 @@ slug: "does-a-verified-app-stay-published-if-the-owner-downgrades-to-fre"
 
 ## Incident Metadata
 - **Platform / Ecosystem**: `Make.com`
-- **Incident Severity**: `CRITICAL`
+- **Incident Severity**: `MEDIUM`
 - **Resolution Status**: `RADAR TRIAGED & READY FOR RESOLUTION`
 - **Logged Timestamp**: `2026-11-10T15:40:14.745652`
 - **Diagnosis Engine**: Autonomous Production Incident Radar
@@ -27,7 +27,7 @@ slug: "does-a-verified-app-stay-published-if-the-owner-downgrades-to-fre"
 
 ## Root-Cause Analysis & Patch Preview (Layer 1)
 
-Here are the definitive answers regarding how verified Custom Apps behave when changing plans, along with a quick workaround for the ticket form issue.
+The app stays published in the public directory and customer scenarios won't be affected at all, since executions run inside their own organizations and consume their plan quotas, not yours.
 
 ---
 

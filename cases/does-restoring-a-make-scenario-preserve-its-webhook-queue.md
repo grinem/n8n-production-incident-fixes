@@ -27,41 +27,7 @@ slug: "does-restoring-a-make-scenario-preserve-its-webhook-queue"
 
 ## Root-Cause Analysis & Patch Preview (Layer 1)
 
-Here is the exact technical behavior of Make concerning scenario versions, webhook bindings, and queued requests.
-
-### 1. Does "Version History → Restore version → Save" preserve the queue and bindings?
-**Yes.** In Make's backend architecture:
-- The **Scenario ID** remains identical.
-- The **Custom Webhook** and its message queue are independent objects tied to a unique `hookId` at the organization level, not to the scenario version.
-- Restoring a previous version simply updates the scenario flow configuration. As long as the restored version referenced that same webhook, the binding remains intact.
-- The queue is stored on Make’s webhook ingestion cluster: it is **not cleared, detached, or purged** by restoring a scenario version.
-
-### 2. Does "Import blueprint → Save" preserve them?
-**Yes, but with a caveat.**
-- If you export the blueprint from this exact scenario and re-import it, the JSON contains the original `hook` ID. When saved, it re-binds to the same webhook, leaving the queue untouched.
-- However, if the webhook ID within the blueprint does not match your workspace or gets wiped during mapping, the module will revert to an unassigned state (`Choose a webhook`). The queue itself still won't be deleted (it stays alive under the **Webhooks** menu in the left navigation), but the module will be disconnected until you reselect it.
-- Therefore, **Version History is the strictly recommended method** over manual blueprint importing for rollbacks.
-
-### 3. Can either method trigger processing or purge data?
-- **No processing will occur** as long as the scenario switch remains **OFF**. Saving, restoring, or blueprint importing never initiates an execution.
-- **Warning:** Do **not** click **"Run once"** while testing your rollback unless you intend to process that waiting payload immediately. In an inactive scenario with queued data, "Run once" will pull the oldest queued payload into the flow.
-
-### Recommended Safe Checkpoint Procedure:
-1. Go to the left navigation bar → **Webhooks**. Verify that your webhook shows `1` in the queue counter.
-2. In your scenario editor (with the scenario switched **OFF**), click the three dots (`...`) in the bottom control bar and select **Export Blueprint**. Store this JSON file locally as a cold backup.
-3. Make any minor layout adjustment and click **Save**. This explicitly generates a fresh entry in your **Version History**.
-4. Perform your modifications. If you need to roll back, simply open **Version History**, click **Restore version** on your saved timestamp, and hit **Save**. Inspect the Custom Webhook module to confirm the hook name is still assigned.
-
-### Mini-Patch JSON / Blueprint Reference:
-If you want to verify that your exported Blueprint references the exact internal `hookId` before and after rollback, check the first module object in your exported JSON:
-
-**Patch Preview (First 3 lines of verified fix):**
-```json
-{
-  "subcommands": [
-    {
-# ... [TRUNCATED — Full production patch & verification steps locked below]
-```
+Make webhook queues live at the workspace level tied directly to `parameters.hook: <id>`, decoupled from scenario version history. Restoring a version keeps the binding and queue completely intact; nothing gets purged or executed as long as the scenario switch stays OFF. A blueprint re-import also preserves it if the JSON still contains the ...
 
 ---
 

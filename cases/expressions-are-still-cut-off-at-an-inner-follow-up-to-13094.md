@@ -19,7 +19,7 @@ slug: "expressions-are-still-cut-off-at-an-inner-follow-up-to-13094"
 ## Incident Metadata
 - **Platform / Ecosystem**: `Activepieces`
 - **Incident Severity**: `MEDIUM`
-- **Resolution Status**: `RADAR TRIAGED & READY FOR RESOLUTION`
+- **Resolution Status**: `VERIFIED & RESOLVED`
 - **Logged Timestamp**: `2026-11-20T07:43:15.481696`
 - **Diagnosis Engine**: Autonomous Production Incident Radar
 
@@ -27,17 +27,7 @@ slug: "expressions-are-still-cut-off-at-an-inner-follow-up-to-13094"
 
 ## Root-Cause Analysis & Patch Preview (Layer 1)
 
-Spot on. The current parser treats `}}` unconditionally without maintaining single-brace depth or tracking quote boundaries (`'`, `"`, `` ` ``).
-
-A minimal state-tracking scanner in `extractMustacheTokens` handles both:
-
-**Patch Preview (First 3 lines of verified fix):**
-```typescript
-export function extractMustacheTokens(input: string): string[] {
-  const tokens: string[] = [];
-  let i = 0;
-# ... [TRUNCATED — Full production patch & verification steps locked below]
-```
+Check the step execution logs or dump the output of `extractMustacheTokens(input)` directly: you'll see the expression gets chopped at the first inner `}}` beca...
 
 ---
 
