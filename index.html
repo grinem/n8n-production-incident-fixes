@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="ht-light">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Production Incident Fixes & Technical Post-Mortems | Knowledge Base</title>
-  <meta name="description" content="Verified post-mortems and emergency bugfixes for n8n, Make.com, Bubble, Webhooks, APIs and automation infrastructure.">
+  <title>HookTriage — n8n &amp; Webhook Production Hardening Kits, MCP Auditor &amp; Post-Mortems</title>
+  <meta name="description" content="Drop-in n8n production hardening blueprints ($27), free zero-trust CLI & MCP webhook auditor, and verified post-mortem fixes for Shopify, Stripe & AI Agents.">
   <meta name="robots" content="index, follow">
   <link rel="canonical" href="https://hooktriage.com/">
   <link rel="sitemap" type="application/xml" title="Sitemap" href="/sitemap.xml">
@@ -43,19 +43,178 @@
     #content ol { list-style-type: decimal; padding-left: 1.35rem; margin: 0.75rem 0; }
     #content hr { border: none; border-top: 1px solid #212629; margin: 1.75rem 0; }
   </style>
+  <style>
+    /* Agensi-Inspired Luminous Light Mode Default + Seamless Dark Mode Toggle */
+    :root {
+      --ht-accent: #00d294;
+      --ht-blue: #2563eb;
+    }
+    html.ht-light body {
+      background-color: #f8fafc !important;
+      color: #0f172a !important;
+      background-image: radial-gradient(#cbd5e1 0.85px, transparent 0.85px);
+      background-size: 24px 24px;
+    }
+    html.ht-light header.ht-topbar {
+      background: rgba(255, 255, 255, 0.88) !important;
+      border-bottom-color: #e2e8f0 !important;
+      box-shadow: 0 1px 3px rgba(15, 23, 42, 0.04);
+    }
+    html.ht-light .ht-surface {
+      background-color: #ffffff !important;
+      border-color: #e2e8f0 !important;
+      color: #0f172a !important;
+      box-shadow: 0 4px 20px -2px rgba(15, 23, 42, 0.05);
+    }
+    html.ht-light .ht-surface-subtle {
+      background-color: #f1f5f9 !important;
+      border-color: #e2e8f0 !important;
+      color: #334155 !important;
+    }
+    html.ht-light .ht-text-main {
+      color: #0f172a !important;
+    }
+    html.ht-light .ht-text-muted {
+      color: #475569 !important;
+    }
+    html.ht-light .ht-text-soft {
+      color: #64748b !important;
+    }
+    /* Automatically adapt generated .incident-card & filter buttons in Light Mode */
+    html.ht-light .incident-card {
+      background-color: #ffffff !important;
+      border-color: #e2e8f0 !important;
+      box-shadow: 0 2px 10px rgba(15, 23, 42, 0.04);
+    }
+    html.ht-light .incident-card:hover {
+      border-color: #2563eb !important;
+      box-shadow: 0 10px 25px -5px rgba(37, 99, 235, 0.12);
+    }
+    html.ht-light .incident-card h2,
+    html.ht-light .incident-card h3,
+    html.ht-light .incident-card .text-\[\#f0f0f0\] {
+      color: #0f172a !important;
+    }
+    html.ht-light .incident-card p,
+    html.ht-light .incident-card .text-\[\#a1a4a5\],
+    html.ht-light .incident-card .text-\[\#878d8f\] {
+      color: #475569 !important;
+    }
+    html.ht-light .incident-card .bg-\[\#0a0b0c\],
+    html.ht-light .incident-card .bg-\[\#191b1e\] {
+      background-color: #f1f5f9 !important;
+      border-color: #cbd5e1 !important;
+      color: #0f172a !important;
+    }
+    html.ht-light .filter-btn {
+      background-color: #ffffff !important;
+      color: #475569 !important;
+      border-color: #cbd5e1 !important;
+    }
+    html.ht-light .filter-btn.bg-white {
+      background-color: #0f172a !important;
+      color: #ffffff !important;
+      border-color: #0f172a !important;
+    }
+    html.ht-light #searchInput {
+      background-color: #ffffff !important;
+      border-color: #cbd5e1 !important;
+      color: #0f172a !important;
+    }
+    /* Keep modals and code blocks protected in dark surface even in Light Mode */
+    #triageModal, #kitModal {
+      color: #f0f0f0;
+    }
+    /* Hub-and-Spoke Radial Diagram Animations */
+    @keyframes htDashFlow {
+      to { stroke-dashoffset: -24; }
+    }
+    .ht-spoke-line {
+      stroke-dasharray: 5, 5;
+      animation: htDashFlow 1.6s linear infinite;
+    }
+    .ht-spoke-card {
+      transition: all 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .ht-spoke-card.ht-spoke-active {
+      border-color: #2563eb !important;
+      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.16), 0 12px 28px -6px rgba(37, 99, 235, 0.22) !important;
+      transform: translateY(-2px);
+    }
+    html:not(.ht-light) .ht-spoke-card.ht-spoke-active {
+      border-color: #00d294 !important;
+      box-shadow: 0 0 0 3px rgba(0, 210, 148, 0.2), 0 12px 28px -6px rgba(0, 210, 148, 0.25) !important;
+    }
+    .ht-spoke-status {
+      max-height: 0;
+      opacity: 0;
+      overflow: hidden;
+      transition: all 0.25s ease;
+    }
+    .ht-spoke-card.ht-spoke-active .ht-spoke-status {
+      max-height: 28px;
+      opacity: 1;
+      margin-top: 4px;
+    }
+  </style>
+  <script>
+    (function() {
+      try {
+        var saved = localStorage.getItem('ht_theme');
+        if (saved === 'dark') {
+          document.documentElement.classList.remove('ht-light');
+        } else {
+          document.documentElement.classList.add('ht-light');
+        }
+      } catch(e) {}
+    })();
+    window.toggleHtTheme = function() {
+      var htmlEl = document.documentElement;
+      var isLight = htmlEl.classList.toggle('ht-light');
+      try { localStorage.setItem('ht_theme', isLight ? 'light' : 'dark'); } catch(e) {}
+      var btn = document.getElementById('htThemeBtn');
+      if (btn) btn.innerHTML = isLight ? '&#9728;&#65039; <span class="hidden md:inline text-[11px]">Light</span>' : '&#127769; <span class="hidden md:inline text-[11px]">Dark</span>';
+    };
+  </script>
 </head>
-<body class="bg-[#000000] text-[#f0f0f0] min-h-screen font-sans antialiased selection:bg-white/20 selection:text-white">
-  <!-- Minimal Sticky Top Bar -->
-  <header class="sticky top-0 z-40 h-[58px] bg-black/75 backdrop-blur-md border-b border-[#212629]">
-    <div class="max-w-7xl mx-auto h-full px-6 flex items-center justify-between gap-4">
-      <div class="flex items-center gap-2.5">
-        <span class="h-2 w-2 rounded-full bg-[#00d294]"></span>
-        <span class="text-sm font-semibold tracking-tight text-[#f0f0f0]">Production Incident Fixes</span>
-        <span class="hidden sm:inline-block text-[11px] font-mono text-[#878d8f] border border-[#212629] bg-[#141517] px-2 py-0.5 rounded-full">160 cases</span>
+<body class="bg-[#0b0f19] text-[#f0f0f0] min-h-screen font-sans antialiased selection:bg-blue-600 selection:text-white transition-colors duration-200">
+  <!-- Agensi-Style Sticky Top Bar -->
+  <header class="ht-topbar sticky top-0 z-40 h-[64px] bg-[#0b0f19]/85 backdrop-blur-md border-b border-[#212629] transition-colors">
+    <div class="max-w-7xl mx-auto h-full px-4 sm:px-6 flex items-center justify-between gap-3">
+      <div class="flex items-center gap-6">
+        <a href="https://hooktriage.com/" class="flex items-center gap-2.5 group">
+          <div class="w-9 h-9 rounded-xl bg-[#0a0f18] border border-[#00d294]/40 flex items-center justify-center shadow-sm">
+            <svg class="w-5 h-5 text-[#00d294]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M12 3l7 3v6c0 5-3.5 8.5-7 9-3.5-.5-7-4-7-9V6l7-3z"/>
+              <path stroke-linecap="round" stroke-linejoin="round" d="M13 8l-3 5h4l-3 5"/>
+            </svg>
+          </div>
+          <div>
+            <span class="text-sm font-bold tracking-tight ht-text-main">HOOKTRIAGE</span>
+            <span class="hidden sm:inline-block ml-1.5 text-[10px] font-mono px-1.5 py-0.5 rounded bg-emerald-500/15 text-emerald-600 dark:text-[#00d294] border border-emerald-500/30 font-semibold">MCP &amp; n8n</span>
+          </div>
+        </a>
+        <nav class="hidden lg:flex items-center gap-5 text-xs font-medium ht-text-muted">
+          <a href="#featured-kits" class="hover:text-blue-600 transition">Browse Kits</a>
+          <a href="#live-hub" class="hover:text-blue-600 transition">MCP Architecture</a>
+          <a href="/bounties" class="inline-flex items-center gap-1.5 hover:text-blue-600 transition">
+            <span>Fix Library</span>
+            <span class="px-1.5 py-0.5 text-[10px] font-bold rounded-full bg-blue-600 text-white">NEW</span>
+          </a>
+          <a href="#case-studies" class="hover:text-blue-600 transition">Post-Mortems (160)</a>
+          <a href="https://www.agensi.io/r/HOOKTRIAGE?to=/creators/hooktriage&utm_source=hooktriage_nav" target="_blank" rel="noopener" class="hover:text-blue-600 transition">Agensi Store</a>
+        </nav>
       </div>
-      <div class="flex items-center gap-4">
-        <a href="https://github.com/grinem/n8n-production-incident-fixes" target="_blank" rel="noopener noreferrer" class="hidden sm:inline-flex text-xs font-medium text-[#a1a4a5] hover:text-[#f0f0f0] transition">GitHub</a>
-        <button onclick="window.openTriageModal()" class="inline-flex items-center gap-2 rounded-xl bg-white hover:bg-white/90 text-black text-xs font-semibold px-3.5 py-2 transition cursor-pointer">
+
+      <div class="flex items-center gap-2.5">
+        <button id="htThemeBtn" onclick="window.toggleHtTheme()" title="Switch Light / Dark Mode" class="ht-surface-subtle inline-flex items-center gap-1 px-2.5 py-1.5 rounded-xl border border-[#212629] text-xs font-medium cursor-pointer hover:opacity-85 transition">
+          &#9728;&#65039; <span class="hidden md:inline text-[11px]">Light</span>
+        </button>
+        <button onclick="window.openKitModal()" class="inline-flex items-center gap-1.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-xs font-semibold px-3.5 py-2 transition cursor-pointer shadow-sm">
+          <span>Hardening Kit</span>
+          <span class="px-1.5 py-0.5 rounded-md bg-white/20 text-[11px] font-bold">$27</span>
+        </button>
+        <button onclick="window.openTriageModal()" class="hidden sm:inline-flex items-center gap-1.5 rounded-xl bg-[#0f172a] hover:bg-[#1e293b] text-white text-xs font-semibold px-3.5 py-2 transition cursor-pointer border border-slate-700">
           <span>Async Triage</span>
           <span>&rarr;</span>
         </button>
@@ -63,77 +222,314 @@
     </div>
   </header>
 
-  <!-- Hero Section -->
-  <main class="max-w-7xl mx-auto px-6 py-12 sm:py-20">
-    <div class="text-center max-w-3xl mx-auto mb-14">
-      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#141517] border border-[#212629] text-[#a1a4a5] text-xs font-medium mb-6">
-        <span class="w-1.5 h-1.5 rounded-full bg-[#00d294]"></span>
-        <span>Live Autonomous Engineering Knowledge Base</span>
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 py-8 sm:py-12">
+    <!-- 1. COMPATIBILITY LOGO STRIP (Agensi Style) -->
+    <div class="text-center mb-8">
+      <div class="text-[11px] font-semibold uppercase tracking-[0.14em] ht-text-soft mb-4">
+        WORKS WITH THE AI AGENTS &amp; AUTOMATION STACKS YOU ALREADY USE
       </div>
-      <h1 class="text-4xl sm:text-5xl font-semibold text-[#f0f0f0] tracking-[-0.03em] leading-[1.1] mb-5">
-        Production Incident Fixes &amp; Post-Mortem Case Studies
-      </h1>
-      <p class="text-[#a1a4a5] text-base sm:text-lg leading-relaxed mb-10">
-        Real-world failure diagnostics, root-cause isolation, and tested recovery strategies across <strong class="text-[#f0f0f0] font-medium">n8n</strong>, <strong class="text-[#f0f0f0] font-medium">Make.com</strong>, <strong class="text-[#f0f0f0] font-medium">Bubble</strong>, <strong class="text-[#f0f0f0] font-medium">Baserow</strong>, and mission-critical Webhooks.
-      </p>
-
-      <!-- Key Metric Counters -->
-      <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4 max-w-2xl mx-auto">
-        <div class="bg-[#141517] rounded-2xl p-4 sm:p-5 border border-[#212629]">
-          <div class="text-2xl sm:text-3xl font-semibold tracking-tight text-[#f0f0f0]">160</div>
-          <div class="text-xs text-[#878d8f] mt-1 font-medium">Documented Fixes</div>
-        </div>
-        <div class="bg-[#141517] rounded-2xl p-4 sm:p-5 border border-[#212629]">
-          <div class="text-2xl sm:text-3xl font-semibold tracking-tight text-[#f0f0f0]">&lt; 15m</div>
-          <div class="text-xs text-[#878d8f] mt-1 font-medium">Avg Diagnosis</div>
-        </div>
-        <div class="bg-[#141517] rounded-2xl p-4 sm:p-5 border border-[#212629]">
-          <div class="text-2xl sm:text-3xl font-semibold tracking-tight text-[#f0f0f0] flex items-center justify-center gap-2"><span class="h-2 w-2 rounded-full bg-[#00d294]"></span><span>100%</span></div>
-          <div class="text-xs text-[#878d8f] mt-1 font-medium">Verified Solutions</div>
-        </div>
-        <div class="bg-[#141517] rounded-2xl p-4 sm:p-5 border border-[#212629]">
-          <div class="text-2xl sm:text-3xl font-semibold tracking-tight text-[#f0f0f0]">1 Hour</div>
-          <div class="text-xs text-[#878d8f] mt-1 font-medium">Emergency SLA</div>
-        </div>
-      </div>
-
-      <!-- Free Zero-Trust n8n Watchdog Banner -->
-      <div class="mt-8 max-w-3xl mx-auto rounded-2xl bg-[#141517] border border-[#00d294]/35 p-5 text-left flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-        <div>
-          <div class="text-[11px] font-mono uppercase tracking-wider text-[#00d294] mb-1">Free Inbound Sentinel JSON &bull; Zero-Trust Local Scrubber</div>
-          <div class="text-sm font-semibold text-[#f0f0f0]">Stop learning about broken n8n workflows &amp; Shopify timeouts from angry clients</div>
-          <div class="text-xs text-[#a1a4a5] mt-1">Import once as your n8n Error Workflow (0 bytes leave your server), or audit workflows directly in your terminal / AI IDE via <code class="bg-[#0a0b0c] px-1.5 py-0.5 rounded border border-[#212629] text-[#f0f0f0]">npx -y github:grinem/hooktriage scan ./workflow.json</code></div>
-        </div>
-        <div class="flex flex-wrap items-center gap-2 shrink-0">
-          <a href="https://github.com/grinem/n8n-ai-watchdog" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center px-3.5 py-2.5 rounded-xl bg-[#191b1e] hover:bg-[#212629] border border-[#293034] text-[#f0f0f0] font-medium text-xs whitespace-nowrap">Inspect MIT Code</a>
-          <a href="https://raw.githubusercontent.com/grinem/n8n-ai-watchdog/main/n8n-silent-failure-watchdog.json" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center px-4 py-2.5 rounded-xl bg-[#00d294] hover:opacity-90 text-black font-semibold text-xs whitespace-nowrap">Get Watchdog JSON &rarr;</a>
-        </div>
-      </div>
-
-      <!-- Self-Serve Hardening Kit ($27) Conversion Card -->
-      <div id="hardening-kit" class="mt-4 max-w-3xl mx-auto rounded-2xl bg-gradient-to-br from-[#141517] to-[#0a0b0c] border border-[#293034] hover:border-[#00d294]/60 transition p-5 sm:p-6 text-left flex flex-col sm:flex-row sm:items-center justify-between gap-5">
-        <div class="space-y-1.5">
-          <div class="flex flex-wrap items-center gap-2">
-            <span class="text-[11px] font-mono uppercase tracking-wider px-2 py-0.5 rounded-full bg-[#00d294]/15 text-[#00d294] border border-[#00d294]/30">Instant .zip Download</span>
-            <span class="text-[11px] font-mono text-[#a1a4a5]">4 Hardened JSONs + SKILL.md</span>
-          </div>
-          <h2 class="text-base sm:text-lg font-semibold text-[#f0f0f0] tracking-tight">Self-Serve Hardening Kit &mdash; $27</h2>
-          <p class="text-xs text-[#a1a4a5] leading-relaxed">Drop-in production templates for <strong class="text-[#f0f0f0]">n8n, Shopify &amp; Stripe</strong>: Webhook Idempotency Gate, Dead-Letter Queue Replay, AI Agent Loop Guard, Exponential Backoff Retry + <code class="bg-[#0a0b0c] px-1 py-0.5 rounded border border-[#212629] text-[#f0f0f0]">SKILL.md</code>.</p>
-        </div>
-        <div class="flex flex-col items-stretch sm:items-end gap-1.5 shrink-0">
-          <button onclick="window.openKitModal()" class="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-white hover:bg-white/90 text-black font-semibold text-xs sm:text-sm whitespace-nowrap transition cursor-pointer shadow-lg">
-            <span>Get Hardening Kit &mdash; $27</span>
-            <span>&rarr;</span>
-          </button>
-          <span class="text-[11px] text-[#878d8f] text-center sm:text-right">Crypto (150+ / BEP20) or Card &bull; Auto-unlocks</span>
-        </div>
+      <div class="flex flex-wrap items-center justify-center gap-2.5 sm:gap-3.5 max-w-4xl mx-auto">
+        <span class="ht-surface inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-[#212629] text-xs font-semibold ht-text-main">
+          <span class="w-2 h-2 rounded-full bg-[#ff6d5a]"></span> n8n Workflows
+        </span>
+        <span class="ht-surface inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-[#212629] text-xs font-semibold ht-text-main">
+          <span class="w-2 h-2 rounded-full bg-[#95bf47]"></span> Shopify Webhooks
+        </span>
+        <span class="ht-surface inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-[#212629] text-xs font-semibold ht-text-main">
+          <span class="w-2 h-2 rounded-full bg-[#635bff]"></span> Stripe Events
+        </span>
+        <span class="ht-surface inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-[#212629] text-xs font-semibold ht-text-main">
+          <span class="w-2 h-2 rounded-full bg-[#d97757]"></span> Claude Code (MCP)
+        </span>
+        <span class="ht-surface inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-[#212629] text-xs font-semibold ht-text-main">
+          <span class="w-2 h-2 rounded-full bg-[#2563eb]"></span> Cursor &amp; Windsurf
+        </span>
+        <span class="ht-surface inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-[#212629] text-xs font-semibold ht-text-main">
+          <span class="w-2 h-2 rounded-full bg-[#9333ea]"></span> Make.com
+        </span>
+        <span class="ht-surface inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-[#212629] text-xs font-semibold ht-text-main">
+          <span class="w-2 h-2 rounded-full bg-[#0ea5e9]"></span> Docker &amp; Postgres
+        </span>
       </div>
     </div>
 
-    <!-- Filter & Search Controls -->
-    <div class="mb-8 flex flex-col md:flex-row items-center justify-between gap-4">
-      <div class="flex flex-wrap gap-2 justify-center md:justify-start">
-        <button class="filter-btn px-3.5 py-1.5 rounded-xl text-xs font-medium bg-white text-black border border-white transition cursor-pointer" data-filter="all">All Incidents (160)</button>
+    <!-- 2. HERO + AGENSI/MCP HUB-AND-SPOKE LIVE RADIAL DIAGRAM (With 3-Second Live Cycling Animation) -->
+    <section id="live-hub" class="mb-14">
+      <div class="text-center max-w-3xl mx-auto mb-8">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-700 dark:text-[#00d294] text-xs font-semibold mb-4">
+          <span class="w-2 h-2 rounded-full bg-[#00d294] animate-pulse"></span>
+          <span>Zero-Trust Webhook &amp; n8n Production Hardening Storefront</span>
+        </div>
+        <h1 class="text-3xl sm:text-5xl font-bold ht-text-main tracking-[-0.03em] leading-[1.12] mb-4">
+          Stop Silent Webhook Failures Before They Drop Paid Orders
+        </h1>
+        <p class="ht-text-muted text-sm sm:text-base leading-relaxed">
+          Audit exported <strong class="ht-text-main">n8n JSON workflows</strong> locally in 1 second, or drop in battle-tested <strong class="ht-text-main">Shopify, Stripe &amp; AI Agent hardening blueprints</strong> with instant Stripe Card &amp; Crypto checkout.
+        </p>
+      </div>
+
+      <!-- Radial Hub-and-Spoke Canvas (agensi.io/mcp style) -->
+      <div class="relative max-w-5xl mx-auto py-4">
+        <!-- Top Featured Pill (12 o'clock) -->
+        <div class="flex justify-center mb-6 relative z-10">
+          <div id="htSpoke0" onclick="window.openKitModal()" class="ht-spoke-card ht-spoke-active ht-surface cursor-pointer rounded-full px-5 py-3 border-2 border-amber-400/80 max-w-md w-full flex items-center justify-between gap-3 relative">
+            <span class="absolute -top-3 left-1/2 -translate-x-1/2 px-2.5 py-0.5 rounded-full bg-amber-500 text-white text-[10px] font-extrabold uppercase tracking-wider shadow">
+              &#127942; Blueprint Kit of the Month
+            </span>
+            <div class="flex items-center gap-3 min-w-0">
+              <div class="w-9 h-9 rounded-full bg-[#0a0f18] border border-[#00d294]/50 flex items-center justify-center shrink-0 text-[#00d294] font-bold text-xs">PRO</div>
+              <div class="min-w-0">
+                <div class="text-xs sm:text-sm font-bold ht-text-main truncate">n8n Production Hardening Kit (4 JSONs)</div>
+                <div class="text-[11px] ht-text-soft truncate">Grine Mohamed &bull; &#10003; Security Scanned &bull; Instant .zip</div>
+                <div class="ht-spoke-status text-[11px] font-semibold text-blue-600 dark:text-[#00d294]">&#10003; Loaded into your n8n production instance</div>
+              </div>
+            </div>
+            <span class="px-3 py-1 rounded-full bg-blue-600 text-white font-bold text-xs shrink-0 shadow-sm">$27</span>
+          </div>
+        </div>
+
+        <!-- Middle 3-Column Row: Left Spokes + Central Agent Hub + Right Spokes -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 items-center relative z-10">
+          <!-- Left Spokes -->
+          <div class="space-y-4">
+            <div id="htSpoke1" onclick="window.openKitModal()" class="ht-spoke-card ht-surface cursor-pointer rounded-full px-4 py-3 border border-[#212629] flex items-center justify-between gap-3">
+              <div class="flex items-center gap-3 min-w-0">
+                <div class="w-8 h-8 rounded-full bg-emerald-500/15 text-emerald-600 flex items-center justify-center shrink-0 font-bold text-xs">ACK</div>
+                <div class="min-w-0">
+                  <div class="text-xs font-bold ht-text-main truncate">Shopify &lt;5s ACK &amp; HMAC Guard</div>
+                  <div class="text-[11px] ht-text-soft truncate">Stops 5s cutoff &amp; duplicate orders</div>
+                  <div class="ht-spoke-status text-[11px] font-semibold text-blue-600 dark:text-[#00d294]">&#10003; Auditing Shopify Webhook (&lt;5s ACK)...</div>
+                </div>
+              </div>
+              <span class="px-2.5 py-1 rounded-full bg-blue-600 text-white font-bold text-xs shrink-0">$27</span>
+            </div>
+
+            <div id="htSpoke2" onclick="window.openKitModal()" class="ht-spoke-card ht-surface cursor-pointer rounded-full px-4 py-3 border border-[#212629] flex items-center justify-between gap-3">
+              <div class="flex items-center gap-3 min-w-0">
+                <div class="w-8 h-8 rounded-full bg-indigo-500/15 text-indigo-600 flex items-center justify-center shrink-0 font-bold text-xs">300s</div>
+                <div class="min-w-0">
+                  <div class="text-xs font-bold ht-text-main truncate">Stripe 300s Replay &amp; Dedup Shield</div>
+                  <div class="text-[11px] ht-text-soft truncate">Bounded 24h idempotency cache</div>
+                  <div class="ht-spoke-status text-[11px] font-semibold text-blue-600 dark:text-[#00d294]">&#10003; Verifying Stripe HMAC-SHA256 signature...</div>
+                </div>
+              </div>
+              <span class="px-2.5 py-1 rounded-full bg-blue-600 text-white font-bold text-xs shrink-0">$27</span>
+            </div>
+          </div>
+
+          <!-- Center Hub Card ("Your Agent / Your n8n Stack") -->
+          <div class="flex justify-center">
+            <div class="ht-surface rounded-3xl p-6 border-2 border-blue-600/80 shadow-xl max-w-xs w-full text-center relative">
+              <div class="w-14 h-14 mx-auto mb-3 rounded-2xl bg-blue-600/10 border border-blue-600/30 flex items-center justify-center">
+                <svg class="w-8 h-8 text-blue-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M12 3l7 3v6c0 5-3.5 8.5-7 9-3.5-.5-7-4-7-9V6l7-3z"/>
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M13 8l-3 5h4l-3 5"/>
+                </svg>
+              </div>
+              <div class="text-lg font-bold ht-text-main">Your n8n &amp; AI Stack</div>
+              <div class="inline-flex items-center gap-1.5 text-xs font-medium text-emerald-600 dark:text-[#00d294] mt-1">
+                <span class="w-2 h-2 rounded-full bg-emerald-500 animate-ping"></span>
+                <span>Connected to HookTriage</span>
+              </div>
+              <div class="mt-3 px-3 py-1.5 rounded-full ht-surface-subtle border border-[#212629] text-[11px] font-mono font-semibold ht-text-main truncate" id="htLiveCyclePill">
+                Using n8n Production Hardening Kit
+              </div>
+            </div>
+          </div>
+
+          <!-- Right Spokes -->
+          <div class="space-y-4">
+            <div id="htSpoke3" onclick="window.openKitModal()" class="ht-spoke-card ht-surface cursor-pointer rounded-full px-4 py-3 border border-[#212629] flex items-center justify-between gap-3">
+              <div class="flex items-center gap-3 min-w-0">
+                <div class="w-8 h-8 rounded-full bg-purple-500/15 text-purple-600 flex items-center justify-center shrink-0 font-bold text-xs">AI</div>
+                <div class="min-w-0">
+                  <div class="text-xs font-bold ht-text-main truncate">AI Agent Circuit Breaker &amp; DLQ</div>
+                  <div class="text-[11px] ht-text-soft truncate">Catches empty {} &amp; 429 rate limits</div>
+                  <div class="ht-spoke-status text-[11px] font-semibold text-blue-600 dark:text-[#00d294]">&#10003; Guarding AI Agent JSON output schema...</div>
+                </div>
+              </div>
+              <span class="px-2.5 py-1 rounded-full bg-blue-600 text-white font-bold text-xs shrink-0">$27</span>
+            </div>
+
+            <a id="htSpoke4" href="https://www.agensi.io/r/HOOKTRIAGE?to=/skills/hooktriage-n8n-webhook-silent-failure-auditor&utm_source=hooktriage_hub" target="_blank" rel="noopener" class="ht-spoke-card ht-surface cursor-pointer rounded-full px-4 py-3 border border-[#212629] flex items-center justify-between gap-3 no-underline">
+              <div class="flex items-center gap-3 min-w-0">
+                <div class="w-8 h-8 rounded-full bg-emerald-500/15 text-emerald-600 flex items-center justify-center shrink-0 font-bold text-xs">CLI</div>
+                <div class="min-w-0">
+                  <div class="text-xs font-bold ht-text-main truncate">Local CLI &amp; MCP Silent-Failure Auditor</div>
+                  <div class="text-[11px] ht-text-soft truncate">0 bytes uploaded &bull; MIT Open-Source</div>
+                  <div class="ht-spoke-status text-[11px] font-semibold text-emerald-600">&#10003; Scanning local workflow.json (0B sent)...</div>
+                </div>
+              </div>
+              <span class="px-2.5 py-1 rounded-full bg-emerald-600 text-white font-bold text-xs shrink-0">Free</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- Bottom Spoke (6 o'clock) -->
+        <div class="flex justify-center mt-6 relative z-10">
+          <div id="htSpoke5" onclick="window.openTriageModal()" class="ht-spoke-card ht-surface cursor-pointer rounded-full px-5 py-3 border border-[#212629] max-w-md w-full flex items-center justify-between gap-3">
+            <div class="flex items-center gap-3 min-w-0">
+              <div class="w-8 h-8 rounded-full bg-amber-500/15 text-amber-600 flex items-center justify-center shrink-0 font-bold text-xs">SRE</div>
+              <div class="min-w-0">
+                <div class="text-xs font-bold ht-text-main truncate">Async Incident Triage &amp; Verified Patch (&lt;6h SLA)</div>
+                <div class="text-[11px] ht-text-soft truncate">160 documented fixes &bull; Zero video calls</div>
+                <div class="ht-spoke-status text-[11px] font-semibold text-blue-600 dark:text-[#00d294]">&#10003; Isolating root cause &amp; generating PR patch...</div>
+              </div>
+            </div>
+            <span class="px-2.5 py-1 rounded-full bg-slate-800 text-white font-bold text-xs shrink-0">$39 / $199</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3. AGENSI-STYLE 3-COLUMN "TRENDING & FEATURED KITS" VISUAL PRODUCT CARDS -->
+    <section id="featured-kits" class="mb-14">
+      <div class="flex flex-col sm:flex-row sm:items-end justify-between mb-6 gap-2">
+        <div>
+          <h2 class="text-xl sm:text-2xl font-bold ht-text-main tracking-tight">Featured Kits &amp; AI Agent Skills</h2>
+          <p class="text-xs sm:text-sm ht-text-muted">Ready-to-import n8n production blueprints, local MCP skills, and on-demand emergency patches</p>
+        </div>
+        <a href="https://www.agensi.io/r/HOOKTRIAGE?to=/creators/hooktriage&utm_source=hooktriage_cards" target="_blank" rel="noopener" class="text-xs font-semibold text-blue-600 hover:underline">
+          View verified creator profile on Agensi &rarr;
+        </a>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+        <!-- Card 1: Free Local CLI & MCP Skill -->
+        <div class="ht-surface rounded-2xl p-5 border border-[#212629] flex flex-col justify-between transition hover:border-blue-500">
+          <div>
+            <div class="flex items-start justify-between gap-3 mb-3">
+              <div class="flex items-center gap-3">
+                <div class="w-11 h-11 rounded-xl bg-[#0a0f18] border border-emerald-500/40 flex items-center justify-center shrink-0 text-[#00d294] font-mono font-bold text-xs">
+                  CLI
+                </div>
+                <div>
+                  <h3 class="text-sm font-bold ht-text-main leading-snug">HookTriage — Webhook Silent-Failure Auditor</h3>
+                  <div class="text-[11px] ht-text-soft">by Grine Mohamed</div>
+                </div>
+              </div>
+              <div class="flex items-center gap-1.5 shrink-0">
+                <span title="Security Scanned" class="text-emerald-500 text-sm">&#10004;</span>
+                <span class="px-2.5 py-0.5 rounded-full bg-emerald-600 text-white font-bold text-xs">Free</span>
+              </div>
+            </div>
+            <p class="text-xs ht-text-muted leading-relaxed mb-4">
+              Audit n8n workflow JSON exports, Shopify/Stripe webhooks, and AI Agent pipelines locally for silent production failures (0 bytes uploaded, secrets scrubbed locally).
+            </p>
+          </div>
+          <div>
+            <div class="flex items-center justify-between text-[11px] ht-text-soft border-t border-slate-200 dark:border-[#212629] pt-3 mb-3">
+              <span>&#128737; Security Scanned</span>
+              <span>&#9889; Claude / Cursor MCP</span>
+              <span>MIT License</span>
+            </div>
+            <div class="grid grid-cols-2 gap-2">
+              <a href="https://www.agensi.io/r/HOOKTRIAGE?to=/skills/hooktriage-n8n-webhook-silent-failure-auditor&utm_source=hooktriage_card1" target="_blank" rel="noopener" class="inline-flex items-center justify-center px-3 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-semibold text-xs text-center transition">
+                Get Free Skill &rarr;
+              </a>
+              <a href="https://github.com/grinem/hooktriage" target="_blank" rel="noopener" class="ht-surface-subtle inline-flex items-center justify-center px-3 py-2 rounded-xl border border-[#212629] font-semibold text-xs text-center transition">
+                GitHub CLI
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 2 (FEATURED $27 PRO KIT with -44% Badge) -->
+        <div id="hardening-kit" class="ht-surface rounded-2xl p-5 border-2 border-blue-600 relative flex flex-col justify-between shadow-lg">
+          <span class="absolute -top-3 right-4 px-2.5 py-0.5 rounded-full bg-rose-600 text-white text-[11px] font-extrabold shadow">
+            -44% LAUNCH
+          </span>
+          <div>
+            <div class="flex items-start justify-between gap-3 mb-3">
+              <div class="flex items-center gap-3">
+                <div class="w-11 h-11 rounded-xl bg-[#0a0f18] border border-[#00d294] flex items-center justify-center shrink-0">
+                  <svg class="w-6 h-6 text-[#00d294]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 3l7 3v6c0 5-3.5 8.5-7 9-3.5-.5-7-4-7-9V6l7-3z"/>
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M13 8l-3 5h4l-3 5"/>
+                  </svg>
+                </div>
+                <div>
+                  <h3 class="text-sm font-bold ht-text-main leading-snug">HookTriage n8n Production Hardening Kit</h3>
+                  <div class="text-[11px] ht-text-soft">by Grine Mohamed &bull; 4 JSONs + SKILL.md</div>
+                </div>
+              </div>
+              <div class="flex items-center gap-1.5 shrink-0">
+                <span title="Security Scanned" class="text-emerald-500 text-sm">&#10004;</span>
+                <span class="px-2.5 py-0.5 rounded-full bg-blue-600 text-white font-bold text-xs">$27</span>
+                <span class="text-[11px] ht-text-soft line-through">$49</span>
+              </div>
+            </div>
+            <p class="text-xs ht-text-muted leading-relaxed mb-4">
+              4 drop-in hardened n8n workflow JSONs: HMAC-SHA256 verification, bounded 24h idempotency deduplication, Shopify &lt;5s ACK guard, Stripe 300s replay protection, AI Agent circuit breaker &amp; Dead-Letter Queue.
+            </p>
+          </div>
+          <div>
+            <div class="flex items-center justify-between text-[11px] ht-text-soft border-t border-slate-200 dark:border-[#212629] pt-3 mb-3">
+              <span>&#128179; Instant Stripe Card</span>
+              <span>&#9989; 6 Files / 4 JSONs</span>
+              <span>&#128274; Money-back</span>
+            </div>
+            <button onclick="window.openKitModal()" class="w-full inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs cursor-pointer transition shadow">
+              <span>Buy Hardening Kit &mdash; $27 (Card or Crypto)</span>
+              <span>&rarr;</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Card 3: Fix Pack ($39) & Async Incident Triage ($199) -->
+        <div class="ht-surface rounded-2xl p-5 border border-[#212629] flex flex-col justify-between transition hover:border-blue-500">
+          <div>
+            <div class="flex items-start justify-between gap-3 mb-3">
+              <div class="flex items-center gap-3">
+                <div class="w-11 h-11 rounded-xl bg-amber-500/15 border border-amber-500/40 flex items-center justify-center shrink-0 text-amber-600 font-mono font-bold text-xs">
+                  SRE
+                </div>
+                <div>
+                  <h3 class="text-sm font-bold ht-text-main leading-snug">Async Incident Triage &amp; Custom Fix Pack</h3>
+                  <div class="text-[11px] ht-text-soft">by Grine Mohamed &bull; &lt;6h SLA</div>
+                </div>
+              </div>
+              <div class="flex items-center gap-1.5 shrink-0">
+                <span title="Verified Engineering" class="text-emerald-500 text-sm">&#10004;</span>
+                <span class="px-2.5 py-0.5 rounded-full bg-slate-800 text-white font-bold text-xs">$39 / $199</span>
+              </div>
+            </div>
+            <p class="text-xs ht-text-muted leading-relaxed mb-4">
+              Facing a live n8n, Docker, Postgres pool, OAuth2 refresh, or webhook deadlock? Get an instant AI root-cause preview for free, then unlock the exact production patch or book a &lt;6h async PR fix.
+            </p>
+          </div>
+          <div>
+            <div class="flex items-center justify-between text-[11px] ht-text-soft border-t border-slate-200 dark:border-[#212629] pt-3 mb-3">
+              <span>&#128202; 160 Verified Fixes</span>
+              <span>&#9201; &lt;15m Diagnosis</span>
+              <span>Zero Calls</span>
+            </div>
+            <div class="grid grid-cols-2 gap-2">
+              <button onclick="window.openTriageModal()" class="inline-flex items-center justify-center px-3 py-2 rounded-xl bg-slate-900 hover:bg-slate-800 text-white font-semibold text-xs cursor-pointer transition">
+                Start Triage &rarr;
+              </button>
+              <a href="/bounties" class="ht-surface-subtle inline-flex items-center justify-center px-3 py-2 rounded-xl border border-[#212629] font-semibold text-xs text-center transition">
+                Browse Fixes ($39)
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4. VERIFIED POST-MORTEM CASE STUDIES KNOWLEDGE BASE (160 CASES) -->
+    <section id="case-studies">
+      <div class="flex flex-col sm:flex-row sm:items-end justify-between mb-5 gap-2">
+        <div>
+          <h2 class="text-xl sm:text-2xl font-bold ht-text-main tracking-tight">Production Incident Fixes &amp; Post-Mortem Library (160)</h2>
+          <p class="text-xs sm:text-sm ht-text-muted">Real-world failure diagnostics, root-cause isolation, and tested recovery strategies across n8n, Make.com, Shopify, Stripe &amp; Docker</p>
+        </div>
+      </div>
+
+      <!-- Filter & Search Controls -->
+      <div class="mb-7 flex flex-col md:flex-row items-center justify-between gap-4">
+        <div class="flex flex-wrap gap-2 justify-center md:justify-start">
+          <button class="filter-btn px-3.5 py-1.5 rounded-xl text-xs font-medium bg-white text-black border border-white transition cursor-pointer" data-filter="all">All Incidents (160)</button>
 <button class="filter-btn px-3.5 py-1.5 rounded-xl text-xs font-medium bg-[#141517] text-[#a1a4a5] hover:bg-[#191b1e] hover:text-[#f0f0f0] border border-[#212629] transition cursor-pointer" data-filter="Activepieces">Activepieces (10)</button>
 <button class="filter-btn px-3.5 py-1.5 rounded-xl text-xs font-medium bg-[#141517] text-[#a1a4a5] hover:bg-[#191b1e] hover:text-[#f0f0f0] border border-[#212629] transition cursor-pointer" data-filter="Automation Engine">Automation Engine (34)</button>
 <button class="filter-btn px-3.5 py-1.5 rounded-xl text-xs font-medium bg-[#141517] text-[#a1a4a5] hover:bg-[#191b1e] hover:text-[#f0f0f0] border border-[#212629] transition cursor-pointer" data-filter="Baserow">Baserow (2)</button>
@@ -141,15 +537,15 @@
 <button class="filter-btn px-3.5 py-1.5 rounded-xl text-xs font-medium bg-[#141517] text-[#a1a4a5] hover:bg-[#191b1e] hover:text-[#f0f0f0] border border-[#212629] transition cursor-pointer" data-filter="Make.com">Make.com (28)</button>
 <button class="filter-btn px-3.5 py-1.5 rounded-xl text-xs font-medium bg-[#141517] text-[#a1a4a5] hover:bg-[#191b1e] hover:text-[#f0f0f0] border border-[#212629] transition cursor-pointer" data-filter="Meta / Webhooks">Meta / Webhooks (3)</button>
 <button class="filter-btn px-3.5 py-1.5 rounded-xl text-xs font-medium bg-[#141517] text-[#a1a4a5] hover:bg-[#191b1e] hover:text-[#f0f0f0] border border-[#212629] transition cursor-pointer" data-filter="n8n">n8n (78)</button>
+        </div>
+        <div class="w-full md:w-64">
+          <input id="searchInput" type="text" placeholder="Search error codes or tools..." class="w-full px-3.5 py-2 rounded-xl bg-[#141517] border border-[#212629] text-sm text-[#f0f0f0] placeholder-[#878d8f] focus:outline-none focus:border-blue-600 transition">
+        </div>
       </div>
-      <div class="w-full md:w-64">
-        <input id="searchInput" type="text" placeholder="Search error codes or tools..." class="w-full px-3.5 py-2 rounded-xl bg-[#141517] border border-[#212629] text-sm text-[#f0f0f0] placeholder-[#878d8f] focus:outline-none focus:border-[#3b4345] transition">
-      </div>
-    </div>
 
-    <!-- Case Studies Cards Grid -->
-    <div id="cardsGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5">
-      
+      <!-- Case Studies Cards Grid -->
+      <div id="cardsGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5">
+        
         <div id="issue-github_n8n-io_n8n_44710" data-lead-id="github_n8n-io_n8n_44710" class="incident-card bg-[#141517] hover:bg-[#191b1e] rounded-2xl p-6 border border-[#212629] hover:border-[#293034] transition-colors flex flex-col justify-between" data-eco="n8n">
           <div>
             <div class="flex items-center justify-between gap-2 mb-3.5">
@@ -3669,37 +4065,69 @@
           </div>
         </div>
         
-    </div>
+      </div>
+    </section>
 
     <!-- Footer Support CTA -->
-    <section class="mt-16 rounded-3xl bg-[#141517] border border-[#212629] p-10 sm:p-12 text-center">
-      <h2 class="text-2xl sm:text-3xl font-semibold tracking-tight text-[#f0f0f0] mb-3">Facing an Active Production Outage Right Now?</h2>
-      <p class="text-[#a1a4a5] max-w-2xl mx-auto mb-8 text-sm sm:text-base leading-relaxed">
-        Don't let broken webhook deadlocks, OAuth expiry loops, or database constraint failures stall your business operations. Book an emergency direct incident recovery session.
+    <section class="mt-16 rounded-3xl ht-surface border border-[#212629] p-8 sm:p-12 text-center">
+      <h2 class="text-2xl sm:text-3xl font-bold tracking-tight ht-text-main mb-3">Facing an Active Production Outage Right Now?</h2>
+      <p class="ht-text-muted max-w-2xl mx-auto mb-7 text-sm sm:text-base leading-relaxed">
+        Don't let broken webhook deadlocks, OAuth expiry loops, or database constraint failures stall your business operations. Get the drop-in $27 Hardening Kit or launch an emergency async incident recovery session.
       </p>
-      <button onclick="window.openTriageModal()" class="inline-flex items-center gap-2 px-6 py-3.5 rounded-2xl bg-white hover:bg-white/90 text-black font-semibold text-sm transition cursor-pointer">
-        <span>Launch Instant Async Incident Resolution (&lt; 6h, Zero Calls)</span>
-        <span>&rarr;</span>
-      </button>
-      <div class="mt-4 text-xs text-[#878d8f]">
-        All incident resolutions, verified patches, and SLAs are delivered autonomously with 100% verified RCA and zero video calls.
+      <div class="flex flex-wrap items-center justify-center gap-3">
+        <button onclick="window.openKitModal()" class="inline-flex items-center gap-2 px-6 py-3.5 rounded-2xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-sm transition cursor-pointer shadow">
+          <span>Download n8n Hardening Kit ($27)</span>
+          <span>&rarr;</span>
+        </button>
+        <button onclick="window.openTriageModal()" class="inline-flex items-center gap-2 px-6 py-3.5 rounded-2xl bg-slate-900 hover:bg-slate-800 text-white font-semibold text-sm transition cursor-pointer">
+          <span>Launch Instant Async Incident Resolution (&lt; 6h)</span>
+          <span>&rarr;</span>
+        </button>
       </div>
     </section>
   </main>
 
-  <footer class="border-t border-[#212629] py-8 text-center text-xs text-[#878d8f] space-x-3">
+  <footer class="border-t border-slate-200 dark:border-[#212629] py-8 text-center text-xs ht-text-soft space-x-3">
     <span>&copy; 2026 HookTriage (grinem)</span>
     <span>&bull;</span>
-    <a href="mailto:ops@hooktriage.com" class="text-[#a1a4a5] hover:text-[#f0f0f0] underline underline-offset-4">ops@hooktriage.com</a>
+    <a href="mailto:ops@hooktriage.com" class="ht-text-muted hover:underline underline-offset-4">ops@hooktriage.com</a>
     <span>&bull;</span>
-    <a href="https://github.com/grinem/hooktriage" class="text-[#a1a4a5] hover:text-[#f0f0f0] underline underline-offset-4">CLI &amp; MCP Server</a>
+    <a href="https://www.agensi.io/r/HOOKTRIAGE?to=/creators/hooktriage&utm_source=hooktriage_footer" target="_blank" rel="noopener" class="ht-text-muted hover:underline underline-offset-4">Agensi Verified Creator</a>
     <span>&bull;</span>
-    <a href="https://github.com/grinem/n8n-ai-watchdog" class="text-[#a1a4a5] hover:text-[#f0f0f0] underline underline-offset-4">Watchdog (MIT)</a>
+    <a href="https://github.com/grinem/hooktriage" class="ht-text-muted hover:underline underline-offset-4">CLI &amp; MCP Server</a>
     <span>&bull;</span>
-    <a href="/bounties" class="text-[#a1a4a5] hover:text-[#f0f0f0] underline underline-offset-4">Fix Library</a>
+    <a href="https://github.com/grinem/n8n-ai-watchdog" class="ht-text-muted hover:underline underline-offset-4">Watchdog (MIT)</a>
+    <span>&bull;</span>
+    <a href="/bounties" class="ht-text-muted hover:underline underline-offset-4">Fix Library</a>
   </footer>
 
   <script>
+    // Out-of-the-Box 3-Second Live Hub-and-Spoke Cycling Animation (agensi.io/mcp style)
+    (function() {
+      const cycleItems = [
+        { id: 'htSpoke0', label: 'Using n8n Production Hardening Kit ($27)' },
+        { id: 'htSpoke1', label: 'Auditing Shopify Webhook (<5s ACK Guard)...' },
+        { id: 'htSpoke2', label: 'Verifying Stripe 300s HMAC-SHA256...' },
+        { id: 'htSpoke3', label: 'Guarding AI Agent JSON Output & DLQ...' },
+        { id: 'htSpoke4', label: 'Scanning Local JSON via HookTriage CLI...' },
+        { id: 'htSpoke5', label: 'Running Async Root-Cause Triage (<6h)...' }
+      ];
+      let idx = 0;
+      const pill = document.getElementById('htLiveCyclePill');
+      function stepCycle() {
+        cycleItems.forEach((it, i) => {
+          const el = document.getElementById(it.id);
+          if (el) {
+            if (i === idx) el.classList.add('ht-spoke-active');
+            else el.classList.remove('ht-spoke-active');
+          }
+        });
+        if (pill) pill.textContent = cycleItems[idx].label;
+        idx = (idx + 1) % cycleItems.length;
+      }
+      setInterval(stepCycle, 2800);
+    })();
+
     const filterBtns = document.querySelectorAll('.filter-btn');
     const searchInput = document.getElementById('searchInput');
     const cards = document.querySelectorAll('.incident-card');
