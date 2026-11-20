@@ -16,10 +16,15 @@ slug: "how-do-you-prevent-duplicate-api-operations-when-workflows-retry"
 > [**🚨 Instant Async Production Triage & Resolution (< 6h, Zero Video Calls)**](https://hooktriage.com/#triage)
 
 
+> ✅ **Confirmed Production Resolution (Timestamp: `2026-11-20T12:23:18.475623+01:00`)**  
+> **Author (`valmorgan`) verified on [the live thread](https://community.n8n.io/t/how-do-you-prevent-duplicate-api-operations-when-workflows-retry-failed-requests/329364)**:  
+> *"Seen this with clinic appointment booking flows, a timed-out POST that actually went through and then a duplicate slot after the retry. What fixed it for us was building the key from the appointment ID plus the action and checking for it before every create, and treating a timeout as ‘unknown’ rather than ‘failed’. Boring but it ended the double bookings."*
+
+
 ## Incident Metadata
 - **Platform / Ecosystem**: `n8n`
 - **Incident Severity**: `HIGH`
-- **Resolution Status**: `VERIFIED & RESOLVED`
+- **Resolution Status**: `CONFIRMED BY AUTHOR IN PRODUCTION`
 - **Logged Timestamp**: `2026-11-18T08:20:40.134545`
 - **Diagnosis Engine**: Autonomous Production Incident Radar
 
