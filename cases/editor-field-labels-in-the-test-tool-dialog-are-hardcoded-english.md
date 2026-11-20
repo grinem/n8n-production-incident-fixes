@@ -19,7 +19,7 @@ slug: "editor-field-labels-in-the-test-tool-dialog-are-hardcoded-english"
 ## Incident Metadata
 - **Platform / Ecosystem**: `n8n`
 - **Incident Severity**: `HIGH`
-- **Resolution Status**: `RADAR TRIAGED & READY FOR RESOLUTION`
+- **Resolution Status**: `VERIFIED & RESOLVED`
 - **Logged Timestamp**: `2026-11-20T08:30:04.874102`
 - **Diagnosis Engine**: Autonomous Production Incident Radar
 
