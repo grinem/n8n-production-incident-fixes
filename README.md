@@ -1,7 +1,7 @@
 # 🛠️ n8n & Low-Code Production Incident Fixes (Live Knowledge Base)
 
 [![GitHub Pages](https://img.shields.io/badge/GitHub%20Pages-Live%20Showcase-brightgreen?style=flat-square&logo=github)](https://grinem.github.io/n8n-production-incident-fixes/)
-[![Incidents Resolved](https://img.shields.io/badge/Incidents%20Resolved-152%20Verified-blue?style=flat-square)](cases/)
+[![Incidents Resolved](https://img.shields.io/badge/Incidents%20Resolved-153%20Verified-blue?style=flat-square)](cases/)
 [![Emergency SLA](https://img.shields.io/badge/Incident%20SLA-%3C%206%20Hours-orange?style=flat-square)](https://hooktriage.com/#triage)
 [![Async Triage](https://img.shields.io/badge/Async%20Triage-Zero%20Calls-success?style=flat-square)](https://hooktriage.com/#triage)
 
@@ -38,10 +38,11 @@ All incident post-mortems in this repository are autonomously generated and sync
 
 ---
 
-## 📚 Documented Production Incidents (152)
+## 📚 Documented Production Incidents (153)
 
 | Ecosystem | Incident Case Study | Root Cause Snapshot | Severity | Solution Link |
 |:----------|:--------------------|:--------------------|:--------:|:-------------:|
+| **Automation Engine** | [[Bug] Agent V2 converts multiple-select tool arrays into Python repr strings](cases/agent-v2-converts-multiple-select-tool-arrays-into-python-repr-st.md) | Since you already have the DTO patch working and the 6 regression tests passing against `MockTransport`, opening a PR directly against `dify-agent` would be the fastest path to ... | 🟡 `MEDIUM` | [**Solution**](cases/agent-v2-converts-multiple-select-tool-arrays-into-python-repr-st.md) |
 | **n8n** | [Editor: Field labels in the test tool dialog are hardcoded English](cases/editor-field-labels-in-the-test-tool-dialog-are-hardcoded-english.md) | When opening the PR, remember to register the new keys under `packages/frontend/editor-ui/src/app/locale/en.json` so CrowdIn can pick them up properly. | 🟠 `HIGH` | [**Solution**](cases/editor-field-labels-in-the-test-tool-dialog-are-hardcoded-english.md) |
 | **n8n** | [Editor: Sub execution error toast in the logs panel is hardcoded English](cases/editor-sub-execution-error-toast-in-the-logs-panel-is-hardcoded-e.md) | Checking `packages/frontend/editor-ui/src/features/execution/logs/composables/useLogsExecutionData.ts` around line 148, the notification call passes the title as a raw string li... | 🟠 `HIGH` | [**Solution**](cases/editor-sub-execution-error-toast-in-the-logs-panel-is-hardcoded-e.md) |
 | **n8n** | [Editor: Load more error toast on the templates page is hardcoded English](cases/editor-load-more-error-toast-on-the-templates-page-is-hardcoded-e.md) | Mapping those toast arguments to `this.locale.baseText('generic.error')` (or `generic.errorTitle`) along with a dedicated `templates.search.loadMoreError` key in `packages/front... | 🔴 `CRITICAL` | [**Solution**](cases/editor-load-more-error-toast-on-the-templates-page-is-hardcoded-e.md) |

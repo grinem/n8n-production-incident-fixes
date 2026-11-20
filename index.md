@@ -13,9 +13,9 @@ title: "Production Incident Fixes & Post-Mortem Knowledge Base"
 
 
 ### 📊 Real-Time Operations Telemetry
-- **Total Production Incidents Documented**: `152`
+- **Total Production Incidents Documented**: `153`
 - **Active Incident Resolvers**: Automated Production Radar + Lead SRE Engineer
-- **Breakdown by Platform**: **n8n**: 76 | **Automation Engine**: 30 | **Make.com**: 26 | **Activepieces**: 10 | **Bubble.io**: 5 | **Meta / Webhooks**: 3 | **Baserow**: 2
+- **Breakdown by Platform**: **n8n**: 76 | **Automation Engine**: 31 | **Make.com**: 26 | **Activepieces**: 10 | **Bubble.io**: 5 | **Meta / Webhooks**: 3 | **Baserow**: 2
 - **Average Diagnosis & Root-Cause Pinpoint**: `< 15 Minutes`
 
 ---
@@ -24,6 +24,7 @@ title: "Production Incident Fixes & Post-Mortem Knowledge Base"
 
 | Ecosystem | Incident Summary | Root Cause Snapshot | Severity | Resolution Guide |
 |:----------|:-----------------|:--------------------|:--------:|:----------------:|
+| **Automation Engine** | [[Bug] Agent V2 converts multiple-select tool arrays into Python repr strings](cases/agent-v2-converts-multiple-select-tool-arrays-into-python-repr-st.html) | Since you already have the DTO patch working and the 6 regression tests passing against `MockTransport`, opening a PR directly against `dify-agent` would be the fastest path to ... | 🟡 `MEDIUM` | [**View Solution →**](cases/agent-v2-converts-multiple-select-tool-arrays-into-python-repr-st.html) |
 | **n8n** | [Editor: Field labels in the test tool dialog are hardcoded English](cases/editor-field-labels-in-the-test-tool-dialog-are-hardcoded-english.html) | When opening the PR, remember to register the new keys under `packages/frontend/editor-ui/src/app/locale/en.json` so CrowdIn can pick them up properly. | 🟠 `HIGH` | [**View Solution →**](cases/editor-field-labels-in-the-test-tool-dialog-are-hardcoded-english.html) |
 | **n8n** | [Editor: Sub execution error toast in the logs panel is hardcoded English](cases/editor-sub-execution-error-toast-in-the-logs-panel-is-hardcoded-e.html) | Checking `packages/frontend/editor-ui/src/features/execution/logs/composables/useLogsExecutionData.ts` around line 148, the notification call passes the title as a raw string li... | 🟠 `HIGH` | [**View Solution →**](cases/editor-sub-execution-error-toast-in-the-logs-panel-is-hardcoded-e.html) |
 | **n8n** | [Editor: Load more error toast on the templates page is hardcoded English](cases/editor-load-more-error-toast-on-the-templates-page-is-hardcoded-e.html) | Mapping those toast arguments to `this.locale.baseText('generic.error')` (or `generic.errorTitle`) along with a dedicated `templates.search.loadMoreError` key in `packages/front... | 🔴 `CRITICAL` | [**View Solution →**](cases/editor-load-more-error-toast-on-the-templates-page-is-hardcoded-e.html) |
