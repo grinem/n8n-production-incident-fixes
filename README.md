@@ -1,7 +1,7 @@
 # 🛠️ n8n & Low-Code Production Incident Fixes (Live Knowledge Base)
 
 [![GitHub Pages](https://img.shields.io/badge/GitHub%20Pages-Live%20Showcase-brightgreen?style=flat-square&logo=github)](https://grinem.github.io/n8n-production-incident-fixes/)
-[![Incidents Resolved](https://img.shields.io/badge/Incidents%20Resolved-159%20Verified-blue?style=flat-square)](cases/)
+[![Incidents Resolved](https://img.shields.io/badge/Incidents%20Resolved-160%20Verified-blue?style=flat-square)](cases/)
 [![Emergency SLA](https://img.shields.io/badge/Incident%20SLA-%3C%206%20Hours-orange?style=flat-square)](https://hooktriage.com/#triage)
 [![Async Triage](https://img.shields.io/badge/Async%20Triage-Zero%20Calls-success?style=flat-square)](https://hooktriage.com/#triage)
 
@@ -38,10 +38,11 @@ All incident post-mortems in this repository are autonomously generated and sync
 
 ---
 
-## 📚 Documented Production Incidents (159)
+## 📚 Documented Production Incidents (160)
 
 | Ecosystem | Incident Case Study | Root Cause Snapshot | Severity | Solution Link |
 |:----------|:--------------------|:--------------------|:--------:|:-------------:|
+| **n8n** | [Editor: Delete error toast in the agent builder is hardcoded English](cases/editor-delete-error-toast-in-the-agent-builder-is-hardcoded-engli.md) | Checking `packages/frontend/editor-ui/src/locales/en.json` confirms that while `agentBuilder.error.load` and `agentBuilder.error.save` exist, no translation token is registered ... | 🟠 `HIGH` | [**Solution**](cases/editor-delete-error-toast-in-the-agent-builder-is-hardcoded-engli.md) |
 | **n8n** | [Renaming a node rewrites `$node.<Name>` references to nodes whose name starts with it](cases/renaming-a-node-rewrites-node-name-references-to-nodes-whose-name.md) | A negative lookahead against valid identifier characters handles this cleanly without breaking standalone references or bracket access: | 🟡 `MEDIUM` | [**Solution**](cases/renaming-a-node-rewrites-node-name-references-to-nodes-whose-name.md) |
 | **Automation Engine** | [Allow registering custom model credentials without a live validation call](cases/allow-registering-custom-model-credentials-without-a-live-validat.md) | This is a huge pain with self-hosted runners—vLLM/Ollama treat Dify's dummy test prompt like legitimate user traffic, immediately kicking existing models out of VRAM to load the... | 🟡 `MEDIUM` | [**Solution**](cases/allow-registering-custom-model-credentials-without-a-live-validat.md) |
 | **Automation Engine** | [Default "Automatically include workspace members" to off for new apps, consistent with datasets](cases/default-automatically-include-workspace-members-to-off-for-new-ap.md) | Aligning app creation with datasets is the right move here; leaving new apps open by default creates an unnecessary data exposure window during development. | 🟡 `MEDIUM` | [**Solution**](cases/default-automatically-include-workspace-members-to-off-for-new-ap.md) |
