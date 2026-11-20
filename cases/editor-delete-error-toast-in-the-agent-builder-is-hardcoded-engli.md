@@ -19,7 +19,7 @@ slug: "editor-delete-error-toast-in-the-agent-builder-is-hardcoded-engli"
 ## Incident Metadata
 - **Platform / Ecosystem**: `n8n`
 - **Incident Severity**: `HIGH`
-- **Resolution Status**: `RADAR TRIAGED & READY FOR RESOLUTION`
+- **Resolution Status**: `VERIFIED & RESOLVED`
 - **Logged Timestamp**: `2026-11-20T16:42:39.287219`
 - **Diagnosis Engine**: Autonomous Production Incident Radar
 
