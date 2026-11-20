@@ -13,9 +13,9 @@ title: "Production Incident Fixes & Post-Mortem Knowledge Base"
 
 
 ### 📊 Real-Time Operations Telemetry
-- **Total Production Incidents Documented**: `147`
+- **Total Production Incidents Documented**: `148`
 - **Active Incident Resolvers**: Automated Production Radar + Lead SRE Engineer
-- **Breakdown by Platform**: **n8n**: 73 | **Automation Engine**: 29 | **Make.com**: 26 | **Activepieces**: 9 | **Bubble.io**: 5 | **Meta / Webhooks**: 3 | **Baserow**: 2
+- **Breakdown by Platform**: **n8n**: 73 | **Automation Engine**: 29 | **Make.com**: 26 | **Activepieces**: 10 | **Bubble.io**: 5 | **Meta / Webhooks**: 3 | **Baserow**: 2
 - **Average Diagnosis & Root-Cause Pinpoint**: `< 15 Minutes`
 
 ---
@@ -24,6 +24,7 @@ title: "Production Incident Fixes & Post-Mortem Knowledge Base"
 
 | Ecosystem | Incident Summary | Root Cause Snapshot | Severity | Resolution Guide |
 |:----------|:-----------------|:--------------------|:--------:|:----------------:|
+| **Activepieces** | [[BUG]: {{ }} expressions are still cut off at an inner }} (follow-up to #13094)](cases/expressions-are-still-cut-off-at-an-inner-follow-up-to-13094.html) | Spot on. The current parser treats `}}` unconditionally without maintaining single-brace depth or tracking quote boundaries (`'`, `"`, `` ` ``). | 🟡 `MEDIUM` | [**View Solution →**](cases/expressions-are-still-cut-off-at-an-inner-follow-up-to-13094.html) |
 | **Automation Engine** | [Importing a DSL from a GitHub blob URL fails when the host is capitalized](cases/importing-a-dsl-from-a-github-blob-url-fails-when-the-host-is-cap.html) | Good catch. Using `parsed.hostname.lower()` is the cleanest fix here since `hostname` handles casing and strips potential port components cleanly: | 🔴 `CRITICAL` | [**View Solution →**](cases/importing-a-dsl-from-a-github-blob-url-fails-when-the-host-is-cap.html) |
 | **n8n** | [Need help with creating a Google Calendar --> Sheets/ or Docs--> NotebookLM pipeline](cases/need-help-with-creating-a-google-calendar-sheets-or-docs-notebook.html) | You don't need an `.ics` file at all—that's what's overcomplicating your setup. | 🟡 `MEDIUM` | [**View Solution →**](cases/need-help-with-creating-a-google-calendar-sheets-or-docs-notebook.html) |
 | **Automation Engine** | [IP policy saves wait for a list refresh after the server confirms success](cases/ip-policy-saves-wait-for-a-list-refresh-after-the-server-confirms.html) | The submit handler is currently awaiting the list revalidation query instead of resolving on the `POST` response alone. When the subsequent list fetch fails or hangs, the whole ... | 🔴 `CRITICAL` | [**View Solution →**](cases/ip-policy-saves-wait-for-a-list-refresh-after-the-server-confirms.html) |

@@ -1,7 +1,7 @@
 # 🛠️ n8n & Low-Code Production Incident Fixes (Live Knowledge Base)
 
 [![GitHub Pages](https://img.shields.io/badge/GitHub%20Pages-Live%20Showcase-brightgreen?style=flat-square&logo=github)](https://grinem.github.io/n8n-production-incident-fixes/)
-[![Incidents Resolved](https://img.shields.io/badge/Incidents%20Resolved-147%20Verified-blue?style=flat-square)](cases/)
+[![Incidents Resolved](https://img.shields.io/badge/Incidents%20Resolved-148%20Verified-blue?style=flat-square)](cases/)
 [![Emergency SLA](https://img.shields.io/badge/Incident%20SLA-%3C%206%20Hours-orange?style=flat-square)](https://hooktriage.com/#triage)
 [![Async Triage](https://img.shields.io/badge/Async%20Triage-Zero%20Calls-success?style=flat-square)](https://hooktriage.com/#triage)
 
@@ -38,10 +38,11 @@ All incident post-mortems in this repository are autonomously generated and sync
 
 ---
 
-## 📚 Documented Production Incidents (147)
+## 📚 Documented Production Incidents (148)
 
 | Ecosystem | Incident Case Study | Root Cause Snapshot | Severity | Solution Link |
 |:----------|:--------------------|:--------------------|:--------:|:-------------:|
+| **Activepieces** | [[BUG]: {{ }} expressions are still cut off at an inner }} (follow-up to #13094)](cases/expressions-are-still-cut-off-at-an-inner-follow-up-to-13094.md) | Spot on. The current parser treats `}}` unconditionally without maintaining single-brace depth or tracking quote boundaries (`'`, `"`, `` ` ``). | 🟡 `MEDIUM` | [**Solution**](cases/expressions-are-still-cut-off-at-an-inner-follow-up-to-13094.md) |
 | **Automation Engine** | [Importing a DSL from a GitHub blob URL fails when the host is capitalized](cases/importing-a-dsl-from-a-github-blob-url-fails-when-the-host-is-cap.md) | Good catch. Using `parsed.hostname.lower()` is the cleanest fix here since `hostname` handles casing and strips potential port components cleanly: | 🔴 `CRITICAL` | [**Solution**](cases/importing-a-dsl-from-a-github-blob-url-fails-when-the-host-is-cap.md) |
 | **n8n** | [Need help with creating a Google Calendar --> Sheets/ or Docs--> NotebookLM pipeline](cases/need-help-with-creating-a-google-calendar-sheets-or-docs-notebook.md) | You don't need an `.ics` file at all—that's what's overcomplicating your setup. | 🟡 `MEDIUM` | [**Solution**](cases/need-help-with-creating-a-google-calendar-sheets-or-docs-notebook.md) |
 | **Automation Engine** | [IP policy saves wait for a list refresh after the server confirms success](cases/ip-policy-saves-wait-for-a-list-refresh-after-the-server-confirms.md) | The submit handler is currently awaiting the list revalidation query instead of resolving on the `POST` response alone. When the subsequent list fetch fails or hangs, the whole ... | 🔴 `CRITICAL` | [**Solution**](cases/ip-policy-saves-wait-for-a-list-refresh-after-the-server-confirms.md) |

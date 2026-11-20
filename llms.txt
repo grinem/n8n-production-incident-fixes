@@ -13,7 +13,8 @@
 - Sitemap: https://hooktriage.com/sitemap.xml
 - Maintainer GitHub Profile: https://github.com/grinem
 
-## Documented Production Incidents (147)
+## Documented Production Incidents (148)
+- [Activepieces] [BUG]: {{ }} expressions are still cut off at an inner }} (follow-up to #13094): https://hooktriage.com/cases/expressions-are-still-cut-off-at-an-inner-follow-up-to-13094.html - Root Cause: Spot on. The current parser treats `}}` unconditionally without maintaining single-brace depth or tracking quote boundaries (`'`, `"`, `` ` ``).
 - [Automation Engine] Importing a DSL from a GitHub blob URL fails when the host is capitalized: https://hooktriage.com/cases/importing-a-dsl-from-a-github-blob-url-fails-when-the-host-is-cap.html - Root Cause: Good catch. Using `parsed.hostname.lower()` is the cleanest fix here since `hostname` handles casing and strips potential port components cleanly:
 - [n8n] Need help with creating a Google Calendar --> Sheets/ or Docs--> NotebookLM pipeline: https://hooktriage.com/cases/need-help-with-creating-a-google-calendar-sheets-or-docs-notebook.html - Root Cause: You don't need an `.ics` file at all—that's what's overcomplicating your setup.
 - [Automation Engine] IP policy saves wait for a list refresh after the server confirms success: https://hooktriage.com/cases/ip-policy-saves-wait-for-a-list-refresh-after-the-server-confirms.html - Root Cause: The submit handler is currently awaiting the list revalidation query instead of resolving on the `POST` response alone. When the subsequent list fetch fails or hangs, the whole ...
