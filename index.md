@@ -13,9 +13,9 @@ title: "Production Incident Fixes & Post-Mortem Knowledge Base"
 
 
 ### 📊 Real-Time Operations Telemetry
-- **Total Production Incidents Documented**: `156`
+- **Total Production Incidents Documented**: `158`
 - **Active Incident Resolvers**: Automated Production Radar + Lead SRE Engineer
-- **Breakdown by Platform**: **n8n**: 76 | **Automation Engine**: 32 | **Make.com**: 28 | **Activepieces**: 10 | **Bubble.io**: 5 | **Meta / Webhooks**: 3 | **Baserow**: 2
+- **Breakdown by Platform**: **n8n**: 76 | **Automation Engine**: 34 | **Make.com**: 28 | **Activepieces**: 10 | **Bubble.io**: 5 | **Meta / Webhooks**: 3 | **Baserow**: 2
 - **Average Diagnosis & Root-Cause Pinpoint**: `< 15 Minutes`
 
 ---
@@ -24,6 +24,8 @@ title: "Production Incident Fixes & Post-Mortem Knowledge Base"
 
 | Ecosystem | Incident Summary | Root Cause Snapshot | Severity | Resolution Guide |
 |:----------|:-----------------|:--------------------|:--------:|:----------------:|
+| **Automation Engine** | [Allow registering custom model credentials without a live validation call](cases/allow-registering-custom-model-credentials-without-a-live-validat.html) | This is a huge pain with self-hosted runners—vLLM/Ollama treat Dify's dummy test prompt like legitimate user traffic, immediately kicking existing models out of VRAM to load the... | 🟡 `MEDIUM` | [**View Solution →**](cases/allow-registering-custom-model-credentials-without-a-live-validat.html) |
+| **Automation Engine** | [Default "Automatically include workspace members" to off for new apps, consistent with datasets](cases/default-automatically-include-workspace-members-to-off-for-new-ap.html) | Aligning app creation with datasets is the right move here; leaving new apps open by default creates an unnecessary data exposure window during development. | 🟡 `MEDIUM` | [**View Solution →**](cases/default-automatically-include-workspace-members-to-off-for-new-ap.html) |
 | **Make.com** | [Facebook Pages OAuth requires a Page-list permission missing from consent](cases/facebook-pages-oauth-requires-a-page-list-permission-missing-from.html) | Meta strips the `pages_show_list` scope whenever you try to cherry-pick pages inside the OAuth consent modal. Make relies on that scope to enumerate your accounts and retrieve t... | 🟡 `MEDIUM` | [**View Solution →**](cases/facebook-pages-oauth-requires-a-page-list-permission-missing-from.html) |
 | **Make.com** | [WhatsApp Coexistence setup stuck before completion](cases/whatsapp-coexistence-setup-stuck-before-completion.html) | That disabled "Next" button usually means Meta is waiting on a 6-digit two-step verification PIN or an in-app confirmation prompt inside your WhatsApp Business mobile app (check... | 🟠 `HIGH` | [**View Solution →**](cases/whatsapp-coexistence-setup-stuck-before-completion.html) |
 | **Automation Engine** | [fix(api): support Enterprise test-channel discovery in the workspace console](cases/fix-api-support-enterprise-test-channel-discovery-in-the-workspac.html) | The 501 comes from `test-channels` reusing the workspace channel-management edition guard, which trips in Enterprise mode since channel provisioning is handled at the deployment... | 🟡 `MEDIUM` | [**View Solution →**](cases/fix-api-support-enterprise-test-channel-discovery-in-the-workspac.html) |
