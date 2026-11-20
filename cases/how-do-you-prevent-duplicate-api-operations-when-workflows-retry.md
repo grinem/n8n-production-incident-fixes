@@ -16,9 +16,9 @@ slug: "how-do-you-prevent-duplicate-api-operations-when-workflows-retry"
 > [**🚨 Instant Async Production Triage & Resolution (< 6h, Zero Video Calls)**](https://hooktriage.com/#triage)
 
 
-> ✅ **Confirmed Production Resolution (Timestamp: `2026-11-20T12:23:18.475623+01:00`)**  
-> **Author (`valmorgan`) verified on [the live thread](https://community.n8n.io/t/how-do-you-prevent-duplicate-api-operations-when-workflows-retry-failed-requests/329364)**:  
-> *"Seen this with clinic appointment booking flows, a timed-out POST that actually went through and then a duplicate slot after the retry. What fixed it for us was building the key from the appointment ID plus the action and checking for it before every create, and treating a timeout as ‘unknown’ rather than ‘failed’. Boring but it ended the double bookings."*
+> ✅ **Confirmed Production Resolution (Timestamp: `2026-11-20T13:00:30.629727+01:00`)**  
+> **Author (`elmirbesirovic`) verified on [the live thread](https://community.n8n.io/t/how-do-you-prevent-duplicate-api-operations-when-workflows-retry-failed-requests/329364)**:  
+> *"On the takeover, a fixed 5 minutes only works if it is longer than your slowest healthy run. If a slow run is still going when the deadline passes, the second execution takes over and you get the duplicate anyway. A heartbeat column the winner bumps while it works, with the takeover checking that instead of claimed_at, closes that gap."*
 
 
 ## Incident Metadata
