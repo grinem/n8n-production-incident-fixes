@@ -13,9 +13,9 @@ title: "Production Incident Fixes & Post-Mortem Knowledge Base"
 
 
 ### 📊 Real-Time Operations Telemetry
-- **Total Production Incidents Documented**: `158`
+- **Total Production Incidents Documented**: `159`
 - **Active Incident Resolvers**: Automated Production Radar + Lead SRE Engineer
-- **Breakdown by Platform**: **n8n**: 76 | **Automation Engine**: 34 | **Make.com**: 28 | **Activepieces**: 10 | **Bubble.io**: 5 | **Meta / Webhooks**: 3 | **Baserow**: 2
+- **Breakdown by Platform**: **n8n**: 77 | **Automation Engine**: 34 | **Make.com**: 28 | **Activepieces**: 10 | **Bubble.io**: 5 | **Meta / Webhooks**: 3 | **Baserow**: 2
 - **Average Diagnosis & Root-Cause Pinpoint**: `< 15 Minutes`
 
 ---
@@ -24,6 +24,7 @@ title: "Production Incident Fixes & Post-Mortem Knowledge Base"
 
 | Ecosystem | Incident Summary | Root Cause Snapshot | Severity | Resolution Guide |
 |:----------|:-----------------|:--------------------|:--------:|:----------------:|
+| **n8n** | [Renaming a node rewrites `$node.<Name>` references to nodes whose name starts with it](cases/renaming-a-node-rewrites-node-name-references-to-nodes-whose-name.html) | A negative lookahead against valid identifier characters handles this cleanly without breaking standalone references or bracket access: | 🟡 `MEDIUM` | [**View Solution →**](cases/renaming-a-node-rewrites-node-name-references-to-nodes-whose-name.html) |
 | **Automation Engine** | [Allow registering custom model credentials without a live validation call](cases/allow-registering-custom-model-credentials-without-a-live-validat.html) | This is a huge pain with self-hosted runners—vLLM/Ollama treat Dify's dummy test prompt like legitimate user traffic, immediately kicking existing models out of VRAM to load the... | 🟡 `MEDIUM` | [**View Solution →**](cases/allow-registering-custom-model-credentials-without-a-live-validat.html) |
 | **Automation Engine** | [Default "Automatically include workspace members" to off for new apps, consistent with datasets](cases/default-automatically-include-workspace-members-to-off-for-new-ap.html) | Aligning app creation with datasets is the right move here; leaving new apps open by default creates an unnecessary data exposure window during development. | 🟡 `MEDIUM` | [**View Solution →**](cases/default-automatically-include-workspace-members-to-off-for-new-ap.html) |
 | **Make.com** | [Facebook Pages OAuth requires a Page-list permission missing from consent](cases/facebook-pages-oauth-requires-a-page-list-permission-missing-from.html) | Meta strips the `pages_show_list` scope whenever you try to cherry-pick pages inside the OAuth consent modal. Make relies on that scope to enumerate your accounts and retrieve t... | 🟡 `MEDIUM` | [**View Solution →**](cases/facebook-pages-oauth-requires-a-page-list-permission-missing-from.html) |
