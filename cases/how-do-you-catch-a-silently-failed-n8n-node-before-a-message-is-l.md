@@ -19,7 +19,7 @@ slug: "how-do-you-catch-a-silently-failed-n8n-node-before-a-message-is-l"
 ## Incident Metadata
 - **Platform / Ecosystem**: `n8n`
 - **Incident Severity**: `HIGH`
-- **Resolution Status**: `RADAR TRIAGED & READY FOR RESOLUTION`
+- **Resolution Status**: `VERIFIED & RESOLVED`
 - **Logged Timestamp**: `2026-11-19T12:42:40.707750`
 - **Diagnosis Engine**: Autonomous Production Incident Radar
 
