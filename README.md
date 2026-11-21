@@ -1,7 +1,7 @@
 # 🛠️ n8n & Low-Code Production Incident Fixes (Live Knowledge Base)
 
 [![GitHub Pages](https://img.shields.io/badge/GitHub%20Pages-Live%20Showcase-brightgreen?style=flat-square&logo=github)](https://grinem.github.io/n8n-production-incident-fixes/)
-[![Incidents Resolved](https://img.shields.io/badge/Incidents%20Resolved-167%20Verified-blue?style=flat-square)](cases/)
+[![Incidents Resolved](https://img.shields.io/badge/Incidents%20Resolved-169%20Verified-blue?style=flat-square)](cases/)
 [![Emergency SLA](https://img.shields.io/badge/Incident%20SLA-%3C%206%20Hours-orange?style=flat-square)](https://hooktriage.com/#triage)
 [![Async Triage](https://img.shields.io/badge/Async%20Triage-Zero%20Calls-success?style=flat-square)](https://hooktriage.com/#triage)
 
@@ -38,15 +38,17 @@ All incident post-mortems in this repository are autonomously generated and sync
 
 ---
 
-## 📚 Documented Production Incidents (167)
+## 📚 Documented Production Incidents (169)
 
 | Ecosystem | Incident Case Study | Root Cause Snapshot | Severity | Solution Link |
 |:----------|:--------------------|:--------------------|:--------:|:-------------:|
+| **n8n** | [Re: 4 silent webhook & AI agent failure patterns — Outbox + Replay Harness (Post #4)](cases/re-4-silent-webhook-ai-agent-failure-patterns-outbox-replay-harne.md) | 🔥 LEAD ULTRA-CHAUD (2e réponse de Mahdi Eqbal aujourd'hui à 19h27 UTC sur votre fil n8n #329853 !). Il travaille sur des handoffs CRM/webhook avec vérification de résultat, et v... | 🟡 `MEDIUM` | [**Solution**](cases/re-4-silent-webhook-ai-agent-failure-patterns-outbox-replay-harne.md) |
 | **n8n** | [Parent execution stays `waiting` forever when its sub-execution finishes during the parked-parent sweep and the child's row is already deleted](cases/parent-execution-stays-waiting-forever-when-its-sub-execution-fin.md) | Until this is patched upstream, the immediate unblocker is setting `saveDataSuccessExecution: "all"` on the child workflow and relying on global `EXECUTIONS_DATA_PRUNE=true` (wi... | 🟡 `MEDIUM` | [**Solution**](cases/parent-execution-stays-waiting-forever-when-its-sub-execution-fin.md) |
 | **n8n** | [Réponse Mahdi Eqbal — Webhook 200 OK avant écriture CRM & vérification runtime (#329853)](cases/r-ponse-mahdi-eqbal-webhook-200-ok-avant-criture-crm-v-rification.md) | That distinction between what a workflow JSON can prove statically vs. what requires an execution-level outcome check is the exact boundary. | 🟠 `HIGH` | [**Solution**](cases/r-ponse-mahdi-eqbal-webhook-200-ok-avant-criture-crm-v-rification.md) |
 | **n8n** | [Réponse u/iam-stevie-bee — Déduplication Shopify/Stripe par clé unique avant timeout 5s (#1y17u85)](cases/r-ponse-u-iam-stevie-bee-d-duplication-shopify-stripe-par-cl-uniq.md) | Using an atomic `INSERT` with a unique key up front instead of a check-then-write lookup is the difference that actually stops parallel race conditions when a retry arrives whil... | 🟠 `HIGH` | [**Solution**](cases/r-ponse-u-iam-stevie-bee-d-duplication-shopify-stripe-par-cl-uniq.md) |
 | **n8n** | [Suivi u/ashimdoley — Queue-mode OOM stuck running & dédup Shopify/Stripe (#1y17u85)](cases/suivi-u-ashimdoley-queue-mode-oom-stuck-running-d-dup-shopify-str.md) | Adding on the other two points you mentioned (especially the queue-mode OOM trap and your scanner idea): | 🟠 `HIGH` | [**Solution**](cases/suivi-u-ashimdoley-queue-mode-oom-stuck-running-d-dup-shopify-str.md) |
 | **n8n** | [Basic LLM Chain node to return a flat JSON](cases/basic-llm-chain-node-to-return-a-flat-json.md) | The Basic LLM Chain enforces that root `output` key by design through its LangChain parser contract; there isn't a setting inside the node to flatten it directly. | 🟡 `MEDIUM` | [**Solution**](cases/basic-llm-chain-node-to-return-a-flat-json.md) |
+| **n8n** | [Re: r/n8n silent failure patterns — GET Pagination Limit Truncation (default 50 items)](cases/re-r-n8n-silent-failure-patterns-get-pagination-limit-truncation.md) | 🔥 NOUVEAU COMMENTAIRE HUMAIN sur votre post Reddit r/n8n (1y17u85, reçu aujourd'hui à 17h18 UTC). u/SingsheimKeely signale un 5e pattern d'échec silencieux très fréquent en prod... | 🟡 `MEDIUM` | [**Solution**](cases/re-r-n8n-silent-failure-patterns-get-pagination-limit-truncation.md) |
 | **n8n** | [Connect to local Ollama Server from n8n Docker Container on Linux Arch](cases/connect-to-local-ollama-server-from-n8n-docker-container-on-linux.md) | `ECONNREFUSED` happens here because Ollama on Linux defaults to binding strictly to `127.0.0.1:11434`. | 🟡 `MEDIUM` | [**Solution**](cases/connect-to-local-ollama-server-from-n8n-docker-container-on-linux.md) |
 | **n8n** | [Workflow checksum differs for a null description versus a missing one](cases/workflow-checksum-differs-for-a-null-description-versus-a-missing.md) | The mismatch happens because `undefined` properties are omitted during `JSON.stringify`, while explicit `null` values serialize into the payload string and produce a different S... | 🟡 `MEDIUM` | [**Solution**](cases/workflow-checksum-differs-for-a-null-description-versus-a-missing.md) |
 | **n8n** | [Editor: Delete error toast in the agent builder is hardcoded English](cases/editor-delete-error-toast-in-the-agent-builder-is-hardcoded-engli.md) | Checking `packages/frontend/editor-ui/src/locales/en.json` confirms that while `agentBuilder.error.load` and `agentBuilder.error.save` exist, no translation token is registered ... | 🟠 `HIGH` | [**Solution**](cases/editor-delete-error-toast-in-the-agent-builder-is-hardcoded-engli.md) |
