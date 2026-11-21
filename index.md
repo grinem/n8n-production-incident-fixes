@@ -13,9 +13,9 @@ title: "Production Incident Fixes & Post-Mortem Knowledge Base"
 
 
 ### 📊 Real-Time Operations Telemetry
-- **Total Production Incidents Documented**: `161`
+- **Total Production Incidents Documented**: `162`
 - **Active Incident Resolvers**: Automated Production Radar + Lead SRE Engineer
-- **Breakdown by Platform**: **n8n**: 79 | **Automation Engine**: 34 | **Make.com**: 28 | **Activepieces**: 10 | **Bubble.io**: 5 | **Meta / Webhooks**: 3 | **Baserow**: 2
+- **Breakdown by Platform**: **n8n**: 80 | **Automation Engine**: 34 | **Make.com**: 28 | **Activepieces**: 10 | **Bubble.io**: 5 | **Meta / Webhooks**: 3 | **Baserow**: 2
 - **Average Diagnosis & Root-Cause Pinpoint**: `< 15 Minutes`
 
 ---
@@ -24,6 +24,7 @@ title: "Production Incident Fixes & Post-Mortem Knowledge Base"
 
 | Ecosystem | Incident Summary | Root Cause Snapshot | Severity | Resolution Guide |
 |:----------|:-----------------|:--------------------|:--------:|:----------------:|
+| **n8n** | [Connect to local Ollama Server from n8n Docker Container on Linux Arch](cases/connect-to-local-ollama-server-from-n8n-docker-container-on-linux.html) | `ECONNREFUSED` happens here because Ollama on Linux defaults to binding strictly to `127.0.0.1:11434`. | 🟡 `MEDIUM` | [**View Solution →**](cases/connect-to-local-ollama-server-from-n8n-docker-container-on-linux.html) |
 | **n8n** | [Workflow checksum differs for a null description versus a missing one](cases/workflow-checksum-differs-for-a-null-description-versus-a-missing.html) | The mismatch happens because `undefined` properties are omitted during `JSON.stringify`, while explicit `null` values serialize into the payload string and produce a different S... | 🟡 `MEDIUM` | [**View Solution →**](cases/workflow-checksum-differs-for-a-null-description-versus-a-missing.html) |
 | **n8n** | [Editor: Delete error toast in the agent builder is hardcoded English](cases/editor-delete-error-toast-in-the-agent-builder-is-hardcoded-engli.html) | Checking `packages/frontend/editor-ui/src/locales/en.json` confirms that while `agentBuilder.error.load` and `agentBuilder.error.save` exist, no translation token is registered ... | 🟠 `HIGH` | [**View Solution →**](cases/editor-delete-error-toast-in-the-agent-builder-is-hardcoded-engli.html) |
 | **n8n** | [Renaming a node rewrites `$node.<Name>` references to nodes whose name starts with it](cases/renaming-a-node-rewrites-node-name-references-to-nodes-whose-name.html) | A negative lookahead against valid identifier characters handles this cleanly without breaking standalone references or bracket access: | 🟡 `MEDIUM` | [**View Solution →**](cases/renaming-a-node-rewrites-node-name-references-to-nodes-whose-name.html) |
