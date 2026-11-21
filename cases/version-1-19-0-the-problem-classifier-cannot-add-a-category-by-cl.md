@@ -16,11 +16,11 @@ slug: "version-1-19-0-the-problem-classifier-cannot-add-a-category-by-cl"
 > [**🚨 Instant Async Production Triage & Resolution (< 6h, Zero Video Calls)**](https://hooktriage.com/#triage)
 
 
-> ✅ **Confirmed Production Resolution (Timestamp: `2026-11-20T04:40:28.375501+01:00`)**  
-> **Author (`fxia0018`) verified on [the live thread](https://github.com/langgenius/dify/issues/46744)**:  
-> *"Thanks for the report! Confirmed the root cause: the "Add" button in the question classifier calls `crypto.randomUUID()`, which only exists in secure contexts (HTTPS or `localhost`). On a self-hosted deployment served over plain HTTP it is `undefined`, so clicking Add throws and no class can be created.
+> ✅ **Confirmed Production Resolution (Timestamp: `2026-11-21T09:20:28.815779+01:00`)**  
+> **Author (`E218PQ`) verified on [the live thread](https://github.com/langgenius/dify/issues/46744)**:  
+> *"I encountered the same problem in the latest version v1.20.0, but it seems that it hasn't been fixed.
 
-I've opened #46815 to guard the call and fall back to a timestamp-based id, matching the pattern already used in `use-document-actions.ts`. The same unguarded call in the agent output-routes toggle is fixed too."*
+<img width="1116" height="1354" alt="image" src="https://github.com/user-attachments/assets/f2228e7a-11ae-4f9e-96e9-caec957cabcb" />"*
 
 
 ## Incident Metadata
