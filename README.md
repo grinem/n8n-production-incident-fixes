@@ -1,7 +1,7 @@
 # 🛠️ n8n & Low-Code Production Incident Fixes (Live Knowledge Base)
 
 [![GitHub Pages](https://img.shields.io/badge/GitHub%20Pages-Live%20Showcase-brightgreen?style=flat-square&logo=github)](https://grinem.github.io/n8n-production-incident-fixes/)
-[![Incidents Resolved](https://img.shields.io/badge/Incidents%20Resolved-162%20Verified-blue?style=flat-square)](cases/)
+[![Incidents Resolved](https://img.shields.io/badge/Incidents%20Resolved-163%20Verified-blue?style=flat-square)](cases/)
 [![Emergency SLA](https://img.shields.io/badge/Incident%20SLA-%3C%206%20Hours-orange?style=flat-square)](https://hooktriage.com/#triage)
 [![Async Triage](https://img.shields.io/badge/Async%20Triage-Zero%20Calls-success?style=flat-square)](https://hooktriage.com/#triage)
 
@@ -38,10 +38,11 @@ All incident post-mortems in this repository are autonomously generated and sync
 
 ---
 
-## 📚 Documented Production Incidents (162)
+## 📚 Documented Production Incidents (163)
 
 | Ecosystem | Incident Case Study | Root Cause Snapshot | Severity | Solution Link |
 |:----------|:--------------------|:--------------------|:--------:|:-------------:|
+| **n8n** | [Basic LLM Chain node to return a flat JSON](cases/basic-llm-chain-node-to-return-a-flat-json.md) | The Basic LLM Chain enforces that root `output` key by design through its LangChain parser contract; there isn't a setting inside the node to flatten it directly. | 🟡 `MEDIUM` | [**Solution**](cases/basic-llm-chain-node-to-return-a-flat-json.md) |
 | **n8n** | [Connect to local Ollama Server from n8n Docker Container on Linux Arch](cases/connect-to-local-ollama-server-from-n8n-docker-container-on-linux.md) | `ECONNREFUSED` happens here because Ollama on Linux defaults to binding strictly to `127.0.0.1:11434`. | 🟡 `MEDIUM` | [**Solution**](cases/connect-to-local-ollama-server-from-n8n-docker-container-on-linux.md) |
 | **n8n** | [Workflow checksum differs for a null description versus a missing one](cases/workflow-checksum-differs-for-a-null-description-versus-a-missing.md) | The mismatch happens because `undefined` properties are omitted during `JSON.stringify`, while explicit `null` values serialize into the payload string and produce a different S... | 🟡 `MEDIUM` | [**Solution**](cases/workflow-checksum-differs-for-a-null-description-versus-a-missing.md) |
 | **n8n** | [Editor: Delete error toast in the agent builder is hardcoded English](cases/editor-delete-error-toast-in-the-agent-builder-is-hardcoded-engli.md) | Checking `packages/frontend/editor-ui/src/locales/en.json` confirms that while `agentBuilder.error.load` and `agentBuilder.error.save` exist, no translation token is registered ... | 🟠 `HIGH` | [**Solution**](cases/editor-delete-error-toast-in-the-agent-builder-is-hardcoded-engli.md) |
