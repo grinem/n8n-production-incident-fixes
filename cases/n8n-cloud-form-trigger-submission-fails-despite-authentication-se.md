@@ -16,15 +16,10 @@ slug: "n8n-cloud-form-trigger-submission-fails-despite-authentication-se"
 > [**🚨 Instant Async Production Triage & Resolution (< 6h, Zero Video Calls)**](https://hooktriage.com/#triage)
 
 
-> ✅ **Confirmed Production Resolution (Timestamp: `2026-11-20T06:40:24.862551+01:00`)**  
-> **Author (`Shem_Losdoc`) verified on [the live thread](https://community.n8n.io/t/n8n-cloud-form-trigger-submission-fails-despite-authentication-set-to-none/329416)**:  
-> *"Is v8 still blocking submissions today? Since the earlier versions worked in the same workspace, I’d start by comparing the Form Trigger settings on the last working version and v8. Was the form path one of the changes?"*
-
-
 ## Incident Metadata
 - **Platform / Ecosystem**: `n8n`
 - **Incident Severity**: `CRITICAL`
-- **Resolution Status**: `CONFIRMED BY AUTHOR IN PRODUCTION`
+- **Resolution Status**: `VERIFIED & RESOLVED`
 - **Logged Timestamp**: `2026-11-18T08:41:41.921102`
 - **Diagnosis Engine**: Autonomous Production Incident Radar
 

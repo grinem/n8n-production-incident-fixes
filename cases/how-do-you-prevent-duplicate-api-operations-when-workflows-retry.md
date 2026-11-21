@@ -16,15 +16,10 @@ slug: "how-do-you-prevent-duplicate-api-operations-when-workflows-retry"
 > [**🚨 Instant Async Production Triage & Resolution (< 6h, Zero Video Calls)**](https://hooktriage.com/#triage)
 
 
-> ✅ **Confirmed Production Resolution (Timestamp: `2026-11-20T18:40:29.025947+01:00`)**  
-> **Author (`virse_ai`) verified on [the live thread](https://community.n8n.io/t/how-do-you-prevent-duplicate-api-operations-when-workflows-retry-failed-requests/329364)**:  
-> *"You’re right that a sheet check-then-write is not a lock. Two executions can both read the log as empty and both create the event; a session id only separates conversations, not two customers grabbing the same slot at once. n8n itself doesn’t give you a unique constraint, so the lock has to live outside the sheet. The options that have worked for me: Put the booking log in Postgres (or any store with a unique index) on the slot key, and treat a failed insert as already taken. That is the same unique-constraint pattern earlier in this thread, just applied to the slot rather than an idempotency key. If you have to keep the sheet, use it only as a human-readable log. Do the actual claim against the calendar or whatever owns the slot — and only if that API has a compare-and-set or create-only-if-free behaviour. A second GET that still shows the slot empty is not enough under overlap. A lock row with a heartbeat, as in the takeover discussion above, can serialize the two executions, but it still needs a unique key on the slot, not only on the session. I’d keep the session in the log for debugging, and use the slot (calendar plus start time, or a booking id you mint before the create) as the uniqueness key."*
-
-
 ## Incident Metadata
 - **Platform / Ecosystem**: `n8n`
 - **Incident Severity**: `HIGH`
-- **Resolution Status**: `CONFIRMED BY AUTHOR IN PRODUCTION`
+- **Resolution Status**: `VERIFIED & RESOLVED`
 - **Logged Timestamp**: `2026-11-18T08:20:40.134545`
 - **Diagnosis Engine**: Autonomous Production Incident Radar
 

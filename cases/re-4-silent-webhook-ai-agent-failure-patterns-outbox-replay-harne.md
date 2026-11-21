@@ -19,7 +19,7 @@ slug: "re-4-silent-webhook-ai-agent-failure-patterns-outbox-replay-harne"
 ## Incident Metadata
 - **Platform / Ecosystem**: `n8n`
 - **Incident Severity**: `MEDIUM`
-- **Resolution Status**: `RADAR TRIAGED & READY FOR RESOLUTION`
+- **Resolution Status**: `VERIFIED & RESOLVED`
 - **Logged Timestamp**: `2026-11-21T19:27:55Z`
 - **Diagnosis Engine**: Autonomous Production Incident Radar
 

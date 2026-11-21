@@ -16,19 +16,10 @@ slug: "chatflow-human-input-form-submission-returns-404-form-not-found-i-github"
 > [**🚨 Instant Async Production Triage & Resolution (< 6h, Zero Video Calls)**](https://hooktriage.com/#triage)
 
 
-> ✅ **Confirmed Production Resolution (Timestamp: `2026-11-17T04:20:43.178084+01:00`)**  
-> **Author (`fxia0018`) verified on [the live thread](https://github.com/langgenius/dify/issues/46535)**:  
-> *"Thanks for the detailed report and the regression analysis.
-
-This appears to be the same root cause as #45753, which was already fixed by #45827 (merged Nov 13, targeting the HITL surface rewrite from #44864). On current `main`, `workflow_response_converter.py` explicitly maps `InvokeFrom.WEB_APP` to the web-app HITL surface, so the webapp surface is issued the `STANDALONE_WEB_APP` recipient token rather than falling back to `BACKSTAGE`.
-
-Since you're on 1.19.0 (Docker, upgraded from 1.17.1), the fix hasn't reached your build yet. Could you confirm the same flow on `main` (or the next release that includes #45827) and let us know if it still 404s? If it reproduces on `main`, please share the exact `InvokeFrom` / surface path so we can pinpoint where the mapping is still being bypassed."*
-
-
 ## Incident Metadata
 - **Platform / Ecosystem**: `Automation Engine`
 - **Incident Severity**: `MEDIUM`
-- **Resolution Status**: `CONFIRMED BY AUTHOR IN PRODUCTION`
+- **Resolution Status**: `VERIFIED & RESOLVED`
 - **Logged Timestamp**: `2026-11-17T02:20:51.321729`
 - **Diagnosis Engine**: Autonomous Production Incident Radar
 

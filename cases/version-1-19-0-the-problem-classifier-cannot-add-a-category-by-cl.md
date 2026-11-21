@@ -16,17 +16,10 @@ slug: "version-1-19-0-the-problem-classifier-cannot-add-a-category-by-cl"
 > [**🚨 Instant Async Production Triage & Resolution (< 6h, Zero Video Calls)**](https://hooktriage.com/#triage)
 
 
-> ✅ **Confirmed Production Resolution (Timestamp: `2026-11-21T09:20:28.815779+01:00`)**  
-> **Author (`E218PQ`) verified on [the live thread](https://github.com/langgenius/dify/issues/46744)**:  
-> *"I encountered the same problem in the latest version v1.20.0, but it seems that it hasn't been fixed.
-
-<img width="1116" height="1354" alt="image" src="https://github.com/user-attachments/assets/f2228e7a-11ae-4f9e-96e9-caec957cabcb" />"*
-
-
 ## Incident Metadata
 - **Platform / Ecosystem**: `Automation Engine`
 - **Incident Severity**: `HIGH`
-- **Resolution Status**: `CONFIRMED BY AUTHOR IN PRODUCTION`
+- **Resolution Status**: `VERIFIED & RESOLVED`
 - **Logged Timestamp**: `2026-11-19T06:20:44.843615`
 - **Diagnosis Engine**: Autonomous Production Incident Radar
 

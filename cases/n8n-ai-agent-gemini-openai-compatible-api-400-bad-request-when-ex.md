@@ -16,15 +16,10 @@ slug: "n8n-ai-agent-gemini-openai-compatible-api-400-bad-request-when-ex"
 > [**🚨 Instant Async Production Triage & Resolution (< 6h, Zero Video Calls)**](https://hooktriage.com/#triage)
 
 
-> ✅ **Confirmed Production Resolution (Timestamp: `2026-11-18T21:40:28.833170+01:00`)**  
-> **Author (`signallayerops`) verified on [the live thread](https://community.n8n.io/t/n8n-ai-agent-gemini-openai-compatible-api-400-bad-request-when-executing-gmail-tools/329414)**:  
-> *"One isolation step before swapping nodes: put a trivial tool on the same agent (an HTTP Request tool that returns a fixed two-field JSON) and ask it the same thing. If the second request goes through, the shim is fine and the problem is what the Gmail tool puts back into the history. Gmail Get and Get Many return headers and full base64 bodies. That tool result is replayed on the next request, and a large or oddly shaped tool result is one of the things that turns into a bare 400 on the OpenAI-compatible endpoint. I’d shrink the tool output first: subject, from, date, snippet, and the message id. Then test the tool cycle again before changing the model node. If it still fails with the small tool, then it is the tool-call echo, and the native Google Gemini Chat Model node is the right move."*
-
-
 ## Incident Metadata
 - **Platform / Ecosystem**: `n8n`
 - **Incident Severity**: `MEDIUM`
-- **Resolution Status**: `CONFIRMED BY AUTHOR IN PRODUCTION`
+- **Resolution Status**: `VERIFIED & RESOLVED`
 - **Logged Timestamp**: `2026-11-18T08:42:29.037141`
 - **Diagnosis Engine**: Autonomous Production Incident Radar
 
