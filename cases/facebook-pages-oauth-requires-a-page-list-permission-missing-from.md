@@ -19,7 +19,7 @@ slug: "facebook-pages-oauth-requires-a-page-list-permission-missing-from"
 ## Incident Metadata
 - **Platform / Ecosystem**: `Make.com`
 - **Incident Severity**: `MEDIUM`
-- **Resolution Status**: `RADAR TRIAGED & READY FOR RESOLUTION`
+- **Resolution Status**: `VERIFIED & RESOLVED`
 - **Logged Timestamp**: `2026-11-20T10:40:51.725276`
 - **Diagnosis Engine**: Autonomous Production Incident Radar
 
