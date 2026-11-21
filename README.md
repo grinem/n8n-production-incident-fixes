@@ -1,7 +1,7 @@
 # 🛠️ n8n & Low-Code Production Incident Fixes (Live Knowledge Base)
 
 [![GitHub Pages](https://img.shields.io/badge/GitHub%20Pages-Live%20Showcase-brightgreen?style=flat-square&logo=github)](https://grinem.github.io/n8n-production-incident-fixes/)
-[![Incidents Resolved](https://img.shields.io/badge/Incidents%20Resolved-169%20Verified-blue?style=flat-square)](cases/)
+[![Incidents Resolved](https://img.shields.io/badge/Incidents%20Resolved-170%20Verified-blue?style=flat-square)](cases/)
 [![Emergency SLA](https://img.shields.io/badge/Incident%20SLA-%3C%206%20Hours-orange?style=flat-square)](https://hooktriage.com/#triage)
 [![Async Triage](https://img.shields.io/badge/Async%20Triage-Zero%20Calls-success?style=flat-square)](https://hooktriage.com/#triage)
 
@@ -38,10 +38,11 @@ All incident post-mortems in this repository are autonomously generated and sync
 
 ---
 
-## 📚 Documented Production Incidents (169)
+## 📚 Documented Production Incidents (170)
 
 | Ecosystem | Incident Case Study | Root Cause Snapshot | Severity | Solution Link |
 |:----------|:--------------------|:--------------------|:--------:|:-------------:|
+| **n8n** | [n8n Community: 4 silent webhook & AI agent failure patterns I keep seeing in n8n workflows (+ free local JSON auditor)](cases/n8n-community-4-silent-webhook-ai-agent-failure-patterns-i-keep-s.md) | Mahdi Eqbal suggère de tester le pattern Transactional Outbox sur HubSpot, en insistant sur le crash du worker survenant après la mutation CRM mais avant l'acquittement de l'évé... | 🔴 `CRITICAL` | [**Solution**](cases/n8n-community-4-silent-webhook-ai-agent-failure-patterns-i-keep-s.md) |
 | **n8n** | [Re: 4 silent webhook & AI agent failure patterns — Outbox + Replay Harness (Post #4)](cases/re-4-silent-webhook-ai-agent-failure-patterns-outbox-replay-harne.md) | 🔥 LEAD ULTRA-CHAUD (2e réponse de Mahdi Eqbal aujourd'hui à 19h27 UTC sur votre fil n8n #329853 !). Il travaille sur des handoffs CRM/webhook avec vérification de résultat, et v... | 🟡 `MEDIUM` | [**Solution**](cases/re-4-silent-webhook-ai-agent-failure-patterns-outbox-replay-harne.md) |
 | **n8n** | [Parent execution stays `waiting` forever when its sub-execution finishes during the parked-parent sweep and the child's row is already deleted](cases/parent-execution-stays-waiting-forever-when-its-sub-execution-fin.md) | Until this is patched upstream, the immediate unblocker is setting `saveDataSuccessExecution: "all"` on the child workflow and relying on global `EXECUTIONS_DATA_PRUNE=true` (wi... | 🟡 `MEDIUM` | [**Solution**](cases/parent-execution-stays-waiting-forever-when-its-sub-execution-fin.md) |
 | **n8n** | [Réponse Mahdi Eqbal — Webhook 200 OK avant écriture CRM & vérification runtime (#329853)](cases/r-ponse-mahdi-eqbal-webhook-200-ok-avant-criture-crm-v-rification.md) | That distinction between what a workflow JSON can prove statically vs. what requires an execution-level outcome check is the exact boundary. | 🟠 `HIGH` | [**Solution**](cases/r-ponse-mahdi-eqbal-webhook-200-ok-avant-criture-crm-v-rification.md) |
