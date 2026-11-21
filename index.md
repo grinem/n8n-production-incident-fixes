@@ -13,9 +13,9 @@ title: "Production Incident Fixes & Post-Mortem Knowledge Base"
 
 
 ### 📊 Real-Time Operations Telemetry
-- **Total Production Incidents Documented**: `163`
+- **Total Production Incidents Documented**: `167`
 - **Active Incident Resolvers**: Automated Production Radar + Lead SRE Engineer
-- **Breakdown by Platform**: **n8n**: 81 | **Automation Engine**: 34 | **Make.com**: 28 | **Activepieces**: 10 | **Bubble.io**: 5 | **Meta / Webhooks**: 3 | **Baserow**: 2
+- **Breakdown by Platform**: **n8n**: 85 | **Automation Engine**: 34 | **Make.com**: 28 | **Activepieces**: 10 | **Bubble.io**: 5 | **Meta / Webhooks**: 3 | **Baserow**: 2
 - **Average Diagnosis & Root-Cause Pinpoint**: `< 15 Minutes`
 
 ---
@@ -24,6 +24,10 @@ title: "Production Incident Fixes & Post-Mortem Knowledge Base"
 
 | Ecosystem | Incident Summary | Root Cause Snapshot | Severity | Resolution Guide |
 |:----------|:-----------------|:--------------------|:--------:|:----------------:|
+| **n8n** | [Parent execution stays `waiting` forever when its sub-execution finishes during the parked-parent sweep and the child's row is already deleted](cases/parent-execution-stays-waiting-forever-when-its-sub-execution-fin.html) | Until this is patched upstream, the immediate unblocker is setting `saveDataSuccessExecution: "all"` on the child workflow and relying on global `EXECUTIONS_DATA_PRUNE=true` (wi... | 🟡 `MEDIUM` | [**View Solution →**](cases/parent-execution-stays-waiting-forever-when-its-sub-execution-fin.html) |
+| **n8n** | [Réponse Mahdi Eqbal — Webhook 200 OK avant écriture CRM & vérification runtime (#329853)](cases/r-ponse-mahdi-eqbal-webhook-200-ok-avant-criture-crm-v-rification.html) | That distinction between what a workflow JSON can prove statically vs. what requires an execution-level outcome check is the exact boundary. | 🟠 `HIGH` | [**View Solution →**](cases/r-ponse-mahdi-eqbal-webhook-200-ok-avant-criture-crm-v-rification.html) |
+| **n8n** | [Réponse u/iam-stevie-bee — Déduplication Shopify/Stripe par clé unique avant timeout 5s (#1y17u85)](cases/r-ponse-u-iam-stevie-bee-d-duplication-shopify-stripe-par-cl-uniq.html) | Using an atomic `INSERT` with a unique key up front instead of a check-then-write lookup is the difference that actually stops parallel race conditions when a retry arrives whil... | 🟠 `HIGH` | [**View Solution →**](cases/r-ponse-u-iam-stevie-bee-d-duplication-shopify-stripe-par-cl-uniq.html) |
+| **n8n** | [Suivi u/ashimdoley — Queue-mode OOM stuck running & dédup Shopify/Stripe (#1y17u85)](cases/suivi-u-ashimdoley-queue-mode-oom-stuck-running-d-dup-shopify-str.html) | Adding on the other two points you mentioned (especially the queue-mode OOM trap and your scanner idea): | 🟠 `HIGH` | [**View Solution →**](cases/suivi-u-ashimdoley-queue-mode-oom-stuck-running-d-dup-shopify-str.html) |
 | **n8n** | [Basic LLM Chain node to return a flat JSON](cases/basic-llm-chain-node-to-return-a-flat-json.html) | The Basic LLM Chain enforces that root `output` key by design through its LangChain parser contract; there isn't a setting inside the node to flatten it directly. | 🟡 `MEDIUM` | [**View Solution →**](cases/basic-llm-chain-node-to-return-a-flat-json.html) |
 | **n8n** | [Connect to local Ollama Server from n8n Docker Container on Linux Arch](cases/connect-to-local-ollama-server-from-n8n-docker-container-on-linux.html) | `ECONNREFUSED` happens here because Ollama on Linux defaults to binding strictly to `127.0.0.1:11434`. | 🟡 `MEDIUM` | [**View Solution →**](cases/connect-to-local-ollama-server-from-n8n-docker-container-on-linux.html) |
 | **n8n** | [Workflow checksum differs for a null description versus a missing one](cases/workflow-checksum-differs-for-a-null-description-versus-a-missing.html) | The mismatch happens because `undefined` properties are omitted during `JSON.stringify`, while explicit `null` values serialize into the payload string and produce a different S... | 🟡 `MEDIUM` | [**View Solution →**](cases/workflow-checksum-differs-for-a-null-description-versus-a-missing.html) |
