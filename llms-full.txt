@@ -13,7 +13,8 @@
 - Sitemap: https://hooktriage.com/sitemap.xml
 - Maintainer GitHub Profile: https://github.com/grinem
 
-## Documented Production Incidents (160)
+## Documented Production Incidents (161)
+- [n8n] Workflow checksum differs for a null description versus a missing one: https://hooktriage.com/cases/workflow-checksum-differs-for-a-null-description-versus-a-missing.html - Root Cause: The mismatch happens because `undefined` properties are omitted during `JSON.stringify`, while explicit `null` values serialize into the payload string and produce a different S...
 - [n8n] Editor: Delete error toast in the agent builder is hardcoded English: https://hooktriage.com/cases/editor-delete-error-toast-in-the-agent-builder-is-hardcoded-engli.html - Root Cause: Checking `packages/frontend/editor-ui/src/locales/en.json` confirms that while `agentBuilder.error.load` and `agentBuilder.error.save` exist, no translation token is registered ...
 - [n8n] Renaming a node rewrites `$node.<Name>` references to nodes whose name starts with it: https://hooktriage.com/cases/renaming-a-node-rewrites-node-name-references-to-nodes-whose-name.html - Root Cause: A negative lookahead against valid identifier characters handles this cleanly without breaking standalone references or bracket access:
 - [Automation Engine] Allow registering custom model credentials without a live validation call: https://hooktriage.com/cases/allow-registering-custom-model-credentials-without-a-live-validat.html - Root Cause: This is a huge pain with self-hosted runners—vLLM/Ollama treat Dify's dummy test prompt like legitimate user traffic, immediately kicking existing models out of VRAM to load the...
