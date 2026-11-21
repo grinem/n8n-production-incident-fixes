@@ -775,6 +775,96 @@
       </div>
     </section>
 
+    <!-- 3B. 1-CLICK N8N IMPORT (COMMUNITY EDITION BLUEPRINTS) -->
+    <section id="n8n-import-blueprints" class="mb-14">
+      <div class="ht-surface rounded-2xl border border-[#212629] p-5 sm:p-6">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-4">
+          <div>
+            <div class="inline-flex items-center gap-2 mb-1">
+              <span class="px-2 py-0.5 rounded-full bg-emerald-500/15 text-emerald-600 dark:text-[#00d294] border border-emerald-500/30 text-[10px] font-bold">1-CLICK N8N IMPORT</span>
+              <span class="text-[11px] ht-text-soft">Free Community Edition &bull; 19&ndash;21 Nodes &bull; Paste URL into n8n &rarr; Import from URL</span>
+            </div>
+            <h2 class="text-base sm:text-lg font-bold ht-text-main tracking-tight">Ready-to-Import n8n Reliability Blueprints</h2>
+          </div>
+          <a href="https://github.com/grinem/hooktriage/tree/main/templates-community" target="_blank" rel="noopener" class="text-xs font-semibold text-blue-600 hover:underline shrink-0">
+            Browse all on GitHub &rarr;
+          </a>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-3.5">
+          <div class="ht-surface-subtle rounded-xl border border-[#212629] p-4 flex flex-col justify-between">
+            <div>
+              <div class="flex items-center justify-between gap-2 mb-1.5">
+                <span class="text-xs font-bold ht-text-main">1. Production Error Handler &amp; PII Scrubber</span>
+                <span class="text-[10px] font-mono px-1.5 py-0.5 rounded bg-blue-500/15 text-blue-600">20 nodes</span>
+              </div>
+              <p class="text-[11px] ht-text-muted mb-3">Zero-Trust secret scrubbing, 429/5xx exponential backoff, DLQ routing &amp; Slack/Telegram alerts.</p>
+            </div>
+            <div class="flex items-center gap-2">
+              <button type="button" onclick="window.copyBlueprintUrl('https://raw.githubusercontent.com/grinem/hooktriage/main/templates-community/01_production_error_handler_zero_trust_scrubber.json', this)" class="flex-1 px-2.5 py-1.5 rounded-lg bg-blue-600 hover:bg-blue-700 text-white text-[11px] font-semibold cursor-pointer transition">
+                Copy Import URL
+              </button>
+              <a href="https://github.com/grinem/hooktriage/blob/main/templates-community/01_production_error_handler_zero_trust_scrubber.json" target="_blank" rel="noopener" class="px-2.5 py-1.5 rounded-lg border border-[#212629] ht-text-muted text-[11px] font-semibold hover:opacity-80">
+                JSON
+              </a>
+            </div>
+          </div>
+
+          <div class="ht-surface-subtle rounded-xl border border-[#212629] p-4 flex flex-col justify-between">
+            <div>
+              <div class="flex items-center justify-between gap-2 mb-1.5">
+                <span class="text-xs font-bold ht-text-main">2. Stripe &amp; Shopify HMAC Idempotency Guard</span>
+                <span class="text-[10px] font-mono px-1.5 py-0.5 rounded bg-blue-500/15 text-blue-600">19 nodes</span>
+              </div>
+              <p class="text-[11px] ht-text-muted mb-3">Timing-safe HMAC-SHA256 verification, 300s Stripe replay window &amp; 24h TTL deduplication.</p>
+            </div>
+            <div class="flex items-center gap-2">
+              <button type="button" onclick="window.copyBlueprintUrl('https://raw.githubusercontent.com/grinem/hooktriage/main/templates-community/02_stripe_shopify_webhook_idempotency_hmac_guard.json', this)" class="flex-1 px-2.5 py-1.5 rounded-lg bg-blue-600 hover:bg-blue-700 text-white text-[11px] font-semibold cursor-pointer transition">
+                Copy Import URL
+              </button>
+              <a href="https://github.com/grinem/hooktriage/blob/main/templates-community/02_stripe_shopify_webhook_idempotency_hmac_guard.json" target="_blank" rel="noopener" class="px-2.5 py-1.5 rounded-lg border border-[#212629] ht-text-muted text-[11px] font-semibold hover:opacity-80">
+                JSON
+              </a>
+            </div>
+          </div>
+
+          <div class="ht-surface-subtle rounded-xl border border-[#212629] p-4 flex flex-col justify-between">
+            <div>
+              <div class="flex items-center justify-between gap-2 mb-1.5">
+                <span class="text-xs font-bold ht-text-main">3. AI Agent Schema Enforcer &amp; Circuit Breaker</span>
+                <span class="text-[10px] font-mono px-1.5 py-0.5 rounded bg-blue-500/15 text-blue-600">21 nodes</span>
+              </div>
+              <p class="text-[11px] ht-text-muted mb-3">Sliding-window LLM circuit breaker, automatic secondary model failover &amp; strict JSON validation.</p>
+            </div>
+            <div class="flex items-center gap-2">
+              <button type="button" onclick="window.copyBlueprintUrl('https://raw.githubusercontent.com/grinem/hooktriage/main/templates-community/03_ai_agent_json_schema_enforcer_circuit_breaker.json', this)" class="flex-1 px-2.5 py-1.5 rounded-lg bg-blue-600 hover:bg-blue-700 text-white text-[11px] font-semibold cursor-pointer transition">
+                Copy Import URL
+              </button>
+              <a href="https://github.com/grinem/hooktriage/blob/main/templates-community/03_ai_agent_json_schema_enforcer_circuit_breaker.json" target="_blank" rel="noopener" class="px-2.5 py-1.5 rounded-lg border border-[#212629] ht-text-muted text-[11px] font-semibold hover:opacity-80">
+                JSON
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <script>
+      window.copyBlueprintUrl = function(url, btn) {
+        var prev = btn.innerText;
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(url).then(function() {
+            btn.innerText = 'Copied Raw URL!';
+            setTimeout(function() { btn.innerText = prev; }, 2200);
+          }).catch(function() {
+            window.prompt('Copy this URL into n8n -> Import from URL:', url);
+          });
+        } else {
+          window.prompt('Copy this URL into n8n -> Import from URL:', url);
+        }
+      };
+    </script>
+
     <!-- 4. VERIFIED POST-MORTEM CASE STUDIES KNOWLEDGE BASE (161 CASES) -->
     <section id="case-studies">
       <div class="flex flex-col sm:flex-row sm:items-end justify-between mb-5 gap-2">
