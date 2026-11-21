@@ -58,6 +58,7 @@
     html.ht-light .ht-surface,
     html.ht-light #content,
     html.ht-light #valueFirstGateCard,
+    html.ht-light #lockedPatchCard,
     html.ht-light details {
       background-color: #ffffff !important;
       border-color: #e2e8f0 !important;
@@ -79,6 +80,7 @@
     html.ht-light #content h3,
     html.ht-light #content strong,
     html.ht-light #valueFirstGateCard h3,
+    html.ht-light #lockedPatchCard h3,
     html.ht-light details summary {
       color: #0f172a !important;
       border-bottom-color: #e2e8f0 !important;
@@ -87,8 +89,17 @@
     html.ht-light #content li,
     html.ht-light #valueFirstGateCard ul,
     html.ht-light #valueFirstGateCard p,
+    html.ht-light #lockedPatchCard p,
     html.ht-light details p {
       color: #334155 !important;
+    }
+    html.ht-light #lockedPatchCard .ht-crypto-btn {
+      background-color: #f1f5f9 !important;
+      border-color: #cbd5e1 !important;
+      color: #0f172a !important;
+    }
+    html.ht-light #lockedPatchCard .ht-crypto-btn:hover {
+      background-color: #e2e8f0 !important;
     }
     html.ht-light #content a {
       color: #2563eb !important;
@@ -4432,6 +4443,17 @@
     });
 
     searchInput.addEventListener('input', updateVisibility);
+    // Auto-open Hardening Kit modal when visiting /kit or ?kit=1
+    (function() {
+      var p = window.location.pathname || '';
+      var qs = window.location.search || '';
+      if (p === '/kit' || p === '/kit/' || qs.indexOf('kit=1') !== -1) {
+        if (typeof window.openKitModal === 'function') {
+          setTimeout(function() { window.openKitModal(); }, 120);
+        }
+      }
+    })();
+
     // Auto-highlight & open issue from email link (?issue=lead_id)
     (function() {
       const params = new URLSearchParams(window.location.search);
@@ -4496,6 +4518,14 @@
         <p class="text-sm text-[#f0f0f0] leading-relaxed whitespace-pre-line" id="trPreview"></p>
       </div>
 
+      <!-- 1-Click Card / Apple Pay Checkout (Priority Above Crypto) -->
+      <div>
+        <a id="trCardBtn" href="#" target="_blank" rel="noopener noreferrer" class="flex items-center justify-center gap-2 w-full rounded-2xl bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-4 text-sm transition cursor-pointer shadow-lg">
+          <span>Pay with Visa / Mastercard / Apple Pay (<span id="trUsdAmount">$199</span>) &rarr;</span>
+        </a>
+        <p class="text-[11px] text-center text-[#878d8f] mt-1.5">Direct instant card checkout (no crypto wallet required).</p>
+      </div>
+
       <!-- 1-Click Web3 USDT Checkout -->
       <div class="space-y-2">
         <button id="trWeb3Btn" onclick="window.payWithWeb3()" class="flex items-center justify-center gap-2 w-full rounded-2xl bg-white hover:bg-white/90 text-black font-semibold py-3 px-4 text-sm transition cursor-pointer">
@@ -4510,14 +4540,6 @@
         <a id="trNowBtn" href="#" target="_blank" rel="noopener noreferrer" class="flex items-center justify-center gap-2 w-full rounded-2xl bg-[#00d294] hover:opacity-90 text-black font-semibold py-3 px-4 text-sm transition cursor-pointer">
           <span>Pay via NOWPayments / Binance / 150+ Cryptos &mdash; Auto-Unlock (<span id="trNowUsd">$199</span>)</span>
         </a>
-      </div>
-
-      <!-- 1-Click Card On-Ramp Fallback -->
-      <div>
-        <a id="trCardBtn" href="#" target="_blank" rel="noopener noreferrer" class="flex items-center justify-center gap-2 w-full rounded-2xl bg-[#191b1e] hover:bg-[#212629] border border-[#293034] text-[#f0f0f0] font-medium py-3 px-4 text-sm transition cursor-pointer">
-          <span>Pay with Visa / Mastercard / Apple Pay (<span id="trUsdAmount">$199</span>)</span>
-        </a>
-        <p class="text-[11px] text-center text-[#878d8f] mt-1.5">Direct instant card checkout (no crypto wallet required).</p>
       </div>
 
       <!-- Scannable QR Code + 1-Click Copy Badge -->

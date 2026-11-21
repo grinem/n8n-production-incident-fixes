@@ -62,6 +62,7 @@
     html.ht-light .ht-surface,
     html.ht-light #content,
     html.ht-light #valueFirstGateCard,
+    html.ht-light #lockedPatchCard,
     html.ht-light details {
       background-color: #ffffff !important;
       border-color: #e2e8f0 !important;
@@ -83,6 +84,7 @@
     html.ht-light #content h3,
     html.ht-light #content strong,
     html.ht-light #valueFirstGateCard h3,
+    html.ht-light #lockedPatchCard h3,
     html.ht-light details summary {
       color: #0f172a !important;
       border-bottom-color: #e2e8f0 !important;
@@ -91,8 +93,17 @@
     html.ht-light #content li,
     html.ht-light #valueFirstGateCard ul,
     html.ht-light #valueFirstGateCard p,
+    html.ht-light #lockedPatchCard p,
     html.ht-light details p {
       color: #334155 !important;
+    }
+    html.ht-light #lockedPatchCard .ht-crypto-btn {
+      background-color: #f1f5f9 !important;
+      border-color: #cbd5e1 !important;
+      color: #0f172a !important;
+    }
+    html.ht-light #lockedPatchCard .ht-crypto-btn:hover {
+      background-color: #e2e8f0 !important;
     }
     html.ht-light #content a {
       color: #2563eb !important;
@@ -326,55 +337,50 @@
     <article id="content" class="bg-[#141517] rounded-3xl p-6 sm:p-10 border border-[#212629]">
     </article>
 
-    <!-- Layer 2 (Bloc B): Value-First Free Production Bundle Email Gate + Dual-Unlock Fallback -->
-    <div id="valueFirstGateCard" class="mt-6 rounded-3xl bg-[#141517] border border-[#212629] p-6 sm:p-8">
+    <!-- Layer 2 (Bloc B): Locked Ready-to-Use Patch Artefact (Truncated Preview + Card-First CTA) -->
+    <div id="lockedPatchCard" class="mt-6 rounded-3xl bg-[#141517] border border-[#212629] p-6 sm:p-8">
       <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
         <span class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-medium bg-[#191b1e] text-[#f0f0f0] border border-[#212629]">
-          <span class="h-1.5 w-1.5 rounded-full bg-[#00d294]"></span>
-          <span>Complete Production Fix Bundle</span>
+          <span class="h-1.5 w-1.5 rounded-full bg-amber-400"></span>
+          <span>Ready-to-Use Production Patch &amp; Fix Artefact</span>
         </span>
-        <span class="text-xs text-[#00d294] font-mono font-medium">100% Free &bull; Instant Inbox + Backup Copy</span>
+        <span class="text-xs text-amber-400 font-mono font-medium">&#128274; Locked Artefact &bull; $27 Instant Unlock</span>
       </div>
       <h3 class="text-xl sm:text-2xl font-semibold tracking-tight text-[#f0f0f0] mb-2">
-        &#x1F4E5; Receive the Complete Production Bundle in Your Inbox (Free)
+        Unlock the Verified Drop-In Fix &amp; Production Hardening Kit
       </h3>
-      <ul class="text-sm text-[#a1a4a5] space-y-1.5 mb-5 list-disc pl-5">
-        <li>Full importable <code class="text-xs bg-[#191b1e] px-1.5 py-0.5 rounded text-[#f0f0f0]">.json</code> / patch with error-retry &amp; timeout guard</li>
-        <li>Verification curl / test checklist + Team Post-Mortem Note</li>
-      </ul>
+      <p class="text-sm text-[#a1a4a5] mb-4">
+        The full root-cause analysis above remains open for SEO &amp; engineering reference. Unlock the ready-to-deploy production patch, retry/idempotency JSON blueprints, and verification checklist:
+      </p>
 
-      <form id="bundleGateForm" onsubmit="return window.submitValueFirstGate(event)" class="flex flex-col sm:flex-row gap-2.5 relative">
-        <input id="gateEmail" type="email" required placeholder="work@company.com" class="flex-1 rounded-2xl bg-[#0a0b0c] border border-[#212629] px-4 py-3 text-sm text-[#f0f0f0] placeholder-[#52595b] focus:outline-none focus:border-[#3b4345] transition" />
-        <input id="gateWebsite" name="website" type="text" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;opacity:0;height:0;width:0;" />
-        <button id="gateSubmitBtn" type="submit" class="inline-flex items-center justify-center px-5 py-3 rounded-2xl bg-white hover:bg-white/90 text-black font-semibold text-sm transition cursor-pointer whitespace-nowrap">
-          Send Bundle to My Inbox &rarr;
+      <!-- Truncated Blurred Preview Box -->
+      <div id="lockedPatchPreviewBox" class="relative rounded-2xl bg-[#0f172a] border border-[#1e293b] overflow-hidden mb-5">
+        <div class="px-4 py-2 border-b border-[#1e293b] flex items-center justify-between text-[11px] font-mono text-[#94a3b8]">
+          <span>patch-artefact-preview.json</span>
+          <span class="text-amber-400">&#128274; Full Patch Locked</span>
+        </div>
+        <pre class="p-4 text-xs font-mono text-[#e2e8f0] overflow-x-auto whitespace-pre-wrap m-0">Instead of strictly checking creator ownership on the raw file, the endpoint needs to verify whether `avatar` matches `Account.avatar` for an active member (optionally joined on `TenantAccountJoin` matching `current_user.current_tenant_id` if scoping to the...</pre>
+        <div class="px-4 pb-4 select-none pointer-events-none" aria-hidden="true" style="filter:blur(4px);opacity:0.45;">
+          <pre class="text-xs font-mono text-[#94a3b8] whitespace-pre-wrap m-0">  "onError": "continueErrorOutput",
+  "retryOnFail": true,
+  "maxTries": 5,
+  "waitBetweenTries": 2000,
+  "idempotencyKey": "sha256(event.id + timestamp)"</pre>
+        </div>
+        <div class="px-4 py-2.5 bg-[#1e293b]/90 border-t border-[#334155] text-xs font-mono text-[#cbd5e1] flex items-center justify-between gap-2">
+          <span>&#128274; Remaining production lines locked &mdash; instant download upon unlock</span>
+          <span class="text-[#00d294]">n8n v1.x / Webhook Ready</span>
+        </div>
+      </div>
+
+      <!-- Direct CTA: Card / Apple Pay ($27) ABOVE Crypto -->
+      <div class="space-y-2.5">
+        <a href="https://www.agensi.io/r/HOOKTRIAGE?to=/skills/hooktriage-n8n-production-hardening-kit&utm_source=hooktriage" target="_blank" rel="noopener noreferrer" class="flex items-center justify-center gap-2 w-full rounded-2xl bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3.5 px-5 text-sm transition cursor-pointer shadow-lg no-underline">
+          <span>Pay $27 by Card / Apple Pay (Instant Stripe via Agensi) &rarr;</span>
+        </a>
+        <button type="button" onclick="window.openKitModal()" class="ht-crypto-btn flex items-center justify-center gap-2 w-full rounded-2xl bg-[#191b1e] hover:bg-[#212629] border border-[#293034] text-[#f0f0f0] font-medium py-3 px-5 text-sm transition cursor-pointer">
+          <span>Or Unlock via Crypto &mdash; $27 (USDT BEP20 / 150+ Coins) &rarr;</span>
         </button>
-      </form>
-      <div id="gateErr" class="hidden mt-3 text-xs text-rose-400"></div>
-
-      <!-- Dual-Unlock Backup Reveal (shown immediately on ok: true) -->
-      <div id="gateSuccessBox" class="hidden mt-5 rounded-2xl bg-[#0a0b0c] border border-[#00d294]/40 p-5 space-y-4">
-        <div class="flex flex-wrap items-center justify-between gap-2">
-          <div class="text-sm font-semibold text-[#00d294]">
-            Sent to your inbox &mdash; check Spam/Promotions, or open backup copy here
-          </div>
-          <button type="button" onclick="window.copyBundleOutput()" class="rounded-lg bg-[#191b1e] hover:bg-[#212629] border border-[#293034] text-xs font-medium text-[#f0f0f0] px-3 py-1.5 cursor-pointer">
-            Copy Bundle
-          </button>
-        </div>
-        <div id="gateBundleTitle" class="text-xs font-mono text-[#a1a4a5]"></div>
-        <div>
-          <div class="text-xs font-semibold text-[#f0f0f0] mb-1.5">Full Production Patch / Config</div>
-          <pre id="gateBundlePatch" class="text-xs font-mono text-[#e2e8f0] bg-[#141517] border border-[#212629] rounded-xl p-4 overflow-x-auto whitespace-pre-wrap max-h-80"></pre>
-        </div>
-        <div>
-          <div class="text-xs font-semibold text-[#f0f0f0] mb-1.5">Verification Checklist</div>
-          <pre id="gateBundleChecklist" class="text-xs font-mono text-[#a1a4a5] bg-[#141517] border border-[#212629] rounded-xl p-3.5 overflow-x-auto whitespace-pre-wrap"></pre>
-        </div>
-        <div>
-          <div class="text-xs font-semibold text-[#f0f0f0] mb-1.5">Team Post-Mortem Note</div>
-          <pre id="gateBundlePostmortem" class="text-xs font-mono text-[#a1a4a5] bg-[#141517] border border-[#212629] rounded-xl p-3.5 overflow-x-auto whitespace-pre-wrap"></pre>
-        </div>
       </div>
 
       <!-- Discreet Emergency Checkout Link -->
@@ -382,7 +388,7 @@
         <span>Verified against Automation Engine production edge cases</span>
         <div class="flex flex-wrap items-center gap-4">
           <button type="button" onclick="window.openCaseTriageModal(39)" class="text-[#a1a4a5] hover:text-[#f0f0f0] underline underline-offset-4 cursor-pointer">
-            Production emergency now? Pay/triage directly &rarr;
+            Custom incident emergency? Async Triage ($39) &rarr;
           </button>
           <button type="button" onclick="window.openCaseTriageModal(199)" class="text-[#878d8f] hover:text-[#f0f0f0] underline underline-offset-4 cursor-pointer">
             Turnkey PR ($199)
@@ -467,13 +473,6 @@
     const rawMarkdown = "---\nlayout: default\ntitle: \"Uploaded avatars return 404 for other users in workflow collaboration\"\nplatform: \"Automation Engine\"\nseverity: \"MEDIUM\"\nstatus: \"Resolved\"\ndate: 2026-11-18\ntags: [\"automation engine\", \"production-fix\", \"post-mortem\", \"verified-resolution\"]\nslug: \"uploaded-avatars-return-404-for-other-users-in-workflow-collabora\"\n---\n\n# Uploaded avatars return 404 for other users in workflow collaboration\n\n\n> \u26a1 **Encountering this exact production bug or need an emergency automation fix?**  \n> [**\ud83d\udea8 Instant Async Production Triage & Resolution (< 6h, Zero Video Calls)**](https://hooktriage.com/#triage)\n\n\n## Incident Metadata\n- **Platform / Ecosystem**: `Automation Engine`\n- **Incident Severity**: `MEDIUM`\n- **Resolution Status**: `VERIFIED & RESOLVED`\n- **Logged Timestamp**: `2026-11-18T07:30:52.674754`\n- **Diagnosis Engine**: Autonomous Production Incident Radar\n\n---\n\n## Root-Cause Analysis & Patch Preview (Layer 1)\n\nGood catch on #35771. The regression is in `AccountAvatarApi` / `AccountService`: querying `UploadFile` explicitly enforces `UploadFile.created_by == current_user.id`, which drops User A's uploaded file ID when requested by User B during collaboration presence broadcast.\n\n---\n\n## Incident Prevention & Operational Takeaways\n1. **Audit Upstream Authentication**: Validate OAuth2 token refresh loops and ensure service credentials cannot be orphaned.\n2. **Implement Schema Boundary Validation**: Guard downstream webhooks against unexpected payload truncations.\n3. **Automate Error Interception**: Configure fallback nodes and alerting monitors before critical production executions.\n\n---\n\n\n> \u26a1 **Encountering this exact production bug or need an emergency automation fix?**  \n> [**\ud83d\udea8 Instant Async Production Triage & Resolution (< 6h, Zero Video Calls)**](https://hooktriage.com/#triage)\n\n\n[\u2190 Back to Live Case Studies Index](../)\n";
     const caseLeadId = "github_langgenius_dify_46663";
     const caseAssetTitle = "Uploaded avatars return 404 for other users in workflow collaboration";
-    const caseBundleMarkdown = "# Complete Production Resolution Bundle \u2014 Uploaded avatars return 404 for other users in workflow collaboration\nEcosystem: Automation Engine | Severity: MEDIUM | Case ID: github_langgenius_dify_46663\n\n## 1. Full Importable Patch / Config Diff (with Error-Retry & Timeout Guard)\nInstead of strictly checking creator ownership on the raw file, the endpoint needs to verify whether `avatar` matches `Account.avatar` for an active member (optionally joined on `TenantAccountJoin` matching `current_user.current_tenant_id` if scoping to the workspace).\n\nIf you're opening a PR for this, checking `db.session.query(Account).filter(Account.avatar == avatar).first()` before falling back to the caller's own upload ownership should fix it without reopening arbitrary file reads.\n\n## 2. Verification & Non-Destructive Test Checklist\n1. Validate JSON/YAML syntax and confirm no unmasked secrets remain.\n2. Confirm error-retry/backoff and timeout guards are enabled before re-activating.\n3. Run a non-destructive healthcheck / test webhook and verify HTTP 200 payload shape.\n\n## 3. Team Post-Mortem Note\nRoot Cause (Automation Engine / MEDIUM): Good catch on #35771. The regression is in `AccountAvatarApi` / `AccountService`: querying `UploadFile` explicitly enforces `UploadFile.created_by == current_user.id`, which dro...\nOperational Guard: Audit OAuth2 token refresh loops, enforce schema boundary validation, and configure dead-letter error interception.\n";
-    const caseFallbackBundle = {
-      title: caseAssetTitle,
-      patch_markdown: "Instead of strictly checking creator ownership on the raw file, the endpoint needs to verify whether `avatar` matches `Account.avatar` for an active member (optionally joined on `TenantAccountJoin` matching `current_user.current_tenant_id` if scoping to the workspace).\n\nIf you're opening a PR for this, checking `db.session.query(Account).filter(Account.avatar == avatar).first()` before falling back to the caller's own upload ownership should fix it without reopening arbitrary file reads.",
-      verification_checklist: "1. Validate JSON/YAML syntax and confirm no unmasked secrets remain.\n2. Confirm error-retry/backoff and timeout guards are enabled before re-activating.\n3. Run a non-destructive healthcheck / test webhook and verify HTTP 200 payload shape.",
-      postmortem_note: "Root Cause (Automation Engine / MEDIUM): Good catch on #35771. The regression is in `AccountAvatarApi` / `AccountService`: querying `UploadFile` explicitly enforces `UploadFile.created_by == current_user.id`, which dro...\nOperational Guard: Audit OAuth2 token refresh loops, enforce schema boundary validation, and configure dead-letter error interception."
-    };
     // Strip YAML frontmatter
     const mdWithoutYaml = rawMarkdown.replace(/^---[\s\S]*?---\s*/, '');
     document.getElementById('content').innerHTML = marked.parse(mdWithoutYaml);
@@ -483,73 +482,6 @@
       if (typeof window.openTriageModal === 'function') {
         window.openTriageModal(tier || null, caseLeadId, caseAssetTitle);
       }
-    };
-
-    window.copyBundleOutput = function() {
-      const txt = [
-        document.getElementById('gateBundleTitle').innerText,
-        document.getElementById('gateBundlePatch').innerText,
-        document.getElementById('gateBundleChecklist').innerText,
-        document.getElementById('gateBundlePostmortem').innerText
-      ].filter(Boolean).join('\n\n');
-      if (navigator.clipboard && txt) {
-        navigator.clipboard.writeText(txt);
-      }
-    };
-
-    window.submitValueFirstGate = async function(ev) {
-      if (ev) ev.preventDefault();
-      const emailEl = document.getElementById('gateEmail');
-      const hpEl = document.getElementById('gateWebsite');
-      const errEl = document.getElementById('gateErr');
-      const btn = document.getElementById('gateSubmitBtn');
-      const box = document.getElementById('gateSuccessBox');
-      const email = (emailEl.value || '').trim();
-      const website = (hpEl ? hpEl.value : '') || '';
-      errEl.classList.add('hidden');
-      errEl.innerText = '';
-      if (!email || email.indexOf('@') === -1) {
-        errEl.innerText = 'Please enter a valid work email.';
-        errEl.classList.remove('hidden');
-        return false;
-      }
-      btn.disabled = true;
-      btn.innerText = 'Sending...';
-      try {
-        const r = await fetch("https://hooktriage.com/funnel-api/gate", {
-          method: "POST",
-          headers: {"Content-Type": "application/json"},
-          body: JSON.stringify({
-            email: email,
-            source_channel: "hooktriage_web",
-            asset_id: caseLeadId,
-            asset_title: caseAssetTitle,
-            segment: "track_a",
-            website: website,
-            cf_turnstile_response: "",
-            bundle_markdown: caseBundleMarkdown
-          })
-        });
-        const d = await r.json();
-        if (!r.ok || !d.ok) {
-          throw new Error(d.error || 'Could not deliver bundle. Please check your email address.');
-        }
-        const fb = d.fallback_bundle || {};
-        document.getElementById('gateBundleTitle').innerText = fb.title || caseFallbackBundle.title || caseAssetTitle;
-        document.getElementById('gateBundlePatch').innerText = fb.patch_markdown || caseFallbackBundle.patch_markdown || caseBundleMarkdown;
-        document.getElementById('gateBundleChecklist').innerText = fb.verification_checklist || caseFallbackBundle.verification_checklist || '';
-        document.getElementById('gateBundlePostmortem').innerText = fb.postmortem_note || caseFallbackBundle.postmortem_note || '';
-        box.classList.remove('hidden');
-        const auditEmailEl = document.getElementById('auditEmail');
-        if (auditEmailEl && !auditEmailEl.value) auditEmailEl.value = email;
-      } catch (e) {
-        errEl.innerText = e.message || 'Network error while sending bundle.';
-        errEl.classList.remove('hidden');
-      } finally {
-        btn.disabled = false;
-        btn.innerText = 'Send Bundle to My Inbox →';
-      }
-      return false;
     };
 
     window.submitAuditWorkflow = async function(ev) {
@@ -661,6 +593,14 @@
         <p class="text-sm text-[#f0f0f0] leading-relaxed whitespace-pre-line" id="trPreview"></p>
       </div>
 
+      <!-- 1-Click Card / Apple Pay Checkout (Priority Above Crypto) -->
+      <div>
+        <a id="trCardBtn" href="#" target="_blank" rel="noopener noreferrer" class="flex items-center justify-center gap-2 w-full rounded-2xl bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-4 text-sm transition cursor-pointer shadow-lg">
+          <span>Pay with Visa / Mastercard / Apple Pay (<span id="trUsdAmount">$199</span>) &rarr;</span>
+        </a>
+        <p class="text-[11px] text-center text-[#878d8f] mt-1.5">Direct instant card checkout (no crypto wallet required).</p>
+      </div>
+
       <!-- 1-Click Web3 USDT Checkout -->
       <div class="space-y-2">
         <button id="trWeb3Btn" onclick="window.payWithWeb3()" class="flex items-center justify-center gap-2 w-full rounded-2xl bg-white hover:bg-white/90 text-black font-semibold py-3 px-4 text-sm transition cursor-pointer">
@@ -675,14 +615,6 @@
         <a id="trNowBtn" href="#" target="_blank" rel="noopener noreferrer" class="flex items-center justify-center gap-2 w-full rounded-2xl bg-[#00d294] hover:opacity-90 text-black font-semibold py-3 px-4 text-sm transition cursor-pointer">
           <span>Pay via NOWPayments / Binance / 150+ Cryptos &mdash; Auto-Unlock (<span id="trNowUsd">$199</span>)</span>
         </a>
-      </div>
-
-      <!-- 1-Click Card On-Ramp Fallback -->
-      <div>
-        <a id="trCardBtn" href="#" target="_blank" rel="noopener noreferrer" class="flex items-center justify-center gap-2 w-full rounded-2xl bg-[#191b1e] hover:bg-[#212629] border border-[#293034] text-[#f0f0f0] font-medium py-3 px-4 text-sm transition cursor-pointer">
-          <span>Pay with Visa / Mastercard / Apple Pay (<span id="trUsdAmount">$199</span>)</span>
-        </a>
-        <p class="text-[11px] text-center text-[#878d8f] mt-1.5">Direct instant card checkout (no crypto wallet required).</p>
       </div>
 
       <!-- Scannable QR Code + 1-Click Copy Badge -->
