@@ -19,7 +19,7 @@ slug: "does-a-verified-app-stay-published-if-the-owner-downgrades-to-fre"
 ## Incident Metadata
 - **Platform / Ecosystem**: `Make.com`
 - **Incident Severity**: `MEDIUM`
-- **Resolution Status**: `RADAR TRIAGED & READY FOR RESOLUTION`
+- **Resolution Status**: `VERIFIED & RESOLVED`
 - **Logged Timestamp**: `2026-11-10T15:40:14.745652`
 - **Diagnosis Engine**: Autonomous Production Incident Radar
 

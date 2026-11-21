@@ -19,7 +19,7 @@ slug: "n8n-whatsapp-trigger-issue"
 ## Incident Metadata
 - **Platform / Ecosystem**: `n8n`
 - **Incident Severity**: `MEDIUM`
-- **Resolution Status**: `RADAR TRIAGED & READY FOR RESOLUTION`
+- **Resolution Status**: `VERIFIED & RESOLVED`
 - **Logged Timestamp**: `2026-11-17T07:40:35.408499`
 - **Diagnosis Engine**: Autonomous Production Incident Radar
 

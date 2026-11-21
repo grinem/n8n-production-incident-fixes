@@ -19,7 +19,7 @@ slug: "twilio-webhook-triggers-twice-and-creates-duplicate-google-sheets"
 ## Incident Metadata
 - **Platform / Ecosystem**: `Make.com`
 - **Incident Severity**: `MEDIUM`
-- **Resolution Status**: `RADAR TRIAGED & READY FOR RESOLUTION`
+- **Resolution Status**: `VERIFIED & RESOLVED`
 - **Logged Timestamp**: `2026-11-16T09:21:30.182879`
 - **Diagnosis Engine**: Autonomous Production Incident Radar
 

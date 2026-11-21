@@ -19,7 +19,7 @@ slug: "self-hosting-n8n-for-free-to-use-the-whatsapp-trigger"
 ## Incident Metadata
 - **Platform / Ecosystem**: `n8n`
 - **Incident Severity**: `MEDIUM`
-- **Resolution Status**: `RADAR TRIAGED & READY FOR RESOLUTION`
+- **Resolution Status**: `VERIFIED & RESOLVED`
 - **Logged Timestamp**: `2026-11-14T14:40:31.834895`
 - **Diagnosis Engine**: Autonomous Production Incident Radar
 

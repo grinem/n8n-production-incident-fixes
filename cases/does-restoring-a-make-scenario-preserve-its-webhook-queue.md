@@ -19,7 +19,7 @@ slug: "does-restoring-a-make-scenario-preserve-its-webhook-queue"
 ## Incident Metadata
 - **Platform / Ecosystem**: `Make.com`
 - **Incident Severity**: `MEDIUM`
-- **Resolution Status**: `RADAR TRIAGED & READY FOR RESOLUTION`
+- **Resolution Status**: `VERIFIED & RESOLVED`
 - **Logged Timestamp**: `2026-11-11T08:40:18.414950`
 - **Diagnosis Engine**: Autonomous Production Incident Radar
 

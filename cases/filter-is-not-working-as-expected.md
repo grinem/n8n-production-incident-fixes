@@ -19,7 +19,7 @@ slug: "filter-is-not-working-as-expected"
 ## Incident Metadata
 - **Platform / Ecosystem**: `Make.com`
 - **Incident Severity**: `MEDIUM`
-- **Resolution Status**: `RADAR TRIAGED & READY FOR RESOLUTION`
+- **Resolution Status**: `VERIFIED & RESOLVED`
 - **Logged Timestamp**: `2026-11-13T15:01:11.975931`
 - **Diagnosis Engine**: Autonomous Production Incident Radar
 

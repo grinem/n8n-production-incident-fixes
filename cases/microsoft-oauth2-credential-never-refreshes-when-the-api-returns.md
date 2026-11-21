@@ -19,7 +19,7 @@ slug: "microsoft-oauth2-credential-never-refreshes-when-the-api-returns"
 ## Incident Metadata
 - **Platform / Ecosystem**: `n8n`
 - **Incident Severity**: `HIGH`
-- **Resolution Status**: `RADAR TRIAGED & READY FOR RESOLUTION`
+- **Resolution Status**: `VERIFIED & RESOLVED`
 - **Logged Timestamp**: `2026-11-16T18:00:39.797295`
 - **Diagnosis Engine**: Autonomous Production Incident Radar
 

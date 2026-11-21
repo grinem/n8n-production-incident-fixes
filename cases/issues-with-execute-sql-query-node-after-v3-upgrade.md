@@ -19,7 +19,7 @@ slug: "issues-with-execute-sql-query-node-after-v3-upgrade"
 ## Incident Metadata
 - **Platform / Ecosystem**: `n8n`
 - **Incident Severity**: `MEDIUM`
-- **Resolution Status**: `RADAR TRIAGED & READY FOR RESOLUTION`
+- **Resolution Status**: `VERIFIED & RESOLVED`
 - **Logged Timestamp**: `2026-11-16T12:40:35.045610`
 - **Diagnosis Engine**: Autonomous Production Incident Radar
 

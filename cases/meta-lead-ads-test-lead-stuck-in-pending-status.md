@@ -19,7 +19,7 @@ slug: "meta-lead-ads-test-lead-stuck-in-pending-status"
 ## Incident Metadata
 - **Platform / Ecosystem**: `Meta / Webhooks`
 - **Incident Severity**: `HIGH`
-- **Resolution Status**: `RADAR TRIAGED & READY FOR RESOLUTION`
+- **Resolution Status**: `VERIFIED & RESOLVED`
 - **Logged Timestamp**: `2026-11-11T13:40:18.228840`
 - **Diagnosis Engine**: Autonomous Production Incident Radar
 

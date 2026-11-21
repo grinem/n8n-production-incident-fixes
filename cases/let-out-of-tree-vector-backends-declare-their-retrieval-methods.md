@@ -19,7 +19,7 @@ slug: "let-out-of-tree-vector-backends-declare-their-retrieval-methods"
 ## Incident Metadata
 - **Platform / Ecosystem**: `Automation Engine`
 - **Incident Severity**: `HIGH`
-- **Resolution Status**: `RADAR TRIAGED & READY FOR RESOLUTION`
+- **Resolution Status**: `VERIFIED & RESOLVED`
 - **Logged Timestamp**: `2026-11-17T00:00:40.176812`
 - **Diagnosis Engine**: Autonomous Production Incident Radar
 

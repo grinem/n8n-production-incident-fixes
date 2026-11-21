@@ -19,7 +19,7 @@ slug: "how-are-you-guys-catching-silent-n8n-failures-when-your-vps-freez"
 ## Incident Metadata
 - **Platform / Ecosystem**: `n8n`
 - **Incident Severity**: `CRITICAL`
-- **Resolution Status**: `RADAR TRIAGED & READY FOR RESOLUTION`
+- **Resolution Status**: `VERIFIED & RESOLVED`
 - **Logged Timestamp**: `2026-11-18T07:00:45.527827`
 - **Diagnosis Engine**: Autonomous Production Incident Radar
 

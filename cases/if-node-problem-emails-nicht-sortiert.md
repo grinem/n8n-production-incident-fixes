@@ -19,7 +19,7 @@ slug: "if-node-problem-emails-nicht-sortiert"
 ## Incident Metadata
 - **Platform / Ecosystem**: `n8n`
 - **Incident Severity**: `MEDIUM`
-- **Resolution Status**: `RADAR TRIAGED & READY FOR RESOLUTION`
+- **Resolution Status**: `VERIFIED & RESOLVED`
 - **Logged Timestamp**: `2026-11-19T10:00:49.246243`
 - **Diagnosis Engine**: Autonomous Production Incident Radar
 

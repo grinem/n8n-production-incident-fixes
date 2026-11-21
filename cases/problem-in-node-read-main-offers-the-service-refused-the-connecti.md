@@ -19,7 +19,7 @@ slug: "problem-in-node-read-main-offers-the-service-refused-the-connecti"
 ## Incident Metadata
 - **Platform / Ecosystem**: `n8n`
 - **Incident Severity**: `MEDIUM`
-- **Resolution Status**: `RADAR TRIAGED & READY FOR RESOLUTION`
+- **Resolution Status**: `VERIFIED & RESOLVED`
 - **Logged Timestamp**: `2026-11-17T08:20:36.238785`
 - **Diagnosis Engine**: Autonomous Production Incident Radar
 

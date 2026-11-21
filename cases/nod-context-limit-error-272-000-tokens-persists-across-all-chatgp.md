@@ -19,7 +19,7 @@ slug: "nod-context-limit-error-272-000-tokens-persists-across-all-chatgp"
 ## Incident Metadata
 - **Platform / Ecosystem**: `n8n`
 - **Incident Severity**: `HIGH`
-- **Resolution Status**: `RADAR TRIAGED & READY FOR RESOLUTION`
+- **Resolution Status**: `VERIFIED & RESOLVED`
 - **Logged Timestamp**: `2026-11-16T05:20:32.833126`
 - **Diagnosis Engine**: Autonomous Production Incident Radar
 

@@ -19,7 +19,7 @@ slug: "bitbucket-oauth-connection-fails-with-sc424-after-successful-auth"
 ## Incident Metadata
 - **Platform / Ecosystem**: `Make.com`
 - **Incident Severity**: `CRITICAL`
-- **Resolution Status**: `RADAR TRIAGED & READY FOR RESOLUTION`
+- **Resolution Status**: `VERIFIED & RESOLVED`
 - **Logged Timestamp**: `2026-11-13T08:00:28.376597`
 - **Diagnosis Engine**: Autonomous Production Incident Radar
 

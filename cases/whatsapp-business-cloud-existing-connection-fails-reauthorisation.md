@@ -19,7 +19,7 @@ slug: "whatsapp-business-cloud-existing-connection-fails-reauthorisation"
 ## Incident Metadata
 - **Platform / Ecosystem**: `Make.com`
 - **Incident Severity**: `CRITICAL`
-- **Resolution Status**: `RADAR TRIAGED & READY FOR RESOLUTION`
+- **Resolution Status**: `VERIFIED & RESOLVED`
 - **Logged Timestamp**: `2026-11-16T09:20:34.478657`
 - **Diagnosis Engine**: Autonomous Production Incident Radar
 

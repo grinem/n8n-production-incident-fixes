@@ -19,7 +19,7 @@ slug: "self-hosted-n8n-on-a-2gb-vps-falls-over-when-three-workflows-run"
 ## Incident Metadata
 - **Platform / Ecosystem**: `n8n`
 - **Incident Severity**: `MEDIUM`
-- **Resolution Status**: `RADAR TRIAGED & READY FOR RESOLUTION`
+- **Resolution Status**: `VERIFIED & RESOLVED`
 - **Logged Timestamp**: `2026-11-17T08:40:35.796056`
 - **Diagnosis Engine**: Autonomous Production Incident Radar
 

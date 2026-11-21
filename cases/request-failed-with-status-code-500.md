@@ -19,7 +19,7 @@ slug: "request-failed-with-status-code-500"
 ## Incident Metadata
 - **Platform / Ecosystem**: `Baserow`
 - **Incident Severity**: `HIGH`
-- **Resolution Status**: `RADAR TRIAGED & READY FOR RESOLUTION`
+- **Resolution Status**: `VERIFIED & RESOLVED`
 - **Logged Timestamp**: `2026-11-15T10:01:19.678606`
 - **Diagnosis Engine**: Autonomous Production Incident Radar
 
