@@ -1,7 +1,7 @@
 # 🛠️ n8n & Low-Code Production Incident Fixes (Live Knowledge Base)
 
 [![GitHub Pages](https://img.shields.io/badge/GitHub%20Pages-Live%20Showcase-brightgreen?style=flat-square&logo=github)](https://grinem.github.io/n8n-production-incident-fixes/)
-[![Incidents Resolved](https://img.shields.io/badge/Incidents%20Resolved-175%20Verified-blue?style=flat-square)](cases/)
+[![Incidents Resolved](https://img.shields.io/badge/Incidents%20Resolved-177%20Verified-blue?style=flat-square)](cases/)
 [![Emergency SLA](https://img.shields.io/badge/Incident%20SLA-%3C%206%20Hours-orange?style=flat-square)](https://hooktriage.com/#triage)
 [![Async Triage](https://img.shields.io/badge/Async%20Triage-Zero%20Calls-success?style=flat-square)](https://hooktriage.com/#triage)
 
@@ -38,10 +38,12 @@ All incident post-mortems in this repository are autonomously generated and sync
 
 ---
 
-## 📚 Documented Production Incidents (175)
+## 📚 Documented Production Incidents (177)
 
 | Ecosystem | Incident Case Study | Root Cause Snapshot | Severity | Solution Link |
 |:----------|:--------------------|:--------------------|:--------:|:-------------:|
+| **n8n** | [Multi-main resume-attempt conflicts can leave parent executions waiting or crashed](cases/multi-main-resume-attempt-conflicts-can-leave-parent-executions-w.md) | Gap 1 is indeed an ambiguous CAS failure: `execution.repository.ts` treats "status moved away from waiting" and "status is still waiting but `resumeAttempts` changed concurrentl... | 🔴 `CRITICAL` | [**Solution**](cases/multi-main-resume-attempt-conflicts-can-leave-parent-executions-w.md) |
+| **n8n** | [IndexOperation lazy promise does not forward execute() rejection (source unchanged in @n8n/db1.47.4)](cases/indexoperation-lazy-promise-does-not-forward-execute-rejection-so.md) | The constructor in `dist/migrations/dsl/indices.js` swallows the rejection path by omitting `reject` from the executor: | 🔴 `CRITICAL` | [**Solution**](cases/indexoperation-lazy-promise-does-not-forward-execute-rejection-so.md) |
 | **n8n** | [Which unified API tool works best in n8n for domain traffic, social posts, and work email lookups?](cases/which-unified-api-tool-works-best-in-n8n-for-domain-traffic-socia.md) | Most builders keep them separate, but wrap each lookup inside an Execute Sub-Workflow node instead of chaining four raw HTTP nodes directly in the main canvas. | 🟠 `HIGH` | [**Solution**](cases/which-unified-api-tool-works-best-in-n8n-for-domain-traffic-socia.md) |
 | **Automation Engine** | [Async workflow can return an error after Celery accepts the task](cases/async-workflow-can-return-an-error-after-celery-accepts-the-task.md) | Because `SQLAlchemyWorkflowTriggerExecutionRepository.start()` explicitly picks up both `PENDING` and `QUEUED` records, the worker doesn't actually depend on `mark_queued()` suc... | 🔴 `CRITICAL` | [**Solution**](cases/async-workflow-can-return-an-error-after-celery-accepts-the-task.md) |
 | **n8n** | [Allowed Origins (CORS) is ignored for webhooks with dynamic paths](cases/allowed-origins-cors-is-ignored-for-webhooks-with-dynamic-paths.md) | The early CORS middleware checks incoming requests against the webhook cache via exact path matching instead of pattern matching. Because dynamic webhooks register the uncompile... | 🟡 `MEDIUM` | [**Solution**](cases/allowed-origins-cors-is-ignored-for-webhooks-with-dynamic-paths.md) |

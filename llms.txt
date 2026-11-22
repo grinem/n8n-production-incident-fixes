@@ -13,7 +13,9 @@
 - Sitemap: https://hooktriage.com/sitemap.xml
 - Maintainer GitHub Profile: https://github.com/grinem
 
-## Documented Production Incidents (175)
+## Documented Production Incidents (177)
+- [n8n] Multi-main resume-attempt conflicts can leave parent executions waiting or crashed: https://hooktriage.com/cases/multi-main-resume-attempt-conflicts-can-leave-parent-executions-w.html - Root Cause: Gap 1 is indeed an ambiguous CAS failure: `execution.repository.ts` treats "status moved away from waiting" and "status is still waiting but `resumeAttempts` changed concurrentl...
+- [n8n] IndexOperation lazy promise does not forward execute() rejection (source unchanged in @n8n/db1.47.4): https://hooktriage.com/cases/indexoperation-lazy-promise-does-not-forward-execute-rejection-so.html - Root Cause: The constructor in `dist/migrations/dsl/indices.js` swallows the rejection path by omitting `reject` from the executor:
 - [n8n] Which unified API tool works best in n8n for domain traffic, social posts, and work email lookups?: https://hooktriage.com/cases/which-unified-api-tool-works-best-in-n8n-for-domain-traffic-socia.html - Root Cause: Most builders keep them separate, but wrap each lookup inside an Execute Sub-Workflow node instead of chaining four raw HTTP nodes directly in the main canvas.
 - [Automation Engine] Async workflow can return an error after Celery accepts the task: https://hooktriage.com/cases/async-workflow-can-return-an-error-after-celery-accepts-the-task.html - Root Cause: Because `SQLAlchemyWorkflowTriggerExecutionRepository.start()` explicitly picks up both `PENDING` and `QUEUED` records, the worker doesn't actually depend on `mark_queued()` suc...
 - [n8n] Allowed Origins (CORS) is ignored for webhooks with dynamic paths: https://hooktriage.com/cases/allowed-origins-cors-is-ignored-for-webhooks-with-dynamic-paths.html - Root Cause: The early CORS middleware checks incoming requests against the webhook cache via exact path matching instead of pattern matching. Because dynamic webhooks register the uncompile...

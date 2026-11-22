@@ -13,9 +13,9 @@ title: "Production Incident Fixes & Post-Mortem Knowledge Base"
 
 
 ### 📊 Real-Time Operations Telemetry
-- **Total Production Incidents Documented**: `175`
+- **Total Production Incidents Documented**: `177`
 - **Active Incident Resolvers**: Automated Production Radar + Lead SRE Engineer
-- **Breakdown by Platform**: **n8n**: 91 | **Automation Engine**: 36 | **Make.com**: 28 | **Activepieces**: 10 | **Bubble.io**: 5 | **Meta / Webhooks**: 3 | **Baserow**: 2
+- **Breakdown by Platform**: **n8n**: 93 | **Automation Engine**: 36 | **Make.com**: 28 | **Activepieces**: 10 | **Bubble.io**: 5 | **Meta / Webhooks**: 3 | **Baserow**: 2
 - **Average Diagnosis & Root-Cause Pinpoint**: `< 15 Minutes`
 
 ---
@@ -24,6 +24,8 @@ title: "Production Incident Fixes & Post-Mortem Knowledge Base"
 
 | Ecosystem | Incident Summary | Root Cause Snapshot | Severity | Resolution Guide |
 |:----------|:-----------------|:--------------------|:--------:|:----------------:|
+| **n8n** | [Multi-main resume-attempt conflicts can leave parent executions waiting or crashed](cases/multi-main-resume-attempt-conflicts-can-leave-parent-executions-w.html) | Gap 1 is indeed an ambiguous CAS failure: `execution.repository.ts` treats "status moved away from waiting" and "status is still waiting but `resumeAttempts` changed concurrentl... | 🔴 `CRITICAL` | [**View Solution →**](cases/multi-main-resume-attempt-conflicts-can-leave-parent-executions-w.html) |
+| **n8n** | [IndexOperation lazy promise does not forward execute() rejection (source unchanged in @n8n/db1.47.4)](cases/indexoperation-lazy-promise-does-not-forward-execute-rejection-so.html) | The constructor in `dist/migrations/dsl/indices.js` swallows the rejection path by omitting `reject` from the executor: | 🔴 `CRITICAL` | [**View Solution →**](cases/indexoperation-lazy-promise-does-not-forward-execute-rejection-so.html) |
 | **n8n** | [Which unified API tool works best in n8n for domain traffic, social posts, and work email lookups?](cases/which-unified-api-tool-works-best-in-n8n-for-domain-traffic-socia.html) | Most builders keep them separate, but wrap each lookup inside an Execute Sub-Workflow node instead of chaining four raw HTTP nodes directly in the main canvas. | 🟠 `HIGH` | [**View Solution →**](cases/which-unified-api-tool-works-best-in-n8n-for-domain-traffic-socia.html) |
 | **Automation Engine** | [Async workflow can return an error after Celery accepts the task](cases/async-workflow-can-return-an-error-after-celery-accepts-the-task.html) | Because `SQLAlchemyWorkflowTriggerExecutionRepository.start()` explicitly picks up both `PENDING` and `QUEUED` records, the worker doesn't actually depend on `mark_queued()` suc... | 🔴 `CRITICAL` | [**View Solution →**](cases/async-workflow-can-return-an-error-after-celery-accepts-the-task.html) |
 | **n8n** | [Allowed Origins (CORS) is ignored for webhooks with dynamic paths](cases/allowed-origins-cors-is-ignored-for-webhooks-with-dynamic-paths.html) | The early CORS middleware checks incoming requests against the webhook cache via exact path matching instead of pattern matching. Because dynamic webhooks register the uncompile... | 🟡 `MEDIUM` | [**View Solution →**](cases/allowed-origins-cors-is-ignored-for-webhooks-with-dynamic-paths.html) |
