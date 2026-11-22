@@ -13,9 +13,9 @@ title: "Production Incident Fixes & Post-Mortem Knowledge Base"
 
 
 ### 📊 Real-Time Operations Telemetry
-- **Total Production Incidents Documented**: `174`
+- **Total Production Incidents Documented**: `175`
 - **Active Incident Resolvers**: Automated Production Radar + Lead SRE Engineer
-- **Breakdown by Platform**: **n8n**: 90 | **Automation Engine**: 36 | **Make.com**: 28 | **Activepieces**: 10 | **Bubble.io**: 5 | **Meta / Webhooks**: 3 | **Baserow**: 2
+- **Breakdown by Platform**: **n8n**: 91 | **Automation Engine**: 36 | **Make.com**: 28 | **Activepieces**: 10 | **Bubble.io**: 5 | **Meta / Webhooks**: 3 | **Baserow**: 2
 - **Average Diagnosis & Root-Cause Pinpoint**: `< 15 Minutes`
 
 ---
@@ -24,6 +24,7 @@ title: "Production Incident Fixes & Post-Mortem Knowledge Base"
 
 | Ecosystem | Incident Summary | Root Cause Snapshot | Severity | Resolution Guide |
 |:----------|:-----------------|:--------------------|:--------:|:----------------:|
+| **n8n** | [Which unified API tool works best in n8n for domain traffic, social posts, and work email lookups?](cases/which-unified-api-tool-works-best-in-n8n-for-domain-traffic-socia.html) | Most builders keep them separate, but wrap each lookup inside an Execute Sub-Workflow node instead of chaining four raw HTTP nodes directly in the main canvas. | 🟠 `HIGH` | [**View Solution →**](cases/which-unified-api-tool-works-best-in-n8n-for-domain-traffic-socia.html) |
 | **Automation Engine** | [Async workflow can return an error after Celery accepts the task](cases/async-workflow-can-return-an-error-after-celery-accepts-the-task.html) | Because `SQLAlchemyWorkflowTriggerExecutionRepository.start()` explicitly picks up both `PENDING` and `QUEUED` records, the worker doesn't actually depend on `mark_queued()` suc... | 🔴 `CRITICAL` | [**View Solution →**](cases/async-workflow-can-return-an-error-after-celery-accepts-the-task.html) |
 | **n8n** | [Allowed Origins (CORS) is ignored for webhooks with dynamic paths](cases/allowed-origins-cors-is-ignored-for-webhooks-with-dynamic-paths.html) | The early CORS middleware checks incoming requests against the webhook cache via exact path matching instead of pattern matching. Because dynamic webhooks register the uncompile... | 🟡 `MEDIUM` | [**View Solution →**](cases/allowed-origins-cors-is-ignored-for-webhooks-with-dynamic-paths.html) |
 | **n8n** | [Webhook Allowed Origins (CORS) entries after the first are broken when the list contains spaces](cases/webhook-allowed-origins-cors-entries-after-the-first-are-broken-w.html) | Confirmed on master. The origins string is parsed via `.split(',')` without trimming elements, leaving subsequent entries with a leading space that fails strict equality against... | 🔴 `CRITICAL` | [**View Solution →**](cases/webhook-allowed-origins-cors-entries-after-the-first-are-broken-w.html) |

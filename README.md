@@ -1,7 +1,7 @@
 # 🛠️ n8n & Low-Code Production Incident Fixes (Live Knowledge Base)
 
 [![GitHub Pages](https://img.shields.io/badge/GitHub%20Pages-Live%20Showcase-brightgreen?style=flat-square&logo=github)](https://grinem.github.io/n8n-production-incident-fixes/)
-[![Incidents Resolved](https://img.shields.io/badge/Incidents%20Resolved-174%20Verified-blue?style=flat-square)](cases/)
+[![Incidents Resolved](https://img.shields.io/badge/Incidents%20Resolved-175%20Verified-blue?style=flat-square)](cases/)
 [![Emergency SLA](https://img.shields.io/badge/Incident%20SLA-%3C%206%20Hours-orange?style=flat-square)](https://hooktriage.com/#triage)
 [![Async Triage](https://img.shields.io/badge/Async%20Triage-Zero%20Calls-success?style=flat-square)](https://hooktriage.com/#triage)
 
@@ -38,10 +38,11 @@ All incident post-mortems in this repository are autonomously generated and sync
 
 ---
 
-## 📚 Documented Production Incidents (174)
+## 📚 Documented Production Incidents (175)
 
 | Ecosystem | Incident Case Study | Root Cause Snapshot | Severity | Solution Link |
 |:----------|:--------------------|:--------------------|:--------:|:-------------:|
+| **n8n** | [Which unified API tool works best in n8n for domain traffic, social posts, and work email lookups?](cases/which-unified-api-tool-works-best-in-n8n-for-domain-traffic-socia.md) | Most builders keep them separate, but wrap each lookup inside an Execute Sub-Workflow node instead of chaining four raw HTTP nodes directly in the main canvas. | 🟠 `HIGH` | [**Solution**](cases/which-unified-api-tool-works-best-in-n8n-for-domain-traffic-socia.md) |
 | **Automation Engine** | [Async workflow can return an error after Celery accepts the task](cases/async-workflow-can-return-an-error-after-celery-accepts-the-task.md) | Because `SQLAlchemyWorkflowTriggerExecutionRepository.start()` explicitly picks up both `PENDING` and `QUEUED` records, the worker doesn't actually depend on `mark_queued()` suc... | 🔴 `CRITICAL` | [**Solution**](cases/async-workflow-can-return-an-error-after-celery-accepts-the-task.md) |
 | **n8n** | [Allowed Origins (CORS) is ignored for webhooks with dynamic paths](cases/allowed-origins-cors-is-ignored-for-webhooks-with-dynamic-paths.md) | The early CORS middleware checks incoming requests against the webhook cache via exact path matching instead of pattern matching. Because dynamic webhooks register the uncompile... | 🟡 `MEDIUM` | [**Solution**](cases/allowed-origins-cors-is-ignored-for-webhooks-with-dynamic-paths.md) |
 | **n8n** | [Webhook Allowed Origins (CORS) entries after the first are broken when the list contains spaces](cases/webhook-allowed-origins-cors-entries-after-the-first-are-broken-w.md) | Confirmed on master. The origins string is parsed via `.split(',')` without trimming elements, leaving subsequent entries with a leading space that fails strict equality against... | 🔴 `CRITICAL` | [**Solution**](cases/webhook-allowed-origins-cors-entries-after-the-first-are-broken-w.md) |

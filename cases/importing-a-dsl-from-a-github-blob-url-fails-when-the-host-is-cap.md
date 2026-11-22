@@ -19,7 +19,7 @@ slug: "importing-a-dsl-from-a-github-blob-url-fails-when-the-host-is-cap"
 ## Incident Metadata
 - **Platform / Ecosystem**: `Automation Engine`
 - **Incident Severity**: `CRITICAL`
-- **Resolution Status**: `RADAR TRIAGED & READY FOR RESOLUTION`
+- **Resolution Status**: `VERIFIED & RESOLVED`
 - **Logged Timestamp**: `2026-11-20T07:20:48.364915`
 - **Diagnosis Engine**: Autonomous Production Incident Radar
 
