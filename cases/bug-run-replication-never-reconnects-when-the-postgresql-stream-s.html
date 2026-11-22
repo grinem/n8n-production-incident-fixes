@@ -1,0 +1,1191 @@
+<!DOCTYPE html>
+<html lang="en" class="ht-light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>bug: run replication never reconnects when the PostgreSQL stream silently stalls | Production Incident Fix</title>
+  <meta name="description" content="Handling silent connection severance on logical replication streams requires an explicit inbound deadline watchdog in `internal-packages/replication/src/client.ts`. Because half...">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://hooktriage.com/cases/bug-run-replication-never-reconnects-when-the-postgresql-stream-s.html">
+  <meta property="og:title" content="bug: run replication never reconnects when the PostgreSQL stream silently stalls | Production Incident Fix">
+  <meta property="og:description" content="Handling silent connection severance on logical replication streams requires an explicit inbound deadline watchdog in `internal-packages/replication/src/client.ts`. Because half...">
+  <meta property="og:url" content="https://hooktriage.com/cases/bug-run-replication-never-reconnects-when-the-postgresql-stream-s.html">
+  <meta property="og:type" content="article">
+  <link rel="sitemap" type="application/xml" title="Sitemap" href="/sitemap.xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'ui-sans-serif', 'system-ui', '-apple-system', 'sans-serif'],
+            mono: ['JetBrains Mono', 'ui-monospace', 'SFMono-Regular', 'Menlo', 'Monaco', 'Consolas', 'monospace']
+          }
+        }
+      }
+    };
+  </script>
+  <style>
+    html, body { background-color: #000000; color: #f0f0f0; font-family: 'Inter', ui-sans-serif, system-ui, sans-serif; }
+    code, pre, .font-mono { font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace; }
+    #content h1 { font-size: 1.875rem; line-height: 2.25rem; font-weight: 600; letter-spacing: -0.03em; color: #f0f0f0; margin-bottom: 1.25rem; }
+    #content h2 { font-size: 1.25rem; line-height: 1.75rem; font-weight: 600; letter-spacing: -0.02em; color: #f0f0f0; margin-top: 2rem; margin-bottom: 0.75rem; padding-bottom: 0.5rem; border-bottom: 1px solid #212629; }
+    #content h3 { font-size: 1.05rem; line-height: 1.5rem; font-weight: 600; color: #f0f0f0; margin-top: 1.5rem; margin-bottom: 0.5rem; }
+    #content p, #content li { color: #a1a4a5; font-size: 0.9375rem; line-height: 1.7; margin-bottom: 0.75rem; }
+    #content strong { color: #f0f0f0; font-weight: 600; }
+    #content a { color: #f0f0f0; text-decoration: underline; text-decoration-color: #3b4345; text-underline-offset: 3px; }
+    #content a:hover { text-decoration-color: #f0f0f0; }
+    #content blockquote { border-left: 2px solid #293034; background: #0a0b0c; padding: 0.875rem 1.125rem; border-radius: 0.75rem; margin: 1.25rem 0; color: #a1a4a5; }
+    #content blockquote p { margin-bottom: 0; }
+    #content code { font-size: 0.8125rem; background: #191b1e; border: 1px solid #212629; color: #f0f0f0; padding: 0.125rem 0.375rem; border-radius: 0.375rem; }
+    #content pre { background: #0a0b0c; border: 1px solid #212629; border-radius: 1rem; padding: 1rem 1.25rem; overflow-x: auto; margin: 1.25rem 0; }
+    #content pre code { background: transparent; border: none; padding: 0; color: #e2e8f0; font-size: 0.8125rem; line-height: 1.6; }
+    #content ul { list-style-type: disc; padding-left: 1.35rem; margin: 0.75rem 0; }
+    #content ol { list-style-type: decimal; padding-left: 1.35rem; margin: 0.75rem 0; }
+    #content hr { border: none; border-top: 1px solid #212629; margin: 1.75rem 0; }
+
+    /* === GLOBAL AGENSI LUMINOUS LIGHT MODE (DEFAULT) & DARK MODE ENGINE === */
+    html.ht-light, html.ht-light body {
+      background-color: #f8fafc !important;
+      color: #0f172a !important;
+      background-image: radial-gradient(#cbd5e1 0.85px, transparent 0.85px);
+      background-size: 24px 24px;
+    }
+    html.ht-light header, html.ht-light header.ht-topbar {
+      background: rgba(255, 255, 255, 0.90) !important;
+      border-bottom-color: #e2e8f0 !important;
+      box-shadow: 0 1px 3px rgba(15, 23, 42, 0.04);
+    }
+    html.ht-light .ht-surface,
+    html.ht-light #content,
+    html.ht-light #valueFirstGateCard,
+    html.ht-light #lockedPatchCard,
+    html.ht-light details {
+      background-color: #ffffff !important;
+      border-color: #e2e8f0 !important;
+      color: #0f172a !important;
+      box-shadow: 0 4px 20px -2px rgba(15, 23, 42, 0.05);
+    }
+    html.ht-light .ht-surface-subtle {
+      background-color: #f1f5f9 !important;
+      border-color: #e2e8f0 !important;
+      color: #334155 !important;
+    }
+    html.ht-light .ht-text-main { color: #0f172a !important; }
+    html.ht-light .ht-text-muted { color: #475569 !important; }
+    html.ht-light .ht-text-soft { color: #64748b !important; }
+
+    /* Case study article (#content) typography in Light Mode */
+    html.ht-light #content h1,
+    html.ht-light #content h2,
+    html.ht-light #content h3,
+    html.ht-light #content strong,
+    html.ht-light #valueFirstGateCard h3,
+    html.ht-light #lockedPatchCard h3,
+    html.ht-light details summary {
+      color: #0f172a !important;
+      border-bottom-color: #e2e8f0 !important;
+    }
+    html.ht-light #content p,
+    html.ht-light #content li,
+    html.ht-light #valueFirstGateCard ul,
+    html.ht-light #valueFirstGateCard p,
+    html.ht-light #lockedPatchCard p,
+    html.ht-light details p {
+      color: #334155 !important;
+    }
+    html.ht-light #lockedPatchCard .ht-crypto-btn {
+      background-color: #f1f5f9 !important;
+      border-color: #cbd5e1 !important;
+      color: #0f172a !important;
+    }
+    html.ht-light #lockedPatchCard .ht-crypto-btn:hover {
+      background-color: #e2e8f0 !important;
+    }
+    html.ht-light #content a {
+      color: #2563eb !important;
+      text-decoration-color: #93c5fd !important;
+    }
+    html.ht-light #content a:hover {
+      color: #1d4ed8 !important;
+      text-decoration-color: #2563eb !important;
+    }
+    html.ht-light #content blockquote {
+      background: #f8fafc !important;
+      border-left: 3px solid #2563eb !important;
+      color: #334155 !important;
+    }
+    html.ht-light #content code,
+    html.ht-light #valueFirstGateCard code,
+    html.ht-light details code {
+      background: #f1f5f9 !important;
+      border-color: #cbd5e1 !important;
+      color: #0f172a !important;
+    }
+    /* Keep multi-line <pre> code terminals dark & high-contrast even in Light Mode */
+    html.ht-light #content pre,
+    html.ht-light pre#gateBundlePatch,
+    html.ht-light pre#gateBundleChecklist,
+    html.ht-light pre#gateBundlePostmortem {
+      background: #0f172a !important;
+      border-color: #1e293b !important;
+      color: #f8fafc !important;
+    }
+    html.ht-light #content pre code {
+      background: transparent !important;
+      border: none !important;
+      color: #f8fafc !important;
+    }
+    html.ht-light #content hr {
+      border-top-color: #e2e8f0 !important;
+    }
+
+    /* Fix Capture 3: Incident Cards on Index in Light Mode (NEVER white text on hover!) */
+    html.ht-light .incident-card {
+      background-color: #ffffff !important;
+      border-color: #e2e8f0 !important;
+      box-shadow: 0 2px 10px rgba(15, 23, 42, 0.04);
+    }
+    html.ht-light .incident-card:hover {
+      background-color: #ffffff !important;
+      border-color: #2563eb !important;
+      box-shadow: 0 10px 25px -5px rgba(37, 99, 235, 0.14);
+    }
+    html.ht-light .incident-card h3,
+    html.ht-light .incident-card h3 a,
+    html.ht-light .incident-card .ht-card-title-link,
+    html.ht-light .incident-card .ht-card-view-link {
+      color: #0f172a !important;
+    }
+    html.ht-light .incident-card:hover h3 a,
+    html.ht-light .incident-card h3 a:hover,
+    html.ht-light .incident-card .ht-card-title-link:hover,
+    html.ht-light .incident-card .ht-card-view-link:hover,
+    html.ht-light .incident-card a:hover {
+      color: #2563eb !important;
+    }
+
+    /* Fix Capture 2: Modals (#triageModal & #kitModal) + Floating Action Button in Light Mode */
+    html.ht-light #triageFab {
+      background-color: #0f172a !important;
+      color: #ffffff !important;
+      border-color: #1e293b !important;
+      box-shadow: 0 10px 25px rgba(15, 23, 42, 0.22) !important;
+    }
+    html.ht-light #triageModal,
+    html.ht-light #kitModal {
+      background-color: rgba(15, 23, 42, 0.45) !important;
+    }
+    html.ht-light #triageModal > div,
+    html.ht-light #kitModal > div {
+      background-color: #ffffff !important;
+      border-color: #cbd5e1 !important;
+      color: #0f172a !important;
+      box-shadow: 0 25px 50px -12px rgba(15, 23, 42, 0.25) !important;
+    }
+    html.ht-light #triageModal h3,
+    html.ht-light #kitModal h3,
+    html.ht-light #triageModal strong,
+    html.ht-light #kitModal strong,
+    html.ht-light #triageModal .text-\[\#f0f0f0\],
+    html.ht-light #kitModal .text-\[\#f0f0f0\] {
+      color: #0f172a !important;
+    }
+    html.ht-light #triageModal label,
+    html.ht-light #kitModal label,
+    html.ht-light #triageModal .text-\[\#a1a4a5\],
+    html.ht-light #kitModal .text-\[\#a1a4a5\],
+    html.ht-light #triageModal .text-\[\#878d8f\],
+    html.ht-light #kitModal .text-\[\#878d8f\] {
+      color: #475569 !important;
+    }
+    html.ht-light #triageModal .bg-\[\#0a0b0c\],
+    html.ht-light #kitModal .bg-\[\#0a0b0c\],
+    html.ht-light #triageModal .bg-\[\#191b1e\],
+    html.ht-light #kitModal .bg-\[\#191b1e\],
+    html.ht-light #valueFirstGateCard .bg-\[\#191b1e\],
+    html.ht-light #valueFirstGateCard .bg-\[\#0a0b0c\] {
+      background-color: #f1f5f9 !important;
+      border-color: #cbd5e1 !important;
+      color: #0f172a !important;
+    }
+    html.ht-light #triageModal input,
+    html.ht-light #triageModal textarea,
+    html.ht-light #kitModal input,
+    html.ht-light #valueFirstGateCard input,
+    html.ht-light details input,
+    html.ht-light details textarea {
+      background-color: #f8fafc !important;
+      border-color: #cbd5e1 !important;
+      color: #0f172a !important;
+    }
+    html.ht-light #triageModal input:focus,
+    html.ht-light #triageModal textarea:focus,
+    html.ht-light #kitModal input:focus,
+    html.ht-light #valueFirstGateCard input:focus {
+      border-color: #2563eb !important;
+      background-color: #ffffff !important;
+    }
+    /* Turn white CTA buttons inside modals & gate into vibrant Agensi Blue in Light Mode */
+    html.ht-light #triageModal button.bg-white,
+    html.ht-light #kitModal a.bg-white,
+    html.ht-light #kitModal button.bg-white,
+    html.ht-light #valueFirstGateCard button.bg-white,
+    html.ht-light header button.bg-white {
+      background-color: #2563eb !important;
+      color: #ffffff !important;
+    }
+    html.ht-light #triageModal button.bg-white:hover,
+    html.ht-light #kitModal a.bg-white:hover,
+    html.ht-light #kitModal button.bg-white:hover,
+    html.ht-light #valueFirstGateCard button.bg-white:hover {
+      background-color: #1d4ed8 !important;
+    }
+    html.ht-light #triageModal .border-\[\#212629\],
+    html.ht-light #kitModal .border-\[\#212629\],
+    html.ht-light #valueFirstGateCard .border-\[\#212629\],
+    html.ht-light details .border-\[\#212629\] {
+      border-color: #e2e8f0 !important;
+    }
+  </style>
+  <script>
+    (function() {
+      try {
+        var saved = localStorage.getItem('ht_theme');
+        if (saved === 'dark') {
+          document.documentElement.classList.remove('ht-light');
+        } else {
+          document.documentElement.classList.add('ht-light');
+        }
+      } catch(e) {
+        document.documentElement.classList.add('ht-light');
+      }
+    })();
+    window.toggleHtTheme = function() {
+      var htmlEl = document.documentElement;
+      var isLight = htmlEl.classList.toggle('ht-light');
+      try { localStorage.setItem('ht_theme', isLight ? 'light' : 'dark'); } catch(e) {}
+      document.querySelectorAll('.ht-theme-btn').forEach(function(btn) {
+        btn.innerHTML = isLight ? '&#9728;&#65039; <span class="hidden md:inline text-[11px]">Light</span>' : '&#127769; <span class="hidden md:inline text-[11px]">Dark</span>';
+      });
+    };
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "TechArticle",
+    "headline": "bug: run replication never reconnects when the PostgreSQL stream silently stalls",
+    "description": "Handling silent connection severance on logical replication streams requires an explicit inbound deadline watchdog in `internal-packages/replication/src/client.ts`. Because half...",
+    "datePublished": "2026-11-22",
+    "author": {
+      "@type": "Person",
+      "name": "grinem"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "Production Incident Radar",
+      "url": "https://hooktriage.com"
+    }
+  }
+  </script>
+</head>
+<body class="bg-[#000000] text-[#f0f0f0] min-h-screen font-sans antialiased selection:bg-white/20 selection:text-white">
+  <!-- Agensi-Style Sticky Top Bar for Case Studies -->
+  <header class="ht-topbar sticky top-0 z-40 h-[62px] bg-[#0b0f19]/85 backdrop-blur-md border-b border-[#212629] transition-colors">
+    <div class="max-w-5xl mx-auto h-full px-4 sm:px-6 flex items-center justify-between gap-3">
+      <div class="flex items-center gap-4">
+        <a href="../" class="inline-flex items-center gap-2.5 text-sm font-bold ht-text-main hover:text-blue-600 transition">
+          <div class="w-8 h-8 rounded-xl bg-[#0a0f18] border border-[#00d294]/40 flex items-center justify-center shadow-sm">
+            <svg class="w-4 h-4 text-[#00d294]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M12 3l7 3v6c0 5-3.5 8.5-7 9-3.5-.5-7-4-7-9V6l7-3z"/>
+              <path stroke-linecap="round" stroke-linejoin="round" d="M13 8l-3 5h4l-3 5"/>
+            </svg>
+          </div>
+          <span>&larr; HookTriage Storefront &amp; All Fixes</span>
+        </a>
+      </div>
+      <div class="flex items-center gap-2">
+        <button onclick="window.toggleHtTheme()" title="Switch Light / Dark Mode" class="ht-theme-btn ht-surface-subtle inline-flex items-center gap-1 px-2.5 py-1.5 rounded-xl border border-[#212629] text-xs font-medium cursor-pointer hover:opacity-85 transition">
+          &#9728;&#65039; <span class="hidden md:inline text-[11px]">Light</span>
+        </button>
+        <button onclick="window.openKitModal()" class="inline-flex items-center gap-1.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-xs font-semibold px-3 py-2 transition cursor-pointer shadow-sm">
+          <span>Hardening Kit</span>
+          <span class="px-1.5 py-0.5 rounded bg-white/20 text-[10px] font-bold">$27</span>
+        </button>
+        <button onclick="window.openTriageModal()" class="hidden sm:inline-flex items-center gap-1.5 rounded-xl bg-[#0f172a] hover:bg-[#1e293b] text-white text-xs font-semibold px-3 py-2 transition cursor-pointer">
+          <span class="h-1.5 w-1.5 rounded-full bg-[#00d294]"></span>
+          <span>Async Triage</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <div class="max-w-4xl mx-auto px-6 py-10 sm:py-14">
+    <div class="mb-6 flex flex-wrap items-center justify-between gap-3">
+      <div class="text-xs font-mono text-[#878d8f]">Case Study &bull; 2026-11-22</div>
+      <div class="flex items-center gap-2">
+        <span class="px-2.5 py-1 rounded-full text-[11px] font-mono font-medium bg-[#141517] text-[#a1a4a5] border border-[#212629]">Automation Engine</span>
+        <span class="px-2.5 py-1 rounded-full text-[11px] font-mono font-medium border bg-[#f99c00]/10 text-[#ffb547] border-[#f99c00]/25">HIGH</span>
+      </div>
+    </div>
+
+    <!-- Layer 1 (Bloc A): Free Root-Cause Analysis & 3-Line Patch Preview -->
+    <article id="content" class="bg-[#141517] rounded-3xl p-6 sm:p-10 border border-[#212629]">
+    </article>
+
+    <!-- Layer 2 (Bloc B): Locked Ready-to-Use Patch Artefact (Truncated Preview + Card-First CTA) -->
+    <div id="lockedPatchCard" class="mt-6 rounded-3xl bg-[#141517] border border-[#212629] p-6 sm:p-8">
+      <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
+        <span class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-medium bg-[#191b1e] text-[#f0f0f0] border border-[#212629]">
+          <span class="h-1.5 w-1.5 rounded-full bg-amber-400"></span>
+          <span>Ready-to-Use Production Patch &amp; Fix Artefact</span>
+        </span>
+        <span class="text-xs text-amber-400 font-mono font-medium">&#128274; Locked Artefact &bull; $27 Instant Unlock</span>
+      </div>
+      <h3 class="text-xl sm:text-2xl font-semibold tracking-tight text-[#f0f0f0] mb-2">
+        Unlock the Verified Drop-In Fix &amp; Production Hardening Kit
+      </h3>
+      <p class="text-sm text-[#a1a4a5] mb-4">
+        The full root-cause analysis above remains open for SEO &amp; engineering reference. Unlock the ready-to-deploy production patch, retry/idempotency JSON blueprints, and verification checklist:
+      </p>
+
+      <!-- Truncated Blurred Preview Box -->
+      <div id="lockedPatchPreviewBox" class="relative rounded-2xl bg-[#0f172a] border border-[#1e293b] overflow-hidden mb-5">
+        <div class="px-4 py-2 border-b border-[#1e293b] flex items-center justify-between text-[11px] font-mono text-[#94a3b8]">
+          <span>patch-artefact-preview.json</span>
+          <span class="text-amber-400">&#128274; Full Patch Locked</span>
+        </div>
+        <pre class="p-4 text-xs font-mono text-[#e2e8f0] overflow-x-auto whitespace-pre-wrap m-0">The most reliable fix is arming a timer whenever `START_REPLICATION` starts and resetting it on every received WAL chunk or Postgres keepalive message (byte `0x6b`). If that timer trips past your expected heartbeat threshold (such as 2x `wal_sender_timeout`...</pre>
+        <div class="px-4 pb-4 select-none pointer-events-none" aria-hidden="true" style="filter:blur(4px);opacity:0.45;">
+          <pre class="text-xs font-mono text-[#94a3b8] whitespace-pre-wrap m-0">  "onError": "continueErrorOutput",
+  "retryOnFail": true,
+  "maxTries": 5,
+  "waitBetweenTries": 2000,
+  "idempotencyKey": "sha256(event.id + timestamp)"</pre>
+        </div>
+        <div class="px-4 py-2.5 bg-[#1e293b]/90 border-t border-[#334155] text-xs font-mono text-[#cbd5e1] flex items-center justify-between gap-2">
+          <span>&#128274; Remaining production lines locked &mdash; instant download upon unlock</span>
+          <span class="text-[#00d294]">n8n v1.x / Webhook Ready</span>
+        </div>
+      </div>
+
+      <!-- Direct CTA: Card / Apple Pay ($27) ABOVE Crypto -->
+      <div class="space-y-2.5">
+        <a href="https://www.agensi.io/r/HOOKTRIAGE?to=/skills/hooktriage-n8n-production-hardening-kit&utm_source=hooktriage" target="_blank" rel="noopener noreferrer" class="flex items-center justify-center gap-2 w-full rounded-2xl bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3.5 px-5 text-sm transition cursor-pointer shadow-lg no-underline">
+          <span>Pay $27 by Card / Apple Pay (Instant Stripe via Agensi) &rarr;</span>
+        </a>
+        <button type="button" onclick="window.openKitModal()" class="ht-crypto-btn flex items-center justify-center gap-2 w-full rounded-2xl bg-[#191b1e] hover:bg-[#212629] border border-[#293034] text-[#f0f0f0] font-medium py-3 px-5 text-sm transition cursor-pointer">
+          <span>Or Unlock via Crypto &mdash; $27 (USDT BEP20 / 150+ Coins) &rarr;</span>
+        </button>
+      </div>
+
+      <!-- Discreet Emergency Checkout Link -->
+      <div class="mt-5 pt-4 border-t border-[#212629] flex flex-wrap items-center justify-between gap-3 text-xs text-[#878d8f]">
+        <span>Verified against Automation Engine production edge cases</span>
+        <div class="flex flex-wrap items-center gap-4">
+          <button type="button" onclick="window.openCaseTriageModal(39)" class="text-[#a1a4a5] hover:text-[#f0f0f0] underline underline-offset-4 cursor-pointer">
+            Custom incident emergency? Async Triage ($39) &rarr;
+          </button>
+          <button type="button" onclick="window.openCaseTriageModal(199)" class="text-[#878d8f] hover:text-[#f0f0f0] underline underline-offset-4 cursor-pointer">
+            Turnkey PR ($199)
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Optional Collapsible Silent-Failure Audit Card (Client-Side Secret Masking via maskLocal) -->
+    <details class="mt-4 rounded-3xl bg-[#141517] border border-[#212629] p-5 sm:p-6">
+      <summary class="text-sm font-medium text-[#f0f0f0] cursor-pointer select-none flex items-center justify-between gap-2">
+        <span>&#x1F50D; Paste your sanitized workflow JSON / URL &rarr; receive your Silent-Failure Audit Report by email in 45s</span>
+        <span class="text-xs text-[#878d8f] font-mono">Optional</span>
+      </summary>
+      <div class="mt-4 pt-4 border-t border-[#212629] space-y-3">
+        <p class="text-xs text-[#a1a4a5]">
+          API keys, Bearer tokens, and passwords are automatically masked locally in your browser via <code class="text-[11px] bg-[#191b1e] px-1 py-0.5 rounded">maskLocal()</code> before anything is sent.
+        </p>
+        <form id="auditWorkflowForm" onsubmit="return window.submitAuditWorkflow(event)" class="space-y-3 relative">
+          <input id="auditEmail" type="email" required placeholder="work@company.com" class="w-full rounded-xl bg-[#0a0b0c] border border-[#212629] px-3.5 py-2.5 text-sm text-[#f0f0f0] placeholder-[#52595b] focus:outline-none focus:border-[#3b4345]" />
+          <input id="auditWebsite" name="website" type="text" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;opacity:0;height:0;width:0;" />
+          <textarea id="auditPayload" rows="4" required placeholder="Paste workflow JSON, webhook payload, or GitHub/docs URL..." class="w-full rounded-xl bg-[#0a0b0c] border border-[#212629] px-3.5 py-2.5 text-xs font-mono text-[#f0f0f0] placeholder-[#52595b] focus:outline-none focus:border-[#3b4345]"></textarea>
+          <div class="flex flex-wrap items-center gap-2">
+            <button type="button" onclick="window.runLocalJsonPrecheck()" class="inline-flex items-center justify-center px-4 py-2.5 rounded-xl bg-[#00d294]/15 hover:bg-[#00d294]/25 border border-[#00d294]/40 text-[#00d294] font-semibold text-xs transition cursor-pointer">
+              1. Scan Locally in Browser (0 bytes sent)
+            </button>
+            <button id="auditSubmitBtn" type="submit" class="inline-flex items-center justify-center px-4 py-2.5 rounded-xl bg-[#191b1e] hover:bg-[#212629] border border-[#293034] text-[#f0f0f0] font-medium text-xs transition cursor-pointer">
+              2. Send Full Remediation Report by Email (45s) &rarr;
+            </button>
+          </div>
+        </form>
+        <div id="localPrecheckBox" class="hidden mt-3 rounded-2xl bg-[#0a0b0c] border border-[#212629] p-4 space-y-1.5 text-xs">
+          <div id="localPrecheckTitle" class="font-semibold text-[#00d294]"></div>
+          <ul id="localPrecheckList" class="list-disc pl-4 text-[#a1a4a5] space-y-1"></ul>
+        </div>
+        <div id="auditErr" class="hidden text-xs text-rose-400"></div>
+        <div id="auditSuccessBox" class="hidden rounded-2xl bg-[#0a0b0c] border border-[#00d294]/40 p-4 space-y-2">
+          <div id="auditStatusMsg" class="text-xs font-semibold text-[#00d294]"></div>
+          <pre id="auditReportOut" class="text-xs font-mono text-[#e2e8f0] whitespace-pre-wrap overflow-x-auto"></pre>
+        </div>
+      </div>
+    </details>
+
+    <!-- Free Zero-Trust CLI/MCP Scanner & n8n Watchdog CTA (Inbound Sensors) -->
+    <div class="mt-4 rounded-3xl bg-[#141517] border border-[#00d294]/30 p-5 sm:p-6 space-y-4">
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <div>
+          <div class="text-xs font-mono text-[#00d294] mb-1">FREE ZERO-TRUST SENSORS &bull; 0 BYTES UPLOADED &bull; MIT</div>
+          <h4 class="text-sm sm:text-base font-semibold text-[#f0f0f0]">Install the Free Local CLI / MCP Scanner &amp; n8n Silent-Failure Watchdog</h4>
+          <p class="text-xs text-[#a1a4a5] mt-1">Audit workflows locally in 1 command (Cursor, Claude Code, terminal) or import the 12-node Multi-Branch n8n Watchdog JSON with built-in local secret scrubbing.</p>
+        </div>
+        <div class="flex flex-wrap items-center gap-2 shrink-0">
+          <a href="https://www.agensi.io/r/HOOKTRIAGE?to=/skills/hooktriage-n8n-webhook-silent-failure-auditor&utm_source=hooktriage" target="_blank" rel="noopener noreferrer" class="px-3.5 py-2 rounded-xl bg-[#191b1e] hover:bg-[#212629] border border-[#00d294]/40 text-xs font-medium text-[#00d294] whitespace-nowrap">AI Skill (Agensi &bull; Free)</a>
+          <a href="https://github.com/grinem/hooktriage" target="_blank" rel="noopener noreferrer" class="px-3.5 py-2 rounded-xl bg-[#191b1e] hover:bg-[#212629] border border-[#293034] text-xs font-medium text-[#f0f0f0] whitespace-nowrap">CLI &amp; MCP Repo (MIT)</a>
+          <a href="https://github.com/grinem/n8n-ai-watchdog" target="_blank" rel="noopener noreferrer" class="px-3.5 py-2 rounded-xl bg-[#191b1e] hover:bg-[#212629] border border-[#293034] text-xs font-medium text-[#f0f0f0] whitespace-nowrap">n8n Watchdog Repo</a>
+          <a href="https://raw.githubusercontent.com/grinem/n8n-ai-watchdog/main/n8n-silent-failure-watchdog.json" target="_blank" rel="noopener noreferrer" class="px-4 py-2 rounded-xl bg-[#00d294] hover:opacity-90 text-xs font-semibold text-black whitespace-nowrap">Get Watchdog JSON &rarr;</a>
+        </div>
+      </div>
+      <div class="rounded-2xl bg-[#0a0b0c] border border-[#212629] px-4 py-3 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+        <code id="hooktriageCliCmd" class="text-xs font-mono text-[#00d294] overflow-x-auto whitespace-nowrap">npx -y github:grinem/hooktriage scan ./workflow.json</code>
+        <div class="flex items-center gap-2 shrink-0">
+          <span class="text-[11px] font-mono text-[#878d8f]">MCP: <code class="text-[#a1a4a5]">--mcp</code></span>
+          <button type="button" onclick="navigator.clipboard &amp;&amp; navigator.clipboard.writeText('npx -y github:grinem/hooktriage scan ./workflow.json').then(function(){ var b=event.currentTarget; b.innerText='Copied!'; setTimeout(function(){ b.innerText='Copy CLI'; }, 1800); })" class="px-3 py-1.5 rounded-lg bg-[#191b1e] hover:bg-[#212629] border border-[#293034] text-xs font-medium text-[#f0f0f0] cursor-pointer whitespace-nowrap">Copy CLI</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bottom CTA Card -->
+    <div class="mt-8 rounded-3xl bg-[#141517] border border-[#212629] p-8 sm:p-10 text-center">
+      <h3 class="text-2xl font-semibold tracking-tight text-[#f0f0f0] mb-2">Need an Emergency Fix for Your Production Pipeline?</h3>
+      <p class="text-[#a1a4a5] max-w-xl mx-auto mb-6 text-sm leading-relaxed">
+        Whether it's an OAuth token deadlock in n8n, a silent Meta webhook timeout, or a broken Make.com scenario &mdash; I diagnose and resolve live production outages under a 1-Hour SLA.
+      </p>
+      <button onclick="window.openCaseTriageModal()" class="inline-flex items-center gap-2 px-5 py-3 rounded-2xl bg-white hover:bg-white/90 text-black font-semibold text-sm transition cursor-pointer">
+        <span>Launch Instant Async Triage &mdash; Guaranteed &lt; 6h (Zero Calls)</span>
+        <span>&rarr;</span>
+      </button>
+    </div>
+  </div>
+
+  <script>
+    const rawMarkdown = "---\nlayout: default\ntitle: \"bug: run replication never reconnects when the PostgreSQL stream silently stalls\"\nplatform: \"Automation Engine\"\nseverity: \"HIGH\"\nstatus: \"Resolved\"\ndate: 2026-11-22\ntags: [\"automation engine\", \"production-fix\", \"post-mortem\", \"verified-resolution\"]\nslug: \"bug-run-replication-never-reconnects-when-the-postgresql-stream-s\"\n---\n\n# bug: run replication never reconnects when the PostgreSQL stream silently stalls\n\n\n> \u26a1 **Encountering this exact production bug or need an emergency automation fix?**  \n> [**\ud83d\udea8 Instant Async Production Triage & Resolution (< 6h, Zero Video Calls)**](https://hooktriage.com/#triage)\n\n\n## Incident Metadata\n- **Platform / Ecosystem**: `Automation Engine`\n- **Incident Severity**: `HIGH`\n- **Resolution Status**: `RADAR TRIAGED & READY FOR RESOLUTION`\n- **Logged Timestamp**: `2026-11-22T02:40:49.007842`\n- **Diagnosis Engine**: Autonomous Production Incident Radar\n\n---\n\n## Root-Cause Analysis & Patch Preview (Layer 1)\n\nHandling silent connection severance on logical replication streams requires an explicit inbound deadline watchdog in `internal-packages/replication/src/client.ts`. Because half-open TCP connections never emit an error or EOF when a middlebox or failover cuts the path, Node's stream reader hangs indefinitely while the Redis leader lock stays green.\n\n---\n\n## Incident Prevention & Operational Takeaways\n1. **Audit Upstream Authentication**: Validate OAuth2 token refresh loops and ensure service credentials cannot be orphaned.\n2. **Implement Schema Boundary Validation**: Guard downstream webhooks against unexpected payload truncations.\n3. **Automate Error Interception**: Configure fallback nodes and alerting monitors before critical production executions.\n\n---\n\n\n> \u26a1 **Encountering this exact production bug or need an emergency automation fix?**  \n> [**\ud83d\udea8 Instant Async Production Triage & Resolution (< 6h, Zero Video Calls)**](https://hooktriage.com/#triage)\n\n\n[\u2190 Back to Live Case Studies Index](../)\n";
+    const caseLeadId = "github_TriggerDotDev_trigger.dev_5148";
+    const caseAssetTitle = "bug: run replication never reconnects when the PostgreSQL stream silently stalls";
+    // Strip YAML frontmatter
+    const mdWithoutYaml = rawMarkdown.replace(/^---[\s\S]*?---\s*/, '');
+    document.getElementById('content').innerHTML = marked.parse(mdWithoutYaml);
+    fetch("https://hooktriage.com/api/ping-visit?issue=" + encodeURIComponent(caseLeadId) + "&page=" + encodeURIComponent(location.pathname)).catch(function(){});
+
+    window.openCaseTriageModal = function(tier) {
+      if (typeof window.openTriageModal === 'function') {
+        window.openTriageModal(tier || null, caseLeadId, caseAssetTitle);
+      }
+    };
+
+    window.submitAuditWorkflow = async function(ev) {
+      if (ev) ev.preventDefault();
+      const email = (document.getElementById('auditEmail').value || '').trim();
+      const hpEl = document.getElementById('auditWebsite');
+      const rawPayload = (document.getElementById('auditPayload').value || '').trim();
+      const errEl = document.getElementById('auditErr');
+      const btn = document.getElementById('auditSubmitBtn');
+      const box = document.getElementById('auditSuccessBox');
+      errEl.classList.add('hidden');
+      if (!email || !rawPayload) {
+        errEl.innerText = 'Work email and workflow JSON or URL are required.';
+        errEl.classList.remove('hidden');
+        return false;
+      }
+      const maskedPayload = (typeof window.maskLocal === 'function') ? window.maskLocal(rawPayload) : rawPayload;
+      btn.disabled = true;
+      btn.innerText = 'Running Audit...';
+      try {
+        const r = await fetch("https://hooktriage.com/funnel-api/audit-workflow", {
+          method: "POST",
+          headers: {"Content-Type": "application/json"},
+          body: JSON.stringify({
+            email: email,
+            source_channel: "hooktriage_web",
+            asset_id: caseLeadId,
+            sanitized_payload: maskedPayload,
+            website: (hpEl ? hpEl.value : '') || ''
+          })
+        });
+        const d = await r.json();
+        if (!r.ok || !d.ok) {
+          throw new Error(d.error || 'Audit submission failed.');
+        }
+        const rep = d.audit_report || {};
+        document.getElementById('auditStatusMsg').innerText = d.message || 'Silent-Failure Audit Report sent to your inbox — backup preview below:';
+        if (rep.report_markdown) {
+          document.getElementById('auditReportOut').innerText = rep.report_markdown;
+        } else {
+          const lines = [];
+          if (rep.summary) lines.push('Summary: ' + rep.summary);
+          if (Array.isArray(rep.findings) && rep.findings.length) {
+            lines.push('\nFindings:');
+            rep.findings.forEach(function(f) {
+              if (typeof f === 'string') lines.push('- ' + f);
+              else if (f && typeof f === 'object') lines.push('- [' + (f.severity || 'INFO') + '] ' + (f.node || '') + ': ' + (f.detail || '') + (f.fix ? ' -> Fix: ' + f.fix : ''));
+            });
+          }
+          if (Array.isArray(rep.recommendations) && rep.recommendations.length) lines.push('\nRecommendations:\n- ' + rep.recommendations.join('\n- '));
+          document.getElementById('auditReportOut').innerText = lines.join('\n') || JSON.stringify(rep, null, 2);
+        }
+        box.classList.remove('hidden');
+      } catch (e) {
+        errEl.innerText = e.message || 'Network error while running audit.';
+        errEl.classList.remove('hidden');
+      } finally {
+        btn.disabled = false;
+        btn.innerText = 'Run Silent-Failure Audit (45s) →';
+      }
+      return false;
+    };
+  </script>
+
+<!-- Autonomous Async Triage Widget (Zero Calls / Zero WhatsApp) -->
+<button id="triageFab" onclick="window.openTriageModal()" class="fixed bottom-5 right-5 z-50 flex items-center gap-2 rounded-full bg-white hover:bg-white/90 text-black font-medium text-sm px-4 py-2.5 shadow-[0_8px_30px_rgba(0,0,0,0.65)] border border-white/15 transition transform hover:-translate-y-0.5 cursor-pointer">
+  <span class="h-2 w-2 rounded-full bg-[#00d294]"></span><span>Async Incident Triage</span>
+</button>
+
+<div id="triageModal" class="fixed inset-0 z-50 hidden items-center justify-center bg-black/80 backdrop-blur-md p-4">
+  <div class="w-full max-w-xl rounded-3xl bg-[#141517] border border-[#212629] p-6 sm:p-7 text-[#f0f0f0] shadow-2xl max-h-[90vh] overflow-y-auto">
+    <div class="flex items-start justify-between border-b border-[#212629] pb-4 mb-5">
+      <div>
+        <h3 class="text-lg font-semibold tracking-tight text-[#f0f0f0]">Async Production Triage &amp; Patch/PR</h3>
+        <p class="text-xs text-[#a1a4a5] mt-1 flex items-center gap-2">
+          <span class="inline-block h-1.5 w-1.5 rounded-full bg-[#00d294]"></span>
+          <span>100% Automated &bull; Guaranteed &lt; 6h &bull; Zero Video Calls</span>
+        </p>
+      </div>
+      <button onclick="window.closeTriageModal()" class="text-[#878d8f] hover:text-[#f0f0f0] text-xl leading-none px-2 py-1 rounded-lg hover:bg-[#191b1e] transition cursor-pointer">&times;</button>
+    </div>
+
+    <div id="triageStep1" class="space-y-4">
+      <div>
+        <label class="block text-xs font-medium text-[#a1a4a5] mb-1.5">Work Email (for Patch Delivery)</label>
+        <input id="trEmail" type="email" placeholder="cto@company.com" class="w-full rounded-xl bg-[#0a0b0c] border border-[#212629] px-3.5 py-2.5 text-sm text-[#f0f0f0] placeholder-[#52595b] focus:outline-none focus:border-[#3b4345] transition" />
+      </div>
+      <div>
+        <label class="block text-xs font-medium text-[#a1a4a5] mb-1.5">Production Symptom / Error</label>
+        <input id="trSymptom" type="text" placeholder="e.g. n8n worker OOM, OAuth 403 refresh loop, webhook timeout" class="w-full rounded-xl bg-[#0a0b0c] border border-[#212629] px-3.5 py-2.5 text-sm text-[#f0f0f0] placeholder-[#52595b] focus:outline-none focus:border-[#3b4345] transition" />
+      </div>
+      <div>
+        <label class="block text-xs font-medium text-[#a1a4a5] mb-1.5">Logs / docker-compose.yml (secrets auto-masked locally)</label>
+        <textarea id="trLogs" rows="4" placeholder="Paste error logs or compose snippet..." class="w-full rounded-xl bg-[#0a0b0c] border border-[#212629] px-3.5 py-2.5 text-xs font-mono text-[#f0f0f0] placeholder-[#52595b] focus:outline-none focus:border-[#3b4345] transition"></textarea>
+      </div>
+      <div>
+        <label class="block text-xs font-medium text-[#a1a4a5] mb-1.5">GitHub Repo URL (optional, for PR patch)</label>
+        <input id="trRepo" type="url" placeholder="https://github.com/org/repo" class="w-full rounded-xl bg-[#0a0b0c] border border-[#212629] px-3.5 py-2.5 text-sm text-[#f0f0f0] placeholder-[#52595b] focus:outline-none focus:border-[#3b4345] transition" />
+      </div>
+      <div id="trErr1" class="text-xs text-rose-400 hidden"></div>
+      <button id="trSubmitBtn" onclick="window.submitTriage()" class="w-full rounded-2xl bg-white hover:bg-white/90 text-black font-semibold py-3 px-4 text-sm transition cursor-pointer">
+        Run Instant AI Triage &rarr;
+      </button>
+    </div>
+
+    <div id="triageStep2" class="hidden space-y-4">
+      <div class="rounded-2xl bg-[#0a0b0c] border border-[#212629] p-4">
+        <div class="text-[11px] font-mono uppercase tracking-wider text-[#878d8f] mb-1.5" id="trTierLabel"></div>
+        <p class="text-sm text-[#f0f0f0] leading-relaxed whitespace-pre-line" id="trPreview"></p>
+      </div>
+
+      <!-- 1-Click Card / Apple Pay Checkout (Priority Above Crypto) -->
+      <div>
+        <a id="trCardBtn" href="#" target="_blank" rel="noopener noreferrer" class="flex items-center justify-center gap-2 w-full rounded-2xl bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-4 text-sm transition cursor-pointer shadow-lg">
+          <span>Pay with Visa / Mastercard / Apple Pay (<span id="trUsdAmount">$199</span>) &rarr;</span>
+        </a>
+        <p class="text-[11px] text-center text-[#878d8f] mt-1.5">Direct instant card checkout (no crypto wallet required).</p>
+      </div>
+
+      <!-- 1-Click Web3 USDT Checkout -->
+      <div class="space-y-2">
+        <button id="trWeb3Btn" onclick="window.payWithWeb3()" class="flex items-center justify-center gap-2 w-full rounded-2xl bg-white hover:bg-white/90 text-black font-semibold py-3 px-4 text-sm transition cursor-pointer">
+          <span>1-Click Crypto Checkout (MetaMask / Trust / Binance Web3) &mdash; <span id="trUsdtAmount">159.20 USDT</span></span>
+        </button>
+        <div id="trWeb3Status" class="text-xs text-center text-[#00d294] hidden"></div>
+        <p class="text-[11px] text-center text-[#878d8f]">BNB Smart Chain (BEP20) &bull; Zero copy-paste &bull; 1-Click auto-sign</p>
+      </div>
+
+      <!-- 1-Click NOWPayments Invoice (150+ Cryptos / Auto-Unlock IPN) -->
+      <div id="trNowWrap" class="hidden">
+        <a id="trNowBtn" href="#" target="_blank" rel="noopener noreferrer" class="flex items-center justify-center gap-2 w-full rounded-2xl bg-[#00d294] hover:opacity-90 text-black font-semibold py-3 px-4 text-sm transition cursor-pointer">
+          <span>Pay via NOWPayments / Binance / 150+ Cryptos &mdash; Auto-Unlock (<span id="trNowUsd">$199</span>)</span>
+        </a>
+      </div>
+
+      <!-- Scannable QR Code + 1-Click Copy Badge -->
+      <div class="rounded-2xl bg-[#0a0b0c] border border-[#212629] p-3.5 flex items-center gap-3.5 flex-wrap sm:flex-nowrap">
+        <img src="https://api.qrserver.com/v1/create-qr-code/?size=144x144&amp;margin=4&amp;data=0x57A817bd5D42F14325eE4ec7B67F69D5f884758B" alt="RedotPay BEP20 QR Code" width="108" height="108" class="rounded-xl bg-white p-1.5 flex-shrink-0" />
+        <div class="flex-1 min-w-[180px] space-y-2">
+          <div class="text-xs text-[#a1a4a5]">Scan QR on mobile (Binance, Bybit, TrustWallet) or copy BEP20 address:</div>
+          <div class="flex items-center gap-2">
+            <code id="trUsdtAddr" class="flex-1 text-[11px] font-mono bg-[#141517] border border-[#212629] px-2.5 py-1.5 rounded-lg text-[#f0f0f0] break-all">0x57A817bd5D42F14325eE4ec7B67F69D5f884758B</code>
+            <button type="button" onclick="navigator.clipboard.writeText(document.getElementById('trUsdtAddr').innerText);this.innerText='Copied!';setTimeout(()=>this.innerText='Copy',1800);" class="rounded-lg bg-[#191b1e] hover:bg-[#212629] border border-[#293034] text-xs font-medium text-[#f0f0f0] px-2.5 py-1.5 cursor-pointer flex-shrink-0">Copy</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Discreet Manual TxHash Accordion -->
+      <details class="rounded-2xl bg-[#0a0b0c] border border-[#212629] p-3.5">
+        <summary class="text-xs text-[#a1a4a5] hover:text-[#f0f0f0] cursor-pointer select-none">Already sent from an exchange? Paste TxHash</summary>
+        <div class="mt-3 flex flex-col sm:flex-row gap-2">
+          <input id="trTxHash" type="text" placeholder="Paste BEP20 TxHash (0x...)" class="flex-1 rounded-xl bg-[#141517] border border-[#212629] px-3 py-2 text-xs font-mono text-[#f0f0f0] placeholder-[#52595b] focus:outline-none focus:border-[#3b4345]" />
+          <button type="button" onclick="window.verifyManualWidgetTx()" class="rounded-xl bg-white hover:bg-white/90 text-black font-semibold text-xs px-4 py-2 cursor-pointer whitespace-nowrap">Verify TxHash</button>
+        </div>
+        <div id="trManualStatus" class="text-xs text-rose-400 mt-2 hidden"></div>
+      </details>
+
+      <!-- Real-Time Auto-Verification Status Banner -->
+      <div class="rounded-2xl bg-[#0a0b0c] border border-[#212629] p-3.5 flex items-center gap-3">
+        <div class="relative flex h-2.5 w-2.5 flex-shrink-0">
+          <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#00d294] opacity-75"></span>
+          <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-[#00d294]"></span>
+        </div>
+        <div class="flex-1 text-xs text-[#a1a4a5]">
+          <div class="font-medium text-[#f0f0f0]">Auto-Verification Active</div>
+          <p class="text-[11px] text-[#878d8f] mt-0.5">Waiting for payment confirmation... Your patch unlocks automatically on this screen &amp; by email in &lt; 20s.</p>
+        </div>
+      </div>
+    </div>
+
+    <div id="triageStep3" class="hidden space-y-3">
+      <div class="rounded-2xl bg-[#0a0b0c] border border-[#212629] p-4">
+        <h4 class="text-sm font-semibold text-[#f0f0f0] mb-1 flex items-center gap-2"><span class="h-2 w-2 rounded-full bg-[#00d294]"></span><span>Payment Verified &amp; Patch Delivered</span></h4>
+        <p class="text-xs text-[#a1a4a5]">Your full RCA + Production Patch has been emailed to you and is shown below:</p>
+      </div>
+      <pre id="trPatchOutput" class="rounded-2xl bg-[#0a0b0c] border border-[#212629] p-4 text-xs font-mono text-[#f0f0f0] overflow-x-auto max-h-64 whitespace-pre-wrap"></pre>
+    </div>
+  </div>
+</div>
+
+<!-- Self-Serve Hardening Kit ($27) Modal -->
+<div id="kitModal" class="fixed inset-0 z-50 hidden items-center justify-center bg-black/80 backdrop-blur-md p-4">
+  <div class="w-full max-w-xl rounded-3xl bg-[#141517] border border-[#212629] p-6 sm:p-7 text-[#f0f0f0] shadow-2xl max-h-[90vh] overflow-y-auto">
+    <div class="flex items-start justify-between border-b border-[#212629] pb-4 mb-5">
+      <div>
+        <div class="inline-flex items-center gap-2 text-[11px] font-mono uppercase tracking-wider text-[#00d294] mb-1">
+          <span>Self-Serve Production Hardening Kit</span>
+          <span>&bull;</span>
+          <span>$27 One-Time</span>
+        </div>
+        <h3 class="text-lg font-semibold tracking-tight text-[#f0f0f0]">4 Hardened JSON Templates + SKILL.md</h3>
+        <p class="text-xs text-[#a1a4a5] mt-1">Instant .zip download + backup email link upon confirmation.</p>
+      </div>
+      <button onclick="window.closeKitModal()" class="text-[#878d8f] hover:text-[#f0f0f0] text-xl leading-none px-2 py-1 rounded-lg hover:bg-[#191b1e] transition cursor-pointer">&times;</button>
+    </div>
+
+    <div id="kitStep1" class="space-y-4">
+      <div class="rounded-2xl bg-[#0a0b0c] border border-[#212629] p-4 space-y-2 text-xs text-[#a1a4a5]">
+        <div class="font-semibold text-[#f0f0f0] text-xs">Included in <code class="text-[#00d294]">hooktriage-hardening-kit-v1.zip</code>:</div>
+        <ul class="list-disc pl-4 space-y-1">
+          <li><strong class="text-[#f0f0f0]">Webhook Idempotency Gate</strong> (drop-in n8n / Stripe / Shopify duplicate protection)</li>
+          <li><strong class="text-[#f0f0f0]">Dead-Letter Queue (DLQ) &amp; Auto-Replay</strong> (zero lost payloads on downstream 5xx)</li>
+          <li><strong class="text-[#f0f0f0]">AI Agent Runaway Loop &amp; Token Budget Guard</strong> (hard circuit-breakers)</li>
+          <li><strong class="text-[#f0f0f0]">Exponential Backoff + Jitter Retry Wrapper</strong> &amp; full <code class="text-[#f0f0f0]">SKILL.md</code> playbook</li>
+        </ul>
+      </div>
+      <div>
+        <label class="block text-xs font-medium text-[#a1a4a5] mb-1.5">Email Address (for instant download link &amp; receipt)</label>
+        <input id="kitEmail" type="email" placeholder="you@company.com" class="w-full rounded-xl bg-[#0a0b0c] border border-[#212629] px-3.5 py-2.5 text-sm text-[#f0f0f0] placeholder-[#52595b] focus:outline-none focus:border-[#3b4345] transition" />
+      </div>
+      <div id="kitErr1" class="text-xs text-rose-400 hidden"></div>
+      <a href="https://www.agensi.io/r/HOOKTRIAGE?to=/skills/hooktriage-n8n-production-hardening-kit&utm_source=hooktriage" target="_blank" rel="noopener noreferrer" class="flex items-center justify-center gap-2 w-full rounded-2xl bg-white hover:bg-white/90 text-black font-semibold py-3 px-4 text-sm transition cursor-pointer shadow-lg">
+        <span>Pay $27 by Credit Card / Apple Pay (Instant Stripe via Agensi) &rarr;</span>
+      </a>
+      <div class="relative flex items-center py-1"><div class="flex-grow border-t border-[#212629]"></div><span class="flex-shrink mx-3 text-[11px] font-mono text-[#878d8f]">OR PAY WITH CRYPTO (USDT / 150+ COINS)</span><div class="flex-grow border-t border-[#212629]"></div></div>
+      <button id="kitSubmitBtn" onclick="window.submitKitCheckout()" class="w-full rounded-2xl bg-[#00d294] hover:opacity-90 text-black font-semibold py-3 px-4 text-sm transition cursor-pointer">
+        Continue to $27 Crypto Checkout (Instant .zip Download) &rarr;
+      </button>
+    </div>
+
+    <div id="kitStep2" class="hidden space-y-4">
+      <div class="rounded-2xl bg-[#0a0b0c] border border-[#212629] p-3.5 flex items-center justify-between gap-2">
+        <div>
+          <div class="text-[11px] font-mono uppercase tracking-wider text-[#878d8f]" id="kitSessionLabel">Session</div>
+          <div class="text-sm font-semibold text-[#f0f0f0] mt-0.5">Self-Serve Hardening Kit &mdash; <span class="text-[#00d294]">$27 USD</span></div>
+        </div>
+        <div class="text-right">
+          <div class="text-[11px] text-[#878d8f]">Exact BEP20 Amount</div>
+          <div class="text-sm font-mono font-semibold text-[#f0f0f0]" id="kitUsdtExactTop">27.01 USDT</div>
+        </div>
+      </div>
+
+      <div id="kitNowWrap" class="hidden">
+        <a id="kitNowBtn" href="#" target="_blank" rel="noopener noreferrer" class="flex items-center justify-center gap-2 w-full rounded-2xl bg-[#00d294] hover:opacity-90 text-black font-semibold py-3 px-4 text-sm transition cursor-pointer">
+          <span>Pay via NOWPayments (150+ Cryptos &mdash; Auto-Unlock $27)</span>
+        </a>
+      </div>
+
+      <div class="space-y-2">
+        <button id="kitWeb3Btn" onclick="window.payKitWithWeb3()" class="flex items-center justify-center gap-2 w-full rounded-2xl bg-white hover:bg-white/90 text-black font-semibold py-3 px-4 text-sm transition cursor-pointer">
+          <span>1-Click Web3 Wallet (MetaMask / Rabby / Binance) &mdash; <span id="kitUsdtAmount">27.01 USDT</span></span>
+        </button>
+        <div id="kitWeb3Status" class="text-xs text-center text-[#00d294] hidden"></div>
+      </div>
+
+      <div>
+        <a id="kitCardBtn" href="#" target="_blank" rel="noopener noreferrer" class="flex items-center justify-center gap-2 w-full rounded-2xl bg-[#191b1e] hover:bg-[#212629] border border-[#293034] text-[#f0f0f0] font-medium py-3 px-4 text-sm transition cursor-pointer">
+          <span>Pay $27 by Credit Card / Apple Pay (Instant Stripe via Agensi)</span>
+        </a>
+      </div>
+
+      <div class="rounded-2xl bg-[#0a0b0c] border border-[#212629] p-3.5 flex items-center gap-3.5 flex-wrap sm:flex-nowrap">
+        <img src="https://api.qrserver.com/v1/create-qr-code/?size=144x144&amp;margin=4&amp;data=0x57A817bd5D42F14325eE4ec7B67F69D5f884758B" alt="RedotPay BEP20 QR Code" width="104" height="104" class="rounded-xl bg-white p-1.5 flex-shrink-0" />
+        <div class="flex-1 min-w-[180px] space-y-2">
+          <div class="text-xs text-[#a1a4a5]">Or send exact <strong class="text-[#f0f0f0]" id="kitQrAmount">27.01 USDT</strong> (BEP20) to:</div>
+          <div class="flex items-center gap-2">
+            <code id="kitUsdtAddr" class="flex-1 text-[11px] font-mono bg-[#141517] border border-[#212629] px-2.5 py-1.5 rounded-lg text-[#f0f0f0] break-all">0x57A817bd5D42F14325eE4ec7B67F69D5f884758B</code>
+            <button type="button" onclick="navigator.clipboard.writeText(document.getElementById('kitUsdtAddr').innerText);this.innerText='Copied!';setTimeout(()=>this.innerText='Copy',1800);" class="rounded-lg bg-[#191b1e] hover:bg-[#212629] border border-[#293034] text-xs font-medium text-[#f0f0f0] px-2.5 py-1.5 cursor-pointer flex-shrink-0">Copy</button>
+          </div>
+        </div>
+      </div>
+
+      <details class="rounded-2xl bg-[#0a0b0c] border border-[#212629] p-3.5">
+        <summary class="text-xs text-[#a1a4a5] hover:text-[#f0f0f0] cursor-pointer select-none">Paid via ChangeNOW Card or exchange? Paste TxHash</summary>
+        <div class="mt-3 flex flex-col sm:flex-row gap-2">
+          <input id="kitTxHash" type="text" placeholder="Paste BEP20 TxHash (0x...)" class="flex-1 rounded-xl bg-[#141517] border border-[#212629] px-3 py-2 text-xs font-mono text-[#f0f0f0] placeholder-[#52595b] focus:outline-none focus:border-[#3b4345]" />
+          <button type="button" onclick="window.verifyManualKitTx()" class="rounded-xl bg-white hover:bg-white/90 text-black font-semibold text-xs px-4 py-2 cursor-pointer whitespace-nowrap">Verify TxHash</button>
+        </div>
+        <div id="kitManualStatus" class="text-xs text-rose-400 mt-2 hidden"></div>
+      </details>
+
+      <div class="rounded-2xl bg-[#0a0b0c] border border-[#212629] p-3.5 flex items-center gap-3">
+        <div class="relative flex h-2.5 w-2.5 flex-shrink-0">
+          <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#00d294] opacity-75"></span>
+          <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-[#00d294]"></span>
+        </div>
+        <div class="flex-1 text-xs text-[#a1a4a5]">
+          <div class="font-medium text-[#f0f0f0]">Auto-Polling Active (every 5s)</div>
+          <p class="text-[11px] text-[#878d8f] mt-0.5">Your .zip download button unlocks here automatically &amp; arrives by email as soon as payment settles.</p>
+        </div>
+      </div>
+    </div>
+
+    <div id="kitStep3" class="hidden space-y-4">
+      <div class="rounded-2xl bg-[#0a0b0c] border border-[#00d294]/40 p-5 text-center space-y-3">
+        <div class="inline-flex items-center gap-2 text-xs font-semibold text-[#00d294]">
+          <span class="h-2 w-2 rounded-full bg-[#00d294]"></span>
+          <span>Payment Verified &mdash; Hardening Kit Unlocked</span>
+        </div>
+        <p class="text-xs text-[#a1a4a5]">We also emailed a backup download link to your inbox. Click below to download your package now:</p>
+        <a id="kitDownloadBtn" href="#" class="inline-flex items-center justify-center gap-2 w-full rounded-2xl bg-[#00d294] hover:opacity-90 text-black font-semibold py-3.5 px-5 text-sm transition cursor-pointer">
+          <span>Download hooktriage-hardening-kit-v1.zip &darr;</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+(function() {
+  const API = "https://hooktriage.com";
+  let currentSessionId = "";
+  let targetUsdtAddress = "0x57A817bd5D42F14325eE4ec7B67F69D5f884758B";
+  let targetUsdtExact = 159.20;
+  let targetUsdPrice = 199;
+
+  function maskLocal(txt) {
+    return (txt || "")
+      .replace(/\b(sk|re|ghp|gho|ghu|ghs|whsec)_[A-Za-z0-9_-]{12,}\b/g, "[REDACTED]")
+      .replace(/\b(sk-[A-Za-z0-9_-]{16,})\b/g, "[REDACTED]")
+      .replace(/(Bearer\s+)[A-Za-z0-9._-]{12,}/gi, "$1[REDACTED]")
+      .replace(/((?:PASSWORD|SECRET|TOKEN|API_KEY|PRIVATE_KEY)\s*[:=]\s*)['"]?[^\s'";]+['"]?/gi, "$1[REDACTED]");
+  }
+  window.maskLocal = maskLocal;
+  window.selectedTriageTier = null;
+  window.selectedLeadId = "";
+  window.openTriageModal = function(tier, leadId, issueTitle) {
+    window.selectedTriageTier = tier || null;
+    window.selectedLeadId = leadId || "";
+    if (issueTitle) {
+      const symEl = document.getElementById("trSymptom");
+      if (symEl) symEl.value = issueTitle;
+    }
+    const btn = document.getElementById("trSubmitBtn");
+    if (btn) {
+      if (tier === 39) btn.innerText = "Unlock Full Production Patch ($39 / 31 USDT) →";
+      else if (tier === 199) btn.innerText = "Launch Custom Triage & Turnkey PR ($199 / 159 USDT) →";
+      else btn.innerText = "Run Instant AI Triage →";
+    }
+    const m = document.getElementById("triageModal");
+    m.classList.remove("hidden");
+    m.classList.add("flex");
+  };
+  window.closeTriageModal = function() {
+    if (window.triagePollTimer) clearInterval(window.triagePollTimer);
+    const m = document.getElementById("triageModal");
+    m.classList.add("hidden");
+    m.classList.remove("flex");
+  };
+  window.submitTriage = async function() {
+    const email = document.getElementById("trEmail").value.trim();
+    const symptom = document.getElementById("trSymptom").value.trim();
+    const logs = maskLocal(document.getElementById("trLogs").value);
+    const repo_url = document.getElementById("trRepo").value.trim();
+    const err = document.getElementById("trErr1");
+    err.classList.add("hidden");
+    const btn = document.getElementById("trSubmitBtn");
+    btn.disabled = true; btn.innerText = "Analyzing...";
+    try {
+      const r = await fetch(API + "/api/triage", {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({email, symptom, logs, repo_url, tier: window.selectedTriageTier, lead_id: window.selectedLeadId})
+      });
+      const d = await r.json();
+      if (!r.ok) throw new Error(d.error || "Triage error");
+      currentSessionId = d.session_id;
+      if (d.usdt_address) targetUsdtAddress = d.usdt_address;
+      if (d.usdt_exact) targetUsdtExact = Number(d.usdt_exact);
+      else if (d.usdt_price) targetUsdtExact = Number(d.usdt_price);
+      if (d.usd_price) targetUsdPrice = Number(d.usd_price);
+
+      document.getElementById("trTierLabel").innerText = d.label + " (Session " + d.session_id + ")";
+      document.getElementById("trPreview").innerText = d.preview;
+      const exactAmount = (d.usdt_exact ? Number(d.usdt_exact).toFixed(2) : d.usdt_price) + " USDT";
+      document.getElementById("trUsdtAmount").innerText = exactAmount;
+      document.getElementById("trUsdAmount").innerText = "$" + d.usd_price;
+      const nowUsdEl = document.getElementById("trNowUsd");
+      if (nowUsdEl) nowUsdEl.innerText = "$" + d.usd_price;
+      const addrEl = document.getElementById("trUsdtAddr");
+      if (addrEl && targetUsdtAddress) addrEl.innerText = targetUsdtAddress;
+      const nowWrap = document.getElementById("trNowWrap");
+      const nowBtn = document.getElementById("trNowBtn");
+      if (d.nowpayments_url && nowWrap && nowBtn) {
+        nowBtn.href = d.nowpayments_url;
+        nowWrap.classList.remove("hidden");
+      } else if (nowWrap) {
+        nowWrap.classList.add("hidden");
+      }
+      const cardUrl = "https://www.agensi.io/r/HOOKTRIAGE?to=/skills/hooktriage-n8n-production-hardening-kit&utm_source=hooktriage";
+      document.getElementById("trCardBtn").href = cardUrl;
+      document.getElementById("triageStep1").classList.add("hidden");
+      document.getElementById("triageStep2").classList.remove("hidden");
+
+      // Auto-poll session status every 5 seconds
+      if (window.triagePollTimer) clearInterval(window.triagePollTimer);
+      window.triagePollTimer = setInterval(async function() {
+        if (!currentSessionId) return;
+        try {
+          const sr = await fetch(API + "/api/session-status?session_id=" + encodeURIComponent(currentSessionId));
+          if (sr.ok) {
+            const sd = await sr.json();
+            if (sd.status === "PAID" && sd.patch_md) {
+              clearInterval(window.triagePollTimer);
+              document.getElementById("trPatchOutput").innerText = sd.patch_md;
+              document.getElementById("triageStep2").classList.add("hidden");
+              document.getElementById("triageStep3").classList.remove("hidden");
+            }
+          }
+        } catch (_) {}
+      }, 5000);
+    } catch (e) {
+      err.innerText = e.message; err.classList.remove("hidden");
+    } finally {
+      btn.disabled = false; btn.innerText = "Run Instant AI Triage →";
+    }
+  };
+
+  window.payWithWeb3 = async function() {
+    const statusEl = document.getElementById("trWeb3Status");
+    const btn = document.getElementById("trWeb3Btn");
+    statusEl.classList.remove("hidden");
+    statusEl.className = "text-xs text-center text-indigo-400";
+    statusEl.innerText = "Connecting to Web3 wallet...";
+
+    if (typeof window.ethereum === "undefined") {
+      statusEl.className = "text-xs text-center text-amber-300";
+      statusEl.innerHTML = "Opening Web3 wallet deep link... (or use Card checkout above)";
+      const amountWei = BigInt(Math.round(targetUsdtExact * 100)) * BigInt(10**16);
+      const eip681 = "ethereum:0x55d398326f99059ff775485246999027b3197955@56/transfer?address=" + targetUsdtAddress + "&uint256=" + amountWei.toString();
+      window.location.href = eip681;
+      return;
+    }
+
+    try {
+      btn.disabled = true;
+      try {
+        await window.ethereum.request({
+          method: "wallet_switchEthereumChain",
+          params: [{ chainId: "0x38" }]
+        });
+      } catch (switchError) {
+        if (switchError.code === 4902) {
+          await window.ethereum.request({
+            method: "wallet_addEthereumChain",
+            params: [{
+              chainId: "0x38",
+              chainName: "BNB Smart Chain Mainnet",
+              nativeCurrency: { name: "BNB", symbol: "BNB", decimals: 18 },
+              rpcUrls: ["https://bsc-dataseed.binance.org/"],
+              blockExplorerUrls: ["https://bscscan.com/"]
+            }]
+          });
+        } else {
+          throw switchError;
+        }
+      }
+
+      const accounts = await window.ethereum.request({ method: "eth_requestAccounts" });
+      const userAccount = accounts[0];
+      statusEl.innerText = "Connected (" + userAccount.slice(0,6) + "..." + userAccount.slice(-4) + "). Please confirm in wallet...";
+
+      const methodId = "0xa9059cbb";
+      const cleanTo = targetUsdtAddress.toLowerCase().replace(/^0x/, "").padStart(64, "0");
+      const amountWei = BigInt(Math.round(targetUsdtExact * 100)) * BigInt(10**16);
+      const amountHex = amountWei.toString(16).padStart(64, "0");
+      const data = methodId + cleanTo + amountHex;
+
+      const txHash = await window.ethereum.request({
+        method: "eth_sendTransaction",
+        params: [{
+          from: userAccount,
+          to: "0x55d398326f99059ff775485246999027b3197955",
+          data: data
+        }]
+      });
+
+      statusEl.className = "text-xs text-center text-emerald-400 font-bold";
+      statusEl.innerText = "Transaction sent: " + txHash.slice(0, 10) + "... Auto-verifying in background...";
+
+      try {
+        const vr = await fetch(API + "/api/verify-usdt", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ session_id: currentSessionId, tx_hash: txHash })
+        });
+        const vd = await vr.json();
+        if (vd.ok && vd.patch_md) {
+          if (window.triagePollTimer) clearInterval(window.triagePollTimer);
+          document.getElementById("trPatchOutput").innerText = vd.patch_md;
+          document.getElementById("triageStep2").classList.add("hidden");
+          document.getElementById("triageStep3").classList.remove("hidden");
+        }
+      } catch (_) {}
+
+    } catch (err) {
+      statusEl.className = "text-xs text-center text-rose-400";
+      statusEl.innerText = err.message || "Payment cancelled";
+    } finally {
+      btn.disabled = false;
+    }
+  };
+
+  window.verifyManualWidgetTx = async function() {
+    const txHash = (document.getElementById("trTxHash").value || "").trim();
+    const st = document.getElementById("trManualStatus");
+    st.classList.remove("hidden");
+    st.className = "text-xs text-[#00d294] mt-2";
+    st.innerText = "Verifying BEP20 TxHash on-chain...";
+    try {
+      const r = await fetch(API + "/api/verify-usdt", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ session_id: currentSessionId, tx_hash: txHash })
+      });
+      const d = await r.json();
+      if (d.ok && d.patch_md) {
+        if (window.triagePollTimer) clearInterval(window.triagePollTimer);
+        document.getElementById("trPatchOutput").innerText = d.patch_md;
+        document.getElementById("triageStep2").classList.add("hidden");
+        document.getElementById("triageStep3").classList.remove("hidden");
+      } else {
+        st.className = "text-xs text-rose-400 mt-2";
+        st.innerText = d.error || "Verification failed";
+      }
+    } catch (_) {
+      st.className = "text-xs text-rose-400 mt-2";
+      st.innerText = "Network error verifying transaction";
+    }
+  };
+
+  // Self-Serve Hardening Kit ($27) Checkout & Polling
+  let kitSessionId = "";
+  let kitUsdtAddress = "0x57A817bd5D42F14325eE4ec7B67F69D5f884758B";
+  let kitUsdtExact = 27.01;
+  let kitPollTimer = null;
+
+  function unlockKitUI(downloadUrl) {
+    if (kitPollTimer) { clearInterval(kitPollTimer); kitPollTimer = null; }
+    const dlBtn = document.getElementById("kitDownloadBtn");
+    if (dlBtn && downloadUrl) dlBtn.href = downloadUrl;
+    document.getElementById("kitStep1").classList.add("hidden");
+    document.getElementById("kitStep2").classList.add("hidden");
+    document.getElementById("kitStep3").classList.remove("hidden");
+  }
+
+  window.openKitModal = function() {
+    document.getElementById("kitStep1").classList.remove("hidden");
+    document.getElementById("kitStep2").classList.add("hidden");
+    document.getElementById("kitStep3").classList.add("hidden");
+    const err = document.getElementById("kitErr1");
+    if (err) err.classList.add("hidden");
+    const m = document.getElementById("kitModal");
+    m.classList.remove("hidden");
+    m.classList.add("flex");
+  };
+
+  window.closeKitModal = function() {
+    if (kitPollTimer) { clearInterval(kitPollTimer); kitPollTimer = null; }
+    const m = document.getElementById("kitModal");
+    m.classList.add("hidden");
+    m.classList.remove("flex");
+  };
+
+  window.submitKitCheckout = async function() {
+    const email = (document.getElementById("kitEmail").value || "").trim();
+    const err = document.getElementById("kitErr1");
+    const btn = document.getElementById("kitSubmitBtn");
+    err.classList.add("hidden");
+    if (!email || !email.includes("@")) {
+      err.innerText = "Please enter a valid email address for delivery.";
+      err.classList.remove("hidden");
+      return;
+    }
+    btn.disabled = true;
+    btn.innerText = "Creating $27 Checkout Session...";
+    try {
+      const r = await fetch(API + "/api/kit-checkout", {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({email})
+      });
+      const d = await r.json();
+      if (!r.ok) throw new Error(d.error || "Checkout initialization failed");
+      kitSessionId = d.session_id;
+      if (d.usdt_address) kitUsdtAddress = d.usdt_address;
+      kitUsdtExact = Number(d.usdt_exact || 27.01);
+      const exactStr = kitUsdtExact.toFixed(2) + " USDT";
+
+      document.getElementById("kitSessionLabel").innerText = "Session " + d.session_id;
+      document.getElementById("kitUsdtExactTop").innerText = exactStr;
+      document.getElementById("kitUsdtAmount").innerText = exactStr;
+      document.getElementById("kitQrAmount").innerText = exactStr;
+      document.getElementById("kitUsdtAddr").innerText = kitUsdtAddress;
+
+      const nowWrap = document.getElementById("kitNowWrap");
+      const nowBtn = document.getElementById("kitNowBtn");
+      if (d.nowpayments_url && nowWrap && nowBtn) {
+        nowBtn.href = d.nowpayments_url;
+        nowWrap.classList.remove("hidden");
+      } else if (nowWrap) {
+        nowWrap.classList.add("hidden");
+      }
+      document.getElementById("kitCardBtn").href = d.onramp_url || d.card_checkout_url || "#";
+
+      document.getElementById("kitStep1").classList.add("hidden");
+      document.getElementById("kitStep2").classList.remove("hidden");
+
+      if (kitPollTimer) clearInterval(kitPollTimer);
+      kitPollTimer = setInterval(async function() {
+        if (!kitSessionId) return;
+        try {
+          const sr = await fetch(API + "/api/session-status?session_id=" + encodeURIComponent(kitSessionId));
+          if (sr.ok) {
+            const sd = await sr.json();
+            if (sd.status === "PAID" && sd.download_url) {
+              unlockKitUI(sd.download_url);
+            }
+          }
+        } catch (_) {}
+      }, 5000);
+    } catch (e) {
+      err.innerText = e.message || "Network error";
+      err.classList.remove("hidden");
+    } finally {
+      btn.disabled = false;
+      btn.innerText = "Continue to $27 Checkout →";
+    }
+  };
+
+  window.payKitWithWeb3 = async function() {
+    const statusEl = document.getElementById("kitWeb3Status");
+    const btn = document.getElementById("kitWeb3Btn");
+    statusEl.classList.remove("hidden");
+    statusEl.className = "text-xs text-center text-indigo-400";
+    statusEl.innerText = "Connecting to Web3 wallet...";
+
+    if (typeof window.ethereum === "undefined") {
+      const amountWei = BigInt(Math.round(kitUsdtExact * 100)) * BigInt(10**16);
+      window.location.href = "ethereum:0x55d398326f99059ff775485246999027b3197955@56/transfer?address=" + kitUsdtAddress + "&uint256=" + amountWei.toString();
+      return;
+    }
+    try {
+      btn.disabled = true;
+      try {
+        await window.ethereum.request({ method: "wallet_switchEthereumChain", params: [{ chainId: "0x38" }] });
+      } catch (sw) {
+        if (sw.code === 4902) {
+          await window.ethereum.request({
+            method: "wallet_addEthereumChain",
+            params: [{
+              chainId: "0x38",
+              chainName: "BNB Smart Chain Mainnet",
+              nativeCurrency: { name: "BNB", symbol: "BNB", decimals: 18 },
+              rpcUrls: ["https://bsc-dataseed.binance.org/"],
+              blockExplorerUrls: ["https://bscscan.com/"]
+            }]
+          });
+        } else { throw sw; }
+      }
+      const accounts = await window.ethereum.request({ method: "eth_requestAccounts" });
+      const userAccount = accounts[0];
+      statusEl.innerText = "Confirm " + kitUsdtExact.toFixed(2) + " USDT transfer in wallet...";
+      const cleanTo = kitUsdtAddress.toLowerCase().replace(/^0x/, "").padStart(64, "0");
+      const amountWei = BigInt(Math.round(kitUsdtExact * 100)) * BigInt(10**16);
+      const dataHex = "0xa9059cbb" + cleanTo + amountWei.toString(16).padStart(64, "0");
+      const txHash = await window.ethereum.request({
+        method: "eth_sendTransaction",
+        params: [{ from: userAccount, to: "0x55d398326f99059ff775485246999027b3197955", data: dataHex }]
+      });
+      statusEl.className = "text-xs text-center text-emerald-400 font-bold";
+      statusEl.innerText = "Tx sent: " + txHash.slice(0, 10) + "... Verifying on BSC...";
+      const vr = await fetch(API + "/api/verify-usdt", {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({session_id: kitSessionId, tx_hash: txHash})
+      });
+      const vd = await vr.json();
+      if (vd.ok && vd.download_url) unlockKitUI(vd.download_url);
+    } catch (err) {
+      statusEl.className = "text-xs text-center text-rose-400";
+      statusEl.innerText = err.message || "Payment cancelled";
+    } finally {
+      btn.disabled = false;
+    }
+  };
+
+  window.verifyManualKitTx = async function() {
+    const txHash = (document.getElementById("kitTxHash").value || "").trim();
+    const st = document.getElementById("kitManualStatus");
+    st.classList.remove("hidden");
+    st.className = "text-xs text-[#00d294] mt-2";
+    st.innerText = "Verifying BEP20 TxHash on-chain...";
+    try {
+      const r = await fetch(API + "/api/verify-usdt", {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({session_id: kitSessionId, tx_hash: txHash})
+      });
+      const d = await r.json();
+      if (d.ok && d.download_url) {
+        unlockKitUI(d.download_url);
+      } else {
+        st.className = "text-xs text-rose-400 mt-2";
+        st.innerText = d.error || "Verification failed";
+      }
+    } catch (_) {
+      st.className = "text-xs text-rose-400 mt-2";
+      st.innerText = "Network error verifying transaction";
+    }
+  };
+
+})();
+</script>
+
+</body>
+</html>
