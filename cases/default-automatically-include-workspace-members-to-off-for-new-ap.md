@@ -19,7 +19,7 @@ slug: "default-automatically-include-workspace-members-to-off-for-new-ap"
 ## Incident Metadata
 - **Platform / Ecosystem**: `Automation Engine`
 - **Incident Severity**: `MEDIUM`
-- **Resolution Status**: `RADAR TRIAGED & READY FOR RESOLUTION`
+- **Resolution Status**: `VERIFIED & RESOLVED`
 - **Logged Timestamp**: `2026-11-20T13:22:40.800608`
 - **Diagnosis Engine**: Autonomous Production Incident Radar
 
