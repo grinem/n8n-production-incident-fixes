@@ -7,6 +7,18 @@
     <priority>1.0</priority>
   </url>
   <url>
+    <loc>https://hooktriage.com/cases/allowed-origins-cors-is-ignored-for-webhooks-with-dynamic-paths.html</loc>
+    <lastmod>2026-11-22</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://hooktriage.com/cases/webhook-allowed-origins-cors-entries-after-the-first-are-broken-w.html</loc>
+    <lastmod>2026-11-22</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://hooktriage.com/cases/bug-run-replication-never-reconnects-when-the-postgresql-stream-s.html</loc>
     <lastmod>2026-11-22</lastmod>
     <changefreq>weekly</changefreq>

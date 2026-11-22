@@ -13,9 +13,9 @@ title: "Production Incident Fixes & Post-Mortem Knowledge Base"
 
 
 ### 📊 Real-Time Operations Telemetry
-- **Total Production Incidents Documented**: `171`
+- **Total Production Incidents Documented**: `173`
 - **Active Incident Resolvers**: Automated Production Radar + Lead SRE Engineer
-- **Breakdown by Platform**: **n8n**: 88 | **Automation Engine**: 35 | **Make.com**: 28 | **Activepieces**: 10 | **Bubble.io**: 5 | **Meta / Webhooks**: 3 | **Baserow**: 2
+- **Breakdown by Platform**: **n8n**: 90 | **Automation Engine**: 35 | **Make.com**: 28 | **Activepieces**: 10 | **Bubble.io**: 5 | **Meta / Webhooks**: 3 | **Baserow**: 2
 - **Average Diagnosis & Root-Cause Pinpoint**: `< 15 Minutes`
 
 ---
@@ -24,6 +24,8 @@ title: "Production Incident Fixes & Post-Mortem Knowledge Base"
 
 | Ecosystem | Incident Summary | Root Cause Snapshot | Severity | Resolution Guide |
 |:----------|:-----------------|:--------------------|:--------:|:----------------:|
+| **n8n** | [Allowed Origins (CORS) is ignored for webhooks with dynamic paths](cases/allowed-origins-cors-is-ignored-for-webhooks-with-dynamic-paths.html) | The early CORS middleware checks incoming requests against the webhook cache via exact path matching instead of pattern matching. Because dynamic webhooks register the uncompile... | 🟡 `MEDIUM` | [**View Solution →**](cases/allowed-origins-cors-is-ignored-for-webhooks-with-dynamic-paths.html) |
+| **n8n** | [Webhook Allowed Origins (CORS) entries after the first are broken when the list contains spaces](cases/webhook-allowed-origins-cors-entries-after-the-first-are-broken-w.html) | Confirmed on master. The origins string is parsed via `.split(',')` without trimming elements, leaving subsequent entries with a leading space that fails strict equality against... | 🔴 `CRITICAL` | [**View Solution →**](cases/webhook-allowed-origins-cors-entries-after-the-first-are-broken-w.html) |
 | **Automation Engine** | [bug: run replication never reconnects when the PostgreSQL stream silently stalls](cases/bug-run-replication-never-reconnects-when-the-postgresql-stream-s.html) | Handling silent connection severance on logical replication streams requires an explicit inbound deadline watchdog in `internal-packages/replication/src/client.ts`. Because half... | 🟠 `HIGH` | [**View Solution →**](cases/bug-run-replication-never-reconnects-when-the-postgresql-stream-s.html) |
 | **n8n** | [n8n Community: 4 silent webhook & AI agent failure patterns I keep seeing in n8n workflows (+ free local JSON auditor)](cases/n8n-community-4-silent-webhook-ai-agent-failure-patterns-i-keep-s.html) | Mahdi Eqbal suggère de tester le pattern Transactional Outbox sur HubSpot, en insistant sur le crash du worker survenant après la mutation CRM mais avant l'acquittement de l'évé... | 🔴 `CRITICAL` | [**View Solution →**](cases/n8n-community-4-silent-webhook-ai-agent-failure-patterns-i-keep-s.html) |
 | **n8n** | [Re: 4 silent webhook & AI agent failure patterns — Outbox + Replay Harness (Post #4)](cases/re-4-silent-webhook-ai-agent-failure-patterns-outbox-replay-harne.html) | 🔥 LEAD ULTRA-CHAUD (2e réponse de Mahdi Eqbal aujourd'hui à 19h27 UTC sur votre fil n8n #329853 !). Il travaille sur des handoffs CRM/webhook avec vérification de résultat, et v... | 🟡 `MEDIUM` | [**View Solution →**](cases/re-4-silent-webhook-ai-agent-failure-patterns-outbox-replay-harne.html) |
