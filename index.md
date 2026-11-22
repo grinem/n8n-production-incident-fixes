@@ -13,9 +13,9 @@ title: "Production Incident Fixes & Post-Mortem Knowledge Base"
 
 
 ### 📊 Real-Time Operations Telemetry
-- **Total Production Incidents Documented**: `178`
+- **Total Production Incidents Documented**: `182`
 - **Active Incident Resolvers**: Automated Production Radar + Lead SRE Engineer
-- **Breakdown by Platform**: **n8n**: 94 | **Automation Engine**: 36 | **Make.com**: 28 | **Activepieces**: 10 | **Bubble.io**: 5 | **Meta / Webhooks**: 3 | **Baserow**: 2
+- **Breakdown by Platform**: **n8n**: 98 | **Automation Engine**: 36 | **Make.com**: 28 | **Activepieces**: 10 | **Bubble.io**: 5 | **Meta / Webhooks**: 3 | **Baserow**: 2
 - **Average Diagnosis & Root-Cause Pinpoint**: `< 15 Minutes`
 
 ---
@@ -24,6 +24,10 @@ title: "Production Incident Fixes & Post-Mortem Knowledge Base"
 
 | Ecosystem | Incident Summary | Root Cause Snapshot | Severity | Resolution Guide |
 |:----------|:-----------------|:--------------------|:--------:|:----------------:|
+| **n8n** | [4-agent contract review in n8n: the AI reviews, rules decide what gets cleared](cases/4-agent-contract-review-in-n8n-the-ai-reviews-rules-decide-what-g.html) | Keeping the final clearance decision inside deterministic Code (and failing closed to `negotiate` on malformed LLM output) is the exact pattern most multi-agent demos skip. | 🟠 `HIGH` | [**View Solution →**](cases/4-agent-contract-review-in-n8n-the-ai-reviews-rules-decide-what-g.html) |
+| **n8n** | [Most 'YouTube to LinkedIn' AI automations auto-post cringe or fail silently — here's the draft-only n8n + Gemini setup I built instead](cases/most-youtube-to-linkedin-ai-automations-auto-post-cringe-or-fail.html) | Point #2 is the exact trap that silently kills almost every media-repurposing workflow — YouTube's caption endpoint happily returns HTTP 200 with an empty or half-ready track ri... | 🟡 `MEDIUM` | [**View Solution →**](cases/most-youtube-to-linkedin-ai-automations-auto-post-cringe-or-fail.html) |
+| **n8n** | [Running a paid Discord community on Stripe: the edge cases that bit me](cases/running-a-paid-discord-community-on-stripe-the-edge-cases-that-bi.html) | Collecting the Discord ID via OAuth before the Payment Link is the cleanest architectural decision here — trying to fuzzy-match handles post-checkout turns into an endless suppo... | 🟡 `MEDIUM` | [**View Solution →**](cases/running-a-paid-discord-community-on-stripe-the-edge-cases-that-bi.html) |
+| **n8n** | [Detect successful executions that processed 0 items](cases/detect-successful-executions-that-processed-0-items.html) | Shafique's catch on Always Output Data is huge — that silent branch skip has burned almost everyone at least once. | 🔴 `CRITICAL` | [**View Solution →**](cases/detect-successful-executions-that-processed-0-items.html) |
 | **n8n** | [n8n Community: 4 silent webhook & AI agent failure patterns I keep seeing in n8n workflows (+ free local JSON auditor)](cases/n8n-community-4-silent-webhook-ai-agent-failure-patterns-i-keep-s.html) | Mahdi Eqbal réagit sur la déduplication et les risques de concurrence lors de l'ingestion de webhooks CRM (HubSpot vers Postgres). Il pointe à juste titre le risque d'écrasement... | 🟡 `MEDIUM` | [**View Solution →**](cases/n8n-community-4-silent-webhook-ai-agent-failure-patterns-i-keep-s.html) |
 | **n8n** | [Multi-main resume-attempt conflicts can leave parent executions waiting or crashed](cases/multi-main-resume-attempt-conflicts-can-leave-parent-executions-w.html) | Gap 1 is indeed an ambiguous CAS failure: `execution.repository.ts` treats "status moved away from waiting" and "status is still waiting but `resumeAttempts` changed concurrentl... | 🔴 `CRITICAL` | [**View Solution →**](cases/multi-main-resume-attempt-conflicts-can-leave-parent-executions-w.html) |
 | **n8n** | [IndexOperation lazy promise does not forward execute() rejection (source unchanged in @n8n/db1.47.4)](cases/indexoperation-lazy-promise-does-not-forward-execute-rejection-so.html) | The constructor in `dist/migrations/dsl/indices.js` swallows the rejection path by omitting `reject` from the executor: | 🔴 `CRITICAL` | [**View Solution →**](cases/indexoperation-lazy-promise-does-not-forward-execute-rejection-so.html) |
