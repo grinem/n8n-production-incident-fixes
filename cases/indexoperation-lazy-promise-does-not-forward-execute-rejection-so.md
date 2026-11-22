@@ -19,7 +19,7 @@ slug: "indexoperation-lazy-promise-does-not-forward-execute-rejection-so"
 ## Incident Metadata
 - **Platform / Ecosystem**: `n8n`
 - **Incident Severity**: `CRITICAL`
-- **Resolution Status**: `RADAR TRIAGED & READY FOR RESOLUTION`
+- **Resolution Status**: `VERIFIED & RESOLVED`
 - **Logged Timestamp**: `2026-11-22T08:20:52.038952`
 - **Diagnosis Engine**: Autonomous Production Incident Radar
 

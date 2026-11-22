@@ -19,7 +19,7 @@ slug: "multi-main-resume-attempt-conflicts-can-leave-parent-executions-w"
 ## Incident Metadata
 - **Platform / Ecosystem**: `n8n`
 - **Incident Severity**: `CRITICAL`
-- **Resolution Status**: `RADAR TRIAGED & READY FOR RESOLUTION`
+- **Resolution Status**: `VERIFIED & RESOLVED`
 - **Logged Timestamp**: `2026-11-22T08:23:12.470950`
 - **Diagnosis Engine**: Autonomous Production Incident Radar
 
