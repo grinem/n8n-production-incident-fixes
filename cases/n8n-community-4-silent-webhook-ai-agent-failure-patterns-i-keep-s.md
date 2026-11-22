@@ -27,7 +27,7 @@ slug: "n8n-community-4-silent-webhook-ai-agent-failure-patterns-i-keep-s"
 
 ## Root-Cause Analysis & Patch Preview (Layer 1)
 
-Mahdi Eqbal commente la gestion des webhooks HubSpot en soulignant le risque de race condition si l'on utilise un champ CRM (`last_processed_event_id`) pour dédupliquer, notamment lors d'événements désordonnés ou de retries créant des dou...
+Mahdi Eqbal réagit sur la déduplication et les risques de concurrence lors de l'ingestion de webhooks CRM (HubSpot vers Postgres). Il pointe à juste titre le risque d'écrasement hors séquence ("out-of-or...
 
 ---
 

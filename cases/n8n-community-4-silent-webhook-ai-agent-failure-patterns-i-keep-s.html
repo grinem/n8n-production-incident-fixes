@@ -4,11 +4,11 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>n8n Community: 4 silent webhook &amp; AI agent failure patterns I keep seeing in n8n workflows (+ free local JSON auditor) | Production Incident Fix</title>
-  <meta name="description" content="Mahdi Eqbal commente la gestion des webhooks HubSpot en soulignant le risque de race condition si l&#x27;on utilise un champ CRM (`last_processed_event_id`) pour dédupliquer, notamme...">
+  <meta name="description" content="Mahdi Eqbal réagit sur la déduplication et les risques de concurrence lors de l&#x27;ingestion de webhooks CRM (HubSpot vers Postgres). Il pointe à juste titre le risque d&#x27;écrasement...">
   <meta name="robots" content="index, follow">
   <link rel="canonical" href="https://hooktriage.com/cases/n8n-community-4-silent-webhook-ai-agent-failure-patterns-i-keep-s.html">
   <meta property="og:title" content="n8n Community: 4 silent webhook &amp; AI agent failure patterns I keep seeing in n8n workflows (+ free local JSON auditor) | Production Incident Fix">
-  <meta property="og:description" content="Mahdi Eqbal commente la gestion des webhooks HubSpot en soulignant le risque de race condition si l&#x27;on utilise un champ CRM (`last_processed_event_id`) pour dédupliquer, notamme...">
+  <meta property="og:description" content="Mahdi Eqbal réagit sur la déduplication et les risques de concurrence lors de l&#x27;ingestion de webhooks CRM (HubSpot vers Postgres). Il pointe à juste titre le risque d&#x27;écrasement...">
   <meta property="og:url" content="https://hooktriage.com/cases/n8n-community-4-silent-webhook-ai-agent-failure-patterns-i-keep-s.html">
   <meta property="og:type" content="article">
   <link rel="sitemap" type="application/xml" title="Sitemap" href="/sitemap.xml">
@@ -279,7 +279,7 @@
     "@context": "https://schema.org",
     "@type": "TechArticle",
     "headline": "n8n Community: 4 silent webhook & AI agent failure patterns I keep seeing in n8n workflows (+ free local JSON auditor)",
-    "description": "Mahdi Eqbal commente la gestion des webhooks HubSpot en soulignant le risque de race condition si l'on utilise un champ CRM (`last_processed_event_id`) pour d\u00e9dupliquer, notamme...",
+    "description": "Mahdi Eqbal r\u00e9agit sur la d\u00e9duplication et les risques de concurrence lors de l'ingestion de webhooks CRM (HubSpot vers Postgres). Il pointe \u00e0 juste titre le risque d'\u00e9crasement...",
     "datePublished": "2026-11-22",
     "author": {
       "@type": "Person",
@@ -359,7 +359,7 @@
           <span>patch-artefact-preview.json</span>
           <span class="text-amber-400">&#128274; Full Patch Locked</span>
         </div>
-        <pre class="p-4 text-xs font-mono text-[#e2e8f0] overflow-x-auto whitespace-pre-wrap m-0">Mahdi Eqbal commente la gestion des webhooks HubSpot en soulignant le risque de race condition si l&#x27;on utilise un champ CRM (`last_processed_event_id`) pour dédupliquer, notamment lors d&#x27;événements désordonnés ou de retries créant des doublons sur les notes...</pre>
+        <pre class="p-4 text-xs font-mono text-[#e2e8f0] overflow-x-auto whitespace-pre-wrap m-0">Mahdi Eqbal réagit sur la déduplication et les risques de concurrence lors de l&#x27;ingestion de webhooks CRM (HubSpot vers Postgres). Il pointe à juste titre le risque d&#x27;écrasement hors séquence (&quot;out-of-order replay&quot;) si l&#x27;état n&#x27;est tracé que sur l&#x27;entité ci...</pre>
         <div class="px-4 pb-4 select-none pointer-events-none" aria-hidden="true" style="filter:blur(4px);opacity:0.45;">
           <pre class="text-xs font-mono text-[#94a3b8] whitespace-pre-wrap m-0">  "onError": "continueErrorOutput",
   "retryOnFail": true,
@@ -470,7 +470,7 @@
   </div>
 
   <script>
-    const rawMarkdown = "---\nlayout: default\ntitle: \"n8n Community: 4 silent webhook & AI agent failure patterns I keep seeing in n8n workflows (+ free local JSON auditor)\"\nplatform: \"n8n\"\nseverity: \"MEDIUM\"\nstatus: \"Resolved\"\ndate: 2026-11-22\ntags: [\"n8n\", \"production-fix\", \"post-mortem\", \"verified-resolution\"]\nslug: \"n8n-community-4-silent-webhook-ai-agent-failure-patterns-i-keep-s\"\n---\n\n# n8n Community: 4 silent webhook & AI agent failure patterns I keep seeing in n8n workflows (+ free local JSON auditor)\n\n\n> \u26a1 **Encountering this exact production bug or need an emergency automation fix?**  \n> [**\ud83d\udea8 Instant Async Production Triage & Resolution (< 6h, Zero Video Calls)**](https://hooktriage.com/#triage)\n\n\n## Incident Metadata\n- **Platform / Ecosystem**: `n8n`\n- **Incident Severity**: `MEDIUM`\n- **Resolution Status**: `RADAR TRIAGED & READY FOR RESOLUTION`\n- **Logged Timestamp**: `2026-11-22T12:05:08`\n- **Diagnosis Engine**: Autonomous Production Incident Radar\n\n---\n\n## Root-Cause Analysis & Patch Preview (Layer 1)\n\nMahdi Eqbal commente la gestion des webhooks HubSpot en soulignant le risque de race condition si l'on utilise un champ CRM (`last_processed_event_id`) pour d\u00e9dupliquer, notamment lors d'\u00e9v\u00e9nements d\u00e9sordonn\u00e9s ou de retries cr\u00e9ant des dou...\n\n---\n\n## Incident Prevention & Operational Takeaways\n1. **Audit Upstream Authentication**: Validate OAuth2 token refresh loops and ensure service credentials cannot be orphaned.\n2. **Implement Schema Boundary Validation**: Guard downstream webhooks against unexpected payload truncations.\n3. **Automate Error Interception**: Configure fallback nodes and alerting monitors before critical production executions.\n\n---\n\n\n> \u26a1 **Encountering this exact production bug or need an emergency automation fix?**  \n> [**\ud83d\udea8 Instant Async Production Triage & Resolution (< 6h, Zero Video Calls)**](https://hooktriage.com/#triage)\n\n\n[\u2190 Back to Live Case Studies Index](../)\n";
+    const rawMarkdown = "---\nlayout: default\ntitle: \"n8n Community: 4 silent webhook & AI agent failure patterns I keep seeing in n8n workflows (+ free local JSON auditor)\"\nplatform: \"n8n\"\nseverity: \"MEDIUM\"\nstatus: \"Resolved\"\ndate: 2026-11-22\ntags: [\"n8n\", \"production-fix\", \"post-mortem\", \"verified-resolution\"]\nslug: \"n8n-community-4-silent-webhook-ai-agent-failure-patterns-i-keep-s\"\n---\n\n# n8n Community: 4 silent webhook & AI agent failure patterns I keep seeing in n8n workflows (+ free local JSON auditor)\n\n\n> \u26a1 **Encountering this exact production bug or need an emergency automation fix?**  \n> [**\ud83d\udea8 Instant Async Production Triage & Resolution (< 6h, Zero Video Calls)**](https://hooktriage.com/#triage)\n\n\n## Incident Metadata\n- **Platform / Ecosystem**: `n8n`\n- **Incident Severity**: `MEDIUM`\n- **Resolution Status**: `RADAR TRIAGED & READY FOR RESOLUTION`\n- **Logged Timestamp**: `2026-11-22T12:05:08`\n- **Diagnosis Engine**: Autonomous Production Incident Radar\n\n---\n\n## Root-Cause Analysis & Patch Preview (Layer 1)\n\nMahdi Eqbal r\u00e9agit sur la d\u00e9duplication et les risques de concurrence lors de l'ingestion de webhooks CRM (HubSpot vers Postgres). Il pointe \u00e0 juste titre le risque d'\u00e9crasement hors s\u00e9quence (\"out-of-or...\n\n---\n\n## Incident Prevention & Operational Takeaways\n1. **Audit Upstream Authentication**: Validate OAuth2 token refresh loops and ensure service credentials cannot be orphaned.\n2. **Implement Schema Boundary Validation**: Guard downstream webhooks against unexpected payload truncations.\n3. **Automate Error Interception**: Configure fallback nodes and alerting monitors before critical production executions.\n\n---\n\n\n> \u26a1 **Encountering this exact production bug or need an emergency automation fix?**  \n> [**\ud83d\udea8 Instant Async Production Triage & Resolution (< 6h, Zero Video Calls)**](https://hooktriage.com/#triage)\n\n\n[\u2190 Back to Live Case Studies Index](../)\n";
     const caseLeadId = "n8n_forum_gmail_23622";
     const caseAssetTitle = "n8n Community: 4 silent webhook & AI agent failure patterns I keep seeing in n8n workflows (+ free local JSON auditor)";
     // Strip YAML frontmatter
