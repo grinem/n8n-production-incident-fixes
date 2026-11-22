@@ -19,7 +19,7 @@ slug: "webhook-allowed-origins-cors-entries-after-the-first-are-broken-w"
 ## Incident Metadata
 - **Platform / Ecosystem**: `n8n`
 - **Incident Severity**: `CRITICAL`
-- **Resolution Status**: `RADAR TRIAGED & READY FOR RESOLUTION`
+- **Resolution Status**: `VERIFIED & RESOLVED`
 - **Logged Timestamp**: `2026-11-22T06:20:47.968577`
 - **Diagnosis Engine**: Autonomous Production Incident Radar
 

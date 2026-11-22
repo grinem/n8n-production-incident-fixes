@@ -19,7 +19,7 @@ slug: "bug-run-replication-never-reconnects-when-the-postgresql-stream-s"
 ## Incident Metadata
 - **Platform / Ecosystem**: `Automation Engine`
 - **Incident Severity**: `HIGH`
-- **Resolution Status**: `RADAR TRIAGED & READY FOR RESOLUTION`
+- **Resolution Status**: `VERIFIED & RESOLVED`
 - **Logged Timestamp**: `2026-11-22T02:40:49.007842`
 - **Diagnosis Engine**: Autonomous Production Incident Radar
 
