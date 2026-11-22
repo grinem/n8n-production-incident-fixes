@@ -19,7 +19,7 @@ slug: "n8n-community-4-silent-webhook-ai-agent-failure-patterns-i-keep-s"
 ## Incident Metadata
 - **Platform / Ecosystem**: `n8n`
 - **Incident Severity**: `MEDIUM`
-- **Resolution Status**: `RADAR TRIAGED & READY FOR RESOLUTION`
+- **Resolution Status**: `VERIFIED & RESOLVED`
 - **Logged Timestamp**: `2026-11-22T12:05:08`
 - **Diagnosis Engine**: Autonomous Production Incident Radar
 
