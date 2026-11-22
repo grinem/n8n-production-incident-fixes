@@ -2,10 +2,10 @@
 layout: default
 title: "n8n Community: 4 silent webhook & AI agent failure patterns I keep seeing in n8n workflows (+ free local JSON auditor)"
 platform: "n8n"
-severity: "CRITICAL"
+severity: "MEDIUM"
 status: "Resolved"
-date: 2026-11-21
-tags: ["n8n", "critical-incident", "production-fix", "post-mortem", "verified-resolution"]
+date: 2026-11-22
+tags: ["n8n", "production-fix", "post-mortem", "verified-resolution"]
 slug: "n8n-community-4-silent-webhook-ai-agent-failure-patterns-i-keep-s"
 ---
 
@@ -18,16 +18,16 @@ slug: "n8n-community-4-silent-webhook-ai-agent-failure-patterns-i-keep-s"
 
 ## Incident Metadata
 - **Platform / Ecosystem**: `n8n`
-- **Incident Severity**: `CRITICAL`
+- **Incident Severity**: `MEDIUM`
 - **Resolution Status**: `RADAR TRIAGED & READY FOR RESOLUTION`
-- **Logged Timestamp**: `2026-11-21T22:59:38`
+- **Logged Timestamp**: `2026-11-22T12:05:08`
 - **Diagnosis Engine**: Autonomous Production Incident Radar
 
 ---
 
 ## Root-Cause Analysis & Patch Preview (Layer 1)
 
-Mahdi Eqbal suggère de tester le pattern Transactional Outbox sur HubSpot, en insistant sur le crash du worker survenant après la mutation CRM mais avant l'acquitt...
+Mahdi Eqbal commente la gestion des webhooks HubSpot en soulignant le risque de race condition si l'on utilise un champ CRM (`last_processed_event_id`) pour dédupliquer, notamment lors d'événements désordonnés ou de retries créant des dou...
 
 ---
 

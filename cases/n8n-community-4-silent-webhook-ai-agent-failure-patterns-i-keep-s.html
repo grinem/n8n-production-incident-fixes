@@ -4,11 +4,11 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>n8n Community: 4 silent webhook &amp; AI agent failure patterns I keep seeing in n8n workflows (+ free local JSON auditor) | Production Incident Fix</title>
-  <meta name="description" content="Mahdi Eqbal suggère de tester le pattern Transactional Outbox sur HubSpot, en insistant sur le crash du worker survenant après la mutation CRM mais avant l&#x27;acquittement de l&#x27;évé...">
+  <meta name="description" content="Mahdi Eqbal commente la gestion des webhooks HubSpot en soulignant le risque de race condition si l&#x27;on utilise un champ CRM (`last_processed_event_id`) pour dédupliquer, notamme...">
   <meta name="robots" content="index, follow">
   <link rel="canonical" href="https://hooktriage.com/cases/n8n-community-4-silent-webhook-ai-agent-failure-patterns-i-keep-s.html">
   <meta property="og:title" content="n8n Community: 4 silent webhook &amp; AI agent failure patterns I keep seeing in n8n workflows (+ free local JSON auditor) | Production Incident Fix">
-  <meta property="og:description" content="Mahdi Eqbal suggère de tester le pattern Transactional Outbox sur HubSpot, en insistant sur le crash du worker survenant après la mutation CRM mais avant l&#x27;acquittement de l&#x27;évé...">
+  <meta property="og:description" content="Mahdi Eqbal commente la gestion des webhooks HubSpot en soulignant le risque de race condition si l&#x27;on utilise un champ CRM (`last_processed_event_id`) pour dédupliquer, notamme...">
   <meta property="og:url" content="https://hooktriage.com/cases/n8n-community-4-silent-webhook-ai-agent-failure-patterns-i-keep-s.html">
   <meta property="og:type" content="article">
   <link rel="sitemap" type="application/xml" title="Sitemap" href="/sitemap.xml">
@@ -279,8 +279,8 @@
     "@context": "https://schema.org",
     "@type": "TechArticle",
     "headline": "n8n Community: 4 silent webhook & AI agent failure patterns I keep seeing in n8n workflows (+ free local JSON auditor)",
-    "description": "Mahdi Eqbal sugg\u00e8re de tester le pattern Transactional Outbox sur HubSpot, en insistant sur le crash du worker survenant apr\u00e8s la mutation CRM mais avant l'acquittement de l'\u00e9v\u00e9...",
-    "datePublished": "2026-11-21",
+    "description": "Mahdi Eqbal commente la gestion des webhooks HubSpot en soulignant le risque de race condition si l'on utilise un champ CRM (`last_processed_event_id`) pour d\u00e9dupliquer, notamme...",
+    "datePublished": "2026-11-22",
     "author": {
       "@type": "Person",
       "name": "grinem"
@@ -326,10 +326,10 @@
 
   <div class="max-w-4xl mx-auto px-6 py-10 sm:py-14">
     <div class="mb-6 flex flex-wrap items-center justify-between gap-3">
-      <div class="text-xs font-mono text-[#878d8f]">Case Study &bull; 2026-11-21</div>
+      <div class="text-xs font-mono text-[#878d8f]">Case Study &bull; 2026-11-22</div>
       <div class="flex items-center gap-2">
         <span class="px-2.5 py-1 rounded-full text-[11px] font-mono font-medium bg-[#141517] text-[#a1a4a5] border border-[#212629]">n8n</span>
-        <span class="px-2.5 py-1 rounded-full text-[11px] font-mono font-medium border bg-[#fb2c36]/10 text-[#ff6b72] border-[#fb2c36]/25">CRITICAL</span>
+        <span class="px-2.5 py-1 rounded-full text-[11px] font-mono font-medium border bg-[#141517] text-[#a1a4a5] border-[#212629]">MEDIUM</span>
       </div>
     </div>
 
@@ -359,7 +359,7 @@
           <span>patch-artefact-preview.json</span>
           <span class="text-amber-400">&#128274; Full Patch Locked</span>
         </div>
-        <pre class="p-4 text-xs font-mono text-[#e2e8f0] overflow-x-auto whitespace-pre-wrap m-0">Mahdi Eqbal suggère de tester le pattern Transactional Outbox sur HubSpot, en insistant sur le crash du worker survenant après la mutation CRM mais avant l&#x27;acquittement de l&#x27;événement outbox. C&#x27;est un profil à forte maturité technique qui adresse directemen...</pre>
+        <pre class="p-4 text-xs font-mono text-[#e2e8f0] overflow-x-auto whitespace-pre-wrap m-0">Mahdi Eqbal commente la gestion des webhooks HubSpot en soulignant le risque de race condition si l&#x27;on utilise un champ CRM (`last_processed_event_id`) pour dédupliquer, notamment lors d&#x27;événements désordonnés ou de retries créant des doublons sur les notes...</pre>
         <div class="px-4 pb-4 select-none pointer-events-none" aria-hidden="true" style="filter:blur(4px);opacity:0.45;">
           <pre class="text-xs font-mono text-[#94a3b8] whitespace-pre-wrap m-0">  "onError": "continueErrorOutput",
   "retryOnFail": true,
@@ -470,8 +470,8 @@
   </div>
 
   <script>
-    const rawMarkdown = "---\nlayout: default\ntitle: \"n8n Community: 4 silent webhook & AI agent failure patterns I keep seeing in n8n workflows (+ free local JSON auditor)\"\nplatform: \"n8n\"\nseverity: \"CRITICAL\"\nstatus: \"Resolved\"\ndate: 2026-11-21\ntags: [\"n8n\", \"critical-incident\", \"production-fix\", \"post-mortem\", \"verified-resolution\"]\nslug: \"n8n-community-4-silent-webhook-ai-agent-failure-patterns-i-keep-s\"\n---\n\n# n8n Community: 4 silent webhook & AI agent failure patterns I keep seeing in n8n workflows (+ free local JSON auditor)\n\n\n> \u26a1 **Encountering this exact production bug or need an emergency automation fix?**  \n> [**\ud83d\udea8 Instant Async Production Triage & Resolution (< 6h, Zero Video Calls)**](https://hooktriage.com/#triage)\n\n\n## Incident Metadata\n- **Platform / Ecosystem**: `n8n`\n- **Incident Severity**: `CRITICAL`\n- **Resolution Status**: `RADAR TRIAGED & READY FOR RESOLUTION`\n- **Logged Timestamp**: `2026-11-21T22:59:38`\n- **Diagnosis Engine**: Autonomous Production Incident Radar\n\n---\n\n## Root-Cause Analysis & Patch Preview (Layer 1)\n\nMahdi Eqbal sugg\u00e8re de tester le pattern Transactional Outbox sur HubSpot, en insistant sur le crash du worker survenant apr\u00e8s la mutation CRM mais avant l'acquitt...\n\n---\n\n## Incident Prevention & Operational Takeaways\n1. **Audit Upstream Authentication**: Validate OAuth2 token refresh loops and ensure service credentials cannot be orphaned.\n2. **Implement Schema Boundary Validation**: Guard downstream webhooks against unexpected payload truncations.\n3. **Automate Error Interception**: Configure fallback nodes and alerting monitors before critical production executions.\n\n---\n\n\n> \u26a1 **Encountering this exact production bug or need an emergency automation fix?**  \n> [**\ud83d\udea8 Instant Async Production Triage & Resolution (< 6h, Zero Video Calls)**](https://hooktriage.com/#triage)\n\n\n[\u2190 Back to Live Case Studies Index](../)\n";
-    const caseLeadId = "n8n_forum_gmail_23619";
+    const rawMarkdown = "---\nlayout: default\ntitle: \"n8n Community: 4 silent webhook & AI agent failure patterns I keep seeing in n8n workflows (+ free local JSON auditor)\"\nplatform: \"n8n\"\nseverity: \"MEDIUM\"\nstatus: \"Resolved\"\ndate: 2026-11-22\ntags: [\"n8n\", \"production-fix\", \"post-mortem\", \"verified-resolution\"]\nslug: \"n8n-community-4-silent-webhook-ai-agent-failure-patterns-i-keep-s\"\n---\n\n# n8n Community: 4 silent webhook & AI agent failure patterns I keep seeing in n8n workflows (+ free local JSON auditor)\n\n\n> \u26a1 **Encountering this exact production bug or need an emergency automation fix?**  \n> [**\ud83d\udea8 Instant Async Production Triage & Resolution (< 6h, Zero Video Calls)**](https://hooktriage.com/#triage)\n\n\n## Incident Metadata\n- **Platform / Ecosystem**: `n8n`\n- **Incident Severity**: `MEDIUM`\n- **Resolution Status**: `RADAR TRIAGED & READY FOR RESOLUTION`\n- **Logged Timestamp**: `2026-11-22T12:05:08`\n- **Diagnosis Engine**: Autonomous Production Incident Radar\n\n---\n\n## Root-Cause Analysis & Patch Preview (Layer 1)\n\nMahdi Eqbal commente la gestion des webhooks HubSpot en soulignant le risque de race condition si l'on utilise un champ CRM (`last_processed_event_id`) pour d\u00e9dupliquer, notamment lors d'\u00e9v\u00e9nements d\u00e9sordonn\u00e9s ou de retries cr\u00e9ant des dou...\n\n---\n\n## Incident Prevention & Operational Takeaways\n1. **Audit Upstream Authentication**: Validate OAuth2 token refresh loops and ensure service credentials cannot be orphaned.\n2. **Implement Schema Boundary Validation**: Guard downstream webhooks against unexpected payload truncations.\n3. **Automate Error Interception**: Configure fallback nodes and alerting monitors before critical production executions.\n\n---\n\n\n> \u26a1 **Encountering this exact production bug or need an emergency automation fix?**  \n> [**\ud83d\udea8 Instant Async Production Triage & Resolution (< 6h, Zero Video Calls)**](https://hooktriage.com/#triage)\n\n\n[\u2190 Back to Live Case Studies Index](../)\n";
+    const caseLeadId = "n8n_forum_gmail_23622";
     const caseAssetTitle = "n8n Community: 4 silent webhook & AI agent failure patterns I keep seeing in n8n workflows (+ free local JSON auditor)";
     // Strip YAML frontmatter
     const mdWithoutYaml = rawMarkdown.replace(/^---[\s\S]*?---\s*/, '');
