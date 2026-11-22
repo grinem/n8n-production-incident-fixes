@@ -13,9 +13,9 @@ title: "Production Incident Fixes & Post-Mortem Knowledge Base"
 
 
 ### 📊 Real-Time Operations Telemetry
-- **Total Production Incidents Documented**: `182`
+- **Total Production Incidents Documented**: `183`
 - **Active Incident Resolvers**: Automated Production Radar + Lead SRE Engineer
-- **Breakdown by Platform**: **n8n**: 98 | **Automation Engine**: 36 | **Make.com**: 28 | **Activepieces**: 10 | **Bubble.io**: 5 | **Meta / Webhooks**: 3 | **Baserow**: 2
+- **Breakdown by Platform**: **n8n**: 99 | **Automation Engine**: 36 | **Make.com**: 28 | **Activepieces**: 10 | **Bubble.io**: 5 | **Meta / Webhooks**: 3 | **Baserow**: 2
 - **Average Diagnosis & Root-Cause Pinpoint**: `< 15 Minutes`
 
 ---
@@ -24,6 +24,7 @@ title: "Production Incident Fixes & Post-Mortem Knowledge Base"
 
 | Ecosystem | Incident Summary | Root Cause Snapshot | Severity | Resolution Guide |
 |:----------|:-----------------|:--------------------|:--------:|:----------------:|
+| **n8n** | [Multi-main resume-attempt conflicts (#44778)](cases/multi-main-resume-attempt-conflicts-44778.html) | 1. Contexte & Demande : Client Case Study (User) a implémenté la correction que tu avais suggérée sur l'issue n8n #44778 (séparation version_conflict + colonne lease dédiée park... | 🟡 `MEDIUM` | [**View Solution →**](cases/multi-main-resume-attempt-conflicts-44778.html) |
 | **n8n** | [4-agent contract review in n8n: the AI reviews, rules decide what gets cleared](cases/4-agent-contract-review-in-n8n-the-ai-reviews-rules-decide-what-g.html) | Keeping the final clearance decision inside deterministic Code (and failing closed to `negotiate` on malformed LLM output) is the exact pattern most multi-agent demos skip. | 🟠 `HIGH` | [**View Solution →**](cases/4-agent-contract-review-in-n8n-the-ai-reviews-rules-decide-what-g.html) |
 | **n8n** | [Most 'YouTube to LinkedIn' AI automations auto-post cringe or fail silently — here's the draft-only n8n + Gemini setup I built instead](cases/most-youtube-to-linkedin-ai-automations-auto-post-cringe-or-fail.html) | Point #2 is the exact trap that silently kills almost every media-repurposing workflow — YouTube's caption endpoint happily returns HTTP 200 with an empty or half-ready track ri... | 🟡 `MEDIUM` | [**View Solution →**](cases/most-youtube-to-linkedin-ai-automations-auto-post-cringe-or-fail.html) |
 | **n8n** | [Running a paid Discord community on Stripe: the edge cases that bit me](cases/running-a-paid-discord-community-on-stripe-the-edge-cases-that-bi.html) | Collecting the Discord ID via OAuth before the Payment Link is the cleanest architectural decision here — trying to fuzzy-match handles post-checkout turns into an endless suppo... | 🟡 `MEDIUM` | [**View Solution →**](cases/running-a-paid-discord-community-on-stripe-the-edge-cases-that-bi.html) |

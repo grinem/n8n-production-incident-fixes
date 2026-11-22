@@ -1,7 +1,7 @@
 # 🛠️ n8n & Low-Code Production Incident Fixes (Live Knowledge Base)
 
 [![GitHub Pages](https://img.shields.io/badge/GitHub%20Pages-Live%20Showcase-brightgreen?style=flat-square&logo=github)](https://grinem.github.io/n8n-production-incident-fixes/)
-[![Incidents Resolved](https://img.shields.io/badge/Incidents%20Resolved-182%20Verified-blue?style=flat-square)](cases/)
+[![Incidents Resolved](https://img.shields.io/badge/Incidents%20Resolved-183%20Verified-blue?style=flat-square)](cases/)
 [![Emergency SLA](https://img.shields.io/badge/Incident%20SLA-%3C%206%20Hours-orange?style=flat-square)](https://hooktriage.com/#triage)
 [![Async Triage](https://img.shields.io/badge/Async%20Triage-Zero%20Calls-success?style=flat-square)](https://hooktriage.com/#triage)
 
@@ -38,10 +38,11 @@ All incident post-mortems in this repository are autonomously generated and sync
 
 ---
 
-## 📚 Documented Production Incidents (182)
+## 📚 Documented Production Incidents (183)
 
 | Ecosystem | Incident Case Study | Root Cause Snapshot | Severity | Solution Link |
 |:----------|:--------------------|:--------------------|:--------:|:-------------:|
+| **n8n** | [Multi-main resume-attempt conflicts (#44778)](cases/multi-main-resume-attempt-conflicts-44778.md) | 1. Contexte & Demande : Client Case Study (User) a implémenté la correction que tu avais suggérée sur l'issue n8n #44778 (séparation version_conflict + colonne lease dédiée park... | 🟡 `MEDIUM` | [**Solution**](cases/multi-main-resume-attempt-conflicts-44778.md) |
 | **n8n** | [4-agent contract review in n8n: the AI reviews, rules decide what gets cleared](cases/4-agent-contract-review-in-n8n-the-ai-reviews-rules-decide-what-g.md) | Keeping the final clearance decision inside deterministic Code (and failing closed to `negotiate` on malformed LLM output) is the exact pattern most multi-agent demos skip. | 🟠 `HIGH` | [**Solution**](cases/4-agent-contract-review-in-n8n-the-ai-reviews-rules-decide-what-g.md) |
 | **n8n** | [Most 'YouTube to LinkedIn' AI automations auto-post cringe or fail silently — here's the draft-only n8n + Gemini setup I built instead](cases/most-youtube-to-linkedin-ai-automations-auto-post-cringe-or-fail.md) | Point #2 is the exact trap that silently kills almost every media-repurposing workflow — YouTube's caption endpoint happily returns HTTP 200 with an empty or half-ready track ri... | 🟡 `MEDIUM` | [**Solution**](cases/most-youtube-to-linkedin-ai-automations-auto-post-cringe-or-fail.md) |
 | **n8n** | [Running a paid Discord community on Stripe: the edge cases that bit me](cases/running-a-paid-discord-community-on-stripe-the-edge-cases-that-bi.md) | Collecting the Discord ID via OAuth before the Payment Link is the cleanest architectural decision here — trying to fuzzy-match handles post-checkout turns into an endless suppo... | 🟡 `MEDIUM` | [**Solution**](cases/running-a-paid-discord-community-on-stripe-the-edge-cases-that-bi.md) |
