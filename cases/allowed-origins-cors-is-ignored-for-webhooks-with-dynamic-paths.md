@@ -19,7 +19,7 @@ slug: "allowed-origins-cors-is-ignored-for-webhooks-with-dynamic-paths"
 ## Incident Metadata
 - **Platform / Ecosystem**: `n8n`
 - **Incident Severity**: `MEDIUM`
-- **Resolution Status**: `RADAR TRIAGED & READY FOR RESOLUTION`
+- **Resolution Status**: `VERIFIED & RESOLVED`
 - **Logged Timestamp**: `2026-11-22T06:23:05.729338`
 - **Diagnosis Engine**: Autonomous Production Incident Radar
 
