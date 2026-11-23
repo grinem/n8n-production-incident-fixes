@@ -19,7 +19,7 @@ slug: "connect-to-local-ollama-server-from-n8n-docker-container-on-linux"
 ## Incident Metadata
 - **Platform / Ecosystem**: `n8n`
 - **Incident Severity**: `MEDIUM`
-- **Resolution Status**: `RADAR TRIAGED & READY FOR RESOLUTION`
+- **Resolution Status**: `VERIFIED & RESOLVED`
 - **Logged Timestamp**: `2026-11-21T11:42:47.034851`
 - **Diagnosis Engine**: Autonomous Production Incident Radar
 
