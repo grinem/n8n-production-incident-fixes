@@ -20,14 +20,14 @@ slug: "n8n-community-running-a-paid-discord-community-on-stripe-the-edge"
 - **Platform / Ecosystem**: `n8n`
 - **Incident Severity**: `MEDIUM`
 - **Resolution Status**: `RADAR TRIAGED & READY FOR RESOLUTION`
-- **Logged Timestamp**: `2026-11-23T16:14:45`
+- **Logged Timestamp**: `2026-11-23T22:07:22`
 - **Diagnosis Engine**: Autonomous Production Incident Radar
 
 ---
 
 ## Root-Cause Analysis & Patch Preview (Layer 1)
 
-Kartike détaille sa stratégie de réconciliation Stripe-Discord : un cron régulier servant de filet de sécurité pour rattraper les webhooks silencieusement perdus via `subscriptions.retrieve()`, combiné à un re-pull c...
+kartike partage son retour d'expérience sur la gestion des rate limits Discord lors des synchronisations de rôles Stripe : gestion dynamique du `retry_after` sur HTTP 429 et lissage des sweeps...
 
 ---
 
