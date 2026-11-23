@@ -16,9 +16,9 @@ slug: "running-a-paid-discord-community-on-stripe-the-edge-cases-that-bi"
 > [**🚨 Instant Async Production Triage & Resolution (< 6h, Zero Video Calls)**](https://hooktriage.com/#triage)
 
 
-> ✅ **Confirmed Production Resolution (Timestamp: `2026-11-23T17:20:41.813632+01:00`)**  
+> ✅ **Confirmed Production Resolution (Timestamp: `2026-11-23T23:00:42.100300+01:00`)**  
 > **Author (`kartike`) verified on [the live thread](https://community.n8n.io/t/running-a-paid-discord-community-on-stripe-the-edge-cases-that-bit-me/330005)**:  
-> *"Both, but the fixed schedule is the base, not the add-on. Targeted pulls only help when your log actually caught the collision, and the worst case is the one it doesn’t: a webhook that never arrived means the log shows nothing wrong while the Discord role is already wrong. So a fixed cron walks every active subscription and pulls fresh state from Stripe, which is cheap since retrieve() is one call per customer, and I keep it tight to the billing window so a failed renewal doesn’t keep community access for days. The log-triggered pull I keep too, just as a fast path: collision rows queue that customer id for an immediate re-pull instead of waiting for the next sweep. Fixed covers the silent gaps, targeted just makes the visible ones faster."*
+> *"Good catch on the role limit, that one bit me too. I chunk the sweep so each 10 second window does at most 8 role changes, and I read retry_after from the 429 response instead of a fixed sleep, because a fixed wait still stacks when two batches land in the same window. The bigger win for me was spreading the check itself: most subscriptions renew on the 1st since that is when they were created, so a midnight sweep hits its worst cluster once a month. Grouping members by signup day spread that out."*
 
 
 ## Incident Metadata
