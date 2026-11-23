@@ -27,7 +27,7 @@ slug: "multi-main-resume-attempt-conflicts-44778"
 
 ## Root-Cause Analysis & Patch Preview (Layer 1)
 
-1. Contexte & Demande : Client Case Study (User) a implémenté la correction que tu avais suggérée sur l'issue n8n #44778 (séparation version_conflict + colonne lease dédiée parkedParentLeaseExpiresAt pour le sweep) et te demande explicitement une revue techni...
+Gating `claimResumeAttempt()` with a monotonic fencing token (`lease_id` / generation counter) checked in `patchParentWithFinishedChild()` and `claimParent()` prevents an expired worker from writing stale state after a pause. Comparing `parkedParentLeaseExpiresAt` against the SQL server clock (`NOW()` / `CURRENT_TIMESTAMP`) instead of local worker clocks eliminates drift takeovers.
 
 ---
 

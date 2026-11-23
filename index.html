@@ -1027,7 +1027,7 @@
               <a href="cases/multi-main-resume-attempt-conflicts-44778.html" class="ht-card-title-link hover:text-blue-600 transition">Multi-main resume-attempt conflicts (#44778)</a>
             </h3>
             <p class="text-[#878d8f] text-sm leading-relaxed mb-5 line-clamp-3">
-              <span class="font-medium text-[#a1a4a5]">Root Cause:</span> 1. Contexte &amp; Demande : Client Case Study (User) a implémenté la correction que tu avais suggérée sur l&#x27;issue n8n #44778 (séparation version_conflict + colonne lease dédiée park...
+              <span class="font-medium text-[#a1a4a5]">Root Cause:</span> Gating `claimResumeAttempt()` with a monotonic fencing token (`lease_id` / generation counter) checked in `patchParentWithFinishedChild()` and `claimParent()` prevents an expire...
             </p>
           </div>
           <div class="pt-4 border-t border-[#212629] flex items-center justify-between text-xs text-[#878d8f]">

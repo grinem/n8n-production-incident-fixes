@@ -19,7 +19,7 @@ slug: "async-workflow-can-return-an-error-after-celery-accepts-the-task"
 ## Incident Metadata
 - **Platform / Ecosystem**: `Automation Engine`
 - **Incident Severity**: `CRITICAL`
-- **Resolution Status**: `RADAR TRIAGED & READY FOR RESOLUTION`
+- **Resolution Status**: `VERIFIED & RESOLVED`
 - **Logged Timestamp**: `2026-11-22T06:40:52.042822`
 - **Diagnosis Engine**: Autonomous Production Incident Radar
 

@@ -4,11 +4,11 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Multi-main resume-attempt conflicts (#44778) | Production Incident Fix</title>
-  <meta name="description" content="1. Contexte &amp; Demande : Client Case Study (User) a implémenté la correction que tu avais suggérée sur l&#x27;issue n8n #44778 (séparation version_conflict + colonne lease dédiée park...">
+  <meta name="description" content="Gating `claimResumeAttempt()` with a monotonic fencing token (`lease_id` / generation counter) checked in `patchParentWithFinishedChild()` and `claimParent()` prevents an expire...">
   <meta name="robots" content="index, follow">
   <link rel="canonical" href="https://hooktriage.com/cases/multi-main-resume-attempt-conflicts-44778.html">
   <meta property="og:title" content="Multi-main resume-attempt conflicts (#44778) | Production Incident Fix">
-  <meta property="og:description" content="1. Contexte &amp; Demande : Client Case Study (User) a implémenté la correction que tu avais suggérée sur l&#x27;issue n8n #44778 (séparation version_conflict + colonne lease dédiée park...">
+  <meta property="og:description" content="Gating `claimResumeAttempt()` with a monotonic fencing token (`lease_id` / generation counter) checked in `patchParentWithFinishedChild()` and `claimParent()` prevents an expire...">
   <meta property="og:url" content="https://hooktriage.com/cases/multi-main-resume-attempt-conflicts-44778.html">
   <meta property="og:type" content="article">
   <link rel="sitemap" type="application/xml" title="Sitemap" href="/sitemap.xml">
@@ -279,7 +279,7 @@
     "@context": "https://schema.org",
     "@type": "TechArticle",
     "headline": "Multi-main resume-attempt conflicts (#44778)",
-    "description": "1. Contexte & Demande : Client Case Study (User) a impl\u00e9ment\u00e9 la correction que tu avais sugg\u00e9r\u00e9e sur l'issue n8n #44778 (s\u00e9paration version_conflict + colonne lease d\u00e9di\u00e9e park...",
+    "description": "Gating `claimResumeAttempt()` with a monotonic fencing token (`lease_id` / generation counter) checked in `patchParentWithFinishedChild()` and `claimParent()` prevents an expire...",
     "datePublished": "2026-11-22",
     "author": {
       "@type": "Person",
@@ -359,7 +359,7 @@
           <span>patch-artefact-preview.json</span>
           <span class="text-amber-400">&#128274; Full Patch Locked</span>
         </div>
-        <pre class="p-4 text-xs font-mono text-[#e2e8f0] overflow-x-auto whitespace-pre-wrap m-0">1. Contexte &amp; Demande : Client Case Study (User) a implémenté la correction que tu avais suggérée sur l&#x27;issue n8n #44778 (séparation version_conflict + colonne lease dédiée parkedParentLeaseExpiresAt pour le sweep) et te demande explicitement une revue tech...</pre>
+        <pre class="p-4 text-xs font-mono text-[#e2e8f0] overflow-x-auto whitespace-pre-wrap m-0">If you want to scan workflow exports locally before pushing upstream, the MIT local JSON auditor (`grinem/n8n-ai-watchdog`) runs offline with zero uploads.</pre>
         <div class="px-4 pb-4 select-none pointer-events-none" aria-hidden="true" style="filter:blur(4px);opacity:0.45;">
           <pre class="text-xs font-mono text-[#94a3b8] whitespace-pre-wrap m-0">  "onError": "continueErrorOutput",
   "retryOnFail": true,
@@ -470,7 +470,7 @@
   </div>
 
   <script>
-    const rawMarkdown = "---\nlayout: default\ntitle: \"Multi-main resume-attempt conflicts (#44778)\"\nplatform: \"n8n\"\nseverity: \"MEDIUM\"\nstatus: \"Resolved\"\ndate: 2026-11-22\ntags: [\"n8n\", \"production-fix\", \"post-mortem\", \"verified-resolution\"]\nslug: \"multi-main-resume-attempt-conflicts-44778\"\n---\n\n# Multi-main resume-attempt conflicts (#44778)\n\n\n> \u26a1 **Encountering this exact production bug or need an emergency automation fix?**  \n> [**\ud83d\udea8 Instant Async Production Triage & Resolution (< 6h, Zero Video Calls)**](https://hooktriage.com/#triage)\n\n\n## Incident Metadata\n- **Platform / Ecosystem**: `n8n`\n- **Incident Severity**: `MEDIUM`\n- **Resolution Status**: `VERIFIED & RESOLVED`\n- **Logged Timestamp**: `2026-11-22T21:23:33Z`\n- **Diagnosis Engine**: Autonomous Production Incident Radar\n\n---\n\n## Root-Cause Analysis & Patch Preview (Layer 1)\n\n1. Contexte & Demande : Client Case Study (User) a impl\u00e9ment\u00e9 la correction que tu avais sugg\u00e9r\u00e9e sur l'issue n8n #44778 (s\u00e9paration version_conflict + colonne lease d\u00e9di\u00e9e parkedParentLeaseExpiresAt pour le sweep) et te demande explicitement une revue techni...\n\n---\n\n## Incident Prevention & Operational Takeaways\n1. **Audit Upstream Authentication**: Validate OAuth2 token refresh loops and ensure service credentials cannot be orphaned.\n2. **Implement Schema Boundary Validation**: Guard downstream webhooks against unexpected payload truncations.\n3. **Automate Error Interception**: Configure fallback nodes and alerting monitors before critical production executions.\n\n---\n\n\n> \u26a1 **Encountering this exact production bug or need an emergency automation fix?**  \n> [**\ud83d\udea8 Instant Async Production Triage & Resolution (< 6h, Zero Video Calls)**](https://hooktriage.com/#triage)\n\n\n[\u2190 Back to Live Case Studies Index](../)\n";
+    const rawMarkdown = "---\nlayout: default\ntitle: \"Multi-main resume-attempt conflicts (#44778)\"\nplatform: \"n8n\"\nseverity: \"MEDIUM\"\nstatus: \"Resolved\"\ndate: 2026-11-22\ntags: [\"n8n\", \"production-fix\", \"post-mortem\", \"verified-resolution\"]\nslug: \"multi-main-resume-attempt-conflicts-44778\"\n---\n\n# Multi-main resume-attempt conflicts (#44778)\n\n\n> \u26a1 **Encountering this exact production bug or need an emergency automation fix?**  \n> [**\ud83d\udea8 Instant Async Production Triage & Resolution (< 6h, Zero Video Calls)**](https://hooktriage.com/#triage)\n\n\n## Incident Metadata\n- **Platform / Ecosystem**: `n8n`\n- **Incident Severity**: `MEDIUM`\n- **Resolution Status**: `VERIFIED & RESOLVED`\n- **Logged Timestamp**: `2026-11-22T21:23:33Z`\n- **Diagnosis Engine**: Autonomous Production Incident Radar\n\n---\n\n## Root-Cause Analysis & Patch Preview (Layer 1)\n\nGating `claimResumeAttempt()` with a monotonic fencing token (`lease_id` / generation counter) checked in `patchParentWithFinishedChild()` and `claimParent()` prevents an expired worker from writing stale state after a pause. Comparing `parkedParentLeaseExpiresAt` against the SQL server clock (`NOW()` / `CURRENT_TIMESTAMP`) instead of local worker clocks eliminates drift takeovers.\n\n---\n\n## Incident Prevention & Operational Takeaways\n1. **Audit Upstream Authentication**: Validate OAuth2 token refresh loops and ensure service credentials cannot be orphaned.\n2. **Implement Schema Boundary Validation**: Guard downstream webhooks against unexpected payload truncations.\n3. **Automate Error Interception**: Configure fallback nodes and alerting monitors before critical production executions.\n\n---\n\n\n> \u26a1 **Encountering this exact production bug or need an emergency automation fix?**  \n> [**\ud83d\udea8 Instant Async Production Triage & Resolution (< 6h, Zero Video Calls)**](https://hooktriage.com/#triage)\n\n\n[\u2190 Back to Live Case Studies Index](../)\n";
     const caseLeadId = "github_n8n-io_n8n_44778_review";
     const caseAssetTitle = "Multi-main resume-attempt conflicts (#44778)";
     // Strip YAML frontmatter
