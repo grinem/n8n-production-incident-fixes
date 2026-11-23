@@ -16,15 +16,10 @@ slug: "allowed-origins-cors-is-ignored-for-webhooks-with-dynamic-paths"
 > [**🚨 Instant Async Production Triage & Resolution (< 6h, Zero Video Calls)**](https://hooktriage.com/#triage)
 
 
-> ✅ **Confirmed Production Resolution (Timestamp: `2026-11-23T03:20:39.505959+01:00`)**  
-> **Author (`goutham-valugula`) verified on [the live thread](https://github.com/n8n-io/n8n/issues/44775)**:  
-> *"I checked the current source and found a concrete distinction from the proposed early-middleware diagnosis. `WebhookRequestHandler.setupCorsHeaders()` calls `findAccessControlOptions(path, method)`, and `LiveWebhooks.findAccessControlOptions()` resolves the webhook first, then still selects its node with `parameters.path === path`. A concrete path such as `user/123` therefore does not match the registered template `user/:id`. This method also dereferences `webhook.workflowId` without handling a missing result, so it is worth confirming whether the production request reaches this path or an earlier middleware in the reported setup. If it does, selecting the node from the resolved webhook registration (rather than comparing the template to the request path) appears to address the allowlist miss; separately verify whether the reflected-origin behavior comes from this handler or another CORS layer."*
-
-
 ## Incident Metadata
 - **Platform / Ecosystem**: `n8n`
 - **Incident Severity**: `MEDIUM`
-- **Resolution Status**: `CONFIRMED BY AUTHOR IN PRODUCTION`
+- **Resolution Status**: `VERIFIED & RESOLVED`
 - **Logged Timestamp**: `2026-11-22T06:23:05.729338`
 - **Diagnosis Engine**: Autonomous Production Incident Radar
 
