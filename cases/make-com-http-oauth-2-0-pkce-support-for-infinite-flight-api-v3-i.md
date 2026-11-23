@@ -19,7 +19,7 @@ slug: "make-com-http-oauth-2-0-pkce-support-for-infinite-flight-api-v3-i"
 ## Incident Metadata
 - **Platform / Ecosystem**: `Make.com`
 - **Incident Severity**: `MEDIUM`
-- **Resolution Status**: `RADAR TRIAGED & READY FOR RESOLUTION`
+- **Resolution Status**: `VERIFIED & RESOLVED`
 - **Logged Timestamp**: `2026-11-23T07:20:53.337582`
 - **Diagnosis Engine**: Autonomous Production Incident Radar
 
