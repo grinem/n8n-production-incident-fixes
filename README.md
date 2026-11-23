@@ -1,7 +1,7 @@
 # 🛠️ n8n & Low-Code Production Incident Fixes (Live Knowledge Base)
 
 [![GitHub Pages](https://img.shields.io/badge/GitHub%20Pages-Live%20Showcase-brightgreen?style=flat-square&logo=github)](https://grinem.github.io/n8n-production-incident-fixes/)
-[![Incidents Resolved](https://img.shields.io/badge/Incidents%20Resolved-188%20Verified-blue?style=flat-square)](cases/)
+[![Incidents Resolved](https://img.shields.io/badge/Incidents%20Resolved-189%20Verified-blue?style=flat-square)](cases/)
 [![Emergency SLA](https://img.shields.io/badge/Incident%20SLA-%3C%206%20Hours-orange?style=flat-square)](https://hooktriage.com/#triage)
 [![Async Triage](https://img.shields.io/badge/Async%20Triage-Zero%20Calls-success?style=flat-square)](https://hooktriage.com/#triage)
 
@@ -38,10 +38,11 @@ All incident post-mortems in this repository are autonomously generated and sync
 
 ---
 
-## 📚 Documented Production Incidents (188)
+## 📚 Documented Production Incidents (189)
 
 | Ecosystem | Incident Case Study | Root Cause Snapshot | Severity | Solution Link |
 |:----------|:--------------------|:--------------------|:--------:|:-------------:|
+| **n8n** | [n8n Community: Basic LLM Chain node to return a flat JSON](cases/n8n-community-basic-llm-chain-node-to-return-a-flat-json.md) | Stéphane confirme avoir résolu son problème de structure en aplatissant la sortie du Basic LLM Chain via un nœud Code (`$input.all().map(...)`). C'est un utilisateur actif des a... | 🟡 `MEDIUM` | [**Solution**](cases/n8n-community-basic-llm-chain-node-to-return-a-flat-json.md) |
 | **n8n** | [n8n Community: Running a paid Discord community on Stripe: the edge cases that bit me](cases/n8n-community-running-a-paid-discord-community-on-stripe-the-edge.md) | Kartike souligne la granularité à la seconde des timestamps Stripe (`created`), qui provoque l'abandon silencieux d'événements légitimes partageant la même seconde en cas d'arri... | 🟡 `MEDIUM` | [**Solution**](cases/n8n-community-running-a-paid-discord-community-on-stripe-the-edge.md) |
 | **Automation Engine** | [Agent V2 evaluation traces drop output retry attempts](cases/agent-v2-evaluation-traces-drop-output-retry-attempts.md) | The collector lifecycle is currently bound inside the retry iteration loop rather than the node's execution context. When schema validation fails on a backend output, the collec... | 🔴 `CRITICAL` | [**Solution**](cases/agent-v2-evaluation-traces-drop-output-retry-attempts.md) |
 | **n8n** | [u/Impressive-Will3970 a répondu à ta publication dans r/n8n](cases/u-impressive-will3970-a-r-pondu-ta-publication-dans-r-n8n.md) | u/Impressive-Will3970 rebondit sur l'audit n8n en pointant le goulet d'étranglement critique : les timeouts sur les webhooks synchrones Stripe/Shopify combinés à l'absence de De... | 🟡 `MEDIUM` | [**Solution**](cases/u-impressive-will3970-a-r-pondu-ta-publication-dans-r-n8n.md) |
