@@ -16,10 +16,17 @@ slug: "indexoperation-lazy-promise-does-not-forward-execute-rejection-so"
 > [**🚨 Instant Async Production Triage & Resolution (< 6h, Zero Video Calls)**](https://hooktriage.com/#triage)
 
 
+> ✅ **Confirmed Production Resolution (Timestamp: `2026-11-23T10:40:42.958954+01:00`)**  
+> **Author (`looorent`) verified on [the live thread](https://github.com/n8n-io/n8n/issues/44779)**:  
+> *"@mayankbaba19-max thanks for the report. This is fixed by #43615. A failed index operation now fails the migration with the database error, and the process no longer stops on an unhandled rejection.
+
+The fix is in `2.49.0`."*
+
+
 ## Incident Metadata
 - **Platform / Ecosystem**: `n8n`
 - **Incident Severity**: `CRITICAL`
-- **Resolution Status**: `VERIFIED & RESOLVED`
+- **Resolution Status**: `CONFIRMED BY AUTHOR IN PRODUCTION`
 - **Logged Timestamp**: `2026-11-22T08:20:52.038952`
 - **Diagnosis Engine**: Autonomous Production Incident Radar
 
