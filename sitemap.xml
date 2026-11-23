@@ -19,6 +19,18 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://hooktriage.com/cases/n8n-cloud-webhook-execution-failure-no-execution-history.html</loc>
+    <lastmod>2026-11-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://hooktriage.com/cases/make-com-http-oauth-2-0-pkce-support-for-infinite-flight-api-v3-i.html</loc>
+    <lastmod>2026-11-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://hooktriage.com/cases/multi-main-resume-attempt-conflicts-44778.html</loc>
     <lastmod>2026-11-22</lastmod>
     <changefreq>weekly</changefreq>

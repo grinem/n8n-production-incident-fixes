@@ -13,9 +13,9 @@ title: "Production Incident Fixes & Post-Mortem Knowledge Base"
 
 
 ### 📊 Real-Time Operations Telemetry
-- **Total Production Incidents Documented**: `185`
+- **Total Production Incidents Documented**: `187`
 - **Active Incident Resolvers**: Automated Production Radar + Lead SRE Engineer
-- **Breakdown by Platform**: **n8n**: 100 | **Automation Engine**: 37 | **Make.com**: 28 | **Activepieces**: 10 | **Bubble.io**: 5 | **Meta / Webhooks**: 3 | **Baserow**: 2
+- **Breakdown by Platform**: **n8n**: 101 | **Automation Engine**: 37 | **Make.com**: 29 | **Activepieces**: 10 | **Bubble.io**: 5 | **Meta / Webhooks**: 3 | **Baserow**: 2
 - **Average Diagnosis & Root-Cause Pinpoint**: `< 15 Minutes`
 
 ---
@@ -26,6 +26,8 @@ title: "Production Incident Fixes & Post-Mortem Knowledge Base"
 |:----------|:-----------------|:--------------------|:--------:|:----------------:|
 | **Automation Engine** | [Agent V2 evaluation traces drop output retry attempts](cases/agent-v2-evaluation-traces-drop-output-retry-attempts.html) | The collector lifecycle is currently bound inside the retry iteration loop rather than the node's execution context. When schema validation fails on a backend output, the collec... | 🔴 `CRITICAL` | [**View Solution →**](cases/agent-v2-evaluation-traces-drop-output-retry-attempts.html) |
 | **n8n** | [u/Impressive-Will3970 a répondu à ta publication dans r/n8n](cases/u-impressive-will3970-a-r-pondu-ta-publication-dans-r-n8n.html) | u/Impressive-Will3970 rebondit sur l'audit n8n en pointant le goulet d'étranglement critique : les timeouts sur les webhooks synchrones Stripe/Shopify combinés à l'absence de De... | 🟡 `MEDIUM` | [**View Solution →**](cases/u-impressive-will3970-a-r-pondu-ta-publication-dans-r-n8n.html) |
+| **n8n** | [N8n Cloud Webhook Execution Failure – No Execution History](cases/n8n-cloud-webhook-execution-failure-no-execution-history.html) | The reason you get `{"code":0}` with zero execution history is Windows PowerShell 5.1 defaulting to UTF-16 LE encoding. That breaks n8n's Express body parser at the ingress leve... | 🟡 `MEDIUM` | [**View Solution →**](cases/n8n-cloud-webhook-execution-failure-no-execution-history.html) |
+| **Make.com** | [Make.com HTTP OAuth 2.0 PKCE Support for Infinite Flight API v3 Integration](cases/make-com-http-oauth-2-0-pkce-support-for-infinite-flight-api-v3-i.html) | Make's generic HTTP OAuth 2.0 connection does not support PKCE. It only handles standard RFC 6749 authorization code grants and cannot generate, store, or forward ephemeral `cod... | 🟡 `MEDIUM` | [**View Solution →**](cases/make-com-http-oauth-2-0-pkce-support-for-infinite-flight-api-v3-i.html) |
 | **n8n** | [Multi-main resume-attempt conflicts (#44778)](cases/multi-main-resume-attempt-conflicts-44778.html) | 1. Contexte & Demande : Client Case Study (User) a implémenté la correction que tu avais suggérée sur l'issue n8n #44778 (séparation version_conflict + colonne lease dédiée park... | 🟡 `MEDIUM` | [**View Solution →**](cases/multi-main-resume-attempt-conflicts-44778.html) |
 | **n8n** | [4-agent contract review in n8n: the AI reviews, rules decide what gets cleared](cases/4-agent-contract-review-in-n8n-the-ai-reviews-rules-decide-what-g.html) | Keeping the final clearance decision inside deterministic Code (and failing closed to `negotiate` on malformed LLM output) is the exact pattern most multi-agent demos skip. | 🟠 `HIGH` | [**View Solution →**](cases/4-agent-contract-review-in-n8n-the-ai-reviews-rules-decide-what-g.html) |
 | **n8n** | [Most 'YouTube to LinkedIn' AI automations auto-post cringe or fail silently — here's the draft-only n8n + Gemini setup I built instead](cases/most-youtube-to-linkedin-ai-automations-auto-post-cringe-or-fail.html) | Point #2 is the exact trap that silently kills almost every media-repurposing workflow — YouTube's caption endpoint happily returns HTTP 200 with an empty or half-ready track ri... | 🟡 `MEDIUM` | [**View Solution →**](cases/most-youtube-to-linkedin-ai-automations-auto-post-cringe-or-fail.html) |

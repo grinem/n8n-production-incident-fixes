@@ -1,7 +1,7 @@
 # 🛠️ n8n & Low-Code Production Incident Fixes (Live Knowledge Base)
 
 [![GitHub Pages](https://img.shields.io/badge/GitHub%20Pages-Live%20Showcase-brightgreen?style=flat-square&logo=github)](https://grinem.github.io/n8n-production-incident-fixes/)
-[![Incidents Resolved](https://img.shields.io/badge/Incidents%20Resolved-185%20Verified-blue?style=flat-square)](cases/)
+[![Incidents Resolved](https://img.shields.io/badge/Incidents%20Resolved-187%20Verified-blue?style=flat-square)](cases/)
 [![Emergency SLA](https://img.shields.io/badge/Incident%20SLA-%3C%206%20Hours-orange?style=flat-square)](https://hooktriage.com/#triage)
 [![Async Triage](https://img.shields.io/badge/Async%20Triage-Zero%20Calls-success?style=flat-square)](https://hooktriage.com/#triage)
 
@@ -38,12 +38,14 @@ All incident post-mortems in this repository are autonomously generated and sync
 
 ---
 
-## 📚 Documented Production Incidents (185)
+## 📚 Documented Production Incidents (187)
 
 | Ecosystem | Incident Case Study | Root Cause Snapshot | Severity | Solution Link |
 |:----------|:--------------------|:--------------------|:--------:|:-------------:|
 | **Automation Engine** | [Agent V2 evaluation traces drop output retry attempts](cases/agent-v2-evaluation-traces-drop-output-retry-attempts.md) | The collector lifecycle is currently bound inside the retry iteration loop rather than the node's execution context. When schema validation fails on a backend output, the collec... | 🔴 `CRITICAL` | [**Solution**](cases/agent-v2-evaluation-traces-drop-output-retry-attempts.md) |
 | **n8n** | [u/Impressive-Will3970 a répondu à ta publication dans r/n8n](cases/u-impressive-will3970-a-r-pondu-ta-publication-dans-r-n8n.md) | u/Impressive-Will3970 rebondit sur l'audit n8n en pointant le goulet d'étranglement critique : les timeouts sur les webhooks synchrones Stripe/Shopify combinés à l'absence de De... | 🟡 `MEDIUM` | [**Solution**](cases/u-impressive-will3970-a-r-pondu-ta-publication-dans-r-n8n.md) |
+| **n8n** | [N8n Cloud Webhook Execution Failure – No Execution History](cases/n8n-cloud-webhook-execution-failure-no-execution-history.md) | The reason you get `{"code":0}` with zero execution history is Windows PowerShell 5.1 defaulting to UTF-16 LE encoding. That breaks n8n's Express body parser at the ingress leve... | 🟡 `MEDIUM` | [**Solution**](cases/n8n-cloud-webhook-execution-failure-no-execution-history.md) |
+| **Make.com** | [Make.com HTTP OAuth 2.0 PKCE Support for Infinite Flight API v3 Integration](cases/make-com-http-oauth-2-0-pkce-support-for-infinite-flight-api-v3-i.md) | Make's generic HTTP OAuth 2.0 connection does not support PKCE. It only handles standard RFC 6749 authorization code grants and cannot generate, store, or forward ephemeral `cod... | 🟡 `MEDIUM` | [**Solution**](cases/make-com-http-oauth-2-0-pkce-support-for-infinite-flight-api-v3-i.md) |
 | **n8n** | [Multi-main resume-attempt conflicts (#44778)](cases/multi-main-resume-attempt-conflicts-44778.md) | 1. Contexte & Demande : Client Case Study (User) a implémenté la correction que tu avais suggérée sur l'issue n8n #44778 (séparation version_conflict + colonne lease dédiée park... | 🟡 `MEDIUM` | [**Solution**](cases/multi-main-resume-attempt-conflicts-44778.md) |
 | **n8n** | [4-agent contract review in n8n: the AI reviews, rules decide what gets cleared](cases/4-agent-contract-review-in-n8n-the-ai-reviews-rules-decide-what-g.md) | Keeping the final clearance decision inside deterministic Code (and failing closed to `negotiate` on malformed LLM output) is the exact pattern most multi-agent demos skip. | 🟠 `HIGH` | [**Solution**](cases/4-agent-contract-review-in-n8n-the-ai-reviews-rules-decide-what-g.md) |
 | **n8n** | [Most 'YouTube to LinkedIn' AI automations auto-post cringe or fail silently — here's the draft-only n8n + Gemini setup I built instead](cases/most-youtube-to-linkedin-ai-automations-auto-post-cringe-or-fail.md) | Point #2 is the exact trap that silently kills almost every media-repurposing workflow — YouTube's caption endpoint happily returns HTTP 200 with an empty or half-ready track ri... | 🟡 `MEDIUM` | [**Solution**](cases/most-youtube-to-linkedin-ai-automations-auto-post-cringe-or-fail.md) |
