@@ -19,7 +19,7 @@ slug: "agent-v2-evaluation-traces-drop-output-retry-attempts"
 ## Incident Metadata
 - **Platform / Ecosystem**: `Automation Engine`
 - **Incident Severity**: `CRITICAL`
-- **Resolution Status**: `RADAR TRIAGED & READY FOR RESOLUTION`
+- **Resolution Status**: `VERIFIED & RESOLVED`
 - **Logged Timestamp**: `2026-11-23T11:22:58.124228`
 - **Diagnosis Engine**: Autonomous Production Incident Radar
 
