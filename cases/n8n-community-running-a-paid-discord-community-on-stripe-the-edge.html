@@ -4,11 +4,11 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>n8n Community: Running a paid Discord community on Stripe: the edge cases that bit me | Production Incident Fix</title>
-  <meta name="description" content="Kartike souligne la granularité à la seconde des timestamps Stripe (`created`), qui provoque l&#x27;abandon silencieux d&#x27;événements légitimes partageant la même seconde en cas d&#x27;arri...">
+  <meta name="description" content="Kartike détaille sa stratégie de réconciliation Stripe-Discord : un cron régulier servant de filet de sécurité pour rattraper les webhooks silencieusement perdus via `subscripti...">
   <meta name="robots" content="index, follow">
   <link rel="canonical" href="https://hooktriage.com/cases/n8n-community-running-a-paid-discord-community-on-stripe-the-edge.html">
   <meta property="og:title" content="n8n Community: Running a paid Discord community on Stripe: the edge cases that bit me | Production Incident Fix">
-  <meta property="og:description" content="Kartike souligne la granularité à la seconde des timestamps Stripe (`created`), qui provoque l&#x27;abandon silencieux d&#x27;événements légitimes partageant la même seconde en cas d&#x27;arri...">
+  <meta property="og:description" content="Kartike détaille sa stratégie de réconciliation Stripe-Discord : un cron régulier servant de filet de sécurité pour rattraper les webhooks silencieusement perdus via `subscripti...">
   <meta property="og:url" content="https://hooktriage.com/cases/n8n-community-running-a-paid-discord-community-on-stripe-the-edge.html">
   <meta property="og:type" content="article">
   <link rel="sitemap" type="application/xml" title="Sitemap" href="/sitemap.xml">
@@ -279,7 +279,7 @@
     "@context": "https://schema.org",
     "@type": "TechArticle",
     "headline": "n8n Community: Running a paid Discord community on Stripe: the edge cases that bit me",
-    "description": "Kartike souligne la granularit\u00e9 \u00e0 la seconde des timestamps Stripe (`created`), qui provoque l'abandon silencieux d'\u00e9v\u00e9nements l\u00e9gitimes partageant la m\u00eame seconde en cas d'arri...",
+    "description": "Kartike d\u00e9taille sa strat\u00e9gie de r\u00e9conciliation Stripe-Discord : un cron r\u00e9gulier servant de filet de s\u00e9curit\u00e9 pour rattraper les webhooks silencieusement perdus via `subscripti...",
     "datePublished": "2026-11-23",
     "author": {
       "@type": "Person",
@@ -359,7 +359,7 @@
           <span>patch-artefact-preview.json</span>
           <span class="text-amber-400">&#128274; Full Patch Locked</span>
         </div>
-        <pre class="p-4 text-xs font-mono text-[#e2e8f0] overflow-x-auto whitespace-pre-wrap m-0">Kartike souligne la granularité à la seconde des timestamps Stripe (`created`), qui provoque l&#x27;abandon silencieux d&#x27;événements légitimes partageant la même seconde en cas d&#x27;arrivée désordonnée si un filtre strict `&lt;` est appliqué. Il préconise un log append...</pre>
+        <pre class="p-4 text-xs font-mono text-[#e2e8f0] overflow-x-auto whitespace-pre-wrap m-0">Kartike détaille sa stratégie de réconciliation Stripe-Discord : un cron régulier servant de filet de sécurité pour rattraper les webhooks silencieusement perdus via `subscriptions.retrieve()`, combiné à un re-pull ciblé immédiat pour les collisions capturé...</pre>
         <div class="px-4 pb-4 select-none pointer-events-none" aria-hidden="true" style="filter:blur(4px);opacity:0.45;">
           <pre class="text-xs font-mono text-[#94a3b8] whitespace-pre-wrap m-0">  "onError": "continueErrorOutput",
   "retryOnFail": true,
@@ -470,8 +470,8 @@
   </div>
 
   <script>
-    const rawMarkdown = "---\nlayout: default\ntitle: \"n8n Community: Running a paid Discord community on Stripe: the edge cases that bit me\"\nplatform: \"n8n\"\nseverity: \"MEDIUM\"\nstatus: \"Resolved\"\ndate: 2026-11-23\ntags: [\"n8n\", \"production-fix\", \"post-mortem\", \"verified-resolution\"]\nslug: \"n8n-community-running-a-paid-discord-community-on-stripe-the-edge\"\n---\n\n# n8n Community: Running a paid Discord community on Stripe: the edge cases that bit me\n\n\n> \u26a1 **Encountering this exact production bug or need an emergency automation fix?**  \n> [**\ud83d\udea8 Instant Async Production Triage & Resolution (< 6h, Zero Video Calls)**](https://hooktriage.com/#triage)\n\n\n## Incident Metadata\n- **Platform / Ecosystem**: `n8n`\n- **Incident Severity**: `MEDIUM`\n- **Resolution Status**: `RADAR TRIAGED & READY FOR RESOLUTION`\n- **Logged Timestamp**: `2026-11-23T13:04:57`\n- **Diagnosis Engine**: Autonomous Production Incident Radar\n\n---\n\n## Root-Cause Analysis & Patch Preview (Layer 1)\n\nKartike souligne la granularit\u00e9 \u00e0 la seconde des timestamps Stripe (`created`), qui provoque l'abandon silencieux d'\u00e9v\u00e9nements l\u00e9gitimes partageant la m\u00eame seconde en cas d'arriv\u00e9e d\u00e9sordonn\u00e9e si un filtre strict `<` est appliqu\u00e9. Il...\n\n---\n\n## Incident Prevention & Operational Takeaways\n1. **Audit Upstream Authentication**: Validate OAuth2 token refresh loops and ensure service credentials cannot be orphaned.\n2. **Implement Schema Boundary Validation**: Guard downstream webhooks against unexpected payload truncations.\n3. **Automate Error Interception**: Configure fallback nodes and alerting monitors before critical production executions.\n\n---\n\n\n> \u26a1 **Encountering this exact production bug or need an emergency automation fix?**  \n> [**\ud83d\udea8 Instant Async Production Triage & Resolution (< 6h, Zero Video Calls)**](https://hooktriage.com/#triage)\n\n\n[\u2190 Back to Live Case Studies Index](../)\n";
-    const caseLeadId = "n8n_forum_gmail_23716";
+    const rawMarkdown = "---\nlayout: default\ntitle: \"n8n Community: Running a paid Discord community on Stripe: the edge cases that bit me\"\nplatform: \"n8n\"\nseverity: \"MEDIUM\"\nstatus: \"Resolved\"\ndate: 2026-11-23\ntags: [\"n8n\", \"production-fix\", \"post-mortem\", \"verified-resolution\"]\nslug: \"n8n-community-running-a-paid-discord-community-on-stripe-the-edge\"\n---\n\n# n8n Community: Running a paid Discord community on Stripe: the edge cases that bit me\n\n\n> \u26a1 **Encountering this exact production bug or need an emergency automation fix?**  \n> [**\ud83d\udea8 Instant Async Production Triage & Resolution (< 6h, Zero Video Calls)**](https://hooktriage.com/#triage)\n\n\n## Incident Metadata\n- **Platform / Ecosystem**: `n8n`\n- **Incident Severity**: `MEDIUM`\n- **Resolution Status**: `RADAR TRIAGED & READY FOR RESOLUTION`\n- **Logged Timestamp**: `2026-11-23T16:14:45`\n- **Diagnosis Engine**: Autonomous Production Incident Radar\n\n---\n\n## Root-Cause Analysis & Patch Preview (Layer 1)\n\nKartike d\u00e9taille sa strat\u00e9gie de r\u00e9conciliation Stripe-Discord : un cron r\u00e9gulier servant de filet de s\u00e9curit\u00e9 pour rattraper les webhooks silencieusement perdus via `subscriptions.retrieve()`, combin\u00e9 \u00e0 un re-pull c...\n\n---\n\n## Incident Prevention & Operational Takeaways\n1. **Audit Upstream Authentication**: Validate OAuth2 token refresh loops and ensure service credentials cannot be orphaned.\n2. **Implement Schema Boundary Validation**: Guard downstream webhooks against unexpected payload truncations.\n3. **Automate Error Interception**: Configure fallback nodes and alerting monitors before critical production executions.\n\n---\n\n\n> \u26a1 **Encountering this exact production bug or need an emergency automation fix?**  \n> [**\ud83d\udea8 Instant Async Production Triage & Resolution (< 6h, Zero Video Calls)**](https://hooktriage.com/#triage)\n\n\n[\u2190 Back to Live Case Studies Index](../)\n";
+    const caseLeadId = "n8n_forum_gmail_23718";
     const caseAssetTitle = "n8n Community: Running a paid Discord community on Stripe: the edge cases that bit me";
     // Strip YAML frontmatter
     const mdWithoutYaml = rawMarkdown.replace(/^---[\s\S]*?---\s*/, '');

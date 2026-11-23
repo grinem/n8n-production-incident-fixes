@@ -20,14 +20,14 @@ slug: "n8n-community-running-a-paid-discord-community-on-stripe-the-edge"
 - **Platform / Ecosystem**: `n8n`
 - **Incident Severity**: `MEDIUM`
 - **Resolution Status**: `RADAR TRIAGED & READY FOR RESOLUTION`
-- **Logged Timestamp**: `2026-11-23T13:04:57`
+- **Logged Timestamp**: `2026-11-23T16:14:45`
 - **Diagnosis Engine**: Autonomous Production Incident Radar
 
 ---
 
 ## Root-Cause Analysis & Patch Preview (Layer 1)
 
-Kartike souligne la granularité à la seconde des timestamps Stripe (`created`), qui provoque l'abandon silencieux d'événements légitimes partageant la même seconde en cas d'arrivée désordonnée si un filtre strict `<` est appliqué. Il...
+Kartike détaille sa stratégie de réconciliation Stripe-Discord : un cron régulier servant de filet de sécurité pour rattraper les webhooks silencieusement perdus via `subscriptions.retrieve()`, combiné à un re-pull c...
 
 ---
 
