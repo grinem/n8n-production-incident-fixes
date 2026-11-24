@@ -19,15 +19,15 @@ slug: "n8n-community-running-a-paid-discord-community-on-stripe-the-edge-n8n_fo"
 ## Incident Metadata
 - **Platform / Ecosystem**: `n8n`
 - **Incident Severity**: `MEDIUM`
-- **Resolution Status**: `RADAR TRIAGED & READY FOR RESOLUTION`
-- **Logged Timestamp**: `2026-11-23T13:04:57`
+- **Resolution Status**: `VERIFIED & RESOLVED`
+- **Logged Timestamp**: `2026-11-23T22:07:22`
 - **Diagnosis Engine**: Autonomous Production Incident Radar
 
 ---
 
 ## Root-Cause Analysis & Patch Preview (Layer 1)
 
-Kartike souligne la granularité à la seconde des timestamps Stripe (`created`), qui provoque l'abandon silencieux d'événements légitimes partageant la même seconde en cas d'arrivée désordonnée si un filtre strict `<` est appliqué. Il...
+kartike partage son retour d'expérience sur la gestion des rate limits Discord lors des synchronisations de rôles Stripe : gestion dynamique du `retry_after` sur HTTP 429 et lissage des sweeps...
 
 ---
 

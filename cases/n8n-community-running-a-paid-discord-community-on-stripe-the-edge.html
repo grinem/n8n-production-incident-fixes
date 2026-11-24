@@ -4,11 +4,11 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>n8n Community: Running a paid Discord community on Stripe: the edge cases that bit me | Production Incident Fix</title>
-  <meta name="description" content="kartike partage son retour d&#x27;expérience sur la gestion des rate limits Discord lors des synchronisations de rôles Stripe : gestion dynamique du `retry_after` sur HTTP 429 et lis...">
+  <meta name="description" content="kartike valide le principe de découplage architectural : une panne de l&#x27;API Discord bloquait leur workflow synchrone, retardant l&#x27;ACK Stripe et provoquant une tempête de retries...">
   <meta name="robots" content="index, follow">
   <link rel="canonical" href="https://hooktriage.com/cases/n8n-community-running-a-paid-discord-community-on-stripe-the-edge.html">
   <meta property="og:title" content="n8n Community: Running a paid Discord community on Stripe: the edge cases that bit me | Production Incident Fix">
-  <meta property="og:description" content="kartike partage son retour d&#x27;expérience sur la gestion des rate limits Discord lors des synchronisations de rôles Stripe : gestion dynamique du `retry_after` sur HTTP 429 et lis...">
+  <meta property="og:description" content="kartike valide le principe de découplage architectural : une panne de l&#x27;API Discord bloquait leur workflow synchrone, retardant l&#x27;ACK Stripe et provoquant une tempête de retries...">
   <meta property="og:url" content="https://hooktriage.com/cases/n8n-community-running-a-paid-discord-community-on-stripe-the-edge.html">
   <meta property="og:type" content="article">
   <link rel="sitemap" type="application/xml" title="Sitemap" href="/sitemap.xml">
@@ -302,8 +302,8 @@
     "@context": "https://schema.org",
     "@type": "TechArticle",
     "headline": "n8n Community: Running a paid Discord community on Stripe: the edge cases that bit me",
-    "description": "kartike partage son retour d'exp\u00e9rience sur la gestion des rate limits Discord lors des synchronisations de r\u00f4les Stripe : gestion dynamique du `retry_after` sur HTTP 429 et lis...",
-    "datePublished": "2026-11-23",
+    "description": "kartike valide le principe de d\u00e9couplage architectural : une panne de l'API Discord bloquait leur workflow synchrone, retardant l'ACK Stripe et provoquant une temp\u00eate de retries...",
+    "datePublished": "2026-11-24",
     "author": {
       "@type": "Person",
       "name": "grinem"
@@ -349,7 +349,7 @@
 
   <div class="max-w-4xl mx-auto px-6 py-10 sm:py-14">
     <div class="mb-6 flex flex-wrap items-center justify-between gap-3">
-      <div class="text-xs font-mono text-[#878d8f]">Case Study &bull; 2026-11-23</div>
+      <div class="text-xs font-mono text-[#878d8f]">Case Study &bull; 2026-11-24</div>
       <div class="flex items-center gap-2">
         <span class="px-2.5 py-1 rounded-full text-[11px] font-mono font-medium bg-[#141517] text-[#a1a4a5] border border-[#212629]">n8n</span>
         <span class="px-2.5 py-1 rounded-full text-[11px] font-mono font-medium border bg-[#141517] text-[#a1a4a5] border-[#212629]">MEDIUM</span>
@@ -450,7 +450,7 @@
           <span>patch-artefact-preview.json</span>
           <span class="text-amber-400">&#128274; Full Patch Locked</span>
         </div>
-        <pre class="p-4 text-xs font-mono text-[#e2e8f0] overflow-x-auto whitespace-pre-wrap m-0">kartike partage son retour d&#x27;expérience sur la gestion des rate limits Discord lors des synchronisations de rôles Stripe : gestion dynamique du `retry_after` sur HTTP 429 et lissage des sweeps selon le jour de souscription pour contrer l&#x27;effet &quot;thundering h...</pre>
+        <pre class="p-4 text-xs font-mono text-[#e2e8f0] overflow-x-auto whitespace-pre-wrap m-0">kartike valide le principe de découplage architectural : une panne de l&#x27;API Discord bloquait leur workflow synchrone, retardant l&#x27;ACK Stripe et provoquant une tempête de retries. Ils ont résolu l&#x27;incident en extrayant la mutation de rôle du flux direct. C&#x27;e...</pre>
         <div class="px-4 pb-4 select-none pointer-events-none" aria-hidden="true" style="filter:blur(4px);opacity:0.45;">
           <pre class="text-xs font-mono text-[#94a3b8] whitespace-pre-wrap m-0">  "onError": "continueErrorOutput",
   "retryOnFail": true,
@@ -526,8 +526,8 @@
   </div>
 
   <script>
-    const rawMarkdown = "---\nlayout: default\ntitle: \"n8n Community: Running a paid Discord community on Stripe: the edge cases that bit me\"\nplatform: \"n8n\"\nseverity: \"MEDIUM\"\nstatus: \"Resolved\"\ndate: 2026-11-23\ntags: [\"n8n\", \"production-fix\", \"post-mortem\", \"verified-resolution\"]\nslug: \"n8n-community-running-a-paid-discord-community-on-stripe-the-edge\"\n---\n\n# n8n Community: Running a paid Discord community on Stripe: the edge cases that bit me\n\n\n> \u26a1 **Encountering this exact production bug or need an emergency automation fix?**  \n> [**\ud83d\udea8 Instant Async Production Triage & Resolution (< 6h, Zero Video Calls)**](https://hooktriage.com/#triage)\n\n\n## Incident Metadata\n- **Platform / Ecosystem**: `n8n`\n- **Incident Severity**: `MEDIUM`\n- **Resolution Status**: `VERIFIED & RESOLVED`\n- **Logged Timestamp**: `2026-11-23T22:07:22`\n- **Diagnosis Engine**: Autonomous Production Incident Radar\n\n---\n\n## Root-Cause Analysis & Patch Preview (Layer 1)\n\nkartike partage son retour d'exp\u00e9rience sur la gestion des rate limits Discord lors des synchronisations de r\u00f4les Stripe : gestion dynamique du `retry_after` sur HTTP 429 et lissage des sweeps...\n\n---\n\n## Incident Prevention & Operational Takeaways\n1. **Audit Upstream Authentication**: Validate OAuth2 token refresh loops and ensure service credentials cannot be orphaned.\n2. **Implement Schema Boundary Validation**: Guard downstream webhooks against unexpected payload truncations.\n3. **Automate Error Interception**: Configure fallback nodes and alerting monitors before critical production executions.\n\n---\n\n\n> \u26a1 **Encountering this exact production bug or need an emergency automation fix?**  \n> [**\ud83d\udea8 Instant Async Production Triage & Resolution (< 6h, Zero Video Calls)**](https://hooktriage.com/#triage)\n\n\n[\u2190 Back to Live Case Studies Index](../)\n";
-    const caseLeadId = "n8n_forum_gmail_23722";
+    const rawMarkdown = "---\nlayout: default\ntitle: \"n8n Community: Running a paid Discord community on Stripe: the edge cases that bit me\"\nplatform: \"n8n\"\nseverity: \"MEDIUM\"\nstatus: \"Resolved\"\ndate: 2026-11-24\ntags: [\"n8n\", \"production-fix\", \"post-mortem\", \"verified-resolution\"]\nslug: \"n8n-community-running-a-paid-discord-community-on-stripe-the-edge\"\n---\n\n# n8n Community: Running a paid Discord community on Stripe: the edge cases that bit me\n\n\n> \u26a1 **Encountering this exact production bug or need an emergency automation fix?**  \n> [**\ud83d\udea8 Instant Async Production Triage & Resolution (< 6h, Zero Video Calls)**](https://hooktriage.com/#triage)\n\n\n## Incident Metadata\n- **Platform / Ecosystem**: `n8n`\n- **Incident Severity**: `MEDIUM`\n- **Resolution Status**: `RADAR TRIAGED & READY FOR RESOLUTION`\n- **Logged Timestamp**: `2026-11-24T13:07:20`\n- **Diagnosis Engine**: Autonomous Production Incident Radar\n\n---\n\n## Root-Cause Analysis & Patch Preview (Layer 1)\n\nkartike valide le principe de d\u00e9couplage architectural : une panne de l'API Discord bloquait leur workflow synchrone, retardant l'ACK Stripe et provoquant une temp\u00eate de retries. Ils ont r\u00e9solu l'incident en ex...\n\n---\n\n## Incident Prevention & Operational Takeaways\n1. **Audit Upstream Authentication**: Validate OAuth2 token refresh loops and ensure service credentials cannot be orphaned.\n2. **Implement Schema Boundary Validation**: Guard downstream webhooks against unexpected payload truncations.\n3. **Automate Error Interception**: Configure fallback nodes and alerting monitors before critical production executions.\n\n---\n\n\n> \u26a1 **Encountering this exact production bug or need an emergency automation fix?**  \n> [**\ud83d\udea8 Instant Async Production Triage & Resolution (< 6h, Zero Video Calls)**](https://hooktriage.com/#triage)\n\n\n[\u2190 Back to Live Case Studies Index](../)\n";
+    const caseLeadId = "n8n_forum_topic_330005";
     const caseAssetTitle = "n8n Community: Running a paid Discord community on Stripe: the edge cases that bit me";
     // Strip YAML frontmatter
     const mdWithoutYaml = rawMarkdown.replace(/^---[\s\S]*?---\s*/, '');

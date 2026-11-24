@@ -4,7 +4,7 @@ title: "n8n Community: Running a paid Discord community on Stripe: the edge case
 platform: "n8n"
 severity: "MEDIUM"
 status: "Resolved"
-date: 2026-11-23
+date: 2026-11-24
 tags: ["n8n", "production-fix", "post-mortem", "verified-resolution"]
 slug: "n8n-community-running-a-paid-discord-community-on-stripe-the-edge"
 ---
@@ -19,15 +19,15 @@ slug: "n8n-community-running-a-paid-discord-community-on-stripe-the-edge"
 ## Incident Metadata
 - **Platform / Ecosystem**: `n8n`
 - **Incident Severity**: `MEDIUM`
-- **Resolution Status**: `VERIFIED & RESOLVED`
-- **Logged Timestamp**: `2026-11-23T22:07:22`
+- **Resolution Status**: `RADAR TRIAGED & READY FOR RESOLUTION`
+- **Logged Timestamp**: `2026-11-24T13:07:20`
 - **Diagnosis Engine**: Autonomous Production Incident Radar
 
 ---
 
 ## Root-Cause Analysis & Patch Preview (Layer 1)
 
-kartike partage son retour d'expérience sur la gestion des rate limits Discord lors des synchronisations de rôles Stripe : gestion dynamique du `retry_after` sur HTTP 429 et lissage des sweeps...
+kartike valide le principe de découplage architectural : une panne de l'API Discord bloquait leur workflow synchrone, retardant l'ACK Stripe et provoquant une tempête de retries. Ils ont résolu l'incident en ex...
 
 ---
 
