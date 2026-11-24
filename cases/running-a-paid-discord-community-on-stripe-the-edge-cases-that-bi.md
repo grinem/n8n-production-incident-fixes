@@ -16,9 +16,9 @@ slug: "running-a-paid-discord-community-on-stripe-the-edge-cases-that-bi"
 > [**🚨 Instant Async Production Triage & Resolution (< 6h, Zero Video Calls)**](https://hooktriage.com/#triage)
 
 
-> ✅ **Confirmed Production Resolution (Timestamp: `2026-11-23T23:00:42.100300+01:00`)**  
+> ✅ **Confirmed Production Resolution (Timestamp: `2026-11-24T14:00:44.292296+01:00`)**  
 > **Author (`kartike`) verified on [the live thread](https://community.n8n.io/t/running-a-paid-discord-community-on-stripe-the-edge-cases-that-bit-me/330005)**:  
-> *"Good catch on the role limit, that one bit me too. I chunk the sweep so each 10 second window does at most 8 role changes, and I read retry_after from the 429 response instead of a fixed sleep, because a fixed wait still stacks when two batches land in the same window. The bigger win for me was spreading the check itself: most subscriptions renew on the 1st since that is when they were created, so a midnight sweep hits its worst cluster once a month. Grouping members by signup day spread that out."*
+> *"Thanks! The queue split is exactly where our ACK was originally, and Stripe’s retries turned one Discord outage into a webhook storm. Moving role mutation out of the main flow fixed it. I’ll check out the video."*
 
 
 ## Incident Metadata
