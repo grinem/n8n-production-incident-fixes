@@ -13,7 +13,8 @@
 - Sitemap: https://hooktriage.com/sitemap.xml
 - Maintainer GitHub Profile: https://github.com/grinem
 
-## Documented Production Incidents (191)
+## Documented Production Incidents (192)
+- [Make.com] Problem with Gemini module: https://hooktriage.com/cases/problem-with-gemini-module.html - Root Cause: Google retired older endpoints like `gemini-1.0-pro` recently and clamped down on free tier quota limits (throwing 404s or 429 RESOURCE_EXHAUSTED).
 - [n8n] n8n Community: Help shape n8n: the future of credentials: https://hooktriage.com/cases/n8n-community-help-shape-n8n-the-future-of-credentials.html - Root Cause: Jan (équipe core / fondateur n8n) valide le besoin natif d'audit et de rotation des credentials sans passer par des scripts custom, et demande des retours d'expérience sur la te...
 - [n8n] n8n Community: Running a paid Discord community on Stripe: the edge cases that bit me: https://hooktriage.com/cases/n8n-community-running-a-paid-discord-community-on-stripe-the-edge.html - Root Cause: kartike valide le principe de découplage architectural : une panne de l'API Discord bloquait leur workflow synchrone, retardant l'ACK Stripe et provoquant une tempête de retries...
 - [n8n] n8n Community: Running a paid Discord community on Stripe: the edge cases that bit me: https://hooktriage.com/cases/n8n-community-running-a-paid-discord-community-on-stripe-the-edge-n8n_fo.html - Root Cause: kartike partage son retour d'expérience sur la gestion des rate limits Discord lors des synchronisations de rôles Stripe : gestion dynamique du `retry_after` sur HTTP 429 et lis...

@@ -1,7 +1,7 @@
 # 🛠️ n8n & Low-Code Production Incident Fixes (Live Knowledge Base)
 
 [![GitHub Pages](https://img.shields.io/badge/GitHub%20Pages-Live%20Showcase-brightgreen?style=flat-square&logo=github)](https://grinem.github.io/n8n-production-incident-fixes/)
-[![Incidents Resolved](https://img.shields.io/badge/Incidents%20Resolved-191%20Verified-blue?style=flat-square)](cases/)
+[![Incidents Resolved](https://img.shields.io/badge/Incidents%20Resolved-192%20Verified-blue?style=flat-square)](cases/)
 [![Emergency SLA](https://img.shields.io/badge/Incident%20SLA-%3C%206%20Hours-orange?style=flat-square)](https://hooktriage.com/#triage)
 [![Async Triage](https://img.shields.io/badge/Async%20Triage-Zero%20Calls-success?style=flat-square)](https://hooktriage.com/#triage)
 
@@ -38,10 +38,11 @@ All incident post-mortems in this repository are autonomously generated and sync
 
 ---
 
-## 📚 Documented Production Incidents (191)
+## 📚 Documented Production Incidents (192)
 
 | Ecosystem | Incident Case Study | Root Cause Snapshot | Severity | Solution Link |
 |:----------|:--------------------|:--------------------|:--------:|:-------------:|
+| **Make.com** | [Problem with Gemini module](cases/problem-with-gemini-module.md) | Google retired older endpoints like `gemini-1.0-pro` recently and clamped down on free tier quota limits (throwing 404s or 429 RESOURCE_EXHAUSTED). | 🟡 `MEDIUM` | [**Solution**](cases/problem-with-gemini-module.md) |
 | **n8n** | [n8n Community: Help shape n8n: the future of credentials](cases/n8n-community-help-shape-n8n-the-future-of-credentials.md) | Jan (équipe core / fondateur n8n) valide le besoin natif d'audit et de rotation des credentials sans passer par des scripts custom, et demande des retours d'expérience sur la te... | 🟡 `MEDIUM` | [**Solution**](cases/n8n-community-help-shape-n8n-the-future-of-credentials.md) |
 | **n8n** | [n8n Community: Running a paid Discord community on Stripe: the edge cases that bit me](cases/n8n-community-running-a-paid-discord-community-on-stripe-the-edge.md) | kartike valide le principe de découplage architectural : une panne de l'API Discord bloquait leur workflow synchrone, retardant l'ACK Stripe et provoquant une tempête de retries... | 🟡 `MEDIUM` | [**Solution**](cases/n8n-community-running-a-paid-discord-community-on-stripe-the-edge.md) |
 | **n8n** | [n8n Community: Running a paid Discord community on Stripe: the edge cases that bit me](cases/n8n-community-running-a-paid-discord-community-on-stripe-the-edge-n8n_fo.md) | kartike partage son retour d'expérience sur la gestion des rate limits Discord lors des synchronisations de rôles Stripe : gestion dynamique du `retry_after` sur HTTP 429 et lis... | 🟡 `MEDIUM` | [**Solution**](cases/n8n-community-running-a-paid-discord-community-on-stripe-the-edge-n8n_fo.md) |
