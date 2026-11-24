@@ -13,9 +13,9 @@ title: "Production Incident Fixes & Post-Mortem Knowledge Base"
 
 
 ### 📊 Real-Time Operations Telemetry
-- **Total Production Incidents Documented**: `191`
+- **Total Production Incidents Documented**: `189`
 - **Active Incident Resolvers**: Automated Production Radar + Lead SRE Engineer
-- **Breakdown by Platform**: **n8n**: 105 | **Automation Engine**: 37 | **Make.com**: 29 | **Activepieces**: 10 | **Bubble.io**: 5 | **Meta / Webhooks**: 3 | **Baserow**: 2
+- **Breakdown by Platform**: **n8n**: 103 | **Automation Engine**: 37 | **Make.com**: 29 | **Activepieces**: 10 | **Bubble.io**: 5 | **Meta / Webhooks**: 3 | **Baserow**: 2
 - **Average Diagnosis & Root-Cause Pinpoint**: `< 15 Minutes`
 
 ---
@@ -25,9 +25,7 @@ title: "Production Incident Fixes & Post-Mortem Knowledge Base"
 | Ecosystem | Incident Summary | Root Cause Snapshot | Severity | Resolution Guide |
 |:----------|:-----------------|:--------------------|:--------:|:----------------:|
 | **n8n** | [n8n Community: Running a paid Discord community on Stripe: the edge cases that bit me](cases/n8n-community-running-a-paid-discord-community-on-stripe-the-edge.html) | kartike partage son retour d'expérience sur la gestion des rate limits Discord lors des synchronisations de rôles Stripe : gestion dynamique du `retry_after` sur HTTP 429 et lis... | 🟡 `MEDIUM` | [**View Solution →**](cases/n8n-community-running-a-paid-discord-community-on-stripe-the-edge.html) |
-| **n8n** | [n8n Community: Running a paid Discord community on Stripe: the edge cases that bit me](cases/n8n-community-running-a-paid-discord-community-on-stripe-the-edge-n8n_fo.html) | Kartike détaille sa stratégie de réconciliation Stripe-Discord : un cron régulier servant de filet de sécurité pour rattraper les webhooks silencieusement perdus via `subscripti... | 🟡 `MEDIUM` | [**View Solution →**](cases/n8n-community-running-a-paid-discord-community-on-stripe-the-edge-n8n_fo.html) |
 | **n8n** | [n8n Community: Basic LLM Chain node to return a flat JSON](cases/n8n-community-basic-llm-chain-node-to-return-a-flat-json.html) | Stéphane confirme avoir résolu son problème de structure en aplatissant la sortie du Basic LLM Chain via un nœud Code (`$input.all().map(...)`). C'est un utilisateur actif des a... | 🟡 `MEDIUM` | [**View Solution →**](cases/n8n-community-basic-llm-chain-node-to-return-a-flat-json.html) |
-| **n8n** | [n8n Community: Running a paid Discord community on Stripe: the edge cases that bit me](cases/n8n-community-running-a-paid-discord-community-on-stripe-the-edge-n8n_fo.html) | Kartike souligne la granularité à la seconde des timestamps Stripe (`created`), qui provoque l'abandon silencieux d'événements légitimes partageant la même seconde en cas d'arri... | 🟡 `MEDIUM` | [**View Solution →**](cases/n8n-community-running-a-paid-discord-community-on-stripe-the-edge-n8n_fo.html) |
 | **Automation Engine** | [Agent V2 evaluation traces drop output retry attempts](cases/agent-v2-evaluation-traces-drop-output-retry-attempts.html) | The collector lifecycle is currently bound inside the retry iteration loop rather than the node's execution context. When schema validation fails on a backend output, the collec... | 🔴 `CRITICAL` | [**View Solution →**](cases/agent-v2-evaluation-traces-drop-output-retry-attempts.html) |
 | **n8n** | [u/Impressive-Will3970 a répondu à ta publication dans r/n8n](cases/u-impressive-will3970-a-r-pondu-ta-publication-dans-r-n8n.html) | u/Impressive-Will3970 rebondit sur l'audit n8n en pointant le goulet d'étranglement critique : les timeouts sur les webhooks synchrones Stripe/Shopify combinés à l'absence de De... | 🟡 `MEDIUM` | [**View Solution →**](cases/u-impressive-will3970-a-r-pondu-ta-publication-dans-r-n8n.html) |
 | **n8n** | [N8n Cloud Webhook Execution Failure – No Execution History](cases/n8n-cloud-webhook-execution-failure-no-execution-history.html) | The reason you get `{"code":0}` with zero execution history is Windows PowerShell 5.1 defaulting to UTF-16 LE encoding. That breaks n8n's Express body parser at the ingress leve... | 🟡 `MEDIUM` | [**View Solution →**](cases/n8n-cloud-webhook-execution-failure-no-execution-history.html) |
