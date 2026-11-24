@@ -19,7 +19,7 @@ slug: "n8n-community-running-a-paid-discord-community-on-stripe-the-edge"
 ## Incident Metadata
 - **Platform / Ecosystem**: `n8n`
 - **Incident Severity**: `MEDIUM`
-- **Resolution Status**: `RADAR TRIAGED & READY FOR RESOLUTION`
+- **Resolution Status**: `VERIFIED & RESOLVED`
 - **Logged Timestamp**: `2026-11-23T22:07:22`
 - **Diagnosis Engine**: Autonomous Production Incident Radar
 
