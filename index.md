@@ -13,9 +13,9 @@ title: "Production Incident Fixes & Post-Mortem Knowledge Base"
 
 
 ### 📊 Real-Time Operations Telemetry
-- **Total Production Incidents Documented**: `190`
+- **Total Production Incidents Documented**: `191`
 - **Active Incident Resolvers**: Automated Production Radar + Lead SRE Engineer
-- **Breakdown by Platform**: **n8n**: 104 | **Automation Engine**: 37 | **Make.com**: 29 | **Activepieces**: 10 | **Bubble.io**: 5 | **Meta / Webhooks**: 3 | **Baserow**: 2
+- **Breakdown by Platform**: **n8n**: 105 | **Automation Engine**: 37 | **Make.com**: 29 | **Activepieces**: 10 | **Bubble.io**: 5 | **Meta / Webhooks**: 3 | **Baserow**: 2
 - **Average Diagnosis & Root-Cause Pinpoint**: `< 15 Minutes`
 
 ---
@@ -24,6 +24,7 @@ title: "Production Incident Fixes & Post-Mortem Knowledge Base"
 
 | Ecosystem | Incident Summary | Root Cause Snapshot | Severity | Resolution Guide |
 |:----------|:-----------------|:--------------------|:--------:|:----------------:|
+| **n8n** | [n8n Community: Help shape n8n: the future of credentials](cases/n8n-community-help-shape-n8n-the-future-of-credentials.html) | Jan (équipe core / fondateur n8n) valide le besoin natif d'audit et de rotation des credentials sans passer par des scripts custom, et demande des retours d'expérience sur la te... | 🟡 `MEDIUM` | [**View Solution →**](cases/n8n-community-help-shape-n8n-the-future-of-credentials.html) |
 | **n8n** | [n8n Community: Running a paid Discord community on Stripe: the edge cases that bit me](cases/n8n-community-running-a-paid-discord-community-on-stripe-the-edge.html) | kartike valide le principe de découplage architectural : une panne de l'API Discord bloquait leur workflow synchrone, retardant l'ACK Stripe et provoquant une tempête de retries... | 🟡 `MEDIUM` | [**View Solution →**](cases/n8n-community-running-a-paid-discord-community-on-stripe-the-edge.html) |
 | **n8n** | [n8n Community: Running a paid Discord community on Stripe: the edge cases that bit me](cases/n8n-community-running-a-paid-discord-community-on-stripe-the-edge-n8n_fo.html) | kartike partage son retour d'expérience sur la gestion des rate limits Discord lors des synchronisations de rôles Stripe : gestion dynamique du `retry_after` sur HTTP 429 et lis... | 🟡 `MEDIUM` | [**View Solution →**](cases/n8n-community-running-a-paid-discord-community-on-stripe-the-edge-n8n_fo.html) |
 | **n8n** | [n8n Community: Basic LLM Chain node to return a flat JSON](cases/n8n-community-basic-llm-chain-node-to-return-a-flat-json.html) | Stéphane confirme avoir résolu son problème de structure en aplatissant la sortie du Basic LLM Chain via un nœud Code (`$input.all().map(...)`). C'est un utilisateur actif des a... | 🟡 `MEDIUM` | [**View Solution →**](cases/n8n-community-basic-llm-chain-node-to-return-a-flat-json.html) |
