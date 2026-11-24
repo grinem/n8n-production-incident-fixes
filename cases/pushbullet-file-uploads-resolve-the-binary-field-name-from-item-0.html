@@ -62,6 +62,7 @@
     html.ht-light .ht-surface,
     html.ht-light #content,
     html.ht-light #valueFirstGateCard,
+    html.ht-light #localBrowserAuditorCard,
     html.ht-light #lockedPatchCard,
     html.ht-light details {
       background-color: #ffffff !important;
@@ -84,6 +85,7 @@
     html.ht-light #content h3,
     html.ht-light #content strong,
     html.ht-light #valueFirstGateCard h3,
+    html.ht-light #localBrowserAuditorCard h3,
     html.ht-light #lockedPatchCard h3,
     html.ht-light details summary {
       color: #0f172a !important;
@@ -93,6 +95,7 @@
     html.ht-light #content li,
     html.ht-light #valueFirstGateCard ul,
     html.ht-light #valueFirstGateCard p,
+    html.ht-light #localBrowserAuditorCard p,
     html.ht-light #lockedPatchCard p,
     html.ht-light details p {
       color: #334155 !important;
@@ -216,6 +219,8 @@
     html.ht-light #triageModal textarea,
     html.ht-light #kitModal input,
     html.ht-light #valueFirstGateCard input,
+    html.ht-light #localBrowserAuditorCard input,
+    html.ht-light #localBrowserAuditorCard textarea,
     html.ht-light details input,
     html.ht-light details textarea {
       background-color: #f8fafc !important;
@@ -247,8 +252,26 @@
     html.ht-light #triageModal .border-\[\#212629\],
     html.ht-light #kitModal .border-\[\#212629\],
     html.ht-light #valueFirstGateCard .border-\[\#212629\],
+    html.ht-light #localBrowserAuditorCard .border-\[\#212629\],
     html.ht-light details .border-\[\#212629\] {
       border-color: #e2e8f0 !important;
+    }
+    html.ht-light #localBrowserAuditorCard #localPrecheckBox,
+    html.ht-light #localBrowserAuditorCard .ht-local-subbox {
+      background-color: #f8fafc !important;
+      border-color: #cbd5e1 !important;
+      color: #0f172a !important;
+    }
+    html.ht-light #localPrecheckList li {
+      color: #334155 !important;
+    }
+    html.ht-light #localPrecheckTitle {
+      color: #047857 !important;
+    }
+    html.ht-light #htJumpAuditorBar {
+      background-color: #ecfdf5 !important;
+      border-color: #a7f3d0 !important;
+      color: #065f46 !important;
     }
   </style>
   <script>
@@ -333,9 +356,77 @@
       </div>
     </div>
 
+    <div id="htJumpAuditorBar" class="mb-5 rounded-2xl bg-[#00d294]/10 border border-[#00d294]/30 px-4 py-2.5 flex flex-wrap items-center justify-between gap-2 text-xs">
+      <span class="font-medium text-[#00d294]">&#128274; 100% Client-Side in Browser &mdash; 0 Bytes Sent</span>
+      <a href="#localBrowserAuditorCard" class="font-semibold underline underline-offset-4 hover:opacity-80">Audit your own n8n JSON locally (0 bytes sent) &darr;</a>
+    </div>
+
     <!-- Layer 1 (Bloc A): Free Root-Cause Analysis & 3-Line Patch Preview -->
     <article id="content" class="bg-[#141517] rounded-3xl p-6 sm:p-10 border border-[#212629]">
     </article>
+
+    <!-- Layer 1.5: Visible 100% Client-Side Local JSON Auditor (Zero Account, 0 Bytes Sent) -->
+    <div id="localBrowserAuditorCard" class="mt-6 rounded-3xl bg-[#141517] border border-[#00d294]/40 p-6 sm:p-8">
+      <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
+        <span class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-[#00d294]/15 text-[#00d294] border border-[#00d294]/40">
+          <span class="h-1.5 w-1.5 rounded-full bg-[#00d294]"></span>
+          <span>100% Client-Side in Browser &mdash; 0 Bytes Sent</span>
+        </span>
+        <span class="text-xs text-[#878d8f] font-mono">No login &bull; Runs locally in JS</span>
+      </div>
+      <h3 class="text-xl sm:text-2xl font-semibold tracking-tight text-[#f0f0f0] mb-2">
+        Check Your n8n Workflow JSON in 3 Seconds (Zero Data Leaves Your Browser)
+      </h3>
+      <p class="text-sm text-[#a1a4a5] mb-4">
+        Paste any n8n workflow JSON below or test immediately on a vulnerable Stripe webhook sample. All checks execute strictly inside your browser via local JavaScript &mdash; your endpoints, headers, and secrets are never uploaded.
+      </p>
+
+      <div class="space-y-3">
+        <div class="flex flex-wrap items-center gap-2">
+          <button type="button" onclick="window.runSampleStripePrecheck()" class="inline-flex items-center justify-center px-4 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-semibold text-xs transition cursor-pointer shadow-sm">
+            Try Sample Stripe Webhook JSON (1-Click) &rarr;
+          </button>
+          <button type="button" onclick="window.runLocalJsonPrecheck()" class="inline-flex items-center justify-center px-4 py-2.5 rounded-xl bg-[#00d294]/15 hover:bg-[#00d294]/25 border border-[#00d294]/40 text-[#00d294] font-semibold text-xs transition cursor-pointer">
+            Scan My Pasted JSON Locally (0 Bytes Sent)
+          </button>
+        </div>
+        <textarea id="auditPayload" rows="4" placeholder="Paste your n8n workflow .json here (stays 100% in your browser)..." class="w-full rounded-xl bg-[#0a0b0c] border border-[#212629] px-3.5 py-2.5 text-xs font-mono text-[#f0f0f0] placeholder-[#52595b] focus:outline-none focus:border-[#3b4345]"></textarea>
+      </div>
+
+      <div id="localPrecheckBox" class="ht-local-subbox hidden mt-4 rounded-2xl bg-[#0a0b0c] border border-[#00d294]/40 p-4 space-y-3 text-xs">
+        <div id="localPrecheckTitle" class="font-semibold text-sm text-[#00d294]"></div>
+        <ul id="localPrecheckList" class="list-disc pl-4 text-[#a1a4a5] space-y-1.5"></ul>
+        <div id="localPrecheckCta" class="pt-2 border-t border-[#212629]">
+          <a href="https://api.hooktriage.com/go/hardening-kit-19?src=local_auditor&amp;case=pushbullet-file-uploads-resolve-the-binary-field-name-from-item-0" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center gap-2 w-full sm:w-auto rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2.5 px-4 text-xs transition cursor-pointer no-underline shadow-sm">
+            <span>Import the 4 Production-Ready n8n .json Guards ($19 &mdash; Card / Apple Pay) &rarr;</span>
+          </a>
+        </div>
+      </div>
+
+      <details class="mt-4 rounded-2xl bg-[#0a0b0c]/60 border border-[#212629] p-4">
+        <summary class="text-xs font-medium text-[#a1a4a5] cursor-pointer select-none flex items-center justify-between gap-2">
+          <span>&#9993;&#65039; Optional: Receive a masked remediation summary by email (45s)</span>
+          <span class="text-[11px] font-mono text-[#878d8f]">Optional</span>
+        </summary>
+        <div class="mt-3 pt-3 border-t border-[#212629] space-y-3">
+          <p class="text-xs text-[#a1a4a5]">
+            API keys, Bearer tokens, and passwords are automatically masked locally via <code class="text-[11px] bg-[#191b1e] px-1 py-0.5 rounded">maskLocal()</code> before sending.
+          </p>
+          <form id="auditWorkflowForm" onsubmit="return window.submitAuditWorkflow(event)" class="space-y-2.5 relative">
+            <input id="auditEmail" type="email" required placeholder="work@company.com" class="w-full rounded-xl bg-[#0a0b0c] border border-[#212629] px-3.5 py-2 text-xs text-[#f0f0f0] placeholder-[#52595b] focus:outline-none focus:border-[#3b4345]" />
+            <input id="auditWebsite" name="website" type="text" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;opacity:0;height:0;width:0;" />
+            <button id="auditSubmitBtn" type="submit" class="inline-flex items-center justify-center px-4 py-2 rounded-xl bg-[#191b1e] hover:bg-[#212629] border border-[#293034] text-[#f0f0f0] font-medium text-xs transition cursor-pointer">
+              Send Masked Report by Email (45s) &rarr;
+            </button>
+          </form>
+          <div id="auditErr" class="hidden text-xs text-rose-400"></div>
+          <div id="auditSuccessBox" class="hidden rounded-2xl bg-[#0a0b0c] border border-[#00d294]/40 p-4 space-y-2">
+            <div id="auditStatusMsg" class="text-xs font-semibold text-[#00d294]"></div>
+            <pre id="auditReportOut" class="text-xs font-mono text-[#e2e8f0] whitespace-pre-wrap overflow-x-auto"></pre>
+          </div>
+        </div>
+      </details>
+    </div>
 
     <!-- Layer 2 (Bloc B): Locked Ready-to-Use Patch Artefact (Truncated Preview + Card-First CTA) -->
     <div id="lockedPatchCard" class="mt-6 rounded-3xl bg-[#141517] border border-[#212629] p-6 sm:p-8">
@@ -350,7 +441,7 @@
         Unlock the Verified Drop-In Fix &amp; Production Hardening Kit
       </h3>
       <p class="text-sm text-[#a1a4a5] mb-4">
-        The full root-cause analysis above remains open for SEO &amp; engineering reference. Unlock the 4 exclusive production-ready n8n .json workflows, retry/idempotency blueprints, and verification checklist:
+        The full root-cause analysis above remains open for SEO &amp; engineering reference. Import the 4 exclusive production-ready n8n .json workflows (Stripe/Shopify Idempotency + HMAC, Shopify &lt;5s ACK, AI Circuit Breaker, DLQ) and verification checklist:
       </p>
 
       <!-- Truncated Blurred Preview Box -->
@@ -377,8 +468,8 @@ Because `0` is hardcoded, expressions like `{{ $json.binaryField }}` evaluate st
 
       <!-- Direct CTA: Card / Apple Pay ($19) -->
       <div class="space-y-2.5">
-        <a href="https://www.agensi.io/r/HOOKTRIAGE?to=/skills/hooktriage-n8n-production-hardening-kit&utm_source=hooktriage" target="_blank" rel="noopener noreferrer" onclick="window.trackAgensiClick('agensi_click_19')" class="flex items-center justify-center gap-2 w-full rounded-2xl bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3.5 px-5 text-sm transition cursor-pointer shadow-lg no-underline">
-          <span>Pay $19 by Card / Apple Pay (4 Exclusive JSONs via Agensi) &rarr;</span>
+        <a href="https://api.hooktriage.com/go/hardening-kit-19?src=case_card&amp;case=pushbullet-file-uploads-resolve-the-binary-field-name-from-item-0" target="_blank" rel="noopener noreferrer" class="flex items-center justify-center gap-2 w-full rounded-2xl bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3.5 px-5 text-sm transition cursor-pointer shadow-lg no-underline">
+          <span>Import 4 Production-Ready n8n .json Guards &mdash; $19 (Card / Apple Pay) &rarr;</span>
         </a>
         <button type="button" onclick="window.openKitModal()" class="ht-crypto-btn hidden flex items-center justify-center gap-2 w-full rounded-2xl bg-[#191b1e] hover:bg-[#212629] border border-[#293034] text-[#f0f0f0] font-medium py-3 px-5 text-sm transition cursor-pointer" style="display:none" aria-hidden="true">
           <span>Or Unlock via Crypto &mdash; $19 (USDT BEP20 / 150+ Coins) &rarr;</span>
@@ -389,7 +480,7 @@ Because `0` is hardcoded, expressions like `{{ $json.binaryField }}` evaluate st
       <div class="mt-5 pt-4 border-t border-[#212629] flex flex-wrap items-center justify-between gap-3 text-xs text-[#878d8f]">
         <span>Verified against n8n production edge cases</span>
         <div class="flex flex-wrap items-center gap-4">
-          <a href="https://www.agensi.io/skills/hooktriage-n8n-pro-pack-1-workflow-production-audit" target="_blank" rel="noopener noreferrer" onclick="window.trackAgensiClick('agensi_click_49')" class="text-[#a1a4a5] hover:text-[#f0f0f0] underline underline-offset-4 cursor-pointer">
+          <a href="https://api.hooktriage.com/go/pro-pack-49?src=case_card&amp;case=pushbullet-file-uploads-resolve-the-binary-field-name-from-item-0" target="_blank" rel="noopener noreferrer" class="text-[#a1a4a5] hover:text-[#f0f0f0] underline underline-offset-4 cursor-pointer">
             Need a 1-on-1 workflow audit? Pro Pack + Audit ($49) &rarr;
           </a>
           <a href="mailto:ops@hooktriage.com?subject=Turnkey%20PR%20Audit%20(%24199)" onclick="window.trackAgensiClick('turnkey_pr_199_mailto')" class="text-[#878d8f] hover:text-[#f0f0f0] underline underline-offset-4 cursor-pointer">
@@ -398,41 +489,6 @@ Because `0` is hardcoded, expressions like `{{ $json.binaryField }}` evaluate st
         </div>
       </div>
     </div>
-
-    <!-- Optional Collapsible Silent-Failure Audit Card (Client-Side Secret Masking via maskLocal) -->
-    <details class="mt-4 rounded-3xl bg-[#141517] border border-[#212629] p-5 sm:p-6">
-      <summary class="text-sm font-medium text-[#f0f0f0] cursor-pointer select-none flex items-center justify-between gap-2">
-        <span>&#x1F50D; Paste your sanitized workflow JSON / URL &rarr; receive your Silent-Failure Audit Report by email in 45s</span>
-        <span class="text-xs text-[#878d8f] font-mono">Optional</span>
-      </summary>
-      <div class="mt-4 pt-4 border-t border-[#212629] space-y-3">
-        <p class="text-xs text-[#a1a4a5]">
-          API keys, Bearer tokens, and passwords are automatically masked locally in your browser via <code class="text-[11px] bg-[#191b1e] px-1 py-0.5 rounded">maskLocal()</code> before anything is sent.
-        </p>
-        <form id="auditWorkflowForm" onsubmit="return window.submitAuditWorkflow(event)" class="space-y-3 relative">
-          <input id="auditEmail" type="email" required placeholder="work@company.com" class="w-full rounded-xl bg-[#0a0b0c] border border-[#212629] px-3.5 py-2.5 text-sm text-[#f0f0f0] placeholder-[#52595b] focus:outline-none focus:border-[#3b4345]" />
-          <input id="auditWebsite" name="website" type="text" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;opacity:0;height:0;width:0;" />
-          <textarea id="auditPayload" rows="4" required placeholder="Paste workflow JSON, webhook payload, or GitHub/docs URL..." class="w-full rounded-xl bg-[#0a0b0c] border border-[#212629] px-3.5 py-2.5 text-xs font-mono text-[#f0f0f0] placeholder-[#52595b] focus:outline-none focus:border-[#3b4345]"></textarea>
-          <div class="flex flex-wrap items-center gap-2">
-            <button type="button" onclick="window.runLocalJsonPrecheck()" class="inline-flex items-center justify-center px-4 py-2.5 rounded-xl bg-[#00d294]/15 hover:bg-[#00d294]/25 border border-[#00d294]/40 text-[#00d294] font-semibold text-xs transition cursor-pointer">
-              1. Scan Locally in Browser (0 bytes sent)
-            </button>
-            <button id="auditSubmitBtn" type="submit" class="inline-flex items-center justify-center px-4 py-2.5 rounded-xl bg-[#191b1e] hover:bg-[#212629] border border-[#293034] text-[#f0f0f0] font-medium text-xs transition cursor-pointer">
-              2. Send Full Remediation Report by Email (45s) &rarr;
-            </button>
-          </div>
-        </form>
-        <div id="localPrecheckBox" class="hidden mt-3 rounded-2xl bg-[#0a0b0c] border border-[#212629] p-4 space-y-1.5 text-xs">
-          <div id="localPrecheckTitle" class="font-semibold text-[#00d294]"></div>
-          <ul id="localPrecheckList" class="list-disc pl-4 text-[#a1a4a5] space-y-1"></ul>
-        </div>
-        <div id="auditErr" class="hidden text-xs text-rose-400"></div>
-        <div id="auditSuccessBox" class="hidden rounded-2xl bg-[#0a0b0c] border border-[#00d294]/40 p-4 space-y-2">
-          <div id="auditStatusMsg" class="text-xs font-semibold text-[#00d294]"></div>
-          <pre id="auditReportOut" class="text-xs font-mono text-[#e2e8f0] whitespace-pre-wrap overflow-x-auto"></pre>
-        </div>
-      </div>
-    </details>
 
     <!-- Free Zero-Trust CLI/MCP Scanner & n8n Watchdog CTA (Inbound Sensors) -->
     <div class="mt-4 rounded-3xl bg-[#141517] border border-[#00d294]/30 p-5 sm:p-6 space-y-4">
@@ -443,7 +499,7 @@ Because `0` is hardcoded, expressions like `{{ $json.binaryField }}` evaluate st
           <p class="text-xs text-[#a1a4a5] mt-1">Audit workflows locally in 1 command (Cursor, Claude Code, terminal) or import the 12-node Multi-Branch n8n Watchdog JSON with built-in local secret scrubbing.</p>
         </div>
         <div class="flex flex-wrap items-center gap-2 shrink-0">
-          <a href="https://www.agensi.io/r/HOOKTRIAGE?to=/skills/hooktriage-n8n-webhook-silent-failure-auditor&utm_source=hooktriage" target="_blank" rel="noopener noreferrer" onclick="window.trackAgensiClick('agensi_click_free')" class="px-3.5 py-2 rounded-xl bg-[#191b1e] hover:bg-[#212629] border border-[#00d294]/40 text-xs font-medium text-[#00d294] whitespace-nowrap">AI Skill (Agensi &bull; Free)</a>
+          <a href="https://api.hooktriage.com/go/free-auditor?src=case_free&amp;case=pushbullet-file-uploads-resolve-the-binary-field-name-from-item-0" target="_blank" rel="noopener noreferrer" class="px-3.5 py-2 rounded-xl bg-[#191b1e] hover:bg-[#212629] border border-[#00d294]/40 text-xs font-medium text-[#00d294] whitespace-nowrap">Free Webhook Auditor (Agensi)</a>
           <a href="https://github.com/grinem/hooktriage" target="_blank" rel="noopener noreferrer" class="px-3.5 py-2 rounded-xl bg-[#191b1e] hover:bg-[#212629] border border-[#293034] text-xs font-medium text-[#f0f0f0] whitespace-nowrap">CLI &amp; MCP Repo (MIT)</a>
           <a href="https://github.com/grinem/n8n-ai-watchdog" target="_blank" rel="noopener noreferrer" class="px-3.5 py-2 rounded-xl bg-[#191b1e] hover:bg-[#212629] border border-[#293034] text-xs font-medium text-[#f0f0f0] whitespace-nowrap">n8n Watchdog Repo</a>
           <a href="https://raw.githubusercontent.com/grinem/n8n-ai-watchdog/main/n8n-silent-failure-watchdog.json" target="_blank" rel="noopener noreferrer" class="px-4 py-2 rounded-xl bg-[#00d294] hover:opacity-90 text-xs font-semibold text-black whitespace-nowrap">Get Watchdog JSON &rarr;</a>
