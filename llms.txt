@@ -13,7 +13,8 @@
 - Sitemap: https://hooktriage.com/sitemap.xml
 - Maintainer GitHub Profile: https://github.com/grinem
 
-## Documented Production Incidents (193)
+## Documented Production Incidents (194)
+- [n8n] N8N102: Priority Queue API Returning 422 Error in Step 2.5: https://hooktriage.com/cases/n8n102-priority-queue-api-returning-422-error-in-step-2-5.html - Root Cause: The Academy validator for that endpoint specifically expects the header key to be `assessment_id`, not `X-Assessment-ID`.
 - [Make.com] WhatsApp Business Cloud Watch Events: Signature Validation and Existing Webhook Safety: https://hooktriage.com/cases/whatsapp-business-cloud-watch-events-signature-validation-and-exi.html - Root Cause: Yes, setting up Make’s native Watch Events module will overwrite your existing Callback URL in Meta. Meta allows only one webhook endpoint per WhatsApp Business app, so connecti...
 - [Make.com] Problem with Gemini module: https://hooktriage.com/cases/problem-with-gemini-module.html - Root Cause: Google retired older endpoints like `gemini-1.0-pro` recently and clamped down on free tier quota limits (throwing 404s or 429 RESOURCE_EXHAUSTED).
 - [n8n] n8n Community: Help shape n8n: the future of credentials: https://hooktriage.com/cases/n8n-community-help-shape-n8n-the-future-of-credentials.html - Root Cause: Jan (équipe core / fondateur n8n) valide le besoin natif d'audit et de rotation des credentials sans passer par des scripts custom, et demande des retours d'expérience sur la te...
