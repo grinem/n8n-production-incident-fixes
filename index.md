@@ -13,9 +13,9 @@ title: "Production Incident Fixes & Post-Mortem Knowledge Base"
 
 
 ### 📊 Real-Time Operations Telemetry
-- **Total Production Incidents Documented**: `192`
+- **Total Production Incidents Documented**: `193`
 - **Active Incident Resolvers**: Automated Production Radar + Lead SRE Engineer
-- **Breakdown by Platform**: **n8n**: 105 | **Automation Engine**: 37 | **Make.com**: 30 | **Activepieces**: 10 | **Bubble.io**: 5 | **Meta / Webhooks**: 3 | **Baserow**: 2
+- **Breakdown by Platform**: **n8n**: 105 | **Automation Engine**: 37 | **Make.com**: 31 | **Activepieces**: 10 | **Bubble.io**: 5 | **Meta / Webhooks**: 3 | **Baserow**: 2
 - **Average Diagnosis & Root-Cause Pinpoint**: `< 15 Minutes`
 
 ---
@@ -24,6 +24,7 @@ title: "Production Incident Fixes & Post-Mortem Knowledge Base"
 
 | Ecosystem | Incident Summary | Root Cause Snapshot | Severity | Resolution Guide |
 |:----------|:-----------------|:--------------------|:--------:|:----------------:|
+| **Make.com** | [WhatsApp Business Cloud Watch Events: Signature Validation and Existing Webhook Safety](cases/whatsapp-business-cloud-watch-events-signature-validation-and-exi.html) | Yes, setting up Make’s native Watch Events module will overwrite your existing Callback URL in Meta. Meta allows only one webhook endpoint per WhatsApp Business app, so connecti... | 🟡 `MEDIUM` | [**View Solution →**](cases/whatsapp-business-cloud-watch-events-signature-validation-and-exi.html) |
 | **Make.com** | [Problem with Gemini module](cases/problem-with-gemini-module.html) | Google retired older endpoints like `gemini-1.0-pro` recently and clamped down on free tier quota limits (throwing 404s or 429 RESOURCE_EXHAUSTED). | 🟡 `MEDIUM` | [**View Solution →**](cases/problem-with-gemini-module.html) |
 | **n8n** | [n8n Community: Help shape n8n: the future of credentials](cases/n8n-community-help-shape-n8n-the-future-of-credentials.html) | Jan (équipe core / fondateur n8n) valide le besoin natif d'audit et de rotation des credentials sans passer par des scripts custom, et demande des retours d'expérience sur la te... | 🟡 `MEDIUM` | [**View Solution →**](cases/n8n-community-help-shape-n8n-the-future-of-credentials.html) |
 | **n8n** | [n8n Community: Running a paid Discord community on Stripe: the edge cases that bit me](cases/n8n-community-running-a-paid-discord-community-on-stripe-the-edge.html) | kartike valide le principe de découplage architectural : une panne de l'API Discord bloquait leur workflow synchrone, retardant l'ACK Stripe et provoquant une tempête de retries... | 🟡 `MEDIUM` | [**View Solution →**](cases/n8n-community-running-a-paid-discord-community-on-stripe-the-edge.html) |
