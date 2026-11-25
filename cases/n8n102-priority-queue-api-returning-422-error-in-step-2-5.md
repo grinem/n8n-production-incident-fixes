@@ -19,7 +19,7 @@ slug: "n8n102-priority-queue-api-returning-422-error-in-step-2-5"
 ## Incident Metadata
 - **Platform / Ecosystem**: `n8n`
 - **Incident Severity**: `HIGH`
-- **Resolution Status**: `RADAR TRIAGED & READY FOR RESOLUTION`
+- **Resolution Status**: `VERIFIED & RESOLVED`
 - **Logged Timestamp**: `2026-11-25T12:43:07.360378`
 - **Diagnosis Engine**: Autonomous Production Incident Radar
 
