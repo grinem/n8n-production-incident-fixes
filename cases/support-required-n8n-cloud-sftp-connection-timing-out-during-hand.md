@@ -19,7 +19,7 @@ slug: "support-required-n8n-cloud-sftp-connection-timing-out-during-hand"
 ## Incident Metadata
 - **Platform / Ecosystem**: `n8n`
 - **Incident Severity**: `HIGH`
-- **Resolution Status**: `RADAR TRIAGED & READY FOR RESOLUTION`
+- **Resolution Status**: `VERIFIED & RESOLVED`
 - **Logged Timestamp**: `2026-11-26T08:01:19.902988`
 - **Diagnosis Engine**: Autonomous Production Incident Radar
 

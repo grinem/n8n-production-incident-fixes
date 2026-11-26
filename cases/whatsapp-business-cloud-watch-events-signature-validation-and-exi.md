@@ -19,7 +19,7 @@ slug: "whatsapp-business-cloud-watch-events-signature-validation-and-exi"
 ## Incident Metadata
 - **Platform / Ecosystem**: `Make.com`
 - **Incident Severity**: `MEDIUM`
-- **Resolution Status**: `RADAR TRIAGED & READY FOR RESOLUTION`
+- **Resolution Status**: `VERIFIED & RESOLVED`
 - **Logged Timestamp**: `2026-11-25T01:20:52.936960`
 - **Diagnosis Engine**: Autonomous Production Incident Radar
 
