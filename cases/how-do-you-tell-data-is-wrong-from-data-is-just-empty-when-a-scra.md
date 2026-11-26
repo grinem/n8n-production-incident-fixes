@@ -19,7 +19,7 @@ slug: "how-do-you-tell-data-is-wrong-from-data-is-just-empty-when-a-scra"
 ## Incident Metadata
 - **Platform / Ecosystem**: `n8n`
 - **Incident Severity**: `CRITICAL`
-- **Resolution Status**: `RADAR TRIAGED & READY FOR RESOLUTION`
+- **Resolution Status**: `VERIFIED & RESOLVED`
 - **Logged Timestamp**: `2026-11-26T03:22:46.784941`
 - **Diagnosis Engine**: Autonomous Production Incident Radar
 
