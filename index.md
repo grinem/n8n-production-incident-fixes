@@ -13,9 +13,9 @@ title: "Production Incident Fixes & Post-Mortem Knowledge Base"
 
 
 ### 📊 Real-Time Operations Telemetry
-- **Total Production Incidents Documented**: `198`
+- **Total Production Incidents Documented**: `199`
 - **Active Incident Resolvers**: Automated Production Radar + Lead SRE Engineer
-- **Breakdown by Platform**: **n8n**: 109 | **Automation Engine**: 37 | **Make.com**: 32 | **Activepieces**: 10 | **Bubble.io**: 5 | **Meta / Webhooks**: 3 | **Baserow**: 2
+- **Breakdown by Platform**: **n8n**: 110 | **Automation Engine**: 37 | **Make.com**: 32 | **Activepieces**: 10 | **Bubble.io**: 5 | **Meta / Webhooks**: 3 | **Baserow**: 2
 - **Average Diagnosis & Root-Cause Pinpoint**: `< 15 Minutes`
 
 ---
@@ -24,6 +24,7 @@ title: "Production Incident Fixes & Post-Mortem Knowledge Base"
 
 | Ecosystem | Incident Summary | Root Cause Snapshot | Severity | Resolution Guide |
 |:----------|:-----------------|:--------------------|:--------:|:----------------:|
+| **n8n** | [Get_user_preferences returns Tool not found error](cases/get-user-preferences-returns-tool-not-found-error.html) | The `Tool not found` error indicates that your connected assistant is attempting to invoke a function name (`get_user_preferences`) that does not exist in the exposed tool manif... | 🟠 `HIGH` | [**View Solution →**](cases/get-user-preferences-returns-tool-not-found-error.html) |
 | **n8n** | [Support Required : n8n Cloud SFTP Connection Timing Out During Handshake](cases/support-required-n8n-cloud-sftp-connection-timing-out-during-hand.html) | Salesforce Marketing Cloud SFTP endpoints silently drop or stall SSH handshakes when traffic originates from unauthorized IPs, which triggers the `getConnection: Timed out while... | 🟠 `HIGH` | [**View Solution →**](cases/support-required-n8n-cloud-sftp-connection-timing-out-during-hand.html) |
 | **Make.com** | [WhatsApp Business Cloud Coexistence – Failed to Verify Connection [400]](cases/whatsapp-business-cloud-coexistence-failed-to-verify-connection.html) | Make’s native Embedded Signup flow fails on Coexistence setups because Make’s partner app backend runs an automated registration verification check that Meta rejects with a 400 ... | 🔴 `CRITICAL` | [**View Solution →**](cases/whatsapp-business-cloud-coexistence-failed-to-verify-connection.html) |
 | **n8n** | [How do you tell "data is wrong" from "data is just empty" when a scraper target changes layout?](cases/how-do-you-tell-data-is-wrong-from-data-is-just-empty-when-a-scra.html) | Missing CSS selectors fail silently with empty arrays rather than throwing runtime errors. To reliably separate a real zero-result state from a broken selector, decouple layout ... | 🔴 `CRITICAL` | [**View Solution →**](cases/how-do-you-tell-data-is-wrong-from-data-is-just-empty-when-a-scra.html) |
