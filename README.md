@@ -1,7 +1,7 @@
 # 🛠️ n8n & Low-Code Production Incident Fixes (Live Knowledge Base)
 
 [![GitHub Pages](https://img.shields.io/badge/GitHub%20Pages-Live%20Showcase-brightgreen?style=flat-square&logo=github)](https://grinem.github.io/n8n-production-incident-fixes/)
-[![Incidents Resolved](https://img.shields.io/badge/Incidents%20Resolved-197%20Verified-blue?style=flat-square)](cases/)
+[![Incidents Resolved](https://img.shields.io/badge/Incidents%20Resolved-198%20Verified-blue?style=flat-square)](cases/)
 [![Emergency SLA](https://img.shields.io/badge/Incident%20SLA-%3C%206%20Hours-orange?style=flat-square)](https://hooktriage.com/#triage)
 [![Async Triage](https://img.shields.io/badge/Async%20Triage-Zero%20Calls-success?style=flat-square)](https://hooktriage.com/#triage)
 
@@ -38,10 +38,11 @@ All incident post-mortems in this repository are autonomously generated and sync
 
 ---
 
-## 📚 Documented Production Incidents (197)
+## 📚 Documented Production Incidents (198)
 
 | Ecosystem | Incident Case Study | Root Cause Snapshot | Severity | Solution Link |
 |:----------|:--------------------|:--------------------|:--------:|:-------------:|
+| **n8n** | [Support Required : n8n Cloud SFTP Connection Timing Out During Handshake](cases/support-required-n8n-cloud-sftp-connection-timing-out-during-hand.md) | Salesforce Marketing Cloud SFTP endpoints silently drop or stall SSH handshakes when traffic originates from unauthorized IPs, which triggers the `getConnection: Timed out while... | 🟠 `HIGH` | [**Solution**](cases/support-required-n8n-cloud-sftp-connection-timing-out-during-hand.md) |
 | **Make.com** | [WhatsApp Business Cloud Coexistence – Failed to Verify Connection [400]](cases/whatsapp-business-cloud-coexistence-failed-to-verify-connection.md) | Make’s native Embedded Signup flow fails on Coexistence setups because Make’s partner app backend runs an automated registration verification check that Meta rejects with a 400 ... | 🔴 `CRITICAL` | [**Solution**](cases/whatsapp-business-cloud-coexistence-failed-to-verify-connection.md) |
 | **n8n** | [How do you tell "data is wrong" from "data is just empty" when a scraper target changes layout?](cases/how-do-you-tell-data-is-wrong-from-data-is-just-empty-when-a-scra.md) | Missing CSS selectors fail silently with empty arrays rather than throwing runtime errors. To reliably separate a real zero-result state from a broken selector, decouple layout ... | 🔴 `CRITICAL` | [**Solution**](cases/how-do-you-tell-data-is-wrong-from-data-is-just-empty-when-a-scra.md) |
 | **n8n** | [Production issue: Incoming WhatsApp messages stopped triggering an active n8n workflow — Evolution API](cases/production-issue-incoming-whatsapp-messages-stopped-triggering-an.md) | When an inbound message fails to show up in Evolution's built-in chat view while a synthetic POST directly to n8n returns HTTP 200, the failure is occurring upstream of the webh... | 🔴 `CRITICAL` | [**Solution**](cases/production-issue-incoming-whatsapp-messages-stopped-triggering-an.md) |
