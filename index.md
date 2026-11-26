@@ -13,9 +13,9 @@ title: "Production Incident Fixes & Post-Mortem Knowledge Base"
 
 
 ### 📊 Real-Time Operations Telemetry
-- **Total Production Incidents Documented**: `196`
+- **Total Production Incidents Documented**: `197`
 - **Active Incident Resolvers**: Automated Production Radar + Lead SRE Engineer
-- **Breakdown by Platform**: **n8n**: 108 | **Automation Engine**: 37 | **Make.com**: 31 | **Activepieces**: 10 | **Bubble.io**: 5 | **Meta / Webhooks**: 3 | **Baserow**: 2
+- **Breakdown by Platform**: **n8n**: 108 | **Automation Engine**: 37 | **Make.com**: 32 | **Activepieces**: 10 | **Bubble.io**: 5 | **Meta / Webhooks**: 3 | **Baserow**: 2
 - **Average Diagnosis & Root-Cause Pinpoint**: `< 15 Minutes`
 
 ---
@@ -24,6 +24,7 @@ title: "Production Incident Fixes & Post-Mortem Knowledge Base"
 
 | Ecosystem | Incident Summary | Root Cause Snapshot | Severity | Resolution Guide |
 |:----------|:-----------------|:--------------------|:--------:|:----------------:|
+| **Make.com** | [WhatsApp Business Cloud Coexistence – Failed to Verify Connection [400]](cases/whatsapp-business-cloud-coexistence-failed-to-verify-connection.html) | Make’s native Embedded Signup flow fails on Coexistence setups because Make’s partner app backend runs an automated registration verification check that Meta rejects with a 400 ... | 🔴 `CRITICAL` | [**View Solution →**](cases/whatsapp-business-cloud-coexistence-failed-to-verify-connection.html) |
 | **n8n** | [How do you tell "data is wrong" from "data is just empty" when a scraper target changes layout?](cases/how-do-you-tell-data-is-wrong-from-data-is-just-empty-when-a-scra.html) | Missing CSS selectors fail silently with empty arrays rather than throwing runtime errors. To reliably separate a real zero-result state from a broken selector, decouple layout ... | 🔴 `CRITICAL` | [**View Solution →**](cases/how-do-you-tell-data-is-wrong-from-data-is-just-empty-when-a-scra.html) |
 | **n8n** | [Production issue: Incoming WhatsApp messages stopped triggering an active n8n workflow — Evolution API](cases/production-issue-incoming-whatsapp-messages-stopped-triggering-an.html) | When an inbound message fails to show up in Evolution's built-in chat view while a synthetic POST directly to n8n returns HTTP 200, the failure is occurring upstream of the webh... | 🔴 `CRITICAL` | [**View Solution →**](cases/production-issue-incoming-whatsapp-messages-stopped-triggering-an.html) |
 | **n8n** | [N8N102: Priority Queue API Returning 422 Error in Step 2.5](cases/n8n102-priority-queue-api-returning-422-error-in-step-2-5.html) | The Academy validator for that endpoint specifically expects the header key to be `assessment_id`, not `X-Assessment-ID`. | 🟠 `HIGH` | [**View Solution →**](cases/n8n102-priority-queue-api-returning-422-error-in-step-2-5.html) |
