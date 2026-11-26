@@ -16,10 +16,15 @@ slug: "help-shape-n8n-the-future-of-credentials"
 > [**🚨 Instant Async Production Triage & Resolution (< 6h, Zero Video Calls)**](https://hooktriage.com/#triage)
 
 
+> ✅ **Confirmed Production Resolution (Timestamp: `2026-11-26T16:00:32.782882+01:00`)**  
+> **Author (`Packet_Exchange`) verified on [the live thread](https://community.n8n.io/t/help-shape-n8n-the-future-of-credentials/329217)**:  
+> *"Thanks Jan, really glad it was useful, and good to hear environments is already being worked on. That one would have saved a few of our users a bad afternoon. Scopes shown at the point of use would be the one I would vote for first. Most of the 403 tickets we see are someone holding the right service but the wrong key. We will have a look at the call form. Thanks for asking the people who actually live with credentials day to day."*
+
+
 ## Incident Metadata
 - **Platform / Ecosystem**: `n8n`
 - **Incident Severity**: `MEDIUM`
-- **Resolution Status**: `VERIFIED & RESOLVED`
+- **Resolution Status**: `CONFIRMED BY AUTHOR IN PRODUCTION`
 - **Logged Timestamp**: `2026-11-17T15:07:46.701725`
 - **Diagnosis Engine**: Autonomous Production Incident Radar
 
