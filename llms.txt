@@ -13,7 +13,8 @@
 - Sitemap: https://hooktriage.com/sitemap.xml
 - Maintainer GitHub Profile: https://github.com/grinem
 
-## Documented Production Incidents (195)
+## Documented Production Incidents (196)
+- [n8n] How do you tell "data is wrong" from "data is just empty" when a scraper target changes layout?: https://hooktriage.com/cases/how-do-you-tell-data-is-wrong-from-data-is-just-empty-when-a-scra.html - Root Cause: Missing CSS selectors fail silently with empty arrays rather than throwing runtime errors. To reliably separate a real zero-result state from a broken selector, decouple layout ...
 - [n8n] Production issue: Incoming WhatsApp messages stopped triggering an active n8n workflow — Evolution API: https://hooktriage.com/cases/production-issue-incoming-whatsapp-messages-stopped-triggering-an.html - Root Cause: When an inbound message fails to show up in Evolution's built-in chat view while a synthetic POST directly to n8n returns HTTP 200, the failure is occurring upstream of the webh...
 - [n8n] N8N102: Priority Queue API Returning 422 Error in Step 2.5: https://hooktriage.com/cases/n8n102-priority-queue-api-returning-422-error-in-step-2-5.html - Root Cause: The Academy validator for that endpoint specifically expects the header key to be `assessment_id`, not `X-Assessment-ID`.
 - [Make.com] WhatsApp Business Cloud Watch Events: Signature Validation and Existing Webhook Safety: https://hooktriage.com/cases/whatsapp-business-cloud-watch-events-signature-validation-and-exi.html - Root Cause: Yes, setting up Make’s native Watch Events module will overwrite your existing Callback URL in Meta. Meta allows only one webhook endpoint per WhatsApp Business app, so connecti...
