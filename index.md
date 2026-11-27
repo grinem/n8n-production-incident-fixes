@@ -13,9 +13,9 @@ title: "Production Incident Fixes & Post-Mortem Knowledge Base"
 
 
 ### 📊 Real-Time Operations Telemetry
-- **Total Production Incidents Documented**: `200`
+- **Total Production Incidents Documented**: `201`
 - **Active Incident Resolvers**: Automated Production Radar + Lead SRE Engineer
-- **Breakdown by Platform**: **n8n**: 111 | **Automation Engine**: 37 | **Make.com**: 32 | **Activepieces**: 10 | **Bubble.io**: 5 | **Meta / Webhooks**: 3 | **Baserow**: 2
+- **Breakdown by Platform**: **n8n**: 112 | **Automation Engine**: 37 | **Make.com**: 32 | **Activepieces**: 10 | **Bubble.io**: 5 | **Meta / Webhooks**: 3 | **Baserow**: 2
 - **Average Diagnosis & Root-Cause Pinpoint**: `< 15 Minutes`
 
 ---
@@ -24,6 +24,7 @@ title: "Production Incident Fixes & Post-Mortem Knowledge Base"
 
 | Ecosystem | Incident Summary | Root Cause Snapshot | Severity | Resolution Guide |
 |:----------|:-----------------|:--------------------|:--------:|:----------------:|
+| **n8n** | [45. How do you handle API rate limits without the whole workflow failing?](cases/45-how-do-you-handle-api-rate-limits-without-the-whole-workflow-f.html) | Putting a Wait node inside an item-by-item loop forces n8n to write execution state to the database on every single iteration, which is why it crawls. The cleanest pattern is di... | 🟡 `MEDIUM` | [**View Solution →**](cases/45-how-do-you-handle-api-rate-limits-without-the-whole-workflow-f.html) |
 | **n8n** | [u/Ok_Fan2081 a répondu à ta publication dans r/n8n](cases/u-ok-fan2081-a-r-pondu-ta-publication-dans-r-n8n.html) | L'utilisateur u/Ok_Fan2081 réagit au post sur les pannes silencieuses en confirmant que le cas HTTP 200 avec payload d'erreur (GraphQL, API legacy avec `ok: false` ou tableau `e... | 🟠 `HIGH` | [**View Solution →**](cases/u-ok-fan2081-a-r-pondu-ta-publication-dans-r-n8n.html) |
 | **n8n** | [Get_user_preferences returns Tool not found error](cases/get-user-preferences-returns-tool-not-found-error.html) | The `Tool not found` error indicates that your connected assistant is attempting to invoke a function name (`get_user_preferences`) that does not exist in the exposed tool manif... | 🟠 `HIGH` | [**View Solution →**](cases/get-user-preferences-returns-tool-not-found-error.html) |
 | **n8n** | [Support Required : n8n Cloud SFTP Connection Timing Out During Handshake](cases/support-required-n8n-cloud-sftp-connection-timing-out-during-hand.html) | Salesforce Marketing Cloud SFTP endpoints silently drop or stall SSH handshakes when traffic originates from unauthorized IPs, which triggers the `getConnection: Timed out while... | 🟠 `HIGH` | [**View Solution →**](cases/support-required-n8n-cloud-sftp-connection-timing-out-during-hand.html) |
