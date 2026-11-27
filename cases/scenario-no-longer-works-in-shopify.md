@@ -19,7 +19,7 @@ slug: "scenario-no-longer-works-in-shopify"
 ## Incident Metadata
 - **Platform / Ecosystem**: `Make.com`
 - **Incident Severity**: `MEDIUM`
-- **Resolution Status**: `RADAR TRIAGED & READY FOR RESOLUTION`
+- **Resolution Status**: `VERIFIED & RESOLVED`
 - **Logged Timestamp**: `2026-11-27T12:43:03.790101`
 - **Diagnosis Engine**: Autonomous Production Incident Radar
 
