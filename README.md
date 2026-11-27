@@ -1,7 +1,7 @@
 # 🛠️ n8n & Low-Code Production Incident Fixes (Live Knowledge Base)
 
 [![GitHub Pages](https://img.shields.io/badge/GitHub%20Pages-Live%20Showcase-brightgreen?style=flat-square&logo=github)](https://grinem.github.io/n8n-production-incident-fixes/)
-[![Incidents Resolved](https://img.shields.io/badge/Incidents%20Resolved-201%20Verified-blue?style=flat-square)](cases/)
+[![Incidents Resolved](https://img.shields.io/badge/Incidents%20Resolved-202%20Verified-blue?style=flat-square)](cases/)
 [![Emergency SLA](https://img.shields.io/badge/Incident%20SLA-%3C%206%20Hours-orange?style=flat-square)](https://hooktriage.com/#triage)
 [![Async Triage](https://img.shields.io/badge/Async%20Triage-Zero%20Calls-success?style=flat-square)](https://hooktriage.com/#triage)
 
@@ -38,10 +38,11 @@ All incident post-mortems in this repository are autonomously generated and sync
 
 ---
 
-## 📚 Documented Production Incidents (201)
+## 📚 Documented Production Incidents (202)
 
 | Ecosystem | Incident Case Study | Root Cause Snapshot | Severity | Solution Link |
 |:----------|:--------------------|:--------------------|:--------:|:-------------:|
+| **Make.com** | [Scenario no longer works in Shopify](cases/scenario-no-longer-works-in-shopify.md) | Shopify is blocking the mutation because the access token used by your Make connection lacks the necessary permissions. Head into your Shopify admin under Settings > Apps and sa... | 🟡 `MEDIUM` | [**Solution**](cases/scenario-no-longer-works-in-shopify.md) |
 | **n8n** | [45. How do you handle API rate limits without the whole workflow failing?](cases/45-how-do-you-handle-api-rate-limits-without-the-whole-workflow-f.md) | Putting a Wait node inside an item-by-item loop forces n8n to write execution state to the database on every single iteration, which is why it crawls. The cleanest pattern is di... | 🟡 `MEDIUM` | [**Solution**](cases/45-how-do-you-handle-api-rate-limits-without-the-whole-workflow-f.md) |
 | **n8n** | [u/Ok_Fan2081 a répondu à ta publication dans r/n8n](cases/u-ok-fan2081-a-r-pondu-ta-publication-dans-r-n8n.md) | L'utilisateur u/Ok_Fan2081 réagit au post sur les pannes silencieuses en confirmant que le cas HTTP 200 avec payload d'erreur (GraphQL, API legacy avec `ok: false` ou tableau `e... | 🟠 `HIGH` | [**Solution**](cases/u-ok-fan2081-a-r-pondu-ta-publication-dans-r-n8n.md) |
 | **n8n** | [Get_user_preferences returns Tool not found error](cases/get-user-preferences-returns-tool-not-found-error.md) | The `Tool not found` error indicates that your connected assistant is attempting to invoke a function name (`get_user_preferences`) that does not exist in the exposed tool manif... | 🟠 `HIGH` | [**Solution**](cases/get-user-preferences-returns-tool-not-found-error.md) |
