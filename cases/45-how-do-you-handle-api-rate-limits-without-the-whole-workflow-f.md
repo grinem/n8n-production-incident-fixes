@@ -19,7 +19,7 @@ slug: "45-how-do-you-handle-api-rate-limits-without-the-whole-workflow-f"
 ## Incident Metadata
 - **Platform / Ecosystem**: `n8n`
 - **Incident Severity**: `MEDIUM`
-- **Resolution Status**: `RADAR TRIAGED & READY FOR RESOLUTION`
+- **Resolution Status**: `VERIFIED & RESOLVED`
 - **Logged Timestamp**: `2026-11-27T02:20:54.725810`
 - **Diagnosis Engine**: Autonomous Production Incident Radar
 
